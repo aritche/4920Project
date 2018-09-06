@@ -1,0 +1,30 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+    color: white;
+}
+
+body {
+    background: url('./images/culture_montage_blur.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+}
+
+.HomePage {
+    text-align: center;
+}
+
+.Title {
+    color: #3D9BE9;
+    font-size: 108px;
+}
+
+.Slogan {
+    color: white;
+    font-size: 48px;
+}
