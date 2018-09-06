@@ -1,8 +1,8 @@
 #!/bin/bash
-sudo pip install -r backend/requirements.txt
+sudo pip install -r back-end/requirements.txt
 
-python backend/main.py &
+python back-end/main.py &
 
-cd frontend
+cd front-end
 npm install && npm run build
 npm run react-start
