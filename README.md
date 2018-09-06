@@ -1,3 +1,5 @@
+First, install npm (Google how)
+
 Run: pip install virtualenv
 Run: source venv/bin/activate
 
