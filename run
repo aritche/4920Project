@@ -1,9 +1,8 @@
 #!/bin/bash
+sudo pip install -r backend/requirements.txt
 
-source venv/bin/activate
-pip install -r backend/requirements.txt
 python backend/main.py &
 
 cd frontend
-#npm install && npm run build
+npm install && npm run build
 npm run react-start
