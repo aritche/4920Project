@@ -12,7 +12,6 @@ import ItemInput from './ItemInput'
 export default class CreatePostForm extends Component {
     constructor() {
         super();
-        this.to = React.createRef();
         this.state = {
             title: '',
             addressFrom: '',
@@ -32,9 +31,8 @@ export default class CreatePostForm extends Component {
         this.setState({addressFrom: addressFrom});
     }
 
-    onAddressToChange() {
-        //this.to.current.updateAddress().bind(this)
-        //this.setState({address: a});
+    onAddressToChange = (addressTo) => {
+        this.setState({addressTo: addressTo})
     }
 
     // This function should change the budget in the state with the slider, but it doesn't :(
@@ -97,7 +95,7 @@ export default class CreatePostForm extends Component {
                 <SearchBar address={this.state.addressFrom} handleSelect={this.onAddressFromChange} />
 
                 <Header size={'tiny'}> Where are you moving to? </Header>
-                <SearchBar ref={this.to} handleSelect={this.onAddressToChange()}/>
+                <SearchBar address={this.state.addressTo} handleSelect={this.onAddressToChange}/>
 
                 <Header size={'tiny'}> When are you moving? </Header>
                 <DatePicker
