@@ -13,9 +13,14 @@ export default class NavHeader extends Component {
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
                     </Menu.Item>
-                    <Menu.Item position={'right'} as={Link} to={'/login'} active={window.location.pathname === '/login'}>
-                        Log In
-                    </Menu.Item>
+                    <Menu.Menu position='right'>
+                        <Menu.Item as={Link} to={'/login'} active={window.location.pathname === '/login'}>
+                            Log In
+                        </Menu.Item>
+                        <Menu.Item as={Link} to={'/signup'} active={window.location.pathname === '/signup'}>
+                            Sign Up
+                        </Menu.Item>
+                    </Menu.Menu>
                 </Menu>
             </Segment>
         )

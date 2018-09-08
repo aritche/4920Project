@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid } from 'semantic-ui-react';
 
-export default class CreateLoginForm extends Component {
+export default class CreateSignupForm extends Component {
     constructor() {
         super();
         
