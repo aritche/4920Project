@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Grid } from 'semantic-ui-react';
 
 export default class CreateLoginForm extends Component {
     constructor() {
@@ -25,15 +25,16 @@ export default class CreateLoginForm extends Component {
     
     render() {
         return (
-             <Form>
-                <Form.Field>
-                    <label>Username:</label>
-                    <input placeholder='Username' value={this.state.username} onChange={this.onUsernameChange} />
-                    <label>Password:</label>
-                    <input placeholder='Password' value={this.state.password} onChange={this.onPasswordChange} />
-                </Form.Field>
-                <Button type='submit' onClick={this.attemptLogin}>Log In</Button>
-             </Form>
+            <Grid.Row centered columns={4}>
+                <h1>Log in</h1>
+                <Form>
+                    <Form.Field>
+                        <Form.Input placeholder="Email" value={this.state.username} onChange={this.onUsernameChange} />
+                        <Form.Input placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
+                    </Form.Field>
+                    <Button color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
+                </Form>
+            </Grid.Row>
         )
     }
 }
