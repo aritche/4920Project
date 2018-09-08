@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Header, Icon, Step } from 'semantic-ui-react';
-import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import SearchBar from './SearchBar'
 import ItemInput from './ItemInput'
 
@@ -103,12 +102,14 @@ export default class CreatePostForm extends Component {
                 <SearchBar ref={this.to} handleSelect={this.onAddressToChange()}/>
 
                 <Header size={'tiny'}> When are you moving? </Header>
-                <SingleDatePicker
-                  date={this.state.date}
-                  onDateChange={date => this.setState({ date })}
-                  focused={this.state.focused}
-                  onFocusChange={({ focused }) => this.setState({ focused })}
-                  id="your_unique_id"
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleChange}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="LLL"
+                  timeCaption="time"
                 />
 
                 <Header size={'tiny'}> Item Detail </Header>
