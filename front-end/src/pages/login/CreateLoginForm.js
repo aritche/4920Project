@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid } from 'semantic-ui-react';
+import { Button, Form, Grid, Message } from 'semantic-ui-react';
 
 export default class CreateLoginForm extends Component {
     constructor() {
         super();
         
         this.state = {
-            username: '',
+            email: '',
             password: ''
         }
     }
     
-    onUsernameChange = (e) => {
-        this.setState({ username: e.target.value });
+    onEmailChange = (e) => {
+        this.setState({ email: e.target.value });
     }
 
     onPasswordChange = (e) => {
@@ -20,7 +20,7 @@ export default class CreateLoginForm extends Component {
     }
     
     attemptLogin = () => {
-        alert(this.state.username + " has logged in with password " + this.state.password)
+        alert(this.state.email + " has logged in with password " + this.state.password)
     }
     
     render() {
@@ -30,12 +30,13 @@ export default class CreateLoginForm extends Component {
                 <h1>Log in</h1>
                 <Form>
                     <Form.Field>
-                        <Form.Input placeholder="Email" value={this.state.username} onChange={this.onUsernameChange} />
+                        <Form.Input placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
                         <Form.Input placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
                     </Form.Field>
                     <Button color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
                 </Form>
                 </Grid.Row>
+                <Message error header='Unable to Log In' content='This is where an error will be displayed if login is unsuccessful'/>
             </Grid>
         )
     }
