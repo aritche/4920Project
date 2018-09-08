@@ -3,33 +3,23 @@ import { Input } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
 
 export default class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { address: '' };
-  }
-
-  handleChange = address => {
-    this.setState({ address });
-  };
-
-  handleSelect = address => {
+  handleSelect = (address) => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log('Success', latLng))
-      .then(this.setState({ address }))
+      .then(this.updateAddress(address))
       .catch(error => console.error('Error', error));
   };
 
-  updateAddress(){
-    //alert("I don't know how to pass this to the parent :(")
-    return this.state.address;
+  updateAddress = (address) => {
+    this.props.handleSelect(address);
   }
 
   render() {
     return (
       <PlacesAutocomplete
-        value={this.state.address}
-        onChange={this.handleChange}
+        value={this.props.address}
+        onChange={this.updateAddress}
         onSelect={this.handleSelect}
       >
 

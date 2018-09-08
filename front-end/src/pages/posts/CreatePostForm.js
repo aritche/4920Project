@@ -12,7 +12,6 @@ import ItemInput from './ItemInput'
 export default class CreatePostForm extends Component {
     constructor() {
         super();
-        this.from = React.createRef();
         this.to = React.createRef();
         this.state = {
             title: '',
@@ -29,9 +28,8 @@ export default class CreatePostForm extends Component {
 
     // So the following two functions are meant to bring address from the SearchBar
     // But I just can't get the ref to work :( It just keep telling me the ref is null or undefined
-    onAddressFromChange() {
-        //this.from.current.updateAddress().bind(this)
-        //this.setState({address: a});
+    onAddressFromChange = (addressFrom) => {
+        this.setState({addressFrom: addressFrom});
     }
 
     onAddressToChange() {
@@ -96,7 +94,7 @@ export default class CreatePostForm extends Component {
                 <Form.Input style={{width: 250}} fluid label='Title'  placeholder='Page Title' />
 
                 <Header size={'tiny'}> Where are you moving from? </Header>
-                <SearchBar ref={this.from} handleSelect={this.onAddressFromChange()} />
+                <SearchBar address={this.state.addressFrom} handleSelect={this.onAddressFromChange} />
 
                 <Header size={'tiny'}> Where are you moving to? </Header>
                 <SearchBar ref={this.to} handleSelect={this.onAddressToChange()}/>
