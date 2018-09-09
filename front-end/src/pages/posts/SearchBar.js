@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Input } from 'semantic-ui-react';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export default class SearchBar extends React.Component {
   handleSelect = (address) => {

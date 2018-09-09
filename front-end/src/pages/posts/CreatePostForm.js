@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Icon, Step } from 'semantic-ui-react';
+import { Button, Form, Header, Icon, Step, TextArea } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import SearchBar from './SearchBar'
 import ItemInput from './ItemInput'
+import BudgetSlider from './Slider'
 
 /**
  * Title: Post Form
@@ -44,7 +45,7 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-            <Form size={'large'} style={{marginLeft: 150}}>
+            <Form size={'large'} style={{marginTop: 30, marginLeft: 150, paddingBottom: 30}}>
               <Step.Group>
                 <Step active>
                   <Icon name='info' />
@@ -107,25 +108,15 @@ export default class CreatePostForm extends Component {
                   dateFormat="LLL"
                   timeCaption="time"
                 />
-
+                <Header size={'tiny'}> Description </Header>
+                <TextArea autoHeight style={{width: 400}} />
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemInput/>
-
                 <Header size={'tiny'}> What is your budget? </Header>
-                <Form.Input
-                  label={`If you are unsure, we recommend you browsing other jobs first.`}
-                  // I can't get this next line to work
-                  // label={`Estimated Budget: ${this.budget}`}
-                  min={0}
-                  max={1000}
-                  name= "budget"
-                  onChange={this.onBudgetChange}
-                  step={5}
-                  type='range'
-                  value={this.budget}
-                />
+                <text> If you are unsure, we recommend you browsing other jobs first. </text>
+                <BudgetSlider/>
               </Form.Field>
-              <br></br>
+              <br/>
 
               <Button.Group>
                 <Form.Button primary type='submit' onClick={this.createPost}>Post</Form.Button>
@@ -133,15 +124,6 @@ export default class CreatePostForm extends Component {
                 <Form.Button secondary>Save</Form.Button>
               </Button.Group>
             </Form>
-         /*
-            <form class='ui inverted form'>
-            <Form.Field>
-            <label>Post Title</label>
-          <input placeholder='Title' value={this.state.title} onChange={this.onTitleChange} />
-          </Form.Field>
-          <Button type='submit' onClick={this.createPost}>Create</Button>
-          </form>
-          */
         )
     }
 }
