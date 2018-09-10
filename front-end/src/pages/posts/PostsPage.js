@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import CreatePostForm from './CreatePostForm';
 import PostList from './PostList';
-import { Container } from 'semantic-ui-react';
+import { Button, Container, Header, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 // TODO: Get from backend
 // We'll use mock posts here for now
@@ -38,8 +39,12 @@ export default class PostsPage extends Component {
     render() {
         return (
             <Container>
+                <Header as='h2'>
+                    <Icon name='file alternate' />
+                    <Header.Content>Posts</Header.Content>
+                </Header>
+                <Button as={Link} to={'/create-post'} positive>Create Post</Button>
                 <PostList posts={posts} />
-                <CreatePostForm />
             </Container>
         )
     }

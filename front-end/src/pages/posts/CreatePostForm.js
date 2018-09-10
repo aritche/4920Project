@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import SearchBar from './SearchBar'
 import ItemInput from './ItemInput'
 import BudgetSlider from './Slider'
+import { Link } from 'react-router-dom';
 
 /**
  * Title: Post Form
@@ -122,6 +123,8 @@ export default class CreatePostForm extends Component {
                 <Form.Button primary type='submit' onClick={this.createPost}>Post</Form.Button>
                 <Button.Or text='or' />
                 <Form.Button secondary>Save</Form.Button>
+                <Button.Or text='or' />
+                <Button negative as={Link} to={'/posts'}>Discard</Button>
               </Button.Group>
             </Form>
         )
