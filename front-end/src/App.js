@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavHeader from './navigation/NavHeader';
+import MainFooter from './navigation/MainFooter';
 import Routes from './Routes';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
             <div className="main">
                 <NavHeader />
                 <Routes />
+                <MainFooter />
             </div>
         );
     }
