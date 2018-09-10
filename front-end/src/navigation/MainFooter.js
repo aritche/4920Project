@@ -5,7 +5,7 @@ export default class MainFooter extends Component {
     render() {
         return (
             <footer>
-                <Segment textAlign='right'>
+                <Segment attached inverted color='black' tertiary textAlign='right'>
                     uMove © 2018
                 </Segment>
             </footer>
