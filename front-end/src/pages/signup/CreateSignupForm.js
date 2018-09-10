@@ -10,7 +10,7 @@ export default class CreateSignupForm extends Component {
             lastName: '',
             email: '',
             password: '',
-            isError: false,
+            submitError: false,
             submitted: false
         }
     }
@@ -41,7 +41,9 @@ export default class CreateSignupForm extends Component {
         var success = false;
 
         if (success){
-            this.setState({ isError: false});
+            this.setState({ submitError : false});
+        } else{
+            this.setState({ submitError : true});
         }
     }
     
@@ -50,7 +52,7 @@ export default class CreateSignupForm extends Component {
             <Grid centered columns={2}>
                 <Grid.Row centered columns={2}>
                 <h1>Join the Community!</h1>
-                <Form error={this.state.submitted && this.state.isError} success={this.state.submitted && !this.state.isError}>
+                <Form error={this.state.submitted && this.state.submitError} success={this.state.submitted && !this.state.submitError}>
                     <Form.Group widths='equal'>
                         <Form.Input placeholder="First Name" value={this.state.firstName} onChange={this.onFirstNameChange} />
                         <Form.Input placeholder="Last Name" value={this.state.lastName} onChange={this.onLastNameChange} />
