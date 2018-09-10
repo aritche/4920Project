@@ -9,7 +9,9 @@ export default class CreateSignupForm extends Component {
             firstName: '',
             lastName: '',
             email: '',
-            password: ''
+            password: '',
+            isError: false,
+            submitted: false
         }
     }
     onFirstNameChange = (e) => {
@@ -29,7 +31,18 @@ export default class CreateSignupForm extends Component {
     }
     
     attemptSignup = () => {
-        alert(this.state.firstName + " " + this.state.lastName + " has signed up with " + this.state.email + " and password: " + this.state.password)
+        // Input validation here
+
+        // Connect to back-end here
+        this.setState({ submitted: true });
+        console.log("Sending data to backend...");
+        console.log("Getting response...");
+
+        var success = false;
+
+        if (success){
+            this.setState({ isError: false});
+        }
     }
     
     render() {
@@ -37,7 +50,7 @@ export default class CreateSignupForm extends Component {
             <Grid centered columns={2}>
                 <Grid.Row centered columns={2}>
                 <h1>Join the Community!</h1>
-                <Form>
+                <Form error={this.state.submitted && this.state.isError} success={this.state.submitted && !this.state.isError}>
                     <Form.Group widths='equal'>
                         <Form.Input placeholder="First Name" value={this.state.firstName} onChange={this.onFirstNameChange} />
                         <Form.Input placeholder="Last Name" value={this.state.lastName} onChange={this.onLastNameChange} />
@@ -45,9 +58,10 @@ export default class CreateSignupForm extends Component {
                     <Form.Input placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
                     <Form.Input placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
                     <Button color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
+                    <Message error header='Unable to Sign Up' content='Something went wrong, please try again.'/>
+                    <Message success header='Sign Up Successful!' content='Please check your email for a confirmation.'/>
                 </Form>
                 </Grid.Row>
-                <Message error header='Unable to Sign Up' content='This is where an error will be displayed if signup is unsuccessful'/>
             </Grid>
         )
     }
