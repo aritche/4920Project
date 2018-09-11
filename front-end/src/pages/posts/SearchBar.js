@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react';
+import { Header, Input } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export default class SearchBar extends React.Component {
@@ -25,14 +25,18 @@ export default class SearchBar extends React.Component {
 
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <Input icon='search' style={{width: 400}}
+            <Header size={'tiny'}> Where are you moving from? </Header>
+            <Input icon='building' iconPosition='left'
+                        style={{width: 400}} fluid placeholder='Address line 1' />
+            <br/>
+            <Input icon='building' iconPosition={'left'} style={{width: 400}}
                    {...getInputProps({
-                placeholder: 'Search Places ...',
+                placeholder: 'Address Line 2',
                 className: 'location-search-input',
               })}
             />
             <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
+              {loading}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
                   ? 'suggestion-item--active'
