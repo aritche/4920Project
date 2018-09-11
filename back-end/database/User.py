@@ -9,7 +9,6 @@ class User(db.Model):
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
 
     def to_dict(self):
         return {
@@ -17,8 +16,7 @@ class User(db.Model):
             'email': self.email,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'password': self.password,
-            'date_of_birth': self.date_of_birth
+            'password': self.password
         }
 
     def __repr__(self):
