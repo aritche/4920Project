@@ -22,7 +22,6 @@ def insert_new_user(json):
         or (not 'email' in json)
         or (not 'confirmEmail' in json)
         or (not 'password' in json)
-        or (not 'dateOfBirth' in json)
     ):
         abort(400, 'Not all fields were received.')
 
@@ -42,8 +41,7 @@ def insert_new_user(json):
         email = json['email'],
         first_name = json['firstName'],
         last_name = json['lastName'],
-        password = json['password'],
-        date_of_birth = datetime.strptime(json['dateOfBirth'], '%Y-%m-%d')
+        password = json['password']
     )
     db.session.add(user)
     db.session.commit()
