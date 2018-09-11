@@ -20,7 +20,6 @@ def insert_new_user(json):
         or (not 'firstName' in json)
         or (not 'lastName' in json)
         or (not 'email' in json)
-        or (not 'confirmEmail' in json)
         or (not 'password' in json)
     ):
         abort(400, 'Not all fields were received.')
@@ -28,9 +27,6 @@ def insert_new_user(json):
     # Verify information
     if len(json['password']) < 6:
         abort(400, 'Password is must be at least 6 characters long.')
-    if json['email'] != json['confirmEmail']:
-        abort(400, 'Email addresses do not match.')
-    # TODO: verify date of birth
 
     # Check for account with same email
     query_result = db.session.query(User).filter(User.email == json['email']).first()

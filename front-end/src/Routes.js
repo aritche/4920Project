@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import PostsPage from './pages/posts/PostsPage';
 import CreatePostPage from './pages/posts/CreatePostPage';
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
+import { isLoggedIn } from './Authentication';
 
 export default class Routes extends Component {
     render() {
@@ -13,7 +14,16 @@ export default class Routes extends Component {
               <Route exact path='/' component={HomePage}/>
               <Route path='/posts' component={PostsPage}/>
               <Route path='/create-post' component={CreatePostPage}/>
-              <Route path='/login' component={LoginPage}/>
+              <Route
+                  path="/login"
+                  render={() => (
+                      isLoggedIn() ? (
+                          <Redirect to="/"/>
+                      ) : (
+                          <LoginPage />
+                      )
+                  )}
+              />
               <Route path='/signup' component={SignupPage}/>
             </Switch>
         )
