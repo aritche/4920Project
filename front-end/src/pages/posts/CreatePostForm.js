@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Button, Form, Header, TextArea } from 'semantic-ui-react';
 import SearchBar from './SearchBar'
 import ProcessStep from './ProcessStep'
-import BudgetSlider from './Slider'
+import InputSlider from '../../widgets/InputSlider'
 import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'
 import { Link } from 'react-router-dom';
+import { BUDGET } from '../../constants';
 
 /**
  * Title: Post Form
@@ -19,7 +20,7 @@ export default class CreatePostForm extends Component {
             addressFrom: '',
             addressTo: '',
             date: '',
-            budget: 1000
+            budget: BUDGET.DEFAULT
         }
     }
 
@@ -27,18 +28,19 @@ export default class CreatePostForm extends Component {
         this.setState({ title: e.target.value });
     }
 
-    // So the following two functions are meant to bring address from the SearchBar
-    // But I just can't get the ref to work :( It just keep telling me the ref is null or undefined
     onAddressFromChange = (addressFrom) => {
         this.setState({addressFrom: addressFrom});
     }
 
     onAddressToChange = (addressTo) => {
-        this.setState({addressTo: addressTo})
+        this.setState({addressTo: addressTo});
     }
 
-    // This function should change the budget in the state with the slider, but it doesn't :(
-    onBudgetChange = (e, { name, value }) => this.setState({ [name]: value })
+    onBudgetChange = (value) => {
+        if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
+            this.setState({ budget: value });
+        }
+    }
 
     createPost = () => {
         alert("Post with title [" + this.state.title + "] created!")
@@ -62,7 +64,13 @@ export default class CreatePostForm extends Component {
 
                 <Header size={'tiny'}> What is your budget? </Header>
                 <text> If you are unsure, we recommend you browsing other jobs first. </text>
-                <BudgetSlider/>
+                <InputSlider 
+                    value={this.state.budget} 
+                    onChange={this.onBudgetChange} 
+                    min={BUDGET.MIN}
+                    max={BUDGET.MAX}
+                    step={10}
+                />
 
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemTable/>
