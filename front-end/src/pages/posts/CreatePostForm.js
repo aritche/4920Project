@@ -70,6 +70,7 @@ export default class CreatePostForm extends Component {
                     min={BUDGET.MIN}
                     max={BUDGET.MAX}
                     step={10}
+                    icon={'dollar'}
                 />
 
                 <Header size={'tiny'}> Item Detail </Header>

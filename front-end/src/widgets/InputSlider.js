@@ -7,7 +7,7 @@ export default class InputSlider extends Component{
     return (
       <div>
         <br/>
-        <Input icon='dollar' iconPosition='left' placeholder="0" value={ this.props.value } style={{width: 100, height: 30 }}
+        <Input icon={this.props.icon} iconPosition={this.props.icon ? 'left' : ''} placeholder="0" value={ this.props.value } style={{width: 100, height: 30 }}
                onChange={(e) => { this.props.onChange(e.target.value) }}/>
         <Slider
           value={this.props.value}
