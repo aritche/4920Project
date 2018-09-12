@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default class NavHeader extends Component {
     render() {
         return (
-                <Menu attached inverted style={{paddingTop:'5px', paddingBottom:'5px'}} pointing>
+                <Menu attached inverted style={{paddingTop:'5px', paddingBottom:'5px'}}>
                     <Menu.Item>
                         uMove
                     </Menu.Item>
