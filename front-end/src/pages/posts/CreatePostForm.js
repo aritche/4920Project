@@ -46,7 +46,7 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-            <Form size={'large'} style={{marginTop: 30, marginLeft: 150, paddingBottom: 80}}>
+            <Form size={'large'} style={{marginLeft: 150, paddingBottom: 80}}>
               <ProcessStep/>
 
               <Header size={'large'}>Make Your Move!</Header>
