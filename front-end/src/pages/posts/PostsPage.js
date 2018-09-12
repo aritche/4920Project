@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 // We'll use mock posts here for now
 const posts = [
     {
+        id: 1,
         user: "John Smith",
         title: "Test post 1",
         date: "10/09/18",
@@ -24,6 +25,7 @@ const posts = [
         `
     },
     {
+        id: 2,
         user: "Santa Claus",
         title: "Christmas Move",
         date: "25/12/18",
