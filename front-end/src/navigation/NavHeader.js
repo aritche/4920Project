@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Search} from 'semantic-ui-react';
+import { Menu, Segment, Search, Grid, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class NavHeader extends Component {
     render() {
         return (
-            <Segment attached inverted>
+            <Segment color='black' attached inverted>
                 <Menu inverted pointing secondary>
+                    <Menu.Item>
+                        uMove
+                    </Menu.Item>
                     <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
                         Home
                     </Menu.Item>
@@ -15,9 +18,9 @@ export default class NavHeader extends Component {
                     </Menu.Item>
 
                     <Menu.Item position='right'>
-                        <Search
-                           value='still working on this' 
-                        />
+                        <Grid>
+                            <Search placeholder='Search posts'/>
+                        </Grid>
                     </Menu.Item>
 
                     <Menu.Menu position='right'>
