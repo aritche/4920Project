@@ -17,16 +17,22 @@ export default class CreatePostForm extends Component {
         super();
         this.state = {
             title: '',
-            addressFrom: '',
-            addressTo: '',
+            addrFromL1: '',
+            addrFromL2: '',
+            fromState: '',
+            fromPostCo: '',
+            addrToL1: '',
+            addrToL2: '',
+            toState: '',
+            toPostCo: '',
             date: '',
             budget: BUDGET.DEFAULT
         }
     }
 
     onTitleChange = (e) => {
-        this.setState({ title: e.target.value });
-    }
+      this.setState({title: e.target.value});
+    };
 
     onAddressFromChange = (addressFrom) => {
         this.setState({addressFrom: addressFrom});
@@ -44,21 +50,33 @@ export default class CreatePostForm extends Component {
 
     createPost = () => {
         alert("Post with title [" + this.state.title + "] created!")
-    }
+    };
 
     render() {
         return (
             <Form size={'large'} style={{marginLeft: 150, paddingBottom: 80}}>
               <ProcessStep/>
 
-              <Header size={'large'}>Make Your Move!</Header>
+              <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
-                <Form.Input style={{width: 250}} fluid label='Title'  placeholder='Page Title' />
+                <Form.Input style={{width: 250}} fluid label='Title'
+                            placeholder='Page Title' handleChange={this.onTitleChange} />
 
-                <SearchBar address={this.state.addressFrom} handleSelect={this.onAddressFromChange} />
+                <SearchBar
+                  id={'from'}
+                  //addrL1={this.onAddrFromL1Change}
+                  addrL2={this.onAddrFromL2Change}
+                  //state={this.onFromStateChange}
+                  //postCode={this.onFromPostCoChange}
+                />
                 <br/>
-                <SearchBar address={this.state.addressTo} handleSelect={this.onAddressToChange}/>
-
+                <SearchBar
+                  id={'to'}
+                  //addrL1={this.onAddrToL1Change}
+                  addrL2={this.onAddrToL2Change}
+                  //state={this.onToStateChange}
+                  //postCode={this.onToPostCoChange}
+                />
                 <Header size={'tiny'}> When are you moving? </Header>
                 <DateTimePicker/>
 
@@ -70,6 +88,7 @@ export default class CreatePostForm extends Component {
                     min={BUDGET.MIN}
                     max={BUDGET.MAX}
                     step={10}
+                    icon={'dollar'}
                 />
 
                 <Header size={'tiny'}> Item Detail </Header>
