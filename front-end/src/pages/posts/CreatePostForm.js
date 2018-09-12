@@ -7,6 +7,7 @@ import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'
 import { Link } from 'react-router-dom';
 import { BUDGET } from '../../constants';
+import moment from "moment";
 
 /**
  * Title: Post Form
@@ -25,28 +26,72 @@ export default class CreatePostForm extends Component {
             addrToL2: '',
             toState: '',
             toPostCo: '',
-            date: '',
-            budget: BUDGET.DEFAULT
+            date: moment().endOf('day'),
+            time1: moment().startOf('day'),
+            time2: moment().startOf('day'),
+            budget: BUDGET.DEFAULT,
+            item: {name: '', weight: '', volume: '', desc: '', amount: ''},
+            desc: ''
         }
     }
 
-    onTitleChange = (e) => {
-      this.setState({title: e.target.value});
+    onTitleChange = (title) => {
+      this.setState({title: title.target.value});
     };
 
-    onAddressFromChange = (addressFrom) => {
-        this.setState({addressFrom: addressFrom});
-    }
+    onAddrFromL1Change = (addrL1) => {
+      this.setState({addrFromL1: addrL1});
+    };
 
-    onAddressToChange = (addressTo) => {
-        this.setState({addressTo: addressTo});
-    }
+    onAddrFromL2Change = (addrL2) => {
+      this.setState({addrFromL2: addrL2});
+    };
+
+    onFromStateChange = (state) => {
+      this.setState({fromState: state});
+    };
+
+    onFromPostCoChange = (postCode) => {
+      this.setState({fromPostCo: postCode});
+    };
+
+    onAddrToL1Change = (addrL1) => {
+      this.setState({addrToL1: addrL1});
+    };
+
+    onAddrToL2Change = (addrL2) => {
+      this.setState({addrToL2: addrL2});
+    };
+
+    onToStateChange = (state) => {
+      this.setState({toState: state});
+    };
+
+    onToPostCoChange = (postCode) => {
+      this.setState({toPostCo: postCode});
+    };
+
+    onDateChange = (date) => {
+      this.setState({date: date});
+    };
+
+    onTime1Change = (time1) => {
+      this.setState({time1: time1});
+    };
+
+    onTime2Change = (time2) => {
+      this.setState({time2: time2});
+    };
 
     onBudgetChange = (value) => {
         if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
             this.setState({ budget: value });
         }
-    }
+    };
+
+    onDescChange = (desc) => {
+      this.setState({desc: desc});
+    };
 
     createPost = () => {
         alert("Post with title [" + this.state.title + "] created!")
@@ -59,26 +104,43 @@ export default class CreatePostForm extends Component {
 
               <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
-                <Form.Input style={{width: 250}} fluid label='Title'
-                            placeholder='Page Title' handleChange={this.onTitleChange} />
+                <Form.Input
+                  style={{width: 250}} fluid label='Title'
+                  placeholder='Page Title'
+                  handleChange={this.onTitleChange}
+                />
 
                 <SearchBar
-                  id={'from'}
-                  //addrL1={this.onAddrFromL1Change}
-                  addrL2={this.onAddrFromL2Change}
-                  //state={this.onFromStateChange}
-                  //postCode={this.onFromPostCoChange}
+                  addrL1={this.state.addrFromL1}
+                  handleL1={this.onAddrFromL1Change}
+                  addrL2={this.state.addrFromL2}
+                  handleL2={this.onAddrFromL2Change}
+                  state={this.state.fromState}
+                  handleState={this.onFromStateChange}
+                  postCode={this.state.fromPostCo}
+                  handlePC={this.onFromPostCoChange}
                 />
                 <br/>
                 <SearchBar
-                  id={'to'}
-                  //addrL1={this.onAddrToL1Change}
-                  addrL2={this.onAddrToL2Change}
-                  //state={this.onToStateChange}
-                  //postCode={this.onToPostCoChange}
+                  addrL1={this.state.addrToL1}
+                  handleL1={this.onAddrToL1Change}
+                  addrL2={this.state.addrToL2}
+                  handleL2={this.onAddrToL2Change}
+                  state={this.state.toState}
+                  handleState={this.onToStateChange}
+                  postCode={this.state.toPostCo}
+                  handlePC={this.onToPostCoChange}
                 />
+
                 <Header size={'tiny'}> When are you moving? </Header>
-                <DateTimePicker/>
+                <DateTimePicker
+                  date={this.state.date}
+                  handleD={this.onDateChange}
+                  time1={this.state.time1}
+                  handleT1={this.onTime1Change}
+                  time2={this.state.time2}
+                  handleT2={this.onTime2Change}
+                />
 
                 <Header size={'tiny'}> What is your budget? </Header>
                 <text> If you are unsure, we recommend you browsing other jobs first. </text>
@@ -92,11 +154,12 @@ export default class CreatePostForm extends Component {
                 />
 
                 <Header size={'tiny'}> Item Detail </Header>
-                <ItemTable/>
-
+                <ItemTable
+                  item={this.state.item}
+                />
 
                 <Header size={'tiny'}> Post Description </Header>
-                <TextArea autoHeight />
+                <TextArea autoHeight placeholder={'Description'} onChange={this.onDescChange}/>
 
               </Form.Field>
 
