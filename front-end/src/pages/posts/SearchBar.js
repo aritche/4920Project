@@ -3,70 +3,31 @@ import { Header, Input } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export default class SearchBar extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={
-      addr1: '',
-      addr2: '',
-      state: '',
-      postCo: ''
-    }
-  }
 
-  onAddr1Change = (e) => {
-    this.setState({addr1: e.target.value}, function() {
-      if (this.props.id === "from") {
-
-        //this.props.onAddrFromL1Change();
-
-      }
-      else {
-        //this.props.onAddrToL1Change(this.state.addr1);
-      }
-    })
+  onAddr1Change = (addrL1) => {
+    this.props.handleL1(addrL1);
   };
 
-
-  onAddr2Change = (e) => {
-    geocodeByAddress(e)
+  onAddr2Change = (addrL2) => {
+    geocodeByAddress(addrL2)
       .then(results => getLatLng(results[0]))
-      .then(this.setState({addr2: e}))
-      .then(() => {
-        if (this.props.id === "from") {
-          this.props.onAddrFromL2Change(e);
-        }
-        else {
-          this.props.onAddrToL2Change(e);
-        }
-      })
+      .then(this.props.handleL2(addrL2))
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
   };
 
-  onStateChange = (e) => {
-    this.setState({state: e});
-    if (this.props.id === "from") {
-      this.props.onFromStateChange(e);
-    }
-    else {
-      this.props.onToStateChange(e);
-    }
+  onStateChange = (state) => {
+    this.props.handleState(state);
   };
 
-  onPostCoChange = (e) => {
-    this.setState({postCo: e});
-    if (this.props.id === "from") {
-      this.props.onFromPostCoChange(e);
-    }
-    else {
-      this.props.onToPostCoChange(e);
-    }
+  onPostCoChange = (postCode) => {
+    this.props.handlePC(postCode);
   };
 
   render() {
     return (
       <PlacesAutocomplete
-        value={this.state.addr2}
+        value={this.props.addrL2}
         onChange={this.onAddr2Change}
         onSelect={this.onAddr2Change}
       >
