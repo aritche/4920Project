@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 export default class NavHeader extends Component {
     render() {
         return (
-            <Segment color='black' attached inverted>
-                <Menu inverted pointing secondary>
+                <Menu attached inverted style={{paddingTop:'5px', paddingBottom:'5px'}} pointing>
                     <Menu.Item>
                         uMove
                     </Menu.Item>
@@ -32,7 +31,6 @@ export default class NavHeader extends Component {
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
-            </Segment>
         )
     }
 }
