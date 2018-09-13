@@ -15,9 +15,12 @@ export default class NavHeader extends Component {
         this.setState({ query: e.target.value });
     }
 
-
-    onFormSubmit = () => {
+    onQuerySubmit = () => {
         console.log('Submitting:', this.state.query);
+
+        alert("Searched for:  " + this.state.query);
+        // Code to change to search page here
+        //this.props.history.push('/')
 
     }
 
@@ -36,7 +39,7 @@ export default class NavHeader extends Component {
                     </Menu.Item>
 
                     <Menu.Item style={{paddingTop: 2, paddingBottom:2}} position='right'>
-                        <Form onSubmit={this.onFormSubmit}>
+                        <Form onSubmit={this.onQuerySubmit}>
                             <Form.Input icon='search' style={{minWidth: 400}} placeholder='Search posts' value={this.state.query} onChange={this.onQueryChange}/>
                         </Form>
                     </Menu.Item>
