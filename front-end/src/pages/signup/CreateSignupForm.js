@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import ReactLoading from 'react-loading';
+import { url } from '../../Api';
+import { updateAuthentication } from '../../Authentication';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
 export default class CreateSignupForm extends Component {
     constructor() {
         super();
-        
+
         this.state = {
             firstName: '',
             lastName: '',
             email: '',
             password: '',
+            isLoading: false,
             confirmPassword: '',
 
             submitError: false,
@@ -31,7 +35,7 @@ export default class CreateSignupForm extends Component {
     onLastNameChange = (e) => {
         this.setState({ lastName: e.target.value });
     }
-    
+
     onEmailChange = (e) => {
         this.setState({ email: e.target.value });
     }
@@ -40,10 +44,11 @@ export default class CreateSignupForm extends Component {
         this.setState({ password: e.target.value });
     }
 
+
     onConfirmPasswordChange = (e) => {
         this.setState({ confirmPassword: e.target.value });
     }
-    
+
     attemptSignup = () => {
         // Input validation here
         // Assume no errors to start with
@@ -71,7 +76,7 @@ export default class CreateSignupForm extends Component {
             this.setState({ emailError : true });
             validationError = true;
         }
-        
+
         if (this.state.password == ''){
             this.setState({ passwordError : true });
             validationError = true;
@@ -93,30 +98,66 @@ export default class CreateSignupForm extends Component {
                 this.setState({ passwordMismatch: true });
                 this.setState({ errorMessage: 'Passwords must match.'});
                 this.setState({ submitError: true });
-            } else{
-                // Connect to back-end here
-                this.setState({ submitted: true });
-                console.log("Sending data to backend...");
-                console.log("Getting response...");
-                var success = false;
-
-                if (success){
-                    
-                } else{
-                    this.setState({ submitError: true });
-                    this.setState({ errorMessage: 'We were unable to sign you up. Please try again later.'});
-                }
+            } else {
+                // Connect to backend
+                fetch(url + 'user', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'firstName': this.state.firstName,
+                        'lastName': this.state.lastName,
+                        'email': this.state.email,
+                        'password': this.state.password
+                    })
+                }).then(response => {
+                    console.log('response');
+                    console.log(response);
+                    if (response.status === 400) {
+                        response.json().then(obj => {
+                            this.setState({
+                                submitError: true,
+                                errorMessage: obj.error
+                            });
+                        });
+                    } else if (response.status === 200) {
+                        response.json().then(obj => {
+                            console.log(obj);
+                            if (obj.success) {
+                                updateAuthentication(true);
+                                this.props.history.push('/');
+                            } else {
+                                this.setState({
+                                    submitError: true,
+                                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                                    isLoading: false
+                                });
+                            }
+                        });
+                        return;
+                    } else {
+                        this.setState({
+                            submitError: true,
+                            errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
+                        });
+                    }
+                    this.setState({
+                        isLoading: false,
+                    });
+                });
             }
         }
     }
-    
+
     render() {
         // code is a modified version of Semantic-UI-React login template
         //   - found at https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/LoginLayout.js
         return (
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 650 }}>
-                    <Form error={this.state.submitError} success={this.state.submitted && !this.state.submitError}>
+                    <Form error={this.state.submitError}>
                         <Segment>
                             <h1>Join the Community!</h1>
                             <Form.Group widths='equal'>
@@ -128,7 +169,6 @@ export default class CreateSignupForm extends Component {
                             <Form.Input error={this.state.confirmPasswordError || this.state.passwordMismatch} placeholder="Confirm Password" type='password' value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} />
                             <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
-                            <Message success header='Sign Up Successful!' content='Please check your email for a confirmation.'/>
                         </Segment>
                     </Form>
                 </Grid.Column>

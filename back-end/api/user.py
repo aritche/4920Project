@@ -7,8 +7,9 @@ from database.User import User
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = jsonify(user.to_dict())
+        resp = Response(jsonify(user.to_dict()), mimetype='application/json')
         resp.status_code = 200
+        resp.headers['Access-Control-Allow-Origin'] = '*'
     else:
         abort(400, 'No user with this id exists.')
     return resp
@@ -20,7 +21,6 @@ def insert_new_user(json):
         or (not 'firstName' in json)
         or (not 'lastName' in json)
         or (not 'email' in json)
-        or (not 'confirmEmail' in json)
         or (not 'password' in json)
     ):
         abort(400, 'Not all fields were received.')
@@ -28,9 +28,6 @@ def insert_new_user(json):
     # Verify information
     if len(json['password']) < 6:
         abort(400, 'Password is must be at least 6 characters long.')
-    if json['email'] != json['confirmEmail']:
-        abort(400, 'Email addresses do not match.')
-    # TODO: verify date of birth
 
     # Check for account with same email
     query_result = db.session.query(User).filter(User.email == json['email']).first()
@@ -51,4 +48,6 @@ def insert_new_user(json):
         'user': User.to_dict(user)
     })
     resp.status_code = 200
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+
     return resp

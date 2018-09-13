@@ -1,5 +1,6 @@
-from api import base
 from flask import request
+from flask_cors import cross_origin
+from api import base
 from api.user import get_user_by_id, insert_new_user
 
 

@@ -2,10 +2,13 @@ from flask import Flask
 from config import Config
 from api import base
 from database.model import db
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 db.init_app(app)
 app.register_blueprint(base, url_prefix='/api')
 
