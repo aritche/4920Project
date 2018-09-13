@@ -30,57 +30,34 @@ export default class CreatePostForm extends Component {
             time1: moment().startOf('day'),
             time2: moment().startOf('day'),
             budget: BUDGET.DEFAULT,
-            item: {name: '', weight: '', volume: '', desc: '', amount: ''},
+            item: {name: '', weight: '', volume: '', desc: '', amount:''},
+            itemTable: [{name: 'table', weight: '4kg', volume: '1*1*1', desc: '', amount:'x1'}],
             desc: ''
         }
     }
 
-    onTitleChange = (title) => {
-      this.setState({title: title.target.value});
+    onChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
     };
 
-    onAddrFromL1Change = (addrL1) => {
-      this.setState({addrFromL1: addrL1});
+    onAddrFChange = (addr) => {
+        this.setState({addrFromL2: addr});
     };
 
-    onAddrFromL2Change = (addrL2) => {
-      this.setState({addrFromL2: addrL2});
-    };
-
-    onFromStateChange = (state) => {
-      this.setState({fromState: state});
-    };
-
-    onFromPostCoChange = (postCode) => {
-      this.setState({fromPostCo: postCode});
-    };
-
-    onAddrToL1Change = (addrL1) => {
-      this.setState({addrToL1: addrL1});
-    };
-
-    onAddrToL2Change = (addrL2) => {
-      this.setState({addrToL2: addrL2});
-    };
-
-    onToStateChange = (state) => {
-      this.setState({toState: state});
-    };
-
-    onToPostCoChange = (postCode) => {
-      this.setState({toPostCo: postCode});
+    onAddrTChange = (addr) => {
+        this.setState({addrToL2: addr});
     };
 
     onDateChange = (date) => {
-      this.setState({date: date});
+        this.setState({date: date});
     };
 
     onTime1Change = (time1) => {
-      this.setState({time1: time1});
+        this.setState({time1: time1});
     };
 
     onTime2Change = (time2) => {
-      this.setState({time2: time2});
+        this.setState({time2: time2});
     };
 
     onBudgetChange = (value) => {
@@ -88,9 +65,10 @@ export default class CreatePostForm extends Component {
             this.setState({ budget: value });
         }
     };
-
-    onDescChange = (desc) => {
-      this.setState({desc: desc});
+    
+    onItemTableChange = (item) => {
+        const table = this.state.itemTable.slice();
+        this.setState({itemTable: table.concat(item)})
     };
 
     createPost = () => {
@@ -107,29 +85,25 @@ export default class CreatePostForm extends Component {
                 <Form.Input
                   style={{width: 250}} fluid label='Title'
                   placeholder='Page Title'
-                  handleChange={this.onTitleChange}
+                  handleChange={this.onChange}
                 />
 
                 <SearchBar
                   addrL1={this.state.addrFromL1}
-                  handleL1={this.onAddrFromL1Change}
                   addrL2={this.state.addrFromL2}
-                  handleL2={this.onAddrFromL2Change}
                   state={this.state.fromState}
-                  handleState={this.onFromStateChange}
                   postCode={this.state.fromPostCo}
-                  handlePC={this.onFromPostCoChange}
+                  handleC={this.onChange}
+                  handleL2={this.onAddrFChange}
                 />
                 <br/>
                 <SearchBar
                   addrL1={this.state.addrToL1}
-                  handleL1={this.onAddrToL1Change}
                   addrL2={this.state.addrToL2}
-                  handleL2={this.onAddrToL2Change}
                   state={this.state.toState}
-                  handleState={this.onToStateChange}
                   postCode={this.state.toPostCo}
-                  handlePC={this.onToPostCoChange}
+                  handleC={this.onChange}
+                  handleL2={this.onAddrTChange}
                 />
 
                 <Header size={'tiny'}> When are you moving? </Header>
@@ -144,9 +118,9 @@ export default class CreatePostForm extends Component {
 
                 <Header size={'tiny'}> What is your budget? </Header>
                 <text> If you are unsure, we recommend you browsing other jobs first. </text>
-                <InputSlider 
-                    value={this.state.budget} 
-                    onChange={this.onBudgetChange} 
+                <InputSlider
+                    value={this.state.budget}
+                    onChange={this.onBudgetChange}
                     min={BUDGET.MIN}
                     max={BUDGET.MAX}
                     step={10}
@@ -156,10 +130,12 @@ export default class CreatePostForm extends Component {
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemTable
                   item={this.state.item}
+                  table={this.state.itemTable}
+                  handleT={this.onItemTableChange}
                 />
 
                 <Header size={'tiny'}> Post Description </Header>
-                <TextArea autoHeight placeholder={'Description'} onChange={this.onDescChange}/>
+                <TextArea autoHeight placeholder={'Description'} onChange={this.onChange}/>
 
               </Form.Field>
 
