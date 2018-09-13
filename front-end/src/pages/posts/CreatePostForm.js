@@ -1,130 +1,150 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Icon, Step, TextArea } from 'semantic-ui-react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Button, Form, Header, TextArea } from 'semantic-ui-react';
 import SearchBar from './SearchBar'
-import ItemInput from './ItemInput'
-import BudgetSlider from './Slider'
+import ProcessStep from './ProcessStep'
+import InputSlider from '../../widgets/InputSlider'
+import DateTimePicker from './DateTimePicker'
+import ItemTable from './ItemTable'
 import { Link } from 'react-router-dom';
+import { BUDGET } from '../../constants';
+import moment from "moment";
 
 /**
  * Title: Post Form
- * Author: Jimmy & Victor
+ * Author: Victor & Jimmy
  */
 export default class CreatePostForm extends Component {
     constructor() {
         super();
         this.state = {
             title: '',
-            addressFrom: '',
-            addressTo: '',
-            date: '',
-            budget: 1000
+            addrFromL1: '',
+            addrFromL2: '',
+            fromState: '',
+            fromPostCo: '',
+            addrToL1: '',
+            addrToL2: '',
+            toState: '',
+            toPostCo: '',
+            date: moment().endOf('day'),
+            time1: moment().startOf('day'),
+            time2: moment().startOf('day'),
+            budget: BUDGET.DEFAULT,
+            item: {name: '', weight: '', volume: '', desc: '', amount:''},
+            itemTable: [{name: 'table', weight: '4kg', volume: '1*1*1', desc: '', amount:'x1'}],
+            desc: ''
         }
     }
 
-    onTitleChange = (e) => {
-        this.setState({ title: e.target.value });
-    }
+    onChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    };
 
-    // So the following two functions are meant to bring address from the SearchBar
-    // But I just can't get the ref to work :( It just keep telling me the ref is null or undefined
-    onAddressFromChange = (addressFrom) => {
-        this.setState({addressFrom: addressFrom});
-    }
+    onAddrFChange = (addr) => {
+        this.setState({addrFromL2: addr});
+    };
 
-    onAddressToChange = (addressTo) => {
-        this.setState({addressTo: addressTo})
-    }
+    onAddrTChange = (addr) => {
+        this.setState({addrToL2: addr});
+    };
 
-    // This function should change the budget in the state with the slider, but it doesn't :(
-    onBudgetChange = (e, { name, value }) => this.setState({ [name]: value })
+    onDateChange = (date) => {
+        this.setState({date: date});
+    };
+
+    onTime1Change = (time1) => {
+        this.setState({time1: time1});
+    };
+
+    onTime2Change = (time2) => {
+        this.setState({time2: time2});
+    };
+
+    onBudgetChange = (value) => {
+        if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
+            this.setState({ budget: value });
+        }
+    };
+    
+    onItemTableChange = (item) => {
+        const table = this.state.itemTable.slice();
+        this.setState({itemTable: table.concat(item)})
+    };
 
     createPost = () => {
         alert("Post with title [" + this.state.title + "] created!")
-    }
+    };
 
     render() {
         return (
-            <Form size={'large'} style={{marginTop: 30, marginLeft: 150, paddingBottom: 30}}>
-              <Step.Group>
-                <Step active>
-                  <Icon name='info' />
-                  <Step.Content>
-                    <Step.Title>Post</Step.Title>
-                    <Step.Description>Make a post</Step.Description>
-                  </Step.Content>
-                </Step>
+            <Form size={'large'} style={{marginLeft: 150, paddingBottom: 80}}>
+              <ProcessStep/>
 
-                <Step disabled>
-                  <Icon name='wait' />
-                  <Step.Content>
-                    <Step.Title>Wait</Step.Title>
-                    <Step.Description>Wait for offer</Step.Description>
-                  </Step.Content>
-                </Step>
-
-                <Step disabled>
-                  <Icon name='handshake' />
-                  <Step.Content>
-                    <Step.Title>Accept</Step.Title>
-                    <Step.Description>Accept an offer</Step.Description>
-                  </Step.Content>
-                </Step>
-
-                <Step disabled>
-                  <Icon name='truck' />
-                  <Step.Content>
-                    <Step.Title>Move</Step.Title>
-                    <Step.Description>Make the move!</Step.Description>
-                  </Step.Content>
-                </Step>
-
-                <Step disabled>
-                  <Icon name='thumbs up' />
-                  <Step.Content>
-                    <Step.Title>Review</Step.Title>
-                    <Step.Description>Rate your removalist</Step.Description>
-                  </Step.Content>
-                </Step>
-              </Step.Group>
-
-              <Header size={'large'}>Make Your Move!</Header>
+              <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
-                <Form.Input style={{width: 250}} fluid label='Title'  placeholder='Page Title' />
+                <Form.Input
+                  style={{width: 250}} fluid label='Title'
+                  placeholder='Page Title'
+                  handleChange={this.onChange}
+                />
 
-                <Header size={'tiny'}> Where are you moving from? </Header>
-                <SearchBar address={this.state.addressFrom} handleSelect={this.onAddressFromChange} />
-
-                <Header size={'tiny'}> Where are you moving to? </Header>
-                <SearchBar address={this.state.addressTo} handleSelect={this.onAddressToChange}/>
+                <SearchBar
+                  addrL1={this.state.addrFromL1}
+                  addrL2={this.state.addrFromL2}
+                  state={this.state.fromState}
+                  postCode={this.state.fromPostCo}
+                  handleC={this.onChange}
+                  handleL2={this.onAddrFChange}
+                />
+                <br/>
+                <SearchBar
+                  addrL1={this.state.addrToL1}
+                  addrL2={this.state.addrToL2}
+                  state={this.state.toState}
+                  postCode={this.state.toPostCo}
+                  handleC={this.onChange}
+                  handleL2={this.onAddrTChange}
+                />
 
                 <Header size={'tiny'}> When are you moving? </Header>
-                <DatePicker
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  dateFormat="LLL"
-                  timeCaption="time"
+                <DateTimePicker
+                  date={this.state.date}
+                  handleD={this.onDateChange}
+                  time1={this.state.time1}
+                  handleT1={this.onTime1Change}
+                  time2={this.state.time2}
+                  handleT2={this.onTime2Change}
                 />
-                <Header size={'tiny'}> Description </Header>
-                <TextArea autoHeight style={{width: 400}} />
-                <Header size={'tiny'}> Item Detail </Header>
-                <ItemInput/>
+
                 <Header size={'tiny'}> What is your budget? </Header>
                 <text> If you are unsure, we recommend you browsing other jobs first. </text>
-                <BudgetSlider/>
+                <InputSlider
+                    value={this.state.budget}
+                    onChange={this.onBudgetChange}
+                    min={BUDGET.MIN}
+                    max={BUDGET.MAX}
+                    step={10}
+                    icon={'dollar'}
+                />
+
+                <Header size={'tiny'}> Item Detail </Header>
+                <ItemTable
+                  item={this.state.item}
+                  table={this.state.itemTable}
+                  handleT={this.onItemTableChange}
+                />
+
+                <Header size={'tiny'}> Post Description </Header>
+                <TextArea autoHeight placeholder={'Description'} onChange={this.onChange}/>
+
               </Form.Field>
+
               <br/>
 
               <Button.Group>
-                <Form.Button primary type='submit' onClick={this.createPost}>Post</Form.Button>
-                <Button.Or text='or' />
-                <Form.Button secondary>Save</Form.Button>
-                <Button.Or text='or' />
-                <Button negative as={Link} to={'/posts'}>Discard</Button>
+                <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
+                <span style={{width: 10}}/>
+                <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
               </Button.Group>
             </Form>
         )

@@ -1,2 +1,6 @@
+
+*.iml
+
+*.xml
 *.pyc
 .vscode
