@@ -6,6 +6,7 @@ import CreatePostPage from './pages/posts/CreatePostPage';
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/signup/SignupPage';
 import PostDetailsPage from './pages/posts/PostDetailsPage';
+import SearchPage from './pages/search/SearchPage';
 
 export default class Routes extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class Routes extends Component {
               <Route path='/create-post' component={CreatePostPage}/>
               <Route path='/login' component={LoginPage}/>
               <Route path='/signup' component={SignupPage}/>
+              <Route path='/search' component={SearchPage}/>
             </Switch>
         )
     }
