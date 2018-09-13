@@ -7,13 +7,6 @@ import ItemForm from './ItemForm'
  */
 export default class ItemTable extends Component{
 
-    onItemAdd = (item) => {
-        //let state = {};
-        //state[name] = item;
-        alert(item.name);
-        //this.props.onItemTableChange(state)
-    };
-
     onItemDelete = (table) => {
         alert(table)
     };
@@ -57,6 +50,8 @@ export default class ItemTable extends Component{
                 amount={this.props.item.amount}
                 desc={this.props.item.desc}
                 handleAdd={this.onItemAdd}
+                onChange={this.props.onChange}
+                addItem={this.props.addItem}
               />
               <Button negative size='large' style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
                 <Button.Content visible><Icon name={'trash alternate'}/></Button.Content>

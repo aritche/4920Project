@@ -36,6 +36,18 @@ export default class CreatePostForm extends Component {
         }
     }
 
+    onItemTableChange = (field, value) => {
+        var item = this.state.item;
+        item[field] = value;
+        this.setState({item: item});
+    };
+
+    itemTableAdd = () => {
+        var items = this.state.itemTable;
+        items.push(this.state.item);
+        this.setState({itemTable: items});
+    }
+
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     };
@@ -64,11 +76,6 @@ export default class CreatePostForm extends Component {
         if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
             this.setState({ budget: value });
         }
-    };
-    
-    onItemTableChange = (item) => {
-        const table = this.state.itemTable.slice();
-        this.setState({itemTable: table.concat(item)})
     };
 
     createPost = () => {
@@ -131,7 +138,8 @@ export default class CreatePostForm extends Component {
                 <ItemTable
                   item={this.state.item}
                   table={this.state.itemTable}
-                  handleT={this.onItemTableChange}
+                  onChange={this.onItemTableChange}
+                  addItem={this.itemTableAdd}
                 />
 
                 <Header size={'tiny'}> Post Description </Header>
