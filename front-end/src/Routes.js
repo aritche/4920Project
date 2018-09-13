@@ -14,16 +14,7 @@ export default class Routes extends Component {
               <Route exact path='/' component={HomePage}/>
               <Route path='/posts' component={PostsPage}/>
               <Route path='/create-post' component={CreatePostPage}/>
-              <Route
-                  path="/login"
-                  render={() => (
-                      isLoggedIn() ? (
-                          <Redirect to="/"/>
-                      ) : (
-                          <LoginPage />
-                      )
-                  )}
-              />
+              <Route path='/login' component={LoginPage}/>
               <Route path='/signup' component={SignupPage}/>
             </Switch>
         )

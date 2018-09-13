@@ -54,7 +54,7 @@ export default class CreateSignupForm extends Component {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 'firstName': this.state.firstName,
