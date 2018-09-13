@@ -5,3 +5,13 @@
 .list-container {
     margin-top: 25px;
 }
+
+.heading-subtitle {
+    color: grey;
+}
+
+.heading-subtitle-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+}

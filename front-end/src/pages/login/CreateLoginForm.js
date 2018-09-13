@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Message } from 'semantic-ui-react';
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
 export default class CreateLoginForm extends Component {
     constructor() {
@@ -64,19 +64,21 @@ export default class CreateLoginForm extends Component {
     }
     
     render() {
+        // code is a modified version of Semantic-UI-React login template
+        //   - found at https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/LoginLayout.js
         return (
-            <Grid centered columns={2}>
-                <Grid.Row centered columns={2}>
-                <h1>Log in</h1>
-                <Form error={this.state.submitError}>
-                    <Form.Field>
-                        <Form.Input error={this.state.emailError} placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
-                        <Form.Input error={this.state.passwordError} placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
-                    </Form.Field>
-                    <Button color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
-                    <Message error header='Unable to Log In' content={this.state.errorMessage}/>
-                </Form>
-                </Grid.Row>
+            <Grid textAlign='center' verticalAlign='middle'>
+                <Grid.Column style={{ maxWidth: 500 }}>
+                    <Form error={this.state.submitError}>
+                        <Segment>
+                            <h1>Log In</h1>
+                            <Form.Input error={this.state.emailError} placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
+                            <Form.Input error={this.state.passwordError} placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
+                            <Button fluid color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
+                            <Message error header='Unable to Log In' content={this.state.errorMessage}/>
+                        </Segment>
+                    </Form>
+                </Grid.Column>
             </Grid>
         )
     }
