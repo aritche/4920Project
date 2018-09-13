@@ -5,17 +5,19 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255))
-    first_name = db.Column(db.String(255))
-    last_name = db.Column(db.String(255))
-    password = db.Column(db.Integer)
-    DOB = db.Column(db.String(255))
-    university = db.Column(db.String(255))
-    nationality = db.Column(db.String(255))
-    resident_history = db.Column(db.String(255))
-    interests = db.Column(db.String(255))
-    personalities = db.Column(db.String(255))
-    description = db.Column(db.String(4000))
+    email = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(255), nullable=False)
+    last_name = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'password': self.password
+        }
 
     def __repr__(self):
         return "<User(email='%s')" % (self.email)
