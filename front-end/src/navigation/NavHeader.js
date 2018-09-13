@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Search, Grid, Image } from 'semantic-ui-react';
+import { Menu, Segment, Search, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class NavHeader extends Component {
