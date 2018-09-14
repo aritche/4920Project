@@ -5,21 +5,38 @@ import { Form, TextArea, Header, Modal, Button, Icon } from 'semantic-ui-react';
  * Author: VW
  */
 export default class ItemForm extends Component {
+    constructor() {
+      super();
+
+      this.state = {
+        open: false
+      }
+    }
+
+    close = () => {
+      this.setState({open: false});
+    }
+
+    open = () => {
+      this.setState({open: true});
+    }
 
     onSubmit = () => {
+      //TODO: validation that fields are not empty
       this.props.addItem();
+      this.close();
     };
 
     render() {
         return (
           <Modal trigger={
-            <Button size='large' primary style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
+            <Button onClick={this.open} size='large' primary style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
               <Button.Content visible>
                 <Icon name={'plus square'}/>
               </Button.Content>
               <Button.Content hidden>Add An Item</Button.Content>
             </Button>
-          } closeIcon>
+          } open={this.state.open} onClose={this.close} closeIcon>
             <Header> Add Item </Header>
             <Modal.Content>
               <Form>
@@ -37,7 +54,7 @@ export default class ItemForm extends Component {
               <Button color='green' onClick={this.onSubmit}>
                 <Icon name='checkmark' /> Yes
               </Button>
-              <Button color='red' >
+              <Button color='red' onClick={this.close}>
                 <Icon name='remove' /> No
               </Button>
             </Modal.Actions>
