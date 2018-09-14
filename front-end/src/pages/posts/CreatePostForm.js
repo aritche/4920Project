@@ -30,21 +30,19 @@ export default class CreatePostForm extends Component {
             time1: moment().startOf('day'),
             time2: moment().startOf('day'),
             budget: BUDGET.DEFAULT,
-            item: {name: '', weight: '', volume: '', desc: '', amount:''},
-            itemTable: [{name: 'table', weight: '4kg', volume: '1*1*1', desc: '', amount:'x1'}],
+            itemTable: [],
             desc: ''
         }
     }
 
-    onItemTableChange = (field, value) => {
-        var item = this.state.item;
-        item[field] = value;
-        this.setState({item: item});
-    };
-
-    itemTableAdd = () => {
+    itemTableAdd = (name, weight, volume, desc, amount) => {
         var items = this.state.itemTable;
-        items.push(this.state.item);
+        items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
+        this.setState({itemTable: items});
+    }
+
+    itemTableDelete = (name) => {
+        var items = this.state.itemTable.filter(i => i.name !== name);
         this.setState({itemTable: items});
     }
 
@@ -92,7 +90,7 @@ export default class CreatePostForm extends Component {
                 <Form.Input
                   style={{width: 250}} fluid label='Title'
                   placeholder='Page Title'
-                  handleChange={this.onChange}
+                  onChange={this.onChange}
                 />
 
                 <SearchBar
@@ -124,7 +122,7 @@ export default class CreatePostForm extends Component {
                 />
 
                 <Header size={'tiny'}> What is your budget? </Header>
-                <text> If you are unsure, we recommend you browsing other jobs first. </text>
+                <p> If you are unsure, we recommend you browse other jobs first. </p>
                 <InputSlider
                     value={this.state.budget}
                     onChange={this.onBudgetChange}
@@ -136,10 +134,9 @@ export default class CreatePostForm extends Component {
 
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemTable
-                  item={this.state.item}
                   table={this.state.itemTable}
-                  onChange={this.onItemTableChange}
                   addItem={this.itemTableAdd}
+                  deleteItem={this.itemTableDelete}
                 />
 
                 <Header size={'tiny'}> Post Description </Header>

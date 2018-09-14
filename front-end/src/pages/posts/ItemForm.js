@@ -9,7 +9,12 @@ export default class ItemForm extends Component {
       super();
 
       this.state = {
-        open: false
+        open: false,
+        name: '',
+        weight: '',
+        volume: '',
+        desc: '',
+        amount: '',
       }
     }
 
@@ -21,9 +26,31 @@ export default class ItemForm extends Component {
       this.setState({open: true});
     }
 
+    onNameChange = (value) => {
+      this.setState({name: value});
+    }
+
+    onWeightChange = (value) => {
+        this.setState({weight: value});
+    }
+
+    onVolumeChange = (value) => {
+        this.setState({volume: value});
+    }
+
+    onDescChange = (value) => {
+      this.setState({desc: value});
+    }
+
+    onAmountChange = (value) => {
+      this.setState({amount: value});
+    }
+
     onSubmit = () => {
       //TODO: validation that fields are not empty
-      this.props.addItem();
+      // Make sure name is unique
+      const { name, weight, volume, desc, amount } = this.state;
+      this.props.addItem(name, weight, volume, desc, amount);
       this.close();
     };
 
@@ -41,13 +68,13 @@ export default class ItemForm extends Component {
             <Modal.Content>
               <Form>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='Name'  placeholder='Item Name' onChange={(e) => this.props.onChange('name', e.target.value)}/>
-                  <Form.Input fluid label='Estimated Weight'  placeholder='Item Weight' onChange={(e) => this.props.onChange('weight', e.target.value)}/>
-                  <Form.Input fluid label='Estimated Volume'  placeholder='Item Volume' onChange={(e) => this.props.onChange('volume', e.target.value)}/>
-                  <Form.Input fluid label='Amount'  placeholder='Item Amount' onChange={(e) => this.props.onChange('amount', e.target.value)}/>
+                  <Form.Input fluid label='Name'  placeholder='Item Name' onChange={(e) => this.onNameChange(e.target.value)}/>
+                  <Form.Input fluid label='Estimated Weight'  placeholder='Item Weight' onChange={(e) => this.onWeightChange(e.target.value)}/>
+                  <Form.Input fluid label='Estimated Volume'  placeholder='Item Volume' onChange={(e) => this.onVolumeChange(e.target.value)}/>
+                  <Form.Input fluid label='Amount'  placeholder='Item Amount' onChange={(e) => this.onAmountChange(e.target.value)}/>
                 </Form.Group>
                 <Header content={'Item Description'} />
-                <TextArea autoHeight onChange={(e) => this.props.onChange('desc', e.target.value)}/>
+                <TextArea autoHeight onChange={(e) => this.onDescChange(e.target.value)}/>
               </Form>
             </Modal.Content>
             <Modal.Actions>
