@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment, Dropdown } from 'semantic-ui-react';
+import InputSlider from '../../widgets/InputSlider'
+import { BUDGET } from '../../constants';
 
 export default class CreateLoginForm extends Component {
     constructor() {
         super();
         
         this.state = {
-            query: 'Search Query Goes Here'
+            query: 'Search Query Goes Here',
+            budget: BUDGET.DEFAULT 
         }
     }
-    
+
+    onBudgetChange = (value) => {
+        if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
+            this.setState({ budget: value });
+        }
+    }
     
     render() {
         // code is a modified version of Semantic-UI-React login template
@@ -18,12 +26,16 @@ export default class CreateLoginForm extends Component {
             <div>
                 <Segment vertical><h1>Results</h1></Segment>
                 <Segment inverted tertiary>
-                    <Dropdown text='Filter A' floating labelled button>
-                        <Dropdown.Menu>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown text='Filter B' floating labelled button>
-                        <Dropdown.Menu>
+                    <Dropdown text='Price' floating labelled button>
+                        <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
+                        <InputSlider
+                            value={this.state.budget}
+                            onChange={this.onBudgetChange}
+                            min={BUDGET.MIN}
+                            max={BUDGET.MAX}
+                            steps={10}
+                            icon={'dollar'}
+                        />
                         </Dropdown.Menu>
                     </Dropdown>
                 </Segment>
