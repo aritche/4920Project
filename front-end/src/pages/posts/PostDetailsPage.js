@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Comment, Form, Button, Icon } from 'semantic-ui-react';
+import { Header, Container, Comment, Form, Button, Step, Icon } from 'semantic-ui-react';
 
 // TODO: Get from backend
 const post = {
@@ -25,10 +25,28 @@ export default class PostDetailsPage extends Component {
         return (
             <Container>
                 <Header as='h1'>{ post.title }</Header>
-                <p class="heading-subtitle">By { post.user } <img class="heading-subtitle-icon" src='/images/default_profile_pic.jpg' /></p>
+                <p class="heading-subtitle">By { post.user } <img class="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
 
                 <p> { post.description } </p>
                 <p> <b>Budget:</b> { '$' + post.budget } </p>
+                <p> <b>Date:</b> { post.date } </p>
+
+                <Step.Group widths={2}>
+                    <Step active>
+                        <Icon name='truck' />
+                        <Step.Content>
+                            <Step.Title>From Address</Step.Title>
+                            <Step.Description>{ post.addressFrom }</Step.Description>
+                        </Step.Content>
+                    </Step>
+                    <Step active>
+                        <Icon name='truck' />
+                        <Step.Content>
+                            <Step.Title>To Address</Step.Title>
+                            <Step.Description>{ post.addressTo }</Step.Description>
+                        </Step.Content>
+                    </Step>
+                </Step.Group>
 
                 <Comment.Group>
                     <Header as='h3' dividing>
