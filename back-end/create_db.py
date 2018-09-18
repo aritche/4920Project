@@ -7,7 +7,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-from database.Address import Address
+from database.FromAddress import FromAddress
+from database.ToAddress import ToAddress
 from database.Comment import Comment
 from database.Item import Item
 from database.MoveDetails import MoveDetails

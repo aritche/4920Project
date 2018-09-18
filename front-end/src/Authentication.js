@@ -9,3 +9,7 @@ export function updateAuthentication(newAuthState, newUserId = -1) {
     authenticated = newAuthState;
     userId = newUserId;
 }
+
+export function getLoggedInUser() {
+    return userId;
+}
