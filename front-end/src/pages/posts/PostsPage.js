@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CreatePostForm from './CreatePostForm';
 import PostList from './PostList';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';

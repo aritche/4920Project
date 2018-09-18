@@ -6,11 +6,6 @@ import ItemForm from './ItemForm'
  * Author: VW
  */
 export default class ItemTable extends Component{
-
-    onItemDelete = (table) => {
-        alert(table)
-    };
-
     render(){
         return (
           <div>
@@ -27,13 +22,13 @@ export default class ItemTable extends Component{
 
               <Table.Body>
                 {this.props.table.map((item) => (
-                  <Table.Row>
+                  <Table.Row key={item.name}>
                     <Table.Cell> {item.name} </Table.Cell>
                     <Table.Cell> {item.weight} </Table.Cell>
                     <Table.Cell> {item.volume} </Table.Cell>
                     <Table.Cell> {item.amount} </Table.Cell>
                     <Table.Cell>
-                      <Button style={{backgroundColor: 'transparent'}} onClick={this.onItemDelete}>
+                      <Button style={{backgroundColor: 'transparent'}} onClick={() => { this.props.deleteItem(item.name) }}>
                         <Icon size='large' name={'close'}/>
                       </Button>
                     </Table.Cell>
@@ -44,13 +39,6 @@ export default class ItemTable extends Component{
 
             <div>
               <ItemForm
-                name={this.props.item.name}
-                weight={this.props.item.weight}
-                volume={this.props.item.volume}
-                amount={this.props.item.amount}
-                desc={this.props.item.desc}
-                handleAdd={this.onItemAdd}
-                onChange={this.props.onChange}
                 addItem={this.props.addItem}
               />
               <Button negative size='large' style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
