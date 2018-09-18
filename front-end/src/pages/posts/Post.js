@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Item, Image, Grid } from 'semantic-ui-react';
+import { Item, Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import './Post.css';
 
 export default class Post extends Component {
@@ -7,7 +8,7 @@ export default class Post extends Component {
         const { post } = this.props;
         
         return (
-            <Item>
+            <Item key={ post.id } as={Link} to="/posts/details">
                 <Item.Image size='tiny' src='/images/default_profile_pic.jpg' />
 
                 <Item.Content>

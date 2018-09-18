@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Segment} from 'semantic-ui-react';
+import { Segment} from 'semantic-ui-react';
 
 export default class MainFooter extends Component {
     render() {
