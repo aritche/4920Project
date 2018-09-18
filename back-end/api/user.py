@@ -65,17 +65,19 @@ def insert_new_user(json):
 def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
+
+    user = db.session.query(User).filter(User.email == json['email']).first()
+    if not user:
+        password = ''
+        user_id = -1
+    else:
+        password = user.password
+        user_id = user.id
+
     resp = jsonify({
         'success': True,
-        'hashed_password': get_hashed_password(json['email'])
+        'hashed_password': password,
+        'user_id': user_id
     })
     resp.status_code = 200
     return resp
-
-
-def get_hashed_password(email):
-    query_result = db.session.query(User).filter(User.email == email).first()
-    if not query_result:
-        return ''
-    else:
-        return query_result.password
