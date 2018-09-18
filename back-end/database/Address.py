@@ -1,6 +1,6 @@
 from model import db
 
-# [START model]
+
 class Address(db.Model):
     __tablename__ = 'address'
 
@@ -22,4 +22,3 @@ class Address(db.Model):
     def __repr__(self):
         full_address = line1 + " " + line2 + " " + state + " " + postcode
         return "<Address(address='%s')" % (full_address)
-# [END model]

@@ -1,6 +1,6 @@
 from model import db
 
-# [START model]
+
 class MoveDetails(db.Model):
     __tablename__ = 'movedetails'
 
@@ -32,4 +32,3 @@ class MoveDetails(db.Model):
 
     def __repr__(self):
         return "<User(email='%s')" % (self.email)
-# [END model]

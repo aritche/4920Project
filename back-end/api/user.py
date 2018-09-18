@@ -20,35 +20,25 @@ def insert_new_user(json):
         or (not 'firstName' in json)
         or (not 'lastName' in json)
         or (not 'email' in json)
-        or (not 'confirmEmail' in json)
-        or (not 'password' in json)
+        or (not 'hashedPassword' in json)
     ):
         abort(400, 'Not all fields were received.')
 
-    # Verify information
-    if len(json['password']) < 6:
-        abort(400, 'Password is must be at least 6 characters long.')
-    if json['email'] != json['confirmEmail']:
-        abort(400, 'Email addresses do not match.')
-    # TODO: verify date of birth
-
-    # Check for account with same email
-    query_result = db.session.query(User).filter(User.email == json['email']).first()
-    if query_result:
-        abort(400, 'An account with that email address already exists.')
-
-    user = User(
-        email = json['email'],
-        first_name = json['firstName'],
-        last_name = json['lastName'],
-        password = json['password']
+    attempt_add = User.add_user(
+        json['email'],
+        json['firstName'],
+        json['lastName'],
+        json['userType'],
+        json['hashedPassword']
     )
-    db.session.add(user)
-    db.session.commit()
+
+    if not attempt_add.success:
+        abort(400, attempt_add.error)
+
 
     resp = jsonify({
         'success': True,
-        'user': User.to_dict(user)
+        'user': User.to_dict(attempt_add.user)
     })
     resp.status_code = 200
     return resp

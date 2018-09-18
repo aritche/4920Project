@@ -1,6 +1,6 @@
 from model import db
 
-# [START model]
+
 class Comment(db.Model):
     __tablename__ = 'comment'
 
@@ -23,4 +23,3 @@ class Comment(db.Model):
 
     def __repr__(self):
         return "<User(email='%s')" % (self.email)
-# [END model]
