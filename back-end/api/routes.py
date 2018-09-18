@@ -2,7 +2,7 @@ from flask import request
 from flask_cors import cross_origin
 from api import base
 from api.user import authenticate_login, get_user_by_id, insert_new_user
-from api.move import create_new_move
+from api.move import create_new_move, search_moves
 
 
 @base.route('/user/<user_id>')
@@ -20,3 +20,7 @@ def authenticate_user():
 @base.route('/create-post', methods=['POST'])
 def create_post():
     return create_new_move(request.json)
+
+@base.route('/search-posts', methods=['POST'])
+def search_posts():
+    return search_moves(request.json)
