@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
+import { verify } from 'password-hash';
+import { url } from '../../Api';
+import { updateAuthentication } from '../../Authentication';
 
 export default class CreateLoginForm extends Component {
     constructor() {
         super();
-        
+
         this.state = {
             email: '',
             password: '',
@@ -14,7 +17,7 @@ export default class CreateLoginForm extends Component {
             errorMessage: 'An error has occurred.'
         }
     }
-    
+
     onEmailChange = (e) => {
         this.setState({ email: e.target.value });
     }
@@ -22,7 +25,7 @@ export default class CreateLoginForm extends Component {
     onPasswordChange = (e) => {
         this.setState({ password: e.target.value });
     }
-    
+
     attemptLogin = () => {
         // Form validation
         // Assume no errors
@@ -46,23 +49,59 @@ export default class CreateLoginForm extends Component {
             this.setState({ errorMessage: 'Email and Password must not be blank.'});
             this.setState({ submitError: true });
         } else{
-            // Connect to back-end here
-            console.log("Sending data to backend...")
-            console.log("Getting response...")
-            var success = false
-
-            // Assume no error
-            if (success){
-                // If successful
-                alert("Successful login. " + this.state.email + " has logged in with password " + this.state.password)
-            } else{
-                // If unsuccessful
-                this.setState({ submitError: true });
-                this.setState({ errorMessage: 'Incorrect account details, please try again.'});
-            }
+            // Connect to back-end
+            fetch(url + 'authenticate', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'email': this.state.email
+                })
+            }).then(response => {
+                if (response.status === 400) {
+                    response.json().then(obj => {
+                        this.setState({
+                            submitError: true,
+                            errorMessage: obj.error
+                        });
+                    });
+                } else if (response.status === 200) {
+                    response.json().then(obj => {
+                        if (obj.success) {
+                            if (verify(this.state.password, obj.hashed_password)) {
+                                updateAuthentication(true);
+                                this.props.history.push('/');
+                            } else {
+                                this.setState({
+                                    submitError: true,
+                                    errorMessage: 'Your email and password do not match. Please try again.',
+                                    isLoading: false
+                                });
+                            }
+                            return;
+                        }
+                        this.setState({
+                            submitError: true,
+                            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                            isLoading: false
+                        });
+                    });
+                    return;
+                } else {
+                    this.setState({
+                        submitError: true,
+                        errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
+                    });
+                }
+                this.setState({
+                    isLoading: false,
+                });
+            });
         }
     }
-    
+
     render() {
         // code is a modified version of Semantic-UI-React login template
         //   - found at https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/LoginLayout.js

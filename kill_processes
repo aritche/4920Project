@@ -1,6 +1,6 @@
 #!/bin/bash
 
-lsof -i :8080 | grep -ri python | perl -pe 's/python *(\d+).*/$1/' |
+lsof -i :8080 | grep python | perl -pe 's/python *(\d+).*/$1/' |
 
 while read p; do
     echo "killing process $p"
