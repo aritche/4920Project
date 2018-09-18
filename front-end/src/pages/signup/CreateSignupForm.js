@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
-import { generate } from 'password-hash';
+import { generate, verify } from 'password-hash';
 import { url } from '../../Api';
 import { updateAuthentication } from '../../Authentication';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
@@ -115,8 +115,6 @@ export default class CreateSignupForm extends Component {
                         'userType': 'movee' // placeholder - add actual option later
                     })
                 }).then(response => {
-                    console.log('response');
-                    console.log(response);
                     if (response.status === 400) {
                         response.json().then(obj => {
                             this.setState({
@@ -126,7 +124,6 @@ export default class CreateSignupForm extends Component {
                         });
                     } else if (response.status === 200) {
                         response.json().then(obj => {
-                            console.log(obj);
                             if (obj.success) {
                                 updateAuthentication(true);
                                 this.props.history.push('/');

@@ -62,10 +62,12 @@ def insert_new_user(json):
     return resp
 
 
-def authenticate_login(email):
+def authenticate_login(json):
+    if not 'email' in json:
+        abort(400, 'No email received.')
     resp = jsonify({
         'success': True,
-        'hashed_password': get_hashed_password(email)
+        'hashed_password': get_hashed_password(json['email'])
     })
     resp.status_code = 200
     return resp
