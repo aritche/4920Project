@@ -1,4 +1,5 @@
 #!/bin/bash
+./kill_processes
 sudo pip install -r back-end/requirements.txt
 
 python back-end/main.py &

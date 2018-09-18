@@ -6,7 +6,7 @@ export default class SignupPage extends Component {
     render() {
         return (
             <Container>
-                <CreateSignupForm/>
+                <CreateSignupForm history={this.props.history}/>
             </Container>
         )
     }
