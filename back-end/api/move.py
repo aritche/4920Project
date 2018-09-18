@@ -5,6 +5,8 @@ from database.MoveDetails import MoveDetails
 from database.FromAddress import FromAddress
 from database.ToAddress import ToAddress
 from database.Item import Item
+from database.User import User
+
 
 def create_new_move(json):
     if (
@@ -89,3 +91,37 @@ def create_new_move(json):
     resp.status_code = 200
 
     return resp
+
+
+def search_moves(json):
+    move_query = db.session.query(MoveDetails)
+
+    if 'status' in json:
+        move_query = move_query.filter(MoveDetails.status == json['status'])
+
+    if 'budgetLow' in json:
+        move_query = move_query.filter(MoveDetails.budget > json['budgetLow'])
+
+    if 'budgetHigh' in json:
+        move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
+
+    resp = jsonify({
+        'moves': map(get_movee_name_and_suburbs, map(translate_address_id, map(MoveDetails.to_dict, move_query.all())))
+    })
+    resp.status_code = 200
+    return resp
+
+
+def translate_address_id(move):
+    address_from_id = move['address_from']
+    address_to_id = move['address_to']
+    move['address_from'] = db.session.query(FromAddress).filter(FromAddress.id == address_from_id).first().to_dict()
+    move['address_to'] = db.session.query(ToAddress).filter(ToAddress.id == address_to_id).first().to_dict()
+    return move
+
+def get_movee_name_and_suburbs(move):
+    movee = db.session.query(User).filter(User.id == move['movee_id']).first()
+    move['movee_name'] = movee.first_name + ' ' + movee.last_name
+    move['from_suburb'] = 'Newtown'  # placeholder
+    move['to_suburb'] = 'Randwick'   # placeholder
+    return move
