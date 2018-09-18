@@ -2,6 +2,9 @@ from flask import abort, jsonify
 from datetime import datetime
 from database.model import db
 from database.MoveDetails import MoveDetails
+from database.FromAddress import FromAddress
+from database.ToAddress import ToAddress
+from database.Item import Item
 
 def create_new_move(json):
     if (
@@ -25,26 +28,56 @@ def create_new_move(json):
     ):
         abort(400, 'Not all fields were received.')
 
-
-    # Check for account with same email
-    query_result = db.session.query(User).filter(User.email == json['email']).first()
-    if query_result:
-        abort(400, 'A user with this email address already exists.')
-
-    user = User(
-        email = json['email'],
-        first_name = json['firstName'],
-        last_name = json['lastName'],
-        user_type = json['userType'],
-        password = json['hashedPassword'],
-        creation_date = datetime.now()
+    # create addresses
+    address_from = FromAddress(
+        line1 = json['addrFromL1'],
+        line2 = json['addrFromL2'],
+        state = json['fromState'],
+        postcode = json['fromPostCo']
     )
-    db.session.add(user)
+    address_to = ToAddress(
+        line1 = json['addrToL1'],
+        line2 = json['addrToL2'],
+        state = json['toState'],
+        postcode = json['toPostCo']
+    )
+    db.session.add(address_from, address_to)
+    db.session.commit()
+
+    # create move details
+    move = MoveDetails(
+        movee_id = json['userId'],
+        title = json['title'],
+        closing_date = datetime.now(), # placeholder
+        description = json['desc'],
+        budget = json['budget'],
+        status = 'OPEN',
+        creation_datetime = datetime.now(),
+        address_from = address_from.id,
+        address_to = address_to.id
+    )
+    db.session.add(move)
+    db.session.commit()
+
+    # create items
+    for item in json['items']:
+        new_item = Item(
+            name = item['name'],
+            weight = item['weight'],
+            volume = item['volume'],
+            amount = item['amount'],
+            move_id = move.id
+        )
+        db.session.add(new_item)
+
+    # update addresses with move id
+    address_from.move_id = move.id
+    address_to.move_id = move.id
     db.session.commit()
 
     resp = jsonify({
         'success': True,
-        'user': user.to_dict()
+        'move': move.to_dict()
     })
     resp.status_code = 200
 

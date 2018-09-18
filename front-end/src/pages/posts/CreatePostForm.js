@@ -33,7 +33,9 @@ export default class CreatePostForm extends Component {
             budget: BUDGET.DEFAULT,
             item: {name: '', weight: '', volume: '', desc: '', amount:''},
             itemTable: [{name: 'table', weight: '4kg', volume: '1*1*1', desc: '', amount:'x1'}],
-            desc: ''
+            desc: '',
+            submitError: false,
+            errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
         }
     }
 
@@ -111,7 +113,7 @@ export default class CreatePostForm extends Component {
                 response.json().then(obj => {
                     this.setState({
                         submitError: true,
-                        errorMessage: obj.error
+                        errorMessage: obj.error,
                     });
                 });
             } else if (response.status === 200) {
