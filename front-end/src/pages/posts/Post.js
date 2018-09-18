@@ -8,7 +8,7 @@ export default class Post extends Component {
         const { post } = this.props;
 
         return (
-            <Item key={ post.id } as={Link} to="/posts/details">
+            <Item key={ post.id } as={Link} to={"/posts/" + post.id}>
                 <Item.Image size='tiny' src='/images/default_profile_pic.jpg' />
 
                 <Item.Content>
