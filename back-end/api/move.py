@@ -49,9 +49,6 @@ def create_new_move(json):
     db.session.add(address_to)
     db.session.commit()
 
-    print(json['date'] + '-' + json['time1'])
-    print(datetime.strptime(json['date'] + '-' + json['time1'], '%d/%m/%Y-%H:%M'))
-
     # create move details
     move = MoveDetails(
         movee_id = json['userId'],
