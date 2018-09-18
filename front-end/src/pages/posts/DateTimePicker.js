@@ -34,7 +34,7 @@ export default class DateTimePicker extends Component{
               onChange={this.onTime1Change}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={5}
+              timeIntervals={30}
               dateFormat="LT"
               timeCaption="Time"
               placeholderText={'From'}
@@ -45,7 +45,7 @@ export default class DateTimePicker extends Component{
               onChange={this.onTime2Change}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={5}
+              timeIntervals={30}
               dateFormat="LT"
               timeCaption="Time"
               placeholderText={'To'}

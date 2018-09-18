@@ -28,10 +28,8 @@ def create_new_move(json):
     ):
         abort(400, 'Not all fields were received.')
 
-    print(json['date'])
-    print(json['time1'])
-    print(json['time2'])
-    abort(400, 'For now')
+    if json['userId'] == -1:
+        abort(400, 'You must be logged in to create a post.')
 
     # create addresses
     address_from = FromAddress(
@@ -40,20 +38,26 @@ def create_new_move(json):
         state = json['fromState'],
         postcode = json['fromPostCo']
     )
+    db.session.add(address_from)
+
     address_to = ToAddress(
         line1 = json['addrToL1'],
         line2 = json['addrToL2'],
         state = json['toState'],
         postcode = json['toPostCo']
     )
-    db.session.add(address_from, address_to)
+    db.session.add(address_to)
     db.session.commit()
+
+    print(json['date'] + '-' + json['time1'])
+    print(datetime.strptime(json['date'] + '-' + json['time1'], '%d/%m/%Y-%H:%M'))
 
     # create move details
     move = MoveDetails(
         movee_id = json['userId'],
         title = json['title'],
-        closing_date = datetime.now(), # placeholder
+        closing_datetime1 = datetime.strptime(json['date'] + '-' + json['time1'], '%d/%m/%Y-%H:%M'),
+        closing_datetime2 = datetime.strptime(json['date'] + '-' + json['time2'], '%d/%m/%Y-%H:%M'),
         description = json['desc'],
         budget = json['budget'],
         status = 'OPEN',
@@ -71,6 +75,7 @@ def create_new_move(json):
             weight = item['weight'],
             volume = item['volume'],
             amount = item['amount'],
+            description = item['desc'],
             move_id = move.id
         )
         db.session.add(new_item)

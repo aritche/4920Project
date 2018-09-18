@@ -9,6 +9,7 @@ import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'
 import { BUDGET } from '../../constants';
 import { url } from '../../Api';
+import { getLoggedInUser } from '../../Authentication';
 
 /**
  * Title: Post Form
@@ -28,8 +29,8 @@ export default class CreatePostForm extends Component {
             toState: '',
             toPostCo: '',
             date: moment().endOf('day'),
-            time1: moment().startOf('day'),
-            time2: moment().startOf('day'),
+            time1: moment().startOf('day').hour(9),
+            time2: moment().startOf('day').hour(17),
             budget: BUDGET.DEFAULT,
             item: {name: '', weight: '', volume: '', desc: '', amount:''},
             itemTable: [],
@@ -51,7 +52,7 @@ export default class CreatePostForm extends Component {
     }
 
     onChange = (e) => {
-        console.log(e.target.name);
+        console.log([e.target.name])
         this.setState({[e.target.name]: e.target.value});
     };
 
@@ -101,12 +102,13 @@ export default class CreatePostForm extends Component {
                 'addrToL2': this.state.addrToL2,
                 'toState': this.state.toState,
                 'toPostCo': this.state.toPostCo,
-                'date': this.state.date,
-                'time1': this.state.time1,
-                'time2': this.state.time2,
+                'date': this.state.date.format('DD/MM/YYYY'),
+                'time1': this.state.time1.format('HH:mm'),
+                'time2': this.state.time2.format('HH:mm'),
                 'budget': this.state.budget,
                 'desc': this.state.desc,
-                'items': this.state.itemTable
+                'items': this.state.itemTable,
+                'userId': getLoggedInUser()
             })
         }).then(response => {
             if (response.status === 400) {
@@ -150,12 +152,15 @@ export default class CreatePostForm extends Component {
               <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
                 <Form.Input
+                  name='title'
                   style={{width: 250}} fluid label='Title'
-                  placeholder='Page Title'
+                  placeholder='Post Title'
                   onChange={this.onChange}
                 />
 
                 <SearchBar
+                  lowerIdent='from'
+                  upperIdent='From'
                   addrL1={this.state.addrFromL1}
                   addrL2={this.state.addrFromL2}
                   state={this.state.fromState}
@@ -165,6 +170,8 @@ export default class CreatePostForm extends Component {
                 />
                 <br/>
                 <SearchBar
+                  lowerIdent='to'
+                  upperIdent='To'
                   addrL1={this.state.addrToL1}
                   addrL2={this.state.addrToL2}
                   state={this.state.toState}
@@ -202,7 +209,7 @@ export default class CreatePostForm extends Component {
                 />
 
                 <Header size={'tiny'}> Post Description </Header>
-                <TextArea autoHeight placeholder={'Description'} onChange={this.onChange}/>
+                <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
 
               </Form.Field>
 

@@ -10,6 +10,7 @@ class Item(db.Model):
     volume = db.Column(db.String(255), nullable=False)
     weight = db.Column(db.String(255), nullable=False)
     amount = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     move_id = db.Column(db.Integer, ForeignKey('movedetails.id'), nullable=False)
 
     def to_dict(self):
