@@ -28,6 +28,11 @@ def create_new_move(json):
     ):
         abort(400, 'Not all fields were received.')
 
+    print(json['date'])
+    print(json['time1'])
+    print(json['time2'])
+    abort(400, 'For now')
+
     # create addresses
     address_from = FromAddress(
         line1 = json['addrFromL1'],

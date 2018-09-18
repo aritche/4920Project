@@ -52,6 +52,7 @@ export default class CreatePostForm extends Component {
     }
 
     onChange = (e) => {
+        console.log(e.target.name);
         this.setState({[e.target.name]: e.target.value});
     };
 
@@ -119,7 +120,7 @@ export default class CreatePostForm extends Component {
             } else if (response.status === 200) {
                 response.json().then(obj => {
                     if (obj.success) {
-                        updateAuthentication(true);
+                        // once view post is done, change this url to view post url
                         this.props.history.push('/');
                     } else {
                         this.setState({
