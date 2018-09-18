@@ -7,7 +7,7 @@ class MoveDetails(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     item_set = db.Column(db.Integer, ForeignKey('item.id'), nullable=False)
-    poster = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
+    movee_id = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
     address_from = db.Column(db.Integer, ForeignKey('address.id'), nullable=False)
     address_to = db.Column(db.Integer, ForeignKey('address.id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
@@ -20,7 +20,7 @@ class MoveDetails(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'poster': self.poster,
+            'movee_id': self.movee_id,
             'address_from': self.address_from,
             'address_to': self.address_to,
             'title': self.title,

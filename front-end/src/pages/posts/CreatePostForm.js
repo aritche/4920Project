@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Form, Header, TextArea } from 'semantic-ui-react';
+import moment from "moment";
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
 import ProcessStep from './ProcessStep'
 import InputSlider from '../../widgets/InputSlider'
 import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'
-import { Link } from 'react-router-dom';
 import { BUDGET } from '../../constants';
-import moment from "moment";
+import { url } from '../../Api';
 
 /**
  * Title: Post Form
@@ -79,7 +80,64 @@ export default class CreatePostForm extends Component {
     };
 
     createPost = () => {
-        alert("Post with title [" + this.state.title + "] created!")
+        // form validation here (e.g. check title is not empty)
+
+        // connect to back-end
+        fetch(url + 'create-post', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'title': this.state.title,
+                'addrFromL1': this.state.addrFromL1,
+                'addrFromL2': this.state.addrFromL2,
+                'fromState': this.state.fromState,
+                'fromPostCo': this.state.fromPostCo,
+                'addrToL1': this.state.addrToL1,
+                'addrToL2': this.state.addrToL2,
+                'toState': this.state.toState,
+                'toPostCo': this.state.toPostCo,
+                'date': this.state.date,
+                'time1': this.state.time1,
+                'time2': this.state.time2,
+                'budget': this.state.budget,
+                'desc': this.state.desc,
+                'items': this.state.itemTable
+            })
+        }).then(response => {
+            if (response.status === 400) {
+                response.json().then(obj => {
+                    this.setState({
+                        submitError: true,
+                        errorMessage: obj.error
+                    });
+                });
+            } else if (response.status === 200) {
+                response.json().then(obj => {
+                    if (obj.success) {
+                        updateAuthentication(true);
+                        this.props.history.push('/');
+                    } else {
+                        this.setState({
+                            submitError: true,
+                            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                            isLoading: false
+                        });
+                    }
+                });
+                return;
+            } else {
+                this.setState({
+                    submitError: true,
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
+                });
+            }
+            this.setState({
+                isLoading: false,
+            });
+        });
     };
 
     render() {
