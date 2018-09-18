@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "moment": "^2.20.0",
+    "password-hash": "^1.2.2",
     "react": "^16.5.0",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.0",

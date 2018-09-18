@@ -1,4 +1,5 @@
-from model import db
+from database.model import db
+from sqlalchemy import ForeignKey
 
 
 class MoveDetails(db.Model):

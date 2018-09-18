@@ -1,4 +1,5 @@
-from model import db
+from sqlalchemy.orm import relationship
+from database.model import db
 
 
 class Address(db.Model):
@@ -9,6 +10,7 @@ class Address(db.Model):
     line2 = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(4), nullable=False)
     postcode = db.Column(db.String(4), nullable=False)
+    user = relationship("User", back_populates="address")
 
     def to_dict(self):
         return {

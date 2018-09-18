@@ -1,4 +1,6 @@
-from model import db
+from database.model import db
+from sqlalchemy import ForeignKey
+
 
 class Item(db.Model):
     __tablename__ = 'item'

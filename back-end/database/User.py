@@ -1,7 +1,7 @@
 from datetime import datetime
-from model import db
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from database.model import db
 
 
 class User(db.Model):
@@ -30,38 +30,3 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User(email='%s')" % (self.email)
-
-    def validate_email(self, key, email):
-        # need to add in more validation rules
-        if not '@' in email:
-            return False
-        return True
-
-    def add_user(email, first_name, last_name, user_type, hashed_password):
-        if not self.validate_email(email):
-            return {success: False, error: 'The email address is invalid.'}
-
-        # validate names?
-
-        # Check for account with same email
-        query_result = db.session.query(User).filter(User.email == email).first()
-        if query_result:
-            return {success: False, error: 'A user with this email address already exists.'}
-
-        user = User(
-            email = email,
-            first_name = first_name,
-            last_name = last_name,
-            user_type = user_type,
-            password = hashed_password,
-            creation_date = datetime.now()
-        )
-        db.session.add(user)
-        db.session.commit()
-
-        return {success: True, user: user}
-
-    # def authenticate_user(email, password):
-        # check user table for email
-        # check corresponding password
-        # return 0 for good, 1 for no user, 2 for wrong password
