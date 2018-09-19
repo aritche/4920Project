@@ -37,6 +37,10 @@ export default class FilterBar extends Component {
 
     }
 
+    onSortByChange = (e) => {
+        alert('changed sort order')
+    }
+
     render() {
         return (
                 <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
