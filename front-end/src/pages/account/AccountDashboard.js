@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form, Header, TextArea, Segment, Container, Icon, Modal, Card, Image} from 'semantic-ui-react';
 import avatar from './elliot.jpg'
-import { getLoggedInUser } from '../../Authentication';
+import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
 
 
@@ -10,27 +10,56 @@ import { url } from '../../Api';
  * Author: Victor
  */
 export default class AccountDashboard extends Component {
-    constructor() {
-      super();
+  constructor() {
+    super();
 
-      this.state = {
-        isLoading: false,
-        open: false,
-        user: {},
-      };
-    }
-
-    close = () => {
-        this.setState({open: false});
+    this.state = {
+      isLoading: false,
+      open: false,
+      user: {},
     };
+  }
 
-    open = () => {
-        this.setState({open: true});
-    };
+  close = () => {
+    this.setState({open: false});
+  };
 
-    deleteAccount = () => {
-        fetch(url + '/delete-account').catch(error => console.error('Error', error));
-    };
+  open = () => {
+    this.setState({open: true});
+  };
+
+  deleteAccount = () => {
+    this.setState({isLoading: true});
+    fetch(url + 'delete-account', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'userId': this.state.user.id
+      })
+    }).then(response => {
+      if (response.status === 200) {
+        response.json().then(obj => {
+          if (obj.success) {
+            logout();
+            this.props.history.push('/login');
+          } else {
+            this.setState({
+              errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+              isLoading: false
+            });
+          }
+        });
+      } else {
+        this.setState({
+          errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+          isLoading: false
+        });
+      }
+    });
+  };
 
   componentDidMount() {
     fetch(url + 'user/' + getLoggedInUser()).then(response => {
@@ -68,26 +97,19 @@ export default class AccountDashboard extends Component {
                 <Modal.Content style={{paddingLeft: 100}}>
                   <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
                 </Modal.Content>
+                <Modal.Actions style={{paddingRight: 150}}>
                   <Button color='red' onClick={this.deleteAccount}>
                     <Icon name='checkmark' /> Yes
                   </Button>
-                } open={this.state.open} onClose={this.close} closeIcon>
-                  <Modal.Content style={{paddingLeft: 100}}>
-                    <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
-                  </Modal.Content>
-                  <Modal.Actions style={{paddingRight: 150}}>
-                    <Button color='red' onClick={this.deleteAccount}>
-                      <Icon name='checkmark' /> Yes
-                    </Button>
-                    <Button color='green' onClick={this.close}>
-                      <Icon name='remove' /> No
-                    </Button>
-                  </Modal.Actions>
+                  <Button color='green' onClick={this.close}>
+                    <Icon name='remove' /> No
+                  </Button>
+                </Modal.Actions>
               </Modal>
             </div>
           </Segment>
         </div>
       </Container>
-      )
-    }
+    )
+  }
 }

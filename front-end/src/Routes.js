@@ -20,7 +20,7 @@ export default class Routes extends Component {
               <Route path='/login' component={LoginPage}/>
               <Route path='/signup' component={SignupPage}/>
               <Route path='/search' component={SearchPage}/>
-              <Route path={'/acctDash'} component={AccountDashboard}/>
+              <Route path={'/dashboard'} component={AccountDashboard}/>
             </Switch>
         )
     }
