@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Form, Image} from 'semantic-ui-react';
+import { Menu, Segment, Image} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { isLoggedIn, getLoggedInUser, logout } from '../Authentication';
 import logo from './uMove.jpg';
@@ -14,7 +14,7 @@ export default class NavHeader extends Component {
             query: '',
             isLoggedIn: false
         }
-    }
+    };
 
     getUserName() {
         if (isLoggedIn()) {
@@ -33,11 +33,11 @@ export default class NavHeader extends Component {
                 isLoggedIn: false
             })
         }
-    }
+    };
 
     onQueryChange = (e) => {
         this.setState({ query: e.target.value });
-    }
+    };
 
     onQuerySubmit = () => {
         console.log('Submitting:', this.state.query);
@@ -46,7 +46,7 @@ export default class NavHeader extends Component {
         // Code to change to search page here
         //this.props.history.push('/')
 
-    }
+    };
 
     render() {
         if (isLoggedIn() !== this.state.isLoggedIn) {
@@ -55,14 +55,9 @@ export default class NavHeader extends Component {
         return (
             <Segment attached style={{backgroundColor:'#000000', paddingTop:'0px', paddingBottom:'0px', marginBottom:'30px'}}>
                 <Menu inverted pointing secondary>
-                    <Menu.Item>
+                    <Menu.Item  as={Link} to={'/'} active={window.location.pathname === '/'}>
                         <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
-                    {/*
-                    <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
-                        Home
-                    </Menu.Item>
-                    */}
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
                     </Menu.Item>
@@ -91,5 +86,5 @@ export default class NavHeader extends Component {
                 </Menu>
             </Segment>
         )
-    }
+    };
 }
