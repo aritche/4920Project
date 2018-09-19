@@ -61,14 +61,17 @@ def insert_new_user(json):
 
     return resp
 
-def delete_account_details(json):
-    if 'id' in json:
-        id_to_delete = json['id']
+def delete_user(json):
+    if json and 'userId' in json:
+        id_to_delete = json['userId']
+    else:
+        abort(400, 'Not all required fields were received.')
+
 
     account_to_delete = db.session.query(User).filter(User.id == id_to_delete).first()
 
     if not account_to_delete:
-        abort(400, 'Account not found/doesn\'t exist')
+        abort(400, 'Account not found.')
     else:
         db.session.delete(account_to_delete)
         db.session.commit()

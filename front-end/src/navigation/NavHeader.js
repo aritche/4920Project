@@ -12,19 +12,27 @@ export default class NavHeader extends Component {
 
         this.state = {
             query: '',
+            isLoggedIn: false
         }
     }
 
-    componentDidMount() {
-        fetch(url + 'user/' + getLoggedInUser()).then(response => {
-            if (response.status === 200) {
-              response.json().then(obj => {
-                this.setState({
-                  userName: obj.first_name + ' ' + obj.last_name
-                })
-              });
-            }
-        });
+    getUserName() {
+        if (isLoggedIn()) {
+            fetch(url + 'user/' + getLoggedInUser()).then(response => {
+                if (response.status === 200) {
+                response.json().then(obj => {
+                    this.setState({
+                    userName: obj.first_name + ' ' + obj.last_name,
+                    isLoggedIn: true
+                    })
+                });
+                }
+            });
+        } else {
+            this.setState({
+                isLoggedIn: false
+            })
+        }
     }
 
     onQueryChange = (e) => {
@@ -41,6 +49,9 @@ export default class NavHeader extends Component {
     }
 
     render() {
+        if (isLoggedIn() !== this.state.isLoggedIn) {
+            this.getUserName();
+        }
         return (
             <Segment attached style={{backgroundColor:'#000000', paddingTop:'0px', paddingBottom:'0px', marginBottom:'30px'}}>
                 <Menu inverted pointing secondary>
@@ -57,24 +68,24 @@ export default class NavHeader extends Component {
                     </Menu.Item>
 
                     {
-                        isLoggedIn() ?
-                        <Menu.Menu position='right'>
-                            <Menu.Item as={Link} to={'/dashboard'} active={window.location.pathname === '/dashboard'}>
-                                {'userName' in this.state ? this.state.userName : 'Dashboard'}
-                            </Menu.Item>
-                            <Menu.Item onClick={logout} as={Link} to={'/login'} active={window.location.pathname === '/login'}>
-                                Log Out
-                            </Menu.Item>
-                        </Menu.Menu>
+                        this.state.isLoggedIn ?
+                            <Menu.Menu position='right'>
+                                <Menu.Item as={Link} to={'/dashboard'} active={window.location.pathname === '/dashboard'}>
+                                    {'userName' in this.state ? this.state.userName : 'Dashboard'}
+                                </Menu.Item>
+                                <Menu.Item onClick={logout} as={Link} to={'/login'} active={window.location.pathname === '/login'}>
+                                    Log Out
+                                </Menu.Item>
+                            </Menu.Menu>
                         :
-                        <Menu.Menu position='right'>
-                            <Menu.Item as={Link} to={'/login'} active={window.location.pathname === '/login'}>
-                                Log In
-                            </Menu.Item>
-                            <Menu.Item as={Link} to={'/signup'} active={window.location.pathname === '/signup'}>
-                                Sign Up
-                            </Menu.Item>
-                        </Menu.Menu>
+                            <Menu.Menu position='right'>
+                                <Menu.Item as={Link} to={'/login'} active={window.location.pathname === '/login'}>
+                                    Log In
+                                </Menu.Item>
+                                <Menu.Item as={Link} to={'/signup'} active={window.location.pathname === '/signup'}>
+                                    Sign Up
+                                </Menu.Item>
+                            </Menu.Menu>
                     }
 
                 </Menu>
