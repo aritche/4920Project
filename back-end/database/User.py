@@ -11,7 +11,7 @@ class User(db.Model):
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    creation_date = db.Column(db.Date, nullable=False)
+    creation_date = db.Column(db.DateTime, nullable=False)
     user_type = db.Column(db.String(255), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
 
