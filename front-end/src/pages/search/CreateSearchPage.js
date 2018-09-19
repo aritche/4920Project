@@ -54,6 +54,10 @@ export default class CreateLoginForm extends Component {
             this.setState({ budget: value });
         }
     }
+
+    onSortByChange = (value) => {
+        alert("Sorting by:  " + value);
+    }
     
     render() {
         // code is a modified version of Semantic-UI-React login template
@@ -78,10 +82,13 @@ export default class CreateLoginForm extends Component {
                         <Dropdown text='Date' floating labelled button/>
                         <Menu.Menu position='right'>
                             <h4>Sort by:</h4>
-                            <Dropdown selection defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating labelled button />
+                            <Dropdown selection onChange={this.onSortByChange} defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating labelled button />
                         </Menu.Menu>
                     </Menu>
                 </Segment>
+                        <Form onSubmit={this.onQuerySubmit}>
+                            <Form.Input icon='search' style={{minWidth: 400}} placeholder='Search posts' value={this.state.query} onChange={this.onQueryChange}/>
+                        </Form>
                 <Segment secondary>
                     <PostList posts={results}/>
                 </Segment>
