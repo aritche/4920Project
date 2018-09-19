@@ -1,7 +1,7 @@
 from flask import request
 from flask_cors import cross_origin
 from api import base
-from api.user import authenticate_login, get_user_by_id, insert_new_user
+from api.user import authenticate_login, get_user_by_id, insert_new_user, delete_account_details
 from api.move import create_new_move, search_moves, delete_move_details
 
 
@@ -28,3 +28,7 @@ def search_posts():
 @base.route('/delete-post', methods=['POST'])
 def delete_post():
   return delete_move_details(request.json)
+
+@base.route('/delete-account', methods=['POST'])
+def delete_account():
+  return delete_account_details(request.json)
