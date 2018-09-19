@@ -2,40 +2,93 @@ import React from 'react';
 import { Header, Input } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+const searchOptions = {
+  types: ['address'],
+  componentRestrictions: {country: 'au'}
+};
+
 export default class SearchBar extends React.Component {
 
     onChange = (e) => {
         this.props.handleC(e);
     };
 
-    onAddr2Change = (addrL2) => {
-        geocodeByAddress(addrL2)
-          .then(results => getLatLng(results[0]))
-          .then(this.onChange(addrL2.split(',')[addrL2.split(',').length - 2]))
-          .then(this.props.handleL2(addrL2))
-          .then(latLng => console.log('Success', latLng))
-          .catch(error => console.error('Error', error));
+    onAddr1Change = (addrL1) => {
+        geocodeByAddress(addrL1)
+            .then(results => getLatLng(results[0]))
+            .then(this.props.handleL1(addrL1))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+    };
+
+    onAddr1Select = (addrL1) => {
+        geocodeByAddress(addrL1)
+            .then(results => getLatLng(results[0]))
+            .then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
+            .then(this.onChange(this.convertState(addrL1.split(',')[addrL1.split(',').length - 2])))
+            .then(this.onChange(this.convertPostcode(
+              this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2]),
+              this.convertState(addrL1.split(',')[addrL1.split(',').length - 2]))))
+            .then(this.props.handleL1(addrL1.split(',')[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+    };
+
+    convertCity = (cityState) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.cityN;
+        e.target.value = cityState.split(' ')[1];
+        return e;
+    };
+
+    convertState = (cityState) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.stateN;
+        e.target.value = cityState.split(' ')[2];
+        return e;
+    };
+
+    convertPostcode = (city, state) => {
+        let link = 'http://v0.postcodeapi.com.au/suburbs.json?name=Randwick';
+        let e = {};
+        e.target ={};
+        e.target.name = this.props.postN;
+        e.target.value = '';
+        fetch(link)
+            .then(result => {
+                alert(result);
+                result.forEach(function(addr) {
+                    alert(addr.state.abbreviation);
+                    if (addr.name === city.target.value && addr.state.abbreviation === state.target.value) {
+                        e.target.value = addr.postcode;
+                        return e;
+                    }
+                });
+            })
+          .catch(function(error) {
+            console.log('Looks like there was a problem: \n', error);
+          });
+        return e;
     };
 
     render() {
         return (
           <PlacesAutocomplete
-            value={this.props.addrL2}
-            onChange={this.onAddr2Change}
-            onSelect={this.onAddr2Change}
+            value={this.props.addrL1}
+            onChange={this.onAddr1Change}
+            onSelect={this.onAddr1Select}
+            searchOptions={searchOptions}
           >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <div>
                 <Header size={'tiny'}> Where are you moving from? </Header>
-                <Input
-                  icon='building' iconPosition='left'
-                  style={{width: 400}} fluid placeholder='Address line 1'
-                  onChange={this.onChange}
-                />
+
                 <br/>
                 <Input icon='building' iconPosition={'left'} style={{width: 400}}
                        {...getInputProps({
-                         placeholder: 'Address Line 2',
+                         placeholder: 'Street Address',
                          className: 'location-search-input',
                        })}
                 />
@@ -61,8 +114,15 @@ export default class SearchBar extends React.Component {
                   })}
                 </div>
                 <br/>
+                <Input
+                  icon='building' iconPosition='left'
+                  style={{width: 400}} fluid placeholder='Unit/Room Number'
+                  onChange={this.onChange}
+                />
+                <br/>
                 <div style={{display: 'flex'}} >
                   <Input
+                    value={this.props.city}
                     style={{width: 120}}
                     fluid
                     placeholder='City'
@@ -70,6 +130,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
+                    value={this.props.state}
                     style={{width: 120}}
                     fluid
                     placeholder='State'
@@ -77,6 +138,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
+                    value={this.props.postCode}
                     style={{width: 120}}
                     fluid
                     placeholder='Post Code'
