@@ -180,7 +180,7 @@ export default class CreatePostForm extends Component {
                   state={this.state.fromState}
                   postCode={this.state.fromPostCo}
                   l1N={"addrFromL1"}
-                  l2N={"addrFromL1"}
+                  l2N={"addrFromL2"}
                   cityN={'fromCity'}
                   stateN={"fromState"}
                   postN={"fromPostCo"}
@@ -197,7 +197,7 @@ export default class CreatePostForm extends Component {
                   state={this.state.toState}
                   postCode={this.state.toPostCo}
                   l1N={"addrToL1"}
-                  l2N={"addrToL1"}
+                  l2N={"addrToL2"}
                   cityN={'toCity'}
                   stateN={"toState"}
                   postN={"toPostCo"}
