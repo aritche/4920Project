@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Header, Container, Comment, Form, Button, Step, Icon } from 'semantic-ui-react';
+import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 
 // TODO: Get from backend
 const post = {
     id: 1,
+    movee_id: 3,
     user: "John Smith",
     title: "Test post 1",
     date: "10/09/18",
@@ -24,8 +26,15 @@ export default class PostDetailsPage extends Component {
     render() {        
         return (
             <Container>
-                <Header as='h1'>{ post.title }</Header>
-                <p class="heading-subtitle">By { post.user } <img class="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
+                <Header as='h1'>
+                    { post.title }
+                    {
+                        isLoggedIn() && getLoggedInUser() === post.movee_id &&
+                        <Button style={{    verticalAlign: 'bottom',
+                            marginLeft: '30px'}} negative>Delete</Button>
+                    }
+                </Header>
+                <p className="heading-subtitle">By { post.user } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
 
                 <p> { post.description } </p>
                 <p> <b>Budget:</b> { '$' + post.budget } </p>
