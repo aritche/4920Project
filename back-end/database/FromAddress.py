@@ -18,6 +18,7 @@ class FromAddress(db.Model):
             'id': self.id,
             'line1': self.line1,
             'line2': self.line2,
+            'city': self.city,
             'state': self.state,
             'postcode': self.postcode
         }
