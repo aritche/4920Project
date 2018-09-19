@@ -22,10 +22,12 @@ export default class CreatePostForm extends Component {
             title: '',
             addrFromL1: '',
             addrFromL2: '',
+            fromCity: '',
             fromState: '',
             fromPostCo: '',
             addrToL1: '',
             addrToL2: '',
+            toCity: '',
             toState: '',
             toPostCo: '',
             date: moment().endOf('day'),
@@ -41,26 +43,26 @@ export default class CreatePostForm extends Component {
     }
 
     itemTableAdd = (name, weight, volume, desc, amount) => {
-        var items = this.state.itemTable;
+        let items = this.state.itemTable;
         items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
         this.setState({itemTable: items});
-    }
+    };
 
     itemTableDelete = (name) => {
-        var items = this.state.itemTable.filter(i => i.name !== name);
+        let items = this.state.itemTable.filter(i => i.name !== name);
         this.setState({itemTable: items});
-    }
+    };
 
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     };
 
     onAddrFChange = (addr) => {
-        this.setState({addrFromL2: addr});
+        this.setState({addrFromL1: addr});
     };
 
     onAddrTChange = (addr) => {
-        this.setState({addrToL2: addr});
+        this.setState({addrToL1: addr});
     };
 
     onDateChange = (date) => {
@@ -68,11 +70,21 @@ export default class CreatePostForm extends Component {
     };
 
     onTime1Change = (time1) => {
-        this.setState({time1: time1});
+        if (time1.isAfter(this.state.time2)) {
+            alert("From time must be before the to time")
+        }
+        else {
+            this.setState({time1: time1});
+        }
     };
 
     onTime2Change = (time2) => {
-        this.setState({time2: time2});
+        if (time2.isBefore(this.state.time1)) {
+            alert("To time must be after the from time")
+        }
+        else {
+            this.setState({time2: time2});
+        }
     };
 
     onBudgetChange = (value) => {
@@ -95,10 +107,12 @@ export default class CreatePostForm extends Component {
                 'title': this.state.title,
                 'addrFromL1': this.state.addrFromL1,
                 'addrFromL2': this.state.addrFromL2,
+                'fromCity': this.state.fromCity,
                 'fromState': this.state.fromState,
                 'fromPostCo': this.state.fromPostCo,
                 'addrToL1': this.state.addrToL1,
                 'addrToL2': this.state.addrToL2,
+                'toCity': this.state.toCity,
                 'toState': this.state.toState,
                 'toPostCo': this.state.toPostCo,
                 'date': this.state.date.format('DD/MM/YYYY'),
@@ -162,10 +176,16 @@ export default class CreatePostForm extends Component {
                   upperIdent='From'
                   addrL1={this.state.addrFromL1}
                   addrL2={this.state.addrFromL2}
+                  city={this.state.fromCity}
                   state={this.state.fromState}
                   postCode={this.state.fromPostCo}
+                  l1N={"addrFromL1"}
+                  l2N={"addrFromL1"}
+                  cityN={'fromCity'}
+                  stateN={"fromState"}
+                  postN={"fromPostCo"}
                   handleC={this.onChange}
-                  handleL2={this.onAddrFChange}
+                  handleL1={this.onAddrFChange}
                 />
                 <br/>
                 <SearchBar
@@ -173,10 +193,16 @@ export default class CreatePostForm extends Component {
                   upperIdent='To'
                   addrL1={this.state.addrToL1}
                   addrL2={this.state.addrToL2}
+                  city={this.state.toCity}
                   state={this.state.toState}
                   postCode={this.state.toPostCo}
+                  l1N={"addrToL1"}
+                  l2N={"addrToL1"}
+                  cityN={'toCity'}
+                  stateN={"toState"}
+                  postN={"toPostCo"}
                   handleC={this.onChange}
-                  handleL2={this.onAddrTChange}
+                  handleL1={this.onAddrTChange}
                 />
 
                 <Header size={'tiny'}> When are you moving? </Header>
