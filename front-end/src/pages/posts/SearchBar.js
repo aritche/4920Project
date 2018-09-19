@@ -24,11 +24,11 @@ export default class SearchBar extends React.Component {
     onAddr1Select = (addrL1) => {
         geocodeByAddress(addrL1)
             .then(results => getLatLng(results[0]))
-            .then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
-            .then(this.onChange(this.convertState(addrL1.split(',')[addrL1.split(',').length - 2])))
-            .then(this.onChange(this.convertPostcode(
-              this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2]),
-              this.convertState(addrL1.split(',')[addrL1.split(',').length - 2]))))
+            //.then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
+            //.then(this.onChange(this.convertState(addrL1.split(',')[addrL1.split(',').length - 2])))
+            //.then(this.onChange(this.convertPostcode(
+              //this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2]),
+              //this.convertState(addrL1.split(',')[addrL1.split(',').length - 2]))))
             .then(this.props.handleL1(addrL1.split(',')[0]))
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
@@ -38,7 +38,15 @@ export default class SearchBar extends React.Component {
         let e = {};
         e.target = {};
         e.target.name = this.props.cityN;
-        e.target.value = cityState.split(' ')[1];
+        let city = "";
+        let cityStateList = cityState.split(' ');
+        city = city + " " + cityStateList[0];
+        if (cityStateList.length > 2) {
+          for (let x = 1; x < cityStateList.length; x++) {
+            city = city + " " + cityStateList[x];
+          }
+        }
+        e.target.value = city;
         return e;
     };
 
@@ -46,7 +54,8 @@ export default class SearchBar extends React.Component {
         let e = {};
         e.target = {};
         e.target.name = this.props.stateN;
-        e.target.value = cityState.split(' ')[2];
+        let cityStateList = cityState.split(' ');
+        e.target.value = cityStateList[cityStateList.length - 1];
         return e;
     };
 
@@ -122,26 +131,26 @@ export default class SearchBar extends React.Component {
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Input
-                    value={this.props.city}
-                    style={{width: 120}}
+                    //value={this.props.city}
+                    style={{width: 160}}
                     fluid
                     placeholder='City'
                     onChange={this.onChange}
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    value={this.props.state}
+                    //value={this.props.postCode}
                     style={{width: 120}}
                     fluid
-                    placeholder='State'
+                    placeholder='Post Code'
                     onChange={this.onChange}
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    value={this.props.postCode}
-                    style={{width: 120}}
+                    //value={this.props.state}
+                    style={{width: 80}}
                     fluid
-                    placeholder='Post Code'
+                    placeholder='State'
                     onChange={this.onChange}
                   />
                 </div>
