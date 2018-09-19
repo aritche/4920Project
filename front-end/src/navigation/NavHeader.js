@@ -32,9 +32,11 @@ export default class NavHeader extends Component {
                     <Menu.Item>
                         uMove
                     </Menu.Item>
+                    {/*
                     <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
                         Home
                     </Menu.Item>
+                    */}
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
                     </Menu.Item>
@@ -42,17 +44,14 @@ export default class NavHeader extends Component {
                         Dashboard
                     </Menu.Item>
 
-                    <Menu.Item style={{paddingTop: 2, paddingBottom:2}} position='right'>
-                        <Form onSubmit={this.onQuerySubmit}>
-                            <Form.Input icon='search' style={{minWidth: 400}} placeholder='Search posts' value={this.state.query} onChange={this.onQueryChange}/>
-                        </Form>
-                    </Menu.Item>
                     
                     {
                         isLoggedIn() ?
-                        <Menu.Item onClick={logout} as={Link} to={'/login'} active={window.location.pathname === '/login'}>
-                            Log Out
-                        </Menu.Item>
+                        <Menu.Menu position='right'>
+                            <Menu.Item onClick={logout} as={Link} to={'/login'} active={window.location.pathname === '/login'}>
+                                Log Out
+                            </Menu.Item>
+                        </Menu.Menu>
                         :
                         <Menu.Menu position='right'>
                             <Menu.Item as={Link} to={'/login'} active={window.location.pathname === '/login'}>
