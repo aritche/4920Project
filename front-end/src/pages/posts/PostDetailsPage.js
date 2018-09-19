@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Comment, Form, Button, Step, Icon } from 'semantic-ui-react';
+import { Header, Container, Comment, Form, Button, Step, Icon, Label } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Loading from 'react-loading';
@@ -35,6 +35,12 @@ export default class PostDetailsPage extends Component {
         });
     }
 
+    deletePost = () => {
+        // TODO: make backend call to delete post
+
+        this.props.history.push('/posts')
+    }
+
     render() {
         if (this.state.isLoading || this.state.errorMessage) {
             return 'Loading...'
@@ -43,12 +49,14 @@ export default class PostDetailsPage extends Component {
                 <Container>
                     <Header as='h1'>
                         { this.state.post.title }
-                        {
-                            isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
-                            <Button style={{    verticalAlign: 'bottom',
-                                marginLeft: '30px'}} negative>Delete</Button>
-                        }
+                        <Label color={"blue"} key={"blue"} style={{marginLeft: '30px'}}>
+                            { this.state.post.status }
+                        </Label>
                     </Header>
+                    {
+                        isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
+                        <Button onClick={this.deletePost} style={{ marginBottom: "10px" }} negative>Delete</Button>
+                    }
                     <p className="heading-subtitle">By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
 
                     <p> { this.state.post.description } </p>
