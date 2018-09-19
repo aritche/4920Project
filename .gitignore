@@ -5,3 +5,5 @@
 *.pyc
 .vscode
 *.db
+
+back-end/test.db
