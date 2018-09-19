@@ -61,13 +61,17 @@ def insert_new_user(json):
 
     return resp
 
-def delete_account(id_to_delete):
+def delete_account_details(json):
+    if 'id' in json:
+        id_to_delete = json['id']
+
     account_to_delete = db.session.query(User).filter(User.id == id_to_delete).first()
+
     if not account_to_delete:
         abort(400, 'Account not found/doesn\'t exist')
     else:
         db.session.delete(account_to_delete)
-        db.sesssion.commit()
+        db.session.commit()
         resp = jsonify({
             'success': True,
         })

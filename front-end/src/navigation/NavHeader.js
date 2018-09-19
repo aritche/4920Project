@@ -47,17 +47,13 @@ export default class NavHeader extends Component {
                     <Menu.Item>
                         <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
+                    {/*
                     <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
                         Home
                     </Menu.Item>
+                    */}
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
-                    </Menu.Item>
-
-                    <Menu.Item style={{paddingTop: 2, paddingBottom:2}} position='right'>
-                        <Form onSubmit={this.onQuerySubmit}>
-                            <Form.Input icon='search' style={{minWidth: 400}} placeholder='Search posts' value={this.state.query} onChange={this.onQueryChange}/>
-                        </Form>
                     </Menu.Item>
 
                     {

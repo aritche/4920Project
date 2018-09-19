@@ -10,8 +10,8 @@ import { url } from '../../Api';
  * Author: Victor
  */
 export default class AccountDashboard extends Component {
-  constructor() {
-    super();
+    constructor() {
+      super();
 
     this.state = {
       isLoading: false,
@@ -20,16 +20,17 @@ export default class AccountDashboard extends Component {
     };
   }
 
-  close = () => {
-    this.setState({open: false});
-  };
+    close = () => {
+        this.setState({open: false});
+    };
 
-  open = () => {
-    this.setState({open: true});
-  };
+    open = () => {
+        this.setState({open: true});
+    };
 
   deleteAccount = () => {
     fetch(url + '/delete-account').catch(error => console.error('Error', error));
+    this.props.history.push('/login');
   };
 
   componentDidMount() {
@@ -65,13 +66,6 @@ export default class AccountDashboard extends Component {
                   Delete Account
                 </Button>
               } open={this.state.open} onClose={this.close} closeIcon>
-                <Modal.Content style={{paddingLeft: 100}}>
-                  <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
-                </Modal.Content>
-                <Button color='red' onClick={this.deleteAccount}>
-                  <Icon name='checkmark' /> Yes
-                </Button>
-                } open={this.state.open} onClose={this.close} closeIcon>
                 <Modal.Content style={{paddingLeft: 100}}>
                   <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
                 </Modal.Content>
