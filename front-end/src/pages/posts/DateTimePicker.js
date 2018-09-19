@@ -1,5 +1,6 @@
-import React,{Component} from 'react';
+import React,{ Component } from 'react';
 import DatePicker from 'react-datepicker';
+import { Header } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 
 /**
@@ -22,34 +23,41 @@ export default class DateTimePicker extends Component{
     render(){
         return (
           <div style={{display: 'flex'}}>
-            <DatePicker
-              selected={this.props.date}
-              onChange={this.onDateChange}
-              placeholderText={'Date'}
-              display={'block'}
-            />
+            <div>
+                <Header size={'tiny'} content={'Date'}/>
+                <DatePicker
+                  header={"Date"}
+                  selected={this.props.date}
+                  onChange={this.onDateChange}
+                  display={'block'}
+                />
+            </div>
             <span style={{width: 20}}/>
-            <DatePicker
-              selected={this.props.time1}
-              onChange={this.onTime1Change}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="LT"
-              timeCaption="Time"
-              placeholderText={'From'}
-            />
+            <div>
+              <Header size={'tiny'} content={'From'}/>
+              <DatePicker
+                selected={this.props.time1}
+                onChange={this.onTime1Change}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                dateFormat="LT"
+                timeCaption="Time"
+              />
+            </div>
             <span style={{width: 20}}/>
-            <DatePicker
-              selected={this.props.time2}
-              onChange={this.onTime2Change}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="LT"
-              timeCaption="Time"
-              placeholderText={'To'}
-            />
+            <div>
+              <Header size={'tiny'} content={'To'}/>
+              <DatePicker
+                selected={this.props.time2}
+                onChange={this.onTime2Change}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                dateFormat="LT"
+                timeCaption="Time"
+              />
+            </div>
           </div>
         );
     }
