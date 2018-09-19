@@ -58,11 +58,11 @@ export default class CreatePostForm extends Component {
     };
 
     onAddrFChange = (addr) => {
-        this.setState({fromAddrL2: addr});
+        this.setState({fromAddrL1: addr});
     };
 
     onAddrTChange = (addr) => {
-        this.setState({toAddrL2: addr});
+        this.setState({toAddrL1: addr});
     };
 
     onDateChange = (date) => {
@@ -159,7 +159,7 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-            <Form size={'large'} style={{marginLeft: 150, paddingBottom: 80}}>
+            <Form size={'large'} style={{paddingBottom: 80}}>
               <ProcessStep/>
 
               <Header size={'large'} content={'Make Your Move!'} />
@@ -172,14 +172,15 @@ export default class CreatePostForm extends Component {
                 />
 
                 <SearchBar
-                  ident='from'
-                  addrL1={this.state.addrFromL1}
-                  addrL2={this.state.addrFromL2}
+                  lowerIdent='from'
+                  upperIdent='From'
+                  addrL1={this.state.fromAddrL1}
+                  addrL2={this.state.fromAddrL2}
                   city={this.state.fromCity}
                   state={this.state.fromState}
                   postCode={this.state.fromPostCo}
                   l1N={"fromAddrL1"}
-                  l2N={"fromAddrL1"}
+                  l2N={"fromAddrL2"}
                   cityN={'fromCity'}
                   stateN={"fromState"}
                   postN={"fromPostCo"}
@@ -188,14 +189,15 @@ export default class CreatePostForm extends Component {
                 />
                 <br/>
                 <SearchBar
-                  ident='to'
-                  addrL1={this.state.addrToL1}
-                  addrL2={this.state.addrToL2}
+                  lowerIdent='to'
+                  upperIdent='To'
+                  addrL1={this.state.toAddrL1}
+                  addrL2={this.state.toAddrL2}
                   city={this.state.toCity}
                   state={this.state.toState}
                   postCode={this.state.toPostCo}
                   l1N={"toAddrL1"}
-                  l2N={"toAddrL1"}
+                  l2N={"toAddrL2"}
                   cityN={'toCity'}
                   stateN={"toState"}
                   postN={"toPostCo"}
@@ -238,11 +240,11 @@ export default class CreatePostForm extends Component {
 
               <br/>
 
-              <Button.Group>
+              <div style={{display: 'flex'}}>
                 <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
                 <span style={{width: 10}}/>
                 <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
-              </Button.Group>
+              </div>
             </Form>
         )
     }

@@ -38,6 +38,9 @@ export default class NavHeader extends Component {
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
                     </Menu.Item>
+                    <Menu.Item as={Link} to={'/acctDash'} active={window.location.pathname === '/acctDash'}>
+                        Dashboard
+                    </Menu.Item>
 
                     <Menu.Item style={{paddingTop: 2, paddingBottom:2}} position='right'>
                         <Form onSubmit={this.onQuerySubmit}>

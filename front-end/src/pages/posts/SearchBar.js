@@ -24,11 +24,11 @@ export default class SearchBar extends React.Component {
     onAddr1Select = (addrL1) => {
         geocodeByAddress(addrL1)
             .then(results => getLatLng(results[0]))
-            //.then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
-            //.then(this.onChange(this.convertState(addrL1.split(',')[addrL1.split(',').length - 2])))
-            //.then(this.onChange(this.convertPostcode(
-              //this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2]),
-              //this.convertState(addrL1.split(',')[addrL1.split(',').length - 2]))))
+            .then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
+            .then(this.onChange(this.convertState(addrL1.split(',')[addrL1.split(',').length - 2])))
+            .then(this.onChange(this.convertPostcode(
+              this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2]),
+              this.convertState(addrL1.split(',')[addrL1.split(',').length - 2]))))
             .then(this.props.handleL1(addrL1.split(',')[0]))
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
@@ -40,11 +40,10 @@ export default class SearchBar extends React.Component {
         e.target.name = this.props.cityN;
         let city = "";
         let cityStateList = cityState.split(' ');
-        city = city + " " + cityStateList[0];
-        if (cityStateList.length > 2) {
-          for (let x = 1; x < cityStateList.length; x++) {
-            city = city + " " + cityStateList[x];
-          }
+        for (let x = 0; x < cityStateList.length; x++) {
+            if (cityStateList[x] !== ',' && cityStateList[x] !== '' && x !== cityStateList.length - 1) {
+              city = city + " " + cityStateList[x];
+            }
         }
         e.target.value = city;
         return e;
@@ -67,7 +66,6 @@ export default class SearchBar extends React.Component {
         e.target.value = '';
         fetch(link)
             .then(result => {
-                alert(result);
                 result.forEach(function(addr) {
                     alert(addr.state.abbreviation);
                     if (addr.name === city.target.value && addr.state.abbreviation === state.target.value) {
@@ -80,6 +78,38 @@ export default class SearchBar extends React.Component {
             console.log('Looks like there was a problem: \n', error);
           });
         return e;
+    };
+
+    onAddr2Change = (addr2) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.l2N;
+        e.target.value = addr2.target.value;
+        this.props.handleC(e);
+    };
+
+    onCityChange = (city) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.cityN;
+        e.target.value = city.target.value;
+        this.props.handleC(e);
+    };
+
+    onStateChange = (state) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.stateN;
+        e.target.value = state.target.value;
+        this.props.handleC(e);
+    };
+
+    onPostChange = (post) => {
+        let e = {};
+        e.target = {};
+        e.target.name = this.props.postN;
+        e.target.value = post.target.value;
+        this.props.handleC(e);
     };
 
     render() {
@@ -128,35 +158,32 @@ export default class SearchBar extends React.Component {
                   name={this.props.ident + 'AddrL2'}
                   icon='building' iconPosition='left'
                   style={{width: 400}} fluid placeholder='Unit/Room Number'
-                  onChange={this.onChange}
+                  onChange={this.onAddr2Change}
                 />
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Input
-                    name={this.props.ident + 'City'}
-                    //value={this.props.city}
+                    value={this.props.city}
                     style={{width: 160}}
                     fluid
                     placeholder='City'
-                    onChange={this.onChange}
+                    onChange={this.onCityChange}
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    name={this.props.ident + 'State'}
-                    //value={this.props.state}
+                    value={this.props.state}
                     style={{width: 80}}
                     fluid
                     placeholder='State'
-                    onChange={this.onChange}
+                    onChange={this.onStateChange}
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    name={this.props.ident + 'PostCo'}
-                    //value={this.props.postCode}
+                    value={this.props.postCode}
                     style={{width: 120}}
                     fluid
                     placeholder='Post Code'
-                    onChange={this.onChange}
+                    onChange={this.onPostChange}
                   />
                 </div>
               </div>
