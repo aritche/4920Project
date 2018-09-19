@@ -134,8 +134,7 @@ export default class CreatePostForm extends Component {
             } else if (response.status === 200) {
                 response.json().then(obj => {
                     if (obj.success) {
-                        // once view post is done, change this url to view post url
-                        this.props.history.push('/');
+                        this.props.history.push('/posts/' + obj.move.id);
                     } else {
                         this.setState({
                             submitError: true,

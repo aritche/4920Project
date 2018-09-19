@@ -2,6 +2,7 @@ from flask import abort, jsonify
 from datetime import datetime
 from database.model import db
 from database.User import User
+from sqlalchemy import and_, not_
 
 
 def get_user_by_id(user_id):
@@ -38,7 +39,8 @@ def insert_new_user(json):
     # validate names?
 
     # Check for account with same email
-    query_result = db.session.query(User).filter(User.email == json['email'] and not User.deleted).first()
+
+    query_result = db.session.query(User).filter(and_(User.email == json['email'], not User.deleted)).first()
     if query_result:
         abort(400, 'A user with this email address already exists.')
 
@@ -69,7 +71,7 @@ def delete_user(json):
         abort(400, 'Not all required fields were received.')
 
 
-    account_to_delete = db.session.query(User).filter(User.id == id_to_delete).first()
+    account_to_delete = db.session.query(User).filter(and_(User.id == id_to_delete, not_(User.deleted))).first()
 
     if not account_to_delete:
         abort(400, 'Account not found.')
@@ -87,8 +89,10 @@ def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
 
-    user = db.session.query(User).filter(User.email == json['email'] and not User.deleted).first()
-    if not user or user.deleted:
+    print(map(User.to_dict, db.session.query(User).all()))
+    user = db.session.query(User).filter(and_(User.email == json['email'], not_(User.deleted))).first()
+
+    if not user:
         password = ''
         user_id = -1
     else:
