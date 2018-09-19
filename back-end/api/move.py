@@ -114,6 +114,18 @@ def delete_move_details(json):
         resp.status_code = 200
         return resp
 
+
+def get_move_details(post_id):
+    move_query = db.session.query(MoveDetails).filter(MoveDetails.id == post_id).first()
+    if not move_query:
+        abort(400, 'Post id does not match any existing posts.')
+
+    resp = jsonify({
+        'move': get_movee_details(get_address_details(move_query.to_dict()))
+    })
+    resp.status_code = 200
+    return resp
+
 def search_moves(json):
     move_query = db.session.query(MoveDetails)
 
