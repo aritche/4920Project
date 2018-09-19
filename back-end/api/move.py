@@ -92,21 +92,18 @@ def create_new_move(json):
 
     return resp
 
-def delete_post(id):
-    try:
-        move_to_delete = MoveDetails.query.filter_by(id)
+def delete_post(id_to_delete):
+    move_to_delete = db.session.query(MoveDetails).filter(MoveDetails.id == id_to_delete).first()
+    if not move_to_delete:
+        abort(400, 'Post not found/doesn\'t exist')
+    else:
         db.session.delete(move_to_delete)
         db.sesssion.commit()
-    except:
-        abort(400, 'Post not found/doesn\'t exist')
-
-def unique_id_gen(table):
-    list_of_ids = db.session.query.filter_by(table.id)
-    if not list_of_ids:
-        new_id = 0
-    elif list_of_ids:
-        new_id = max(list_of_ids) + 1
-    return new_id
+        resp = jsonify({
+            'success': True
+        })
+        resp.status_code = 200
+        return resp
 
 def search_moves(json):
     move_query = db.session.query(MoveDetails)
