@@ -97,6 +97,7 @@ def delete_move_details(json):
         id_to_delete = json['id']
 
     move_to_delete = db.session.query(MoveDetails).filter(MoveDetails.id == id_to_delete).first()
+    item_to_delete = db.session.query(Item).filter(Item.move_id == id_to_delete).delete()
 
     if not move_to_delete:
         abort(400, 'Post not found/doesn\'t exist')
