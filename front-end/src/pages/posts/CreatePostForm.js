@@ -20,12 +20,14 @@ export default class CreatePostForm extends Component {
         super();
         this.state = {
             title: '',
-            addrFromL1: '',
-            addrFromL2: '',
+            fromAddrL1: '',
+            fromAddrL2: '',
+            fromCity: '',
             fromState: '',
             fromPostCo: '',
-            addrToL1: '',
-            addrToL2: '',
+            toAddrL1: '',
+            toAddrL2: '',
+            toCity: '',
             toState: '',
             toPostCo: '',
             date: moment().endOf('day'),
@@ -56,11 +58,11 @@ export default class CreatePostForm extends Component {
     };
 
     onAddrFChange = (addr) => {
-        this.setState({addrFromL2: addr});
+        this.setState({fromAddrL2: addr});
     };
 
     onAddrTChange = (addr) => {
-        this.setState({addrToL2: addr});
+        this.setState({toAddrL2: addr});
     };
 
     onDateChange = (date) => {
@@ -93,12 +95,14 @@ export default class CreatePostForm extends Component {
             },
             body: JSON.stringify({
                 'title': this.state.title,
-                'addrFromL1': this.state.addrFromL1,
-                'addrFromL2': this.state.addrFromL2,
+                'fromAddrL1': this.state.fromAddrL1,
+                'fromAddrL2': this.state.fromAddrL2,
+                'fromCity': this.state.fromCity,
                 'fromState': this.state.fromState,
                 'fromPostCo': this.state.fromPostCo,
-                'addrToL1': this.state.addrToL1,
-                'addrToL2': this.state.addrToL2,
+                'toAddrL1': this.state.toAddrL1,
+                'toAddrL2': this.state.toAddrL2,
+                'toCity': this.state.toCity,
                 'toState': this.state.toState,
                 'toPostCo': this.state.toPostCo,
                 'date': this.state.date.format('DD/MM/YYYY'),
@@ -158,23 +162,13 @@ export default class CreatePostForm extends Component {
                 />
 
                 <SearchBar
-                  lowerIdent='from'
-                  upperIdent='From'
-                  addrL1={this.state.addrFromL1}
-                  addrL2={this.state.addrFromL2}
-                  state={this.state.fromState}
-                  postCode={this.state.fromPostCo}
+                  ident='from'
                   handleC={this.onChange}
                   handleL2={this.onAddrFChange}
                 />
                 <br/>
                 <SearchBar
-                  lowerIdent='to'
-                  upperIdent='To'
-                  addrL1={this.state.addrToL1}
-                  addrL2={this.state.addrToL2}
-                  state={this.state.toState}
-                  postCode={this.state.toPostCo}
+                  ident='to'
                   handleC={this.onChange}
                   handleL2={this.onAddrTChange}
                 />

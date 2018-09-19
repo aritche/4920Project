@@ -28,12 +28,14 @@ export default class SearchBar extends React.Component {
               <div>
                 <Header size={'tiny'}> Where are you moving from? </Header>
                 <Input
-                  icon='building' iconPosition='left'
+                  name={this.props.ident + 'AddrL1'} icon='building' iconPosition='left'
                   style={{width: 400}} fluid placeholder='Address line 1'
                   onChange={this.onChange}
                 />
                 <br/>
-                <Input icon='building' iconPosition={'left'} style={{width: 400}}
+                <Input
+                  name={this.props.ident + 'AddrL2'} icon='building'
+                  iconPosition={'left'} style={{width: 400}}
                        {...getInputProps({
                          placeholder: 'Address Line 2',
                          className: 'location-search-input',
@@ -63,6 +65,7 @@ export default class SearchBar extends React.Component {
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Input
+                    name={this.props.ident + 'City'}
                     style={{width: 120}}
                     fluid
                     placeholder='City'
@@ -70,6 +73,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
+                    name={this.props.ident + 'State'}
                     style={{width: 120}}
                     fluid
                     placeholder='State'
@@ -77,6 +81,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
+                    name={this.props.ident + 'PostCo'}
                     style={{width: 120}}
                     fluid
                     placeholder='Post Code'

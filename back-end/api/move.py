@@ -12,12 +12,14 @@ def create_new_move(json):
     if (
         not json
         or (not 'title' in json)
-        or (not 'addrFromL1' in json)
-        or (not 'addrFromL2' in json)
+        or (not 'fromAddrL1' in json)
+        or (not 'fromAddrL2' in json)
+        or (not 'fromCity' in json)
         or (not 'fromState' in json)
         or (not 'fromPostCo' in json)
-        or (not 'addrToL1' in json)
-        or (not 'addrToL2' in json)
+        or (not 'toAddrL1' in json)
+        or (not 'toAddrL2' in json)
+        or (not 'toCity' in json)
         or (not 'toState' in json)
         or (not 'toPostCo' in json)
         or (not 'date' in json)
@@ -35,16 +37,18 @@ def create_new_move(json):
 
     # create addresses
     address_from = FromAddress(
-        line1 = json['addrFromL1'],
-        line2 = json['addrFromL2'],
+        line1 = json['fromAddrL1'],
+        line2 = json['fromAddrL2'],
+        city = json['fromCity'],
         state = json['fromState'],
         postcode = json['fromPostCo']
     )
     db.session.add(address_from)
 
     address_to = ToAddress(
-        line1 = json['addrToL1'],
-        line2 = json['addrToL2'],
+        line1 = json['toAddrL1'],
+        line2 = json['toAddrL2'],
+        city = json['toCity'],
         state = json['toState'],
         postcode = json['toPostCo']
     )
