@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Button, Form, Header, TextArea, Segment, Container, Icon, Modal, Card, Image} from 'semantic-ui-react';
 import avatar from './elliot.jpg'
+import { getLoggedInUser } from '../../Authentication';
+import { url } from '../../Api';
+
+
 /**
  * Title: Account Dashboard
  * Author: Victor
@@ -10,8 +14,9 @@ export default class AccountDashboard extends Component {
     super();
 
     this.state = {
+      isLoading: false,
       open: false,
-      name: 'John Smith',
+      user: {},
     }
   }
 
@@ -27,13 +32,32 @@ export default class AccountDashboard extends Component {
 
   };
 
+  componentDidMount() {
+    fetch(url + 'user/' + getLoggedInUser()).then(response => {
+      if (response.status === 200) {
+        response.json().then(obj => {
+          this.setState({
+            user: obj,
+            isLoading: false
+          })
+          return;
+        });
+      } else {
+        this.setState({
+          errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+          isLoading: false
+        });
+      }
+    });
+  }
+
   render() {
     return (
       <Container>
         <div style={{paddingBottom: 80}}>
           <Segment>
             <div style={{marginLeft: 450, marginBottom: 20}}>
-              <Header size={'huge'} content={this.state.name} style={{marginTop: 20}}/>
+              <Header size={'huge'} content={this.state.user.first_name + ' ' + this.state.user.last_name} style={{marginTop: 20}}/>
               <Image src={avatar} size='small' circular />
               <br/>
               <Modal style={{width: 500}} trigger={
