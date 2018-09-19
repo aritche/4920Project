@@ -62,6 +62,15 @@ def insert_new_user(json):
     return resp
 
 
+def delete_account(id_to_delete):
+    try:
+        account_to_delete = db.session.query(User).filter(User.id == id_to_delete)
+        db.session.delete(account_to_delete)
+        db.sesssion.commit()
+    except:
+        abort(400, 'Account not found/doesn\'t exist')
+
+
 def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
