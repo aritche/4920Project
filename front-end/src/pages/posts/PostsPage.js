@@ -4,6 +4,7 @@ import { Button, Container, Header, Icon, Segment, Menu, Dropdown, Form } from '
 import { Link } from 'react-router-dom';
 import InputSlider from '../../widgets/InputSlider'
 import { BUDGET } from '../../constants';
+import { url } from '../../Api';
 
 // TODO: Get from backend
 // We'll use mock posts here for now
@@ -16,12 +17,12 @@ const posts = [
         budget: "$1000",
         addressTo: "Suburb 1",
         addressFrom: "Suburb 2",
-        description: `Lorem Ipsum is simply dummy text of 
-        the printing and typesetting 
+        description: `Lorem Ipsum is simply dummy text of
+        the printing and typesetting
         industry. Lorem Ipsum has been
-        the industry's standard dummy text 
+        the industry's standard dummy text
         ever since the 1500s, when an unknown
-        printer took a galley of type and scrambled 
+        printer took a galley of type and scrambled
         it to make a type specimen book
         `
     },
@@ -44,12 +45,14 @@ const sortByOptions = [
 ]
 
 export default class PostsPage extends Component {
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
+            posts: [],
             query: '',
             budget: BUDGET.DEFAULT
-        }
+        };
     }
 
     onQueryChange = (e) => {
@@ -62,7 +65,32 @@ export default class PostsPage extends Component {
         alert("Searched for:  " + this.state.query);
         // Code to change to search page here
         //this.props.history.push('/')
+    }
 
+    componentDidMount() {
+        fetch(url + 'search-posts', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.setState({
+                        posts: obj.moves
+                    })
+                    return;
+                });
+            } else {
+                this.setState({
+                    submitError: true,
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
     }
 
     render() {
@@ -73,7 +101,6 @@ export default class PostsPage extends Component {
                     <Header.Content>Posts</Header.Content>
                 </Header>
                 <Button as={Link} to={'/create-post'} positive>Create Post</Button>
-
                 <Segment inverted tertiary>
                     <Menu secondary>
                         <Dropdown text='Price' floating labelled button>
@@ -106,6 +133,7 @@ export default class PostsPage extends Component {
                 <Segment secondary>
                     <PostList posts={posts} />
                 </Segment>
+                <PostList posts={this.state.posts} />
             </Container>
         )
     }

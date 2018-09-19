@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Form, Header, TextArea } from 'semantic-ui-react';
+import moment from "moment";
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
 import ProcessStep from './ProcessStep'
 import InputSlider from '../../widgets/InputSlider'
 import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'
-import { Link } from 'react-router-dom';
 import { BUDGET } from '../../constants';
-import moment from "moment";
+import { url } from '../../Api';
+import { getLoggedInUser } from '../../Authentication';
 
 /**
  * Title: Post Form
@@ -27,11 +29,14 @@ export default class CreatePostForm extends Component {
             toState: '',
             toPostCo: '',
             date: moment().endOf('day'),
-            time1: moment().startOf('day'),
-            time2: moment().startOf('day'),
+            time1: moment().startOf('day').hour(9),
+            time2: moment().startOf('day').hour(17),
             budget: BUDGET.DEFAULT,
+            item: {name: '', weight: '', volume: '', desc: '', amount:''},
             itemTable: [],
-            desc: ''
+            desc: '',
+            submitError: false,
+            errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
         }
     }
 
@@ -77,7 +82,65 @@ export default class CreatePostForm extends Component {
     };
 
     createPost = () => {
-        alert("Post with title [" + this.state.title + "] created!")
+        // form validation here (e.g. check title is not empty)
+
+        // connect to back-end
+        fetch(url + 'create-post', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'title': this.state.title,
+                'addrFromL1': this.state.addrFromL1,
+                'addrFromL2': this.state.addrFromL2,
+                'fromState': this.state.fromState,
+                'fromPostCo': this.state.fromPostCo,
+                'addrToL1': this.state.addrToL1,
+                'addrToL2': this.state.addrToL2,
+                'toState': this.state.toState,
+                'toPostCo': this.state.toPostCo,
+                'date': this.state.date.format('DD/MM/YYYY'),
+                'time1': this.state.time1.format('HH:mm'),
+                'time2': this.state.time2.format('HH:mm'),
+                'budget': this.state.budget,
+                'desc': this.state.desc,
+                'items': this.state.itemTable,
+                'userId': getLoggedInUser()
+            })
+        }).then(response => {
+            if (response.status === 400) {
+                response.json().then(obj => {
+                    this.setState({
+                        submitError: true,
+                        errorMessage: obj.error,
+                    });
+                });
+            } else if (response.status === 200) {
+                response.json().then(obj => {
+                    if (obj.success) {
+                        // once view post is done, change this url to view post url
+                        this.props.history.push('/');
+                    } else {
+                        this.setState({
+                            submitError: true,
+                            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                            isLoading: false
+                        });
+                    }
+                });
+                return;
+            } else {
+                this.setState({
+                    submitError: true,
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
+                });
+            }
+            this.setState({
+                isLoading: false,
+            });
+        });
     };
 
     render() {
@@ -88,12 +151,15 @@ export default class CreatePostForm extends Component {
               <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
                 <Form.Input
+                  name='title'
                   style={{width: 250}} fluid label='Title'
-                  placeholder='Page Title'
+                  placeholder='Post Title'
                   onChange={this.onChange}
                 />
 
                 <SearchBar
+                  lowerIdent='from'
+                  upperIdent='From'
                   addrL1={this.state.addrFromL1}
                   addrL2={this.state.addrFromL2}
                   state={this.state.fromState}
@@ -103,6 +169,8 @@ export default class CreatePostForm extends Component {
                 />
                 <br/>
                 <SearchBar
+                  lowerIdent='to'
+                  upperIdent='To'
                   addrL1={this.state.addrToL1}
                   addrL2={this.state.addrToL2}
                   state={this.state.toState}
@@ -140,7 +208,7 @@ export default class CreatePostForm extends Component {
                 />
 
                 <Header size={'tiny'}> Post Description </Header>
-                <TextArea autoHeight placeholder={'Description'} onChange={this.onChange}/>
+                <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
 
               </Form.Field>
 

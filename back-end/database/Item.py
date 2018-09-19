@@ -6,10 +6,12 @@ class Item(db.Model):
     __tablename__ = 'item'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, ForeignKey('address.id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
     volume = db.Column(db.String(255), nullable=False)
     weight = db.Column(db.String(255), nullable=False)
     amount = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+    move_id = db.Column(db.Integer, ForeignKey('movedetails.id'), nullable=False)
 
     def to_dict(self):
         return {
@@ -18,6 +20,7 @@ class Item(db.Model):
             'volume': self.volume,
             'weight': self.weight,
             'amount': self.amount,
+            'move_id': self.move_id
         }
 
     def __repr__(self):

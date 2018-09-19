@@ -11,6 +11,7 @@ export default class SearchBar extends React.Component {
     onAddr2Change = (addrL2) => {
         geocodeByAddress(addrL2)
           .then(results => getLatLng(results[0]))
+          .then(this.onChange(addrL2.split(',')[addrL2.split(',').length - 2]))
           .then(this.props.handleL2(addrL2))
           .then(latLng => console.log('Success', latLng))
           .catch(error => console.error('Error', error));
@@ -62,14 +63,21 @@ export default class SearchBar extends React.Component {
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Input
-                    style={{width: 180}}
+                    style={{width: 120}}
+                    fluid
+                    placeholder='City'
+                    onChange={this.onChange}
+                  />
+                  <span style={{width: 20}}/>
+                  <Input
+                    style={{width: 120}}
                     fluid
                     placeholder='State'
                     onChange={this.onChange}
                   />
-                  <span style={{width: 40}}/>
+                  <span style={{width: 20}}/>
                   <Input
-                    style={{width: 180}}
+                    style={{width: 120}}
                     fluid
                     placeholder='Post Code'
                     onChange={this.onChange}

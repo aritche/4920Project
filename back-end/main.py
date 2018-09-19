@@ -10,7 +10,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app)
 
-from database.Address import Address
+from database.ToAddress import ToAddress
+from database.FromAddress import FromAddress
 from database.Comment import Comment
 from database.Item import Item
 from database.MoveDetails import MoveDetails
