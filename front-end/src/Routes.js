@@ -13,7 +13,7 @@ export default class Routes extends Component {
     render() {
         return (
             <Switch>
-              <Route exact path='/' component={HomePage}/>
+              <Route exact path='/' component={PostsPage}/>
               <Route path='/posts/:postId' component={PostDetailsPage}/>
               <Route path='/posts' component={PostsPage}/>
               <Route path='/create-post' component={CreatePostPage}/>

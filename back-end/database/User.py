@@ -13,6 +13,7 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     creation_date = db.Column(db.Date, nullable=False)
     user_type = db.Column(db.String(255), nullable=False)
+    deleted = db.Column(db.Boolean, nullable=False)
 
     def to_dict(self):
         return {
@@ -20,7 +21,8 @@ class User(db.Model):
             'email': self.email,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'password': self.password
+            'password': self.password,
+            'deleted': self.deleted
         }
 
     def __repr__(self):

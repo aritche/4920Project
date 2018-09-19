@@ -38,7 +38,7 @@ def insert_new_user(json):
     # validate names?
 
     # Check for account with same email
-    query_result = db.session.query(User).filter(User.email == json['email']).first()
+    query_result = db.session.query(User).filter(User.email == json['email'] and not User.deleted).first()
     if query_result:
         abort(400, 'A user with this email address already exists.')
 
@@ -48,7 +48,8 @@ def insert_new_user(json):
         last_name = json['lastName'],
         user_type = json['userType'],
         password = json['hashedPassword'],
-        creation_date = datetime.now()
+        creation_date = datetime.now(),
+        deleted = False
     )
     db.session.add(user)
     db.session.commit()
@@ -73,7 +74,7 @@ def delete_user(json):
     if not account_to_delete:
         abort(400, 'Account not found.')
     else:
-        db.session.delete(account_to_delete)
+        account_to_delete.deleted = True
         db.session.commit()
         resp = jsonify({
             'success': True,
@@ -86,8 +87,8 @@ def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
 
-    user = db.session.query(User).filter(User.email == json['email']).first()
-    if not user:
+    user = db.session.query(User).filter(User.email == json['email'] and not User.deleted).first()
+    if not user or user.deleted:
         password = ''
         user_id = -1
     else:
