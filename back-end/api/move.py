@@ -12,12 +12,14 @@ def create_new_move(json):
     if (
         not json
         or (not 'title' in json)
-        or (not 'addrFromL1' in json)
-        or (not 'addrFromL2' in json)
+        or (not 'fromAddrL1' in json)
+        or (not 'fromAddrL2' in json)
+        or (not 'fromCity' in json)
         or (not 'fromState' in json)
         or (not 'fromPostCo' in json)
-        or (not 'addrToL1' in json)
-        or (not 'addrToL2' in json)
+        or (not 'toAddrL1' in json)
+        or (not 'toAddrL2' in json)
+        or (not 'toCity' in json)
         or (not 'toState' in json)
         or (not 'toPostCo' in json)
         or (not 'date' in json)
@@ -35,16 +37,18 @@ def create_new_move(json):
 
     # create addresses
     address_from = FromAddress(
-        line1 = json['addrFromL1'],
-        line2 = json['addrFromL2'],
+        line1 = json['fromAddrL1'],
+        line2 = json['fromAddrL2'],
+        city = json['fromCity'],
         state = json['fromState'],
         postcode = json['fromPostCo']
     )
     db.session.add(address_from)
 
     address_to = ToAddress(
-        line1 = json['addrToL1'],
-        line2 = json['addrToL2'],
+        line1 = json['toAddrL1'],
+        line2 = json['toAddrL2'],
+        city = json['toCity'],
         state = json['toState'],
         postcode = json['toPostCo']
     )
@@ -118,22 +122,21 @@ def search_moves(json):
         move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
 
     resp = jsonify({
-        'moves': map(get_movee_name_and_suburbs, map(translate_address_id, map(MoveDetails.to_dict, move_query.all())))
+        'moves': map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all())))
     })
     resp.status_code = 200
     return resp
 
 
-def translate_address_id(move):
+def get_address_details(move):
     address_from_id = move['address_from']
     address_to_id = move['address_to']
     move['address_from'] = db.session.query(FromAddress).filter(FromAddress.id == address_from_id).first().to_dict()
     move['address_to'] = db.session.query(ToAddress).filter(ToAddress.id == address_to_id).first().to_dict()
     return move
 
-def get_movee_name_and_suburbs(move):
+
+def get_movee_details(move):
     movee = db.session.query(User).filter(User.id == move['movee_id']).first()
-    move['movee_name'] = movee.first_name + ' ' + movee.last_name
-    move['from_suburb'] = 'Newtown'  # placeholder
-    move['to_suburb'] = 'Randwick'   # placeholder
+    move['movee'] = movee.to_dict()
     return move

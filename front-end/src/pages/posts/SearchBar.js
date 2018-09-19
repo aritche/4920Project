@@ -93,9 +93,10 @@ export default class SearchBar extends React.Component {
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <div>
                 <Header size={'tiny'}> Where are you moving from? </Header>
-
                 <br/>
-                <Input icon='building' iconPosition={'left'} style={{width: 400}}
+                <Input
+                  name={this.props.ident + 'AddrL1'} icon='building'
+                  iconPosition={'left'} style={{width: 400}}
                        {...getInputProps({
                          placeholder: 'Street Address',
                          className: 'location-search-input',
@@ -124,6 +125,7 @@ export default class SearchBar extends React.Component {
                 </div>
                 <br/>
                 <Input
+                  name={this.props.ident + 'AddrL2'}
                   icon='building' iconPosition='left'
                   style={{width: 400}} fluid placeholder='Unit/Room Number'
                   onChange={this.onChange}
@@ -131,6 +133,7 @@ export default class SearchBar extends React.Component {
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Input
+                    name={this.props.ident + 'City'}
                     //value={this.props.city}
                     style={{width: 160}}
                     fluid
@@ -139,18 +142,20 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    //value={this.props.postCode}
-                    style={{width: 120}}
-                    fluid
-                    placeholder='Post Code'
-                    onChange={this.onChange}
-                  />
-                  <span style={{width: 20}}/>
-                  <Input
+                    name={this.props.ident + 'State'}
                     //value={this.props.state}
                     style={{width: 80}}
                     fluid
                     placeholder='State'
+                    onChange={this.onChange}
+                  />
+                  <span style={{width: 20}}/>
+                  <Input
+                    name={this.props.ident + 'PostCo'}
+                    //value={this.props.postCode}
+                    style={{width: 120}}
+                    fluid
+                    placeholder='Post Code'
                     onChange={this.onChange}
                   />
                 </div>

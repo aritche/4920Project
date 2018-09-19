@@ -8,6 +8,7 @@ class FromAddress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     line1 = db.Column(db.String(255), nullable=False)
     line2 = db.Column(db.String(255), nullable=False)
+    city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(10), nullable=False)
     postcode = db.Column(db.String(10), nullable=False)
     move_id = db.Column(db.Integer, ForeignKey('movedetails.id'))
@@ -17,6 +18,7 @@ class FromAddress(db.Model):
             'id': self.id,
             'line1': self.line1,
             'line2': self.line2,
+            'city': self.city,
             'state': self.state,
             'postcode': self.postcode
         }
