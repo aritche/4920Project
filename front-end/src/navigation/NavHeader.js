@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Form } from 'semantic-ui-react';
+import { Menu, Segment, Form, Image} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { isLoggedIn, getLoggedInUser, logout } from '../Authentication';
-
+import logo from './uMove.jpg';
 export default class NavHeader extends Component {
     constructor(){
         super();
@@ -27,10 +27,10 @@ export default class NavHeader extends Component {
 
     render() {
         return (
-            <Segment attached inverted style={{paddingTop:'0px', paddingBottom:'0px', marginBottom:'30px'}}>
+            <Segment attached style={{backgroundColor:'#000000', paddingTop:'0px', paddingBottom:'0px', marginBottom:'30px'}}>
                 <Menu inverted pointing secondary>
                     <Menu.Item>
-                        uMove
+                        <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
                     <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
                         Home
