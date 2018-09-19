@@ -92,18 +92,23 @@ def create_new_move(json):
 
     return resp
 
-def delete_post(id_to_delete):
+def delete_move_details(json):
+    if 'id' in json:
+        id_to_delete = json['id']
+
     move_to_delete = db.session.query(MoveDetails).filter(MoveDetails.id == id_to_delete).first()
+
     if not move_to_delete:
         abort(400, 'Post not found/doesn\'t exist')
     else:
         db.session.delete(move_to_delete)
-        db.sesssion.commit()
+        db.session.commit()
         resp = jsonify({
             'success': True
         })
         resp.status_code = 200
         return resp
+
 
 def search_moves(json):
     move_query = db.session.query(MoveDetails)
