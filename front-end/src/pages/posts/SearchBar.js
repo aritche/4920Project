@@ -169,19 +169,19 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Input
-                    value={this.props.postCode}
-                    style={{width: 120}}
-                    fluid
-                    placeholder='Post Code'
-                    onChange={this.onPostChange}
-                  />
-                  <span style={{width: 20}}/>
-                  <Input
                     value={this.props.state}
                     style={{width: 80}}
                     fluid
                     placeholder='State'
                     onChange={this.onStateChange}
+                  />
+                  <span style={{width: 20}}/>
+                  <Input
+                    value={this.props.postCode}
+                    style={{width: 120}}
+                    fluid
+                    placeholder='Post Code'
+                    onChange={this.onPostChange}
                   />
                 </div>
               </div>

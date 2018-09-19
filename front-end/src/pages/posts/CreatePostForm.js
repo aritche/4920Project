@@ -20,13 +20,13 @@ export default class CreatePostForm extends Component {
         super();
         this.state = {
             title: '',
-            addrFromL1: '',
-            addrFromL2: '',
+            fromAddrL1: '',
+            fromAddrL2: '',
             fromCity: '',
             fromState: '',
             fromPostCo: '',
-            addrToL1: '',
-            addrToL2: '',
+            toAddrL1: '',
+            toAddrL2: '',
             toCity: '',
             toState: '',
             toPostCo: '',
@@ -58,11 +58,11 @@ export default class CreatePostForm extends Component {
     };
 
     onAddrFChange = (addr) => {
-        this.setState({addrFromL1: addr});
+        this.setState({fromAddrL1: addr});
     };
 
     onAddrTChange = (addr) => {
-        this.setState({addrToL1: addr});
+        this.setState({toAddrL1: addr});
     };
 
     onDateChange = (date) => {
@@ -105,13 +105,13 @@ export default class CreatePostForm extends Component {
             },
             body: JSON.stringify({
                 'title': this.state.title,
-                'addrFromL1': this.state.addrFromL1,
-                'addrFromL2': this.state.addrFromL2,
+                'fromAddrL1': this.state.fromAddrL1,
+                'fromAddrL2': this.state.fromAddrL2,
                 'fromCity': this.state.fromCity,
                 'fromState': this.state.fromState,
                 'fromPostCo': this.state.fromPostCo,
-                'addrToL1': this.state.addrToL1,
-                'addrToL2': this.state.addrToL2,
+                'toAddrL1': this.state.toAddrL1,
+                'toAddrL2': this.state.toAddrL2,
                 'toCity': this.state.toCity,
                 'toState': this.state.toState,
                 'toPostCo': this.state.toPostCo,
@@ -174,13 +174,13 @@ export default class CreatePostForm extends Component {
                 <SearchBar
                   lowerIdent='from'
                   upperIdent='From'
-                  addrL1={this.state.addrFromL1}
-                  addrL2={this.state.addrFromL2}
+                  addrL1={this.state.fromAddrL1}
+                  addrL2={this.state.fromAddrL2}
                   city={this.state.fromCity}
                   state={this.state.fromState}
                   postCode={this.state.fromPostCo}
-                  l1N={"addrFromL1"}
-                  l2N={"addrFromL2"}
+                  l1N={"fromAddrL1"}
+                  l2N={"fromAddrL2"}
                   cityN={'fromCity'}
                   stateN={"fromState"}
                   postN={"fromPostCo"}
@@ -191,13 +191,13 @@ export default class CreatePostForm extends Component {
                 <SearchBar
                   lowerIdent='to'
                   upperIdent='To'
-                  addrL1={this.state.addrToL1}
-                  addrL2={this.state.addrToL2}
+                  addrL1={this.state.toAddrL1}
+                  addrL2={this.state.toAddrL2}
                   city={this.state.toCity}
                   state={this.state.toState}
                   postCode={this.state.toPostCo}
-                  l1N={"addrToL1"}
-                  l2N={"addrToL2"}
+                  l1N={"toAddrL1"}
+                  l2N={"toAddrL2"}
                   cityN={'toCity'}
                   stateN={"toState"}
                   postN={"toPostCo"}
