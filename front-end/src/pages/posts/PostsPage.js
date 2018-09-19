@@ -129,11 +129,10 @@ export default class PostsPage extends Component {
                         </Menu.Menu>
                     </Menu>
                 </Segment>
-                
+
                 <Segment secondary>
-                    <PostList posts={posts} />
+                    <PostList posts={this.state.posts} />
                 </Segment>
-                <PostList posts={this.state.posts} />
             </Container>
         )
     }
