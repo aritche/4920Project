@@ -26,7 +26,7 @@ def create_new_move(json):
         or (not 'budget' in json)
         or (not 'desc' in json)
         or (not 'items' in json)
-        or (not 'userId' in json)
+        or (not 'userId' in json)       # not sure, backend should be implementing id generation
     ):
         abort(400, 'Not all fields were received.')
 
@@ -92,6 +92,18 @@ def create_new_move(json):
 
     return resp
 
+def delete_post(id_to_delete):
+    move_to_delete = db.session.query(MoveDetails).filter(MoveDetails.id == id_to_delete).first()
+    if not move_to_delete:
+        abort(400, 'Post not found/doesn\'t exist')
+    else:
+        db.session.delete(move_to_delete)
+        db.sesssion.commit()
+        resp = jsonify({
+            'success': True
+        })
+        resp.status_code = 200
+        return resp
 
 def search_moves(json):
     move_query = db.session.query(MoveDetails)

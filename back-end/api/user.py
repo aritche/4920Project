@@ -7,7 +7,7 @@ from database.User import User
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = Response(jsonify(user.to_dict()), mimetype='application/json')
+        resp = jsonify(user.to_dict())
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
@@ -61,6 +61,19 @@ def insert_new_user(json):
 
     return resp
 
+def delete_account(id_to_delete):
+    account_to_delete = db.session.query(User).filter(User.id == id_to_delete).first()
+    if not account_to_delete:
+        abort(400, 'Account not found/doesn\'t exist')
+    else:
+        db.session.delete(account_to_delete)
+        db.sesssion.commit()
+        resp = jsonify({
+            'success': True,
+        })
+        resp.status_code = 200
+
+        return resp
 
 def authenticate_login(json):
     if not 'email' in json:
