@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Icon, Segment, Menu, Dropdown, Form } from 'semantic-ui-react';
+import { Segment, Menu, Dropdown, Form, Input } from 'semantic-ui-react';
 import InputSlider from '../../widgets/InputSlider'
 import { BUDGET } from '../../constants';
 
@@ -15,7 +15,8 @@ export default class FilterBar extends Component {
 
         this.state = {
             query: '',
-            budget: BUDGET.DEFAULT
+            budget: BUDGET.DEFAULT,
+            postcode: ''
         }
     }
 
@@ -31,10 +32,16 @@ export default class FilterBar extends Component {
         //this.props.history.push('/')
     }
 
+    onPostcodeChange = (e) => {
+        this.setState({ postcode: e.target.value});
+
+    }
+
     render() {
         return (
-                <Segment inverted tertiary>
+                <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
                     <Menu secondary>
+                        { /*
                         <Dropdown text='Price' floating labelled button>
                             <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
                             <InputSlider
@@ -48,6 +55,12 @@ export default class FilterBar extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown text='Date' floating labelled button/>
+                        */ }
+                        <Dropdown text='Postcode' style={{paddingTop: 12}} floating labelled button>
+                            <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
+                                <Input onChange={this.onPostcodeChange} value={this.state.postcode}/>
+                            </Dropdown.Menu>
+                        </Dropdown>
 
                         <Menu.Item style={{paddingTop: 2, paddingBottom:2}} position='right'>
                             <Form onSubmit={this.onQuerySubmit}>
