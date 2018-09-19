@@ -159,7 +159,7 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-            <Form size={'large'} style={{marginLeft: 150, paddingBottom: 80}}>
+            <Form size={'large'} style={{paddingBottom: 80}}>
               <ProcessStep/>
 
               <Header size={'large'} content={'Make Your Move!'} />
@@ -240,11 +240,11 @@ export default class CreatePostForm extends Component {
 
               <br/>
 
-              <Button.Group>
+              <div style={{display: 'flex'}}>
                 <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
                 <span style={{width: 10}}/>
                 <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
-              </Button.Group>
+              </div>
             </Form>
         )
     }
