@@ -31,24 +31,24 @@ export default class CreateSignupForm extends Component {
     }
     onFirstNameChange = (e) => {
         this.setState({ firstName: e.target.value });
-    }
+    };
 
     onLastNameChange = (e) => {
         this.setState({ lastName: e.target.value });
-    }
+    };
 
     onEmailChange = (e) => {
         this.setState({ email: e.target.value });
-    }
+    };
 
     onPasswordChange = (e) => {
         this.setState({ password: e.target.value });
-    }
+    };
 
 
     onConfirmPasswordChange = (e) => {
         this.setState({ confirmPassword: e.target.value });
-    }
+    };
 
     attemptSignup = () => {
         // Input validation here
@@ -60,31 +60,31 @@ export default class CreateSignupForm extends Component {
         this.setState({ passwordError : false });
         this.setState({ confirmPasswordError : false });
         this.setState({ submitError: false });
-        var validationError = false
+        var validationError = false;
 
         // Check that fields are not blank
-        if (this.state.firstName == ''){
+        if (this.state.firstName === ''){
             this.setState({ firstNameError : true });
             validationError = true;
         }
 
-        if (this.state.lastName == ''){
+        if (this.state.lastName === ''){
             this.setState({ lastNameError : true });
             validationError = true;
         }
 
-        if (this.state.email == ''){
+        if (this.state.email === ''){
             this.setState({ emailError : true });
             validationError = true;
         }
 
-        if (this.state.password == ''){
+        if (this.state.password === ''){
             this.setState({ passwordError : true });
             validationError = true;
         }
 
 
-        if (this.state.confirmPassword == ''){
+        if (this.state.confirmPassword === ''){
             this.setState({ confirmPasswordError : true });
             validationError = true;
         }
@@ -95,7 +95,7 @@ export default class CreateSignupForm extends Component {
             this.setState({ submitError: true });
         } else{
             // Check that passwords match
-            if (this.state.password != this.state.confirmPassword){
+            if (this.state.password !== this.state.confirmPassword){
                 this.setState({ passwordMismatch: true });
                 this.setState({ errorMessage: 'Passwords must match.'});
                 this.setState({ submitError: true });
@@ -148,7 +148,7 @@ export default class CreateSignupForm extends Component {
                 });
             }
         }
-    }
+    };
 
     render() {
         // code is a modified version of Semantic-UI-React login template
@@ -160,12 +160,21 @@ export default class CreateSignupForm extends Component {
                         <Segment>
                             <h1>Join the Community!</h1>
                             <Form.Group widths='equal'>
-                                <Form.Input error={this.state.firstNameError} placeholder="First Name" value={this.state.firstName} onChange={this.onFirstNameChange} />
-                                <Form.Input error={this.state.lastNameError} placeholder="Last Name" value={this.state.lastName} onChange={this.onLastNameChange} />
+                                <Form.Input error={this.state.firstNameError} placeholder="First Name" icon={'user'}
+                                            iconPosition={'left'} value={this.state.firstName}
+                                            onChange={this.onFirstNameChange} />
+                                <Form.Input error={this.state.lastNameError} placeholder="Last Name" icon={'user'}
+                                            iconPosition={'left'} value={this.state.lastName}
+                                            onChange={this.onLastNameChange} />
                             </Form.Group>
-                            <Form.Input error={this.state.emailError} placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
-                            <Form.Input error={this.state.passwordError || this.state.passwordMismatch} placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
-                            <Form.Input error={this.state.confirmPasswordError || this.state.passwordMismatch} placeholder="Confirm Password" type='password' value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} />
+                            <Form.Input error={this.state.emailError} placeholder="Email" value={this.state.email}
+                                        icon={'mail'} iconPosition={'left'} onChange={this.onEmailChange} />
+                            <Form.Input error={this.state.passwordError || this.state.passwordMismatch} icon={'key'}
+                                        iconPosition={'left'} placeholder="Password" type='password'
+                                        value={this.state.password} onChange={this.onPasswordChange} />
+                            <Form.Input error={this.state.confirmPasswordError || this.state.passwordMismatch}
+                                        icon={'key'} iconPosition={'left'} placeholder="Confirm Password" type='password'
+                                        value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} />
                             <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
                         </Segment>

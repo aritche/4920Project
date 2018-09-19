@@ -16,15 +16,15 @@ export default class CreateLoginForm extends Component {
             passwordError: false,
             errorMessage: 'An error has occurred.'
         }
-    }
+    };
 
     onEmailChange = (e) => {
         this.setState({ email: e.target.value });
-    }
+    };
 
     onPasswordChange = (e) => {
         this.setState({ password: e.target.value });
-    }
+    };
 
     attemptLogin = () => {
         // Form validation
@@ -34,12 +34,12 @@ export default class CreateLoginForm extends Component {
         this.setState({ submitError : false });
         var validationError = false
 
-        if (this.state.email == ''){
+        if (this.state.email === ''){
             this.setState({ emailError : true });
             validationError = true;
         }
 
-        if (this.state.password == ''){
+        if (this.state.password === ''){
             this.setState({ passwordError : true });
             validationError = true;
         }
@@ -111,8 +111,11 @@ export default class CreateLoginForm extends Component {
                     <Form error={this.state.submitError}>
                         <Segment>
                             <h1>Log In</h1>
-                            <Form.Input error={this.state.emailError} placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
-                            <Form.Input error={this.state.passwordError} placeholder="Password" type='password' value={this.state.password} onChange={this.onPasswordChange} />
+                            <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
+                                        iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
+                            <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
+                                        iconPosition={'left'} type='password' value={this.state.password}
+                                        onChange={this.onPasswordChange} />
                             <Button fluid color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
                             <Message error header='Unable to Log In' content={this.state.errorMessage}/>
                         </Segment>
