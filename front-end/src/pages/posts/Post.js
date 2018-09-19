@@ -13,12 +13,12 @@ export default class Post extends Component {
 
                 <Item.Content>
                     <Item.Header as='a'>{post.title}</Item.Header>
-                    <Item.Meta>{post.movee_name}</Item.Meta>
+                    <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name}</Item.Meta>
                     <Item.Description>
                         <Grid>
                             <Grid.Column width={4} >
-                                From { post.from_suburb }<br/>
-                                To { post.to_suburb }
+                                From { post.address_from.city }<br/>
+                                To { post.address_to.city }
                             </Grid.Column>
                             <Grid.Column width={2} >
                                 { post.budget }
