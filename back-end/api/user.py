@@ -7,7 +7,7 @@ from database.User import User
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = Response(jsonify(user.to_dict()), mimetype='application/json')
+        resp = jsonify(user.to_dict())
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
