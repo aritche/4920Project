@@ -10,27 +10,27 @@ import { url } from '../../Api';
  * Author: Victor
  */
 export default class AccountDashboard extends Component {
-  constructor() {
-    super();
+    constructor() {
+      super();
 
-    this.state = {
-      isLoading: false,
-      open: false,
-      user: {},
+      this.state = {
+        isLoading: false,
+        open: false,
+        user: {},
+      };
     }
-  }
 
-  close = () => {
-    this.setState({open: false});
-  };
+    close = () => {
+        this.setState({open: false});
+    };
 
-  open = () => {
-    this.setState({open: true});
-  };
+    open = () => {
+        this.setState({open: true});
+    };
 
-  deleteAccount = () => {
-
-  };
+    deleteAccount = () => {
+        fetch(url + '/delete-account').catch(error => console.error('Error', error));
+    };
 
   componentDidMount() {
     fetch(url + 'user/' + getLoggedInUser()).then(response => {
@@ -40,7 +40,6 @@ export default class AccountDashboard extends Component {
             user: obj,
             isLoading: false
           })
-          return;
         });
       } else {
         this.setState({
@@ -56,8 +55,9 @@ export default class AccountDashboard extends Component {
       <Container>
         <div style={{paddingBottom: 80}}>
           <Segment>
-            <div style={{marginLeft: 450, marginBottom: 20}}>
-              <Header size={'huge'} content={this.state.user.first_name + ' ' + this.state.user.last_name} style={{marginTop: 20}}/>
+            <div style={{marginBottom: 20}}>
+              <Header size={'medium'} content={this.state.user.first_name + ' ' + this.state.user.last_name}
+                      style={{marginTop: 20, marginRight: 400}}/>
               <Image src={avatar} size='small' circular />
               <br/>
               <Modal style={{width: 500}} trigger={
@@ -68,22 +68,26 @@ export default class AccountDashboard extends Component {
                 <Modal.Content style={{paddingLeft: 100}}>
                   <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
                 </Modal.Content>
-                <Modal.Actions style={{paddingRight: 150}}>
                   <Button color='red' onClick={this.deleteAccount}>
                     <Icon name='checkmark' /> Yes
                   </Button>
-                  <Button color='green' onClick={this.close}>
-                    <Icon name='remove' /> No
-                  </Button>
-                </Modal.Actions>
+                } open={this.state.open} onClose={this.close} closeIcon>
+                  <Modal.Content style={{paddingLeft: 100}}>
+                    <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
+                  </Modal.Content>
+                  <Modal.Actions style={{paddingRight: 150}}>
+                    <Button color='red' onClick={this.deleteAccount}>
+                      <Icon name='checkmark' /> Yes
+                    </Button>
+                    <Button color='green' onClick={this.close}>
+                      <Icon name='remove' /> No
+                    </Button>
+                  </Modal.Actions>
               </Modal>
             </div>
           </Segment>
-
         </div>
       </Container>
-
-    )
-  }
-
+      )
+    }
 }
