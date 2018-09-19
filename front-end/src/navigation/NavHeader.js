@@ -32,9 +32,11 @@ export default class NavHeader extends Component {
                     <Menu.Item>
                         uMove
                     </Menu.Item>
+                    {/*
                     <Menu.Item as={Link} to={'/'} active={window.location.pathname === '/'}>
                         Home
                     </Menu.Item>
+                    */}
                     <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                         Posts
                     </Menu.Item>
