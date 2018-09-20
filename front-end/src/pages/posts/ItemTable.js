@@ -42,6 +42,7 @@ export default class ItemTable extends Component{
             <div>
               <ItemForm
                 addItem={this.props.addItem}
+                itemNames={this.props.table.map(item => item.name)}
               />
               <Button negative size='large' style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
                 <Button.Content visible><Icon name={'trash alternate'}/></Button.Content>

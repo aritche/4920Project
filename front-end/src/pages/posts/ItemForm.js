@@ -73,8 +73,12 @@ export default class ItemForm extends Component {
 
     validation = () => {
         const {name, weight, volume, amount, desc} = this.state;
-        return emptyString(name) || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
+        return !this.nameValid() || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
     };
+
+    nameValid = () => {
+      return !emptyString(this.state.name) && this.props.itemNames.indexOf(this.state.name) === -1;
+    }
 
     render() {
         return (
@@ -92,7 +96,7 @@ export default class ItemForm extends Component {
                 <Form.Group widths='equal'>
                   <Form.Field>
                     <label>Name</label>
-                    <Form.Input fluid error={emptyString(this.state.name)} placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
+                    <Form.Input fluid error={!this.nameValid()} placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
                   </Form.Field>
 
                   <PositiveFloatInput label='Weight (kg)' value={this.state.weight} float={true}

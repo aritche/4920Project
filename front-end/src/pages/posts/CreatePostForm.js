@@ -45,8 +45,10 @@ export default class CreatePostForm extends Component {
 
     itemTableAdd = (name, weight, volume, desc, amount) => {
         let items = this.state.itemTable;
-        items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
-        this.setState({itemTable: items});
+        if (!items.find(i => i.name === name )) {
+            items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
+            this.setState({itemTable: items});
+        }
     };
 
     itemTableDelete = (name) => {
