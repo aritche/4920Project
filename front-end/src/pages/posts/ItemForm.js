@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon, Input } from 'semantic-ui-react';
 import { isPositiveInteger, isZero, emptyString, isPositiveFloat, isTypingPositiveFloat } from '../../utils/ValidationUtils';
+import PositiveFloatInput from '../../widgets/PositiveFloatInput';
 
 /**
  * Author: VW
@@ -39,15 +40,11 @@ export default class ItemForm extends Component {
     };
 
     onWeightChange = (value) => {
-      if (isTypingPositiveFloat(value)) {
-        this.setState({weight: value});
-      }
+      this.setState({weight: value});
     };
 
     onVolumeChange = (value) => {
-      if (isTypingPositiveFloat(value)) {
-        this.setState({volume: value});
-      }
+      this.setState({volume: value});
     };
 
     onDescChange = (value) => {
@@ -95,31 +92,24 @@ export default class ItemForm extends Component {
                 <Form.Group widths='equal'>
                   <Form.Field>
                     <label>Name</label>
-                    <Input fluid placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
+                    <Form.Input fluid error={emptyString(this.state.name)} placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
                   </Form.Field>
 
-                  <Form.Field>
-                    <label>Weight</label>
-                    <Input fluid label={{ basic: true, content: 'kg' }} value={this.state.weight}
-                                labelPosition='right'  placeholder='Item Weight'
-                                onChange={(e) => this.onWeightChange(e.target.value)}/>
-                  </Form.Field>
+                  <PositiveFloatInput label='Weight (kg)' value={this.state.weight} float={true}
+                                      placeholder='Item Weight' onChange={this.onWeightChange} />
 
-                  <Form.Field>
-                    <label>Volume</label>
-                    <Input fluid label={{ basic: true, content: 'm^3' }} value={this.state.volume}
-                                labelPosition='right'  placeholder='Item Volume'
-                                onChange={(e) => this.onVolumeChange(e.target.value)}/>
-                  </Form.Field>
+                  <PositiveFloatInput labelHtml={<label>Volume m<sup>3</sup></label>} value={this.state.volume} 
+                                    float={true}  placeholder='Item Volume' onChange={this.onVolumeChange} />
 
                   <Form.Field>
                     <label>Amount</label>
-                    <Input fluid placeholder='Item Amount' value={this.state.amount}
+                    <Form.Input fluid placeholder='Item Amount' value={this.state.amount}
                                 onChange={(e) => this.onAmountChange(e.target.value)}/>
                   </Form.Field>
                 </Form.Group>
                 <Header content={'Item Description'} />
-                <TextArea autoHeight value={this.state.desc} onChange={(e) => this.onDescChange(e.target.value)}/>
+                <Form.Field error={emptyString(this.state.desc)} control={TextArea} placeholder='Tell us more about the item...' 
+                            autoHeight value={this.state.desc} onChange={(e) => this.onDescChange(e.target.value)} />
               </Form>
             </Modal.Content>
             <Modal.Actions>

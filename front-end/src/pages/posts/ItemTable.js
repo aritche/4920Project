@@ -16,6 +16,7 @@ export default class ItemTable extends Component{
                   <Table.HeaderCell>Weight</Table.HeaderCell>
                   <Table.HeaderCell>Volume</Table.HeaderCell>
                   <Table.HeaderCell>Amount</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
                   <Table.HeaderCell/>
                 </Table.Row>
               </Table.Header>
@@ -27,6 +28,7 @@ export default class ItemTable extends Component{
                     <Table.Cell> {item.weight} </Table.Cell>
                     <Table.Cell> {item.volume} </Table.Cell>
                     <Table.Cell> {item.amount} </Table.Cell>
+                    <Table.Cell> {item.desc} </Table.Cell>
                     <Table.Cell>
                       <Button style={{backgroundColor: 'transparent'}} onClick={() => { this.props.deleteItem(item.name) }}>
                         <Icon size='large' name={'close'}/>
