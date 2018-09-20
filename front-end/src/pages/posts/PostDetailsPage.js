@@ -36,9 +36,35 @@ export default class PostDetailsPage extends Component {
     }
 
     deletePost = () => {
-        // TODO: make backend call to delete post
-
-        this.props.history.push('/posts')
+        this.setState({isLoading: true});
+        fetch(url + 'delete-post', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id
+          })
+        }).then(response => {
+          if (response.status === 200) {
+            response.json().then(obj => {
+              if (obj.success) {
+                this.props.history.push('/posts');
+              } else {
+                this.setState({
+                  errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                  isLoading: false
+                });
+              }
+            });
+          } else {
+            this.setState({
+              errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+              isLoading: false
+            });
+          }
+        });
     }
 
     render() {

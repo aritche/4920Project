@@ -99,8 +99,8 @@ def create_new_move(json):
     return resp
 
 def delete_move_details(json):
-    if 'id' in json:
-        id_to_delete = json['id']
+    if 'postId' in json:
+        id_to_delete = json['postId']
 
     move_to_delete = db.session.query(MoveDetails).filter(and_(MoveDetails.id == id_to_delete, not_(MoveDetails.deleted))).first()
 

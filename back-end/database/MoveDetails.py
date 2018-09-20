@@ -15,7 +15,7 @@ class MoveDetails(db.Model):
     status = db.Column(db.String(255), nullable=False)
     creation_datetime = db.Column(db.DateTime, nullable=False)
     address_from = db.Column(db.Integer, ForeignKey('fromaddress.id'), nullable=False)
-    address_to = db.Column(db.Integer, ForeignKey('toaddress.id'), nullable=False),
+    address_to = db.Column(db.Integer, ForeignKey('toaddress.id'), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
     items = relationship('Item')
 
