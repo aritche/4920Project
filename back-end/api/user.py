@@ -89,7 +89,6 @@ def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
 
-    print(map(User.to_dict, db.session.query(User).all()))
     user = db.session.query(User).filter(and_(User.email == json['email'], not_(User.deleted))).first()
 
     if not user:
