@@ -140,7 +140,7 @@ def search_moves(json):
         move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
 
     resp = jsonify({
-        'moves': map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all())))
+        'moves': list(map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all()))))
     })
     resp.status_code = 200
     return resp
