@@ -61,11 +61,6 @@ export default class ItemForm extends Component {
           this.props.addItem(name, weight, volume, desc, amount);
           this.close();
       }
-      else {
-          //alert(this.validation);
-          //alert(this.state.name + " " + this.state.weight + " " + this.state.volume + " " + this.state.desc);
-          alert("Please fill all fields")
-      }
     };
 
     validation = () => {
@@ -106,7 +101,7 @@ export default class ItemForm extends Component {
               </Form>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='green' onClick={this.onSubmit}>
+              <Button color='green' onClick={this.onSubmit} disabled={this.validation()}>
                 <Icon name='checkmark' /> Yes
               </Button>
               <Button color='red' onClick={this.close}>
