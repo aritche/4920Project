@@ -10,6 +10,7 @@ import ItemTable from './ItemTable'
 import { BUDGET } from '../../constants';
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
+import { validBudget } from '../../utils/ValidationUtils';
 
 /**
  * Title: Post Form
@@ -88,8 +89,11 @@ export default class CreatePostForm extends Component {
     };
 
     onBudgetChange = (value) => {
-        if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
-            this.setState({ budget: value });
+        if (value === '') {
+            value = 0;
+        }
+        if (validBudget(value)) {
+            this.setState({ budget: parseInt(value) });
         }
     };
 

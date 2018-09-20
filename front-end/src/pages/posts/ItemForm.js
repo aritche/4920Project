@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon, Input } from 'semantic-ui-react';
+import { isPositiveInteger, isZero, emptyString, isPositiveFloat, isTypingPositiveFloat } from '../../utils/ValidationUtils';
 
 /**
  * Author: VW
@@ -11,10 +12,10 @@ export default class ItemForm extends Component {
       this.state = {
         open: false,
         name: '',
-        weight: '',
-        volume: '',
+        weight: 0,
+        volume: 0,
         desc: '',
-        amount: '',
+        amount: 1,
       }
     }
 
@@ -26,10 +27,10 @@ export default class ItemForm extends Component {
       this.setState({
         open: true,
         name: '',
-        weight: '',
-        volume: '',
+        weight: 0,
+        volume: 0,
         desc: '',
-        amount: '',
+        amount: 1,
       });
     };
 
@@ -38,11 +39,15 @@ export default class ItemForm extends Component {
     };
 
     onWeightChange = (value) => {
+      if (isTypingPositiveFloat(value)) {
         this.setState({weight: value});
+      }
     };
 
     onVolumeChange = (value) => {
+      if (isTypingPositiveFloat(value)) {
         this.setState({volume: value});
+      }
     };
 
     onDescChange = (value) => {
@@ -50,7 +55,13 @@ export default class ItemForm extends Component {
     };
 
     onAmountChange = (value) => {
-      this.setState({amount: value});
+      if (value === '' || isZero(value)) {
+        value = 1;
+      }
+
+      if (isPositiveInteger(value)) {
+        this.setState({amount: parseInt(value)});
+      }
     };
 
     onSubmit = () => {
@@ -61,16 +72,11 @@ export default class ItemForm extends Component {
           this.props.addItem(name, weight, volume, desc, amount);
           this.close();
       }
-      else {
-          //alert(this.validation);
-          //alert(this.state.name + " " + this.state.weight + " " + this.state.volume + " " + this.state.desc);
-          alert("Please fill all fields")
-      }
     };
 
     validation = () => {
         const {name, weight, volume, amount, desc} = this.state;
-        return (name === "") || (weight === "") || (volume === "") || (amount === "") || (desc === "");
+        return emptyString(name) || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
     };
 
     render() {
@@ -86,27 +92,38 @@ export default class ItemForm extends Component {
             <Header> Add Item </Header>
             <Modal.Content>
               <Form>
-                <div style={{display: 'flex'}}>
-                  <Input fluid placeholder='Item Name' onChange={(e) => this.onNameChange(e.target.value)}
-                              style={{width: 200}}/>
-                  <span style={{width: 20}}/>
-                  <Input fluid label={{ basic: true, content: 'kg' }}
-                              labelPosition='right'  placeholder='Item Weight'
-                              onChange={(e) => this.onWeightChange(e.target.value)} style={{width: 200}}/>
-                  <span style={{width: 20}}/>
-                  <Input fluid label={{ basic: true, content: 'm^3' }}
-                              labelPosition='right'  placeholder='Item Volume'
-                              onChange={(e) => this.onVolumeChange(e.target.value)} style={{width: 200}}/>
-                  <span style={{width: 20}}/>
-                  <Input fluid placeholder='Item Amount'
-                              onChange={(e) => this.onAmountChange(e.target.value)} style={{width: 200}}/>
-                </div>
+                <Form.Group widths='equal'>
+                  <Form.Field>
+                    <label>Name</label>
+                    <Input fluid placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Weight</label>
+                    <Input fluid label={{ basic: true, content: 'kg' }} value={this.state.weight}
+                                labelPosition='right'  placeholder='Item Weight'
+                                onChange={(e) => this.onWeightChange(e.target.value)}/>
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Volume</label>
+                    <Input fluid label={{ basic: true, content: 'm^3' }} value={this.state.volume}
+                                labelPosition='right'  placeholder='Item Volume'
+                                onChange={(e) => this.onVolumeChange(e.target.value)}/>
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Amount</label>
+                    <Input fluid placeholder='Item Amount' value={this.state.amount}
+                                onChange={(e) => this.onAmountChange(e.target.value)}/>
+                  </Form.Field>
+                </Form.Group>
                 <Header content={'Item Description'} />
-                <TextArea autoHeight onChange={(e) => this.onDescChange(e.target.value)}/>
+                <TextArea autoHeight value={this.state.desc} onChange={(e) => this.onDescChange(e.target.value)}/>
               </Form>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='green' onClick={this.onSubmit}>
+              <Button color='green' onClick={this.onSubmit} disabled={this.validation()}>
                 <Icon name='checkmark' /> Yes
               </Button>
               <Button color='red' onClick={this.close}>
