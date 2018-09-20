@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon, Input } from 'semantic-ui-react';
-import { isPositiveInteger, isZero } from '../../utils/ValidationUtils';
+import { isPositiveInteger, isZero, emptyString } from '../../utils/ValidationUtils';
 
 /**
  * Author: VW
@@ -82,7 +82,7 @@ export default class ItemForm extends Component {
 
     validation = () => {
         const {name, weight, volume, amount, desc} = this.state;
-        return (name === "") || isZero(weight) || isZero(volume) || isZero(amount) || (desc === "");
+        return emptyString(name) || isZero(weight) || isZero(volume) || isZero(amount) || emptyString(desc);
     };
 
     render() {
