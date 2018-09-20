@@ -23,7 +23,14 @@ export default class ItemForm extends Component {
     };
 
     open = () => {
-      this.setState({open: true});
+      this.setState({
+        open: true,
+        name: '',
+        weight: '',
+        volume: '',
+        desc: '',
+        amount: '',
+      });
     };
 
     onNameChange = (value) => {
