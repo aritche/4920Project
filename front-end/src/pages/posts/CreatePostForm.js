@@ -45,14 +45,20 @@ export default class CreatePostForm extends Component {
 
     itemTableAdd = (name, weight, volume, desc, amount) => {
         let items = this.state.itemTable;
-        items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
-        this.setState({itemTable: items});
+        if (!items.find(i => i.name === name )) {
+            items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
+            this.setState({itemTable: items});
+        }
     };
 
     itemTableDelete = (name) => {
         let items = this.state.itemTable.filter(i => i.name !== name);
         this.setState({itemTable: items});
     };
+
+    itemTableDeleteAll = () => {
+        this.setState({itemTable: []});
+    }
 
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
@@ -234,6 +240,7 @@ export default class CreatePostForm extends Component {
                   table={this.state.itemTable}
                   addItem={this.itemTableAdd}
                   deleteItem={this.itemTableDelete}
+                  deleteAll={this.itemTableDeleteAll}
                 />
 
                 <Header size={'tiny'}> Post Description </Header>

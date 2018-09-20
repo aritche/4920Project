@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Icon, Table } from 'semantic-ui-react';
 import ItemForm from './ItemForm'
+import ConfirmationModal from '../../widgets/ConfirmationModal';
 
 /**
  * Author: VW
@@ -16,6 +17,7 @@ export default class ItemTable extends Component{
                   <Table.HeaderCell>Weight</Table.HeaderCell>
                   <Table.HeaderCell>Volume</Table.HeaderCell>
                   <Table.HeaderCell>Amount</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
                   <Table.HeaderCell/>
                 </Table.Row>
               </Table.Header>
@@ -27,6 +29,7 @@ export default class ItemTable extends Component{
                     <Table.Cell> {item.weight} </Table.Cell>
                     <Table.Cell> {item.volume} </Table.Cell>
                     <Table.Cell> {item.amount} </Table.Cell>
+                    <Table.Cell> {item.desc} </Table.Cell>
                     <Table.Cell>
                       <Button style={{backgroundColor: 'transparent'}} onClick={() => { this.props.deleteItem(item.name) }}>
                         <Icon size='large' name={'close'}/>
@@ -40,11 +43,20 @@ export default class ItemTable extends Component{
             <div>
               <ItemForm
                 addItem={this.props.addItem}
+                itemNames={this.props.table.map(item => item.name)}
               />
-              <Button negative size='large' style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
-                <Button.Content visible><Icon name={'trash alternate'}/></Button.Content>
-                <Button.Content hidden>Delete All</Button.Content>
-              </Button>
+              <ConfirmationModal buttonContentHtml={
+                  [
+                    <Button.Content key='icon' visible><Icon name={'trash alternate'}/></Button.Content>,
+                    <Button.Content key='text' hidden>Delete All</Button.Content>
+                  ]
+                }
+                buttonSize='large'
+                buttonAnimated='fade'
+                buttonStyle={{width: 100, height: 40, zIndex: 0}}
+                headerText='Are you sure you want to delete all items?'
+                onConfirm={this.props.deleteAll}
+              />
             </div>
           </div>
         );
