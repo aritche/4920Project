@@ -3,7 +3,7 @@ import {Button, Form, Header, TextArea, Segment, Container, Icon, Modal, Card, I
 import avatar from './elliot.jpg'
 import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
-
+import ConfirmationModal from '../../widgets/ConfirmationModal';
 
 /**
  * Title: Account Dashboard
@@ -89,23 +89,13 @@ export default class AccountDashboard extends Component {
                       style={{marginTop: 20, marginRight: 400}}/>
               <Image src={avatar} size='small' circular />
               <br/>
-              <Modal style={{width: 500}} trigger={
-                <Button onClick={this.open} size='small' negative style={{width: 150, height: 50}}>
-                  Delete Account
-                </Button>
-              } open={this.state.open} onClose={this.close} closeIcon>
-                <Modal.Content style={{paddingLeft: 100}}>
-                  <Header size={'small'} content={'Are you sure you want to delete your account?'}/>
-                </Modal.Content>
-                <Modal.Actions style={{paddingRight: 150}}>
-                  <Button color='red' onClick={this.deleteAccount}>
-                    <Icon name='checkmark' /> Yes
-                  </Button>
-                  <Button color='green' onClick={this.close}>
-                    <Icon name='remove' /> No
-                  </Button>
-                </Modal.Actions>
-              </Modal>
+              <ConfirmationModal 
+                buttonText='Delete Account' 
+                buttonSize='small'
+                buttonStyle={{width: 150, height: 50}}
+                headerText='Are you sure you want to delete your account?'
+                onConfirm={this.deleteAccount}
+              />
             </div>
           </Segment>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, TextArea, Header, Modal, Button, Icon, Input } from 'semantic-ui-react';
-import { isPositiveInteger, isZero, emptyString, isPositiveFloat, isTypingPositiveFloat } from '../../utils/ValidationUtils';
+import { Form, TextArea, Header, Modal, Button, Icon } from 'semantic-ui-react';
+import { isPositiveInteger, isZero, emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
 import PositiveFloatInput from '../../widgets/PositiveFloatInput';
 
 /**
@@ -72,7 +72,7 @@ export default class ItemForm extends Component {
     };
 
     validation = () => {
-        const {name, weight, volume, amount, desc} = this.state;
+        const { weight, volume, amount, desc} = this.state;
         return !this.nameValid() || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
     };
 

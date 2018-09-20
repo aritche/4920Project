@@ -56,6 +56,10 @@ export default class CreatePostForm extends Component {
         this.setState({itemTable: items});
     };
 
+    itemTableDeleteAll = () => {
+        this.setState({itemTable: []});
+    }
+
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     };
@@ -236,6 +240,7 @@ export default class CreatePostForm extends Component {
                   table={this.state.itemTable}
                   addItem={this.itemTableAdd}
                   deleteItem={this.itemTableDelete}
+                  deleteAll={this.itemTableDeleteAll}
                 />
 
                 <Header size={'tiny'}> Post Description </Header>
