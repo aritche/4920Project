@@ -1,4 +1,5 @@
 from flask import abort, jsonify
+from sqlalchemy import and_, not_
 from datetime import datetime
 from database.model import db
 from database.MoveDetails import MoveDetails
@@ -66,7 +67,8 @@ def create_new_move(json):
         status = 'OPEN',
         creation_datetime = datetime.now(),
         address_from = address_from.id,
-        address_to = address_to.id
+        address_to = address_to.id,
+        deleted = False
     )
     db.session.add(move)
     db.session.commit()
@@ -100,13 +102,12 @@ def delete_move_details(json):
     if 'id' in json:
         id_to_delete = json['id']
 
-    move_to_delete = db.session.query(MoveDetails).filter(MoveDetails.id == id_to_delete).first()
-    item_to_delete = db.session.query(Item).filter(Item.move_id == id_to_delete).delete()
+    move_to_delete = db.session.query(MoveDetails).filter(and_(MoveDetails.id == id_to_delete, not_(MoveDetails.deleted))).first()
 
     if not move_to_delete:
         abort(400, 'Post not found/doesn\'t exist')
     else:
-        db.session.delete(move_to_delete)
+        move_to_delete.deleted = True
         db.session.commit()
         resp = jsonify({
             'success': True
@@ -116,7 +117,7 @@ def delete_move_details(json):
 
 
 def get_move_details(post_id):
-    move_query = db.session.query(MoveDetails).filter(MoveDetails.id == post_id).first()
+    move_query = db.session.query(MoveDetails).filter(and_(MoveDetails.id == post_id, not_(MoveDetails.deleted))).first()
     if not move_query:
         abort(400, 'Post id does not match any existing posts.')
 
@@ -127,7 +128,7 @@ def get_move_details(post_id):
     return resp
 
 def search_moves(json):
-    move_query = db.session.query(MoveDetails)
+    move_query = db.session.query(MoveDetails).filter(not_(MoveDetails.deleted))
 
     if 'status' in json:
         move_query = move_query.filter(MoveDetails.status == json['status'])

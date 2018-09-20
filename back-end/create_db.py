@@ -64,7 +64,8 @@ with app.app_context():
         status = 'OPEN',
         creation_datetime = datetime.now(),
         address_from = from_address.id,
-        address_to = to_address.id
+        address_to = to_address.id,
+        deleted = False
     )
     db.session.add(move1)
     db.session.commit()
