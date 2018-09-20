@@ -89,8 +89,11 @@ export default class CreatePostForm extends Component {
     };
 
     onBudgetChange = (value) => {
+        if (value === '') {
+            value = 0;
+        }
         if (validBudget(value)) {
-            this.setState({ budget: value });
+            this.setState({ budget: parseInt(value) });
         }
     };
 

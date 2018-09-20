@@ -1,9 +1,14 @@
 import { BUDGET } from '../constants';
 
-export function isInteger(value) {
-    return /^[0-9]*$/g.exec(value);
+// Returns true for 0
+export function isPositiveInteger(value) {
+    return /^[0-9]+$/g.exec(value) !== null;
+}
+
+export function isZero(value) {
+    return /^0*\.?0+$/g.exec(value) !== null;
 }
 
 export function validBudget(value) {
-    return isInteger(value) && value >= BUDGET.MIN && value <= BUDGET.MAX;
+    return isPositiveInteger(value) && value >= BUDGET.MIN && value <= BUDGET.MAX;
 }
