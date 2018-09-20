@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon, Input } from 'semantic-ui-react';
-import { isPositiveInteger, isZero, emptyString } from '../../utils/ValidationUtils';
+import { isPositiveInteger, isZero, emptyString, isPositiveFloat, isTypingPositiveFloat } from '../../utils/ValidationUtils';
 
 /**
  * Author: VW
@@ -39,20 +39,14 @@ export default class ItemForm extends Component {
     };
 
     onWeightChange = (value) => {
-      if (value === '') {
-        value = 0;
-      }
-      if (isPositiveInteger(value)) {
-        this.setState({weight: parseInt(value)});
+      if (isTypingPositiveFloat(value)) {
+        this.setState({weight: value});
       }
     };
 
     onVolumeChange = (value) => {
-      if (value === '') {
-        value = 0;
-      }
-      if (isPositiveInteger(value)) {
-        this.setState({volume: parseInt(value)});
+      if (isTypingPositiveFloat(value)) {
+        this.setState({volume: value});
       }
     };
 
@@ -82,7 +76,7 @@ export default class ItemForm extends Component {
 
     validation = () => {
         const {name, weight, volume, amount, desc} = this.state;
-        return emptyString(name) || isZero(weight) || isZero(volume) || isZero(amount) || emptyString(desc);
+        return emptyString(name) || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
     };
 
     render() {
