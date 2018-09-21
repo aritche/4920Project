@@ -9,7 +9,7 @@ export function updateAuthentication(newAuthState, newUserId = -1) {
 }
 
 export function getLoggedInUser() {
-    return sessionStorage.getItem('userId') ? parseInt(sessionStorage.getItem('userId')) : -1;
+    return sessionStorage.getItem('userId') ? parseInt(sessionStorage.getItem('userId'), 10) : -1;
 }
 
 export function logout() {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Segment, Menu, Dropdown, Form, Input, Header } from 'semantic-ui-react';
-import InputSlider from '../../widgets/InputSlider'
 import { BUDGET } from '../../constants';
 
 const sortByOptions = [
@@ -61,7 +60,7 @@ export default class FilterBar extends Component {
                         <Dropdown text='Date' floating labelled button/>
                         */ }
                         <Dropdown text='Postcode' style={{paddingTop: 12, maxHeight: 40, minHeight: 40}}
-                                  floating labelled button simple>
+                                  floating button simple>
                             <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
                                 <Input onChange={this.onPostcodeChange} value={this.state.postcode}/>
                             </Dropdown.Menu>
@@ -78,7 +77,7 @@ export default class FilterBar extends Component {
                         <Menu.Menu position='right'>
                             <Dropdown selection autosize={'false'} onChange={this.onSortByChange}
                                       defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating
-                                      labelled button
+                                      button
                                       style={{minWidth: 150, maxWidth:150, maxHeight: 40, minHeight: 40}}/>
                         </Menu.Menu>
                     </Menu>

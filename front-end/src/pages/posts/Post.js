@@ -12,7 +12,7 @@ export default class Post extends Component {
                 <Item.Image size='tiny' src='/images/default_profile_pic.jpg' />
 
                 <Item.Content>
-                    <Item.Header as='a'>{post.title}</Item.Header>
+                    <Item.Header>{post.title}</Item.Header>
                     <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name}</Item.Meta>
                     <Item.Description>
                         <Grid>

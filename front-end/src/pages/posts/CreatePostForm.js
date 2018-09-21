@@ -99,7 +99,7 @@ export default class CreatePostForm extends Component {
             value = 0;
         }
         if (validBudget(value)) {
-            this.setState({ budget: parseInt(value) });
+            this.setState({ budget: parseInt(value, 10) });
         }
     };
 

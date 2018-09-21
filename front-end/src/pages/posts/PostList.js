@@ -10,7 +10,7 @@ export default class PostList extends Component {
                     
                         <Item.Group divided link>
                         {
-                            this.props.posts.map(post => <Post post={post} />)
+                            this.props.posts.map(post => <Post key={post.id} post={post} />)
                         }
                         </Item.Group>
                     </div>

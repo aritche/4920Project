@@ -57,7 +57,7 @@ export default class ItemForm extends Component {
       }
 
       if (isPositiveInteger(value)) {
-        this.setState({amount: parseInt(value)});
+        this.setState({amount: parseInt(value, 10)});
       }
     };
 

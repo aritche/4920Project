@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Header, Container, Comment, Form, Button, Step, Icon, Label } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
-import Loading from 'react-loading';
 
 
 export default class PostDetailsPage extends Component {

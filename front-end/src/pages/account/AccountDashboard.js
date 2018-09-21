@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Form, Header, TextArea, Segment, Container, Icon, Modal, Card, Image} from 'semantic-ui-react';
+import { Header, Segment, Container, Image} from 'semantic-ui-react';
 import avatar from './elliot.jpg'
 import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';

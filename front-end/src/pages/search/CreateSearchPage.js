@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Message, Segment, Dropdown, Menu, Label } from 'semantic-ui-react';
+import { Form, Segment, Dropdown, Menu } from 'semantic-ui-react';
 import InputSlider from '../../widgets/InputSlider'
 import { BUDGET } from '../../constants';
 import PostList from '../posts/PostList';
