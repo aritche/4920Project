@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Comment, Form, Button, Step, Icon, Label } from 'semantic-ui-react';
+import { Header, Container, Comment, Form, Button, Step, Icon, Label, Table } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 
@@ -104,6 +104,32 @@ export default class PostDetailsPage extends Component {
                             </Step.Content>
                         </Step>
                     </Step.Group>
+
+                    <Header as='h3'>Items</Header>
+                    <Table celled>
+                        <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Weight</Table.HeaderCell>
+                            <Table.HeaderCell>Volume</Table.HeaderCell>
+                            <Table.HeaderCell>Amount</Table.HeaderCell>
+                            <Table.HeaderCell>Description</Table.HeaderCell>
+                        </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body>
+                            { this.state.post.items && this.state.post.items.map(item => {
+                                return <Table.Row>
+                                    <Table.Cell>{item.name}</Table.Cell>
+                                    <Table.Cell>{item.weight}</Table.Cell>
+                                    <Table.Cell>{item.volume}</Table.Cell>
+                                    <Table.Cell>{item.amount}</Table.Cell>
+                                    <Table.Cell>{item.desc}</Table.Cell>
+                                </Table.Row>
+                                })
+                            }
+                        </Table.Body>
+                    </Table>
 
                     <Comment.Group>
                         <Header as='h3' dividing>
