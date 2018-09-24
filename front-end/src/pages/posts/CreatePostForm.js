@@ -11,6 +11,7 @@ import { BUDGET } from '../../constants';
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
 import { validBudget } from '../../utils/ValidationUtils';
+import ErrorInputModal from '../../widgets/ErrorInputModal';
 
 /**
  * Title: Post Form
@@ -39,7 +40,10 @@ export default class CreatePostForm extends Component {
             itemTable: [],
             desc: '',
             submitError: false,
-            errorMessage: 'Sorry, there was a problem with your submission. Please try again.'
+            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+            activeDate: false,
+            activeT1: false,
+            activeT2: false
         }
     }
 
@@ -58,7 +62,7 @@ export default class CreatePostForm extends Component {
 
     itemTableDeleteAll = () => {
         this.setState({itemTable: []});
-    }
+    };
 
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
@@ -73,25 +77,42 @@ export default class CreatePostForm extends Component {
     };
 
     onDateChange = (date) => {
-        this.setState({date: date});
+        if (date.isBefore(this.state.date)) {
+            this.setState({activeDate: true});
+        }
+        else {
+            this.setState({date: date});
+        }
+    };
+
+    onDatePopClose = () => {
+        this.setState({activeDate: false});
     };
 
     onTime1Change = (time1) => {
         if (time1.isAfter(this.state.time2)) {
-            alert("From time must be before the to time")
+            this.setState({activeT1: true});
         }
         else {
             this.setState({time1: time1});
         }
     };
 
+    onTime1PopClose = () => {
+        this.setState({activeT1: false});
+    };
+
     onTime2Change = (time2) => {
         if (time2.isBefore(this.state.time1)) {
-            alert("To time must be after the from time")
+            this.setState({activeT2: true});
         }
         else {
             this.setState({time2: time2});
         }
+    };
+
+    onTime2PopClose = () => {
+        this.setState({activeT2: false});
     };
 
     onBudgetChange = (value) => {
@@ -180,6 +201,8 @@ export default class CreatePostForm extends Component {
                   onChange={this.onChange}
                 />
 
+                <br/>
+
                 <SearchBar
                   lowerIdent='from'
                   upperIdent='From'
@@ -196,7 +219,9 @@ export default class CreatePostForm extends Component {
                   handleC={this.onChange}
                   handleL1={this.onAddrFChange}
                 />
+
                 <br/>
+
                 <SearchBar
                   lowerIdent='to'
                   upperIdent='To'
@@ -214,6 +239,8 @@ export default class CreatePostForm extends Component {
                   handleL1={this.onAddrTChange}
                 />
 
+                <br/>
+
                 <Header size={'tiny'}> When are you moving? </Header>
                 <DateTimePicker
                   date={this.state.date}
@@ -224,8 +251,10 @@ export default class CreatePostForm extends Component {
                   handleT2={this.onTime2Change}
                 />
 
+                <br/>
+
                 <Header size={'tiny'}> What is your budget? </Header>
-                <p> If you are unsure, we recommend you browse other jobs first. </p>
+                <test> If you are unsure, we recommend you browse other jobs first. </test>
                 <InputSlider
                     value={this.state.budget}
                     onChange={this.onBudgetChange}
@@ -235,6 +264,8 @@ export default class CreatePostForm extends Component {
                     icon={'dollar'}
                 />
 
+                <br/>
+
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemTable
                   table={this.state.itemTable}
@@ -242,6 +273,8 @@ export default class CreatePostForm extends Component {
                   deleteItem={this.itemTableDelete}
                   deleteAll={this.itemTableDeleteAll}
                 />
+
+                <br/>
 
                 <Header size={'tiny'}> Post Description </Header>
                 <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
@@ -255,6 +288,26 @@ export default class CreatePostForm extends Component {
                 <span style={{width: 10}}/>
                 <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
               </div>
+
+              <ErrorInputModal
+                pop={this.state.activeDate}
+                headerText={'The move date must be after today'}
+                onClose={this.onDatePopClose}
+              />
+
+              <ErrorInputModal
+                pop={this.state.activeT1}
+                headerText={'The from time must be before the to time'}
+                onClose={this.onTime1PopClose}
+              />
+
+              <ErrorInputModal
+                pop={this.state.activeT2}
+                headerText={'The to time must be before the from time'}
+                onClose={this.onTime2PopClose}
+              />
+
+
             </Form>
         )
     }

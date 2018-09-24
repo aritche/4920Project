@@ -20,7 +20,7 @@ export default class ConfirmationModal extends Component {
 
     confirm = () => {
         this.setState({open: false}, this.props.onConfirm);
-    }
+    };
 
     render() {
         return (
