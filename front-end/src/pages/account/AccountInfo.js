@@ -4,7 +4,6 @@ import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
 import avatar from './elliot.jpg'
 import ConfirmationModal from '../../widgets/ConfirmationModal';
-import UserCard from '../../widgets/UserCard';
 
 /**
  * Title: Account Dashboard
@@ -34,8 +33,8 @@ export default class AccountDashboard extends Component {
     fetch(url + 'delete-account', {
       method: 'POST',
       headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         'userId': this.state.user.id
@@ -86,8 +85,8 @@ export default class AccountDashboard extends Component {
         <div style={{paddingBottom: 80}}>
           <Segment>
             <div style={{marginBottom: 20}}>
-              <Segment inverted color={'blue'}>
-                <div style={{marginLeft: '40%', marginTop: '8%'}}>
+              <Segment inverted color={'black'}>
+                <div style={{marginLeft: '40%'}}>
                   <Image src={avatar} circular size={'small'}/>
                   <Header style={{color:'white'}} content={this.state.user.firstname + ' ' + this.state.user.lastname}
                           size={'big'}/>
@@ -95,8 +94,8 @@ export default class AccountDashboard extends Component {
                 </div>
               </Segment>
               <Divider />
-              <ConfirmationModal 
-                buttonText='Delete Account' 
+              <ConfirmationModal
+                buttonText='Delete Account'
                 buttonSize='small'
                 buttonStyle={{width: 150, height: 50}}
                 headerText='Are you sure you want to delete your account?'
