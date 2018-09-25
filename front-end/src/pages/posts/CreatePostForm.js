@@ -36,7 +36,6 @@ export default class CreatePostForm extends Component {
             time1: moment().startOf('day').hour(9),
             time2: moment().startOf('day').hour(17),
             budget: BUDGET.DEFAULT,
-            item: {name: '', weight: '', volume: '', desc: '', amount:''},
             itemTable: [],
             desc: '',
             submitError: false,
