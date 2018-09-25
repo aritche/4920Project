@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {Image, Segment, Container, Divider, Header, Rating, Table, Button, Icon, Item} from 'semantic-ui-react';
+import {Image, Segment, Container, Divider, Header, Rating, Menu} from 'semantic-ui-react';
 import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
 import avatar from './elliot.jpg'
 import PostList from "./PostTable";
 import FeedList from "./FeedList";
+import ConfirmationModal from "../../widgets/ConfirmationModal";
 
 /**
  * Title: Account Dashboard
@@ -86,7 +87,7 @@ export default class AccountDashboard extends Component {
       <Container>
         <div style={{paddingBottom: 80}}>
           <Segment.Group stacked>
-            <Segment inverted color={'blue'}>
+            <Segment inverted color={'black'}>
               <div style={{marginTop: '1%', display: 'flex'}}>
                 <Segment circular size={'small'}
                          style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1}}>
@@ -98,19 +99,39 @@ export default class AccountDashboard extends Component {
                   <Header style={{color:'white'}} content={'Movee joined in 2018'} size={'big'}/>
                   <Rating style={{}} maxRating={5} defaultRating={5} icon='star' size='huge' />
                 </div>
-                <Button
-                  content={" Go to my profile"}
-                  icon='right arrow'
-                  iconPosition='left'
-                  style={{marginLeft: "30%", marginTop: "9%", backgroundColor: 'transparent', width: "28%", height: "0%"}}
-                  size={'massive'}/>
+                <Menu inverted secondary attached='top'
+                      style={{height: "0%", width: "15%", marginLeft: "45%", marginTop: "11%"}}>
+                  <Menu.Item name='Updates' size={'big'}/>
+                  <Menu.Item name='Profile' size={'big'}/>
+                </Menu>
               </div>
             </Segment>
-            <Segment>
+            <Segment visible>
+              <br/>
               <Header content={'Recent Updates'} size={'huge'}/>
               <FeedList/>
+              <br/>
               <Header content={'Post Collection'} size={'huge'}/>
               <PostList table={this.state.postList}/>
+              <br/>
+              <div>
+                <Header content={'User Information'} size={'huge'}/>
+                <Header content={'Name:'} size={'medium'}/>
+                <Divider/>
+                <Header content={'Address:'} size={'medium'}/>
+                <Divider/>
+                <Header content={'Mobile Number:'} size={'medium'}/>
+                <Divider/>
+                <Header content={'Email Address:'} size={'medium'}/>
+                <Divider/>
+              </div>
+              <ConfirmationModal
+                buttonText='Delete Account'
+                buttonSize='small'
+                buttonStyle={{width: 150, height: 50}}
+                headerText='Are you sure you want to delete your account?'
+                onConfirm={this.deleteAccount}
+              />
             </Segment>
           </Segment.Group>
         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { generate } from 'password-hash';
 import { url } from '../../Api';
 import { updateAuthentication } from '../../Authentication';
-import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Message, Segment, Radio } from 'semantic-ui-react';
 
 export default class CreateSignupForm extends Component {
     constructor() {
@@ -15,6 +15,7 @@ export default class CreateSignupForm extends Component {
             password: '',
             isLoading: false,
             confirmPassword: '',
+            title: '',
 
             submitError: false,
             errorMessage: 'An error has occurred.',
@@ -47,6 +48,10 @@ export default class CreateSignupForm extends Component {
 
     onConfirmPasswordChange = (e) => {
         this.setState({ confirmPassword: e.target.value });
+    };
+
+    onTitleChange = (e) => {
+        this.setState({ title: e })
     };
 
     attemptSignup = () => {
@@ -174,6 +179,25 @@ export default class CreateSignupForm extends Component {
                             <Form.Input error={this.state.confirmPasswordError || this.state.passwordMismatch}
                                         icon={'key'} iconPosition={'left'} placeholder="Confirm Password" type='password'
                                         value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} />
+
+                            <div style={{display: 'flex'}}>
+                                <Radio
+                                  label='Movee'
+                                  name='radioGroup'
+                                  value='Movee'
+                                  checked={this.state.title === 'Movee'}
+                                  onChange={this.onTitleChange}
+                                />
+                                <span style={{width: 20}}/>
+                                <Radio
+                                  label='Removalist'
+                                  name='radioGroup'
+                                  value='Removalist'
+                                  checked={this.state.title === 'Removalist'}
+                                  onChange={this.onTitleChange}
+                                />
+                            </div>
+                            <br/>
                             <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
                         </Segment>

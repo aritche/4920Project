@@ -62,7 +62,7 @@ export default class NavHeader extends Component {
                         Posts
                     </Menu.Item>
                     <Menu.Item as={Link} to={'/dashboard'} active={window.location.pathname === '/dashboard'}>
-                        Account
+                        Dashboard
                     </Menu.Item>
 
                     {
