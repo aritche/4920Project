@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Image, Segment, Container, Divider, Header, Rating} from 'semantic-ui-react';
+import {Image, Segment, Container, Divider, Header, Rating, Table, Button, Icon, Item} from 'semantic-ui-react';
 import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
 import avatar from './elliot.jpg'
-import ConfirmationModal from '../../widgets/ConfirmationModal';
-import UserCard from '../../widgets/UserCard';
+import PostList from "./PostTable";
+import FeedList from "./FeedList";
 
 /**
  * Title: Account Dashboard
@@ -18,6 +18,7 @@ export default class AccountDashboard extends Component {
       isLoading: false,
       open: false,
       user: {},
+      postList: []
     };
   }
 
@@ -84,26 +85,34 @@ export default class AccountDashboard extends Component {
     return (
       <Container>
         <div style={{paddingBottom: 80}}>
-          <Segment>
-            <div style={{marginBottom: 20}}>
-              <Segment inverted color={'blue'}>
-                <div style={{marginLeft: '40%', marginTop: '8%'}}>
-                  <Image src={avatar} circular size={'small'}/>
+          <Segment.Group stacked>
+            <Segment inverted color={'blue'}>
+              <div style={{marginTop: '1%', display: 'flex'}}>
+                <Segment circular size={'small'}
+                         style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1}}>
+                  <Image src={avatar} circular size={'small'} bordered/>
+                </Segment>
+                <div style={{marginTop: "3%", marginLeft: "1%"}}>
                   <Header style={{color:'white'}} content={this.state.user.firstname + ' ' + this.state.user.lastname}
-                          size={'big'}/>
-                  <Rating style={{marginRight: 15}} maxRating={5} defaultRating={5} icon='star' size='massive' />
+                          size={'huge'}/>
+                  <Header style={{color:'white'}} content={'Movee joined in 2018'} size={'big'}/>
+                  <Rating style={{}} maxRating={5} defaultRating={5} icon='star' size='huge' />
                 </div>
-              </Segment>
-              <Divider />
-              <ConfirmationModal 
-                buttonText='Delete Account' 
-                buttonSize='small'
-                buttonStyle={{width: 150, height: 50}}
-                headerText='Are you sure you want to delete your account?'
-                onConfirm={this.deleteAccount}
-              />
-            </div>
-          </Segment>
+                <Button
+                  content={" Go to my profile"}
+                  icon='right arrow'
+                  iconPosition='left'
+                  style={{marginLeft: "30%", marginTop: "9%", backgroundColor: 'transparent', width: "28%", height: "0%"}}
+                  size={'massive'}/>
+              </div>
+            </Segment>
+            <Segment>
+              <Header content={'Recent Updates'} size={'huge'}/>
+              <FeedList/>
+              <Header content={'Post Collection'} size={'huge'}/>
+              <PostList table={this.state.postList}/>
+            </Segment>
+          </Segment.Group>
         </div>
       </Container>
     )

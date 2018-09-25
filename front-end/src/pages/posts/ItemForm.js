@@ -2,49 +2,51 @@ import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon } from 'semantic-ui-react';
 import { isPositiveInteger, isZero, emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
 import PositiveFloatInput from '../../widgets/PositiveFloatInput';
+import ErrorInputModal from '../../widgets/ErrorInputModal';
 
 /**
  * Author: VW
  */
 export default class ItemForm extends Component {
     constructor() {
-      super();
+        super();
 
-      this.state = {
-        open: false,
-        name: '',
-        weight: 0,
-        volume: 0,
-        desc: '',
-        amount: 1,
-      }
+        this.state = {
+            open: false,
+            name: '',
+            weight: 0,
+            volume: 0,
+            desc: '',
+            amount: 1,
+            activeForm: false
+        }
     }
 
     close = () => {
-      this.setState({open: false});
+        this.setState({open: false});
     };
 
     open = () => {
-      this.setState({
-        open: true,
-        name: '',
-        weight: 0,
-        volume: 0,
-        desc: '',
-        amount: 1,
-      });
+        this.setState({
+            open: true,
+            name: '',
+            weight: 0,
+            volume: 0,
+            desc: '',
+            amount: 1,
+        });
     };
 
     onNameChange = (value) => {
-      this.setState({name: value});
+        this.setState({name: value});
     };
 
     onWeightChange = (value) => {
-      this.setState({weight: value});
+        this.setState({weight: value});
     };
 
     onVolumeChange = (value) => {
-      this.setState({volume: value});
+        this.setState({volume: value});
     };
 
     onDescChange = (value) => {
@@ -52,23 +54,26 @@ export default class ItemForm extends Component {
     };
 
     onAmountChange = (value) => {
-      if (value === '' || isZero(value)) {
-        value = 1;
-      }
+        if (value === '' || isZero(value)) {
+            value = 1;
+        }
 
-      if (isPositiveInteger(value)) {
-        this.setState({amount: parseInt(value, 10)});
-      }
+        if (isPositiveInteger(value)) {
+            this.setState({amount: parseInt(value, 10)});
+        }
     };
 
     onSubmit = () => {
-      //TODO: validation that fields are not empty
-      // Make sure name is unique
-      if (!this.validation()) {
-          const { name, weight, volume, desc, amount } = this.state;
-          this.props.addItem(name, weight, volume, desc, amount);
-          this.close();
-      }
+        //TODO: validation that fields are not empty
+        // Make sure name is unique
+        if (!this.validation()) {
+            const { name, weight, volume, desc, amount } = this.state;
+            this.props.addItem(name, weight, volume, desc, amount);
+            this.close();
+        }
+        else {
+
+        }
     };
 
     validation = () => {
@@ -77,8 +82,12 @@ export default class ItemForm extends Component {
     };
 
     nameValid = () => {
-      return !emptyString(this.state.name) && this.props.itemNames.indexOf(this.state.name) === -1;
-    }
+        return !emptyString(this.state.name) && this.props.itemNames.indexOf(this.state.name) === -1;
+    };
+
+    onFormPopClose = () => {
+        this.setState({activeForm: false});
+    };
 
     render() {
         return (
@@ -124,6 +133,12 @@ export default class ItemForm extends Component {
                 <Icon name='remove' /> No
               </Button>
             </Modal.Actions>
+
+            <ErrorInputModal
+              pop={this.state.activeForm}
+              headerText={'Please fill every field of this form'}
+              onClose={this.onFormPopClose}
+            />
           </Modal>
         );
     }
