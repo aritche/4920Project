@@ -12,11 +12,11 @@ export default class SingleFeed extends Component {
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
-              <Feed.User>Dummy 1</Feed.User> Made an offer at your post
-              <Feed.Date>3 Hour Ago</Feed.Date>
+              <Feed.User>{this.props.name}</Feed.User> {this.props.event}
+              <Feed.Date>{this.props.dateTime}</Feed.Date>
             </Feed.Summary>
             <Feed.Extra text>
-              I can do for $50
+              {this.props.detail}
             </Feed.Extra>
           </Feed.Content>
         </Feed.Event>
