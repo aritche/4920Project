@@ -26,7 +26,8 @@ export default class CreateSignupForm extends Component {
             lastNameError: false,
             emailError: false,
             passwordError: false,
-            confirmPasswordError: false
+            confirmPasswordError: false,
+            titleError: false
         }
     }
     onFirstNameChange = (e) => {
@@ -50,8 +51,8 @@ export default class CreateSignupForm extends Component {
         this.setState({ confirmPassword: e.target.value });
     };
 
-    onTitleChange = (e) => {
-        this.setState({ title: e })
+    onTitleChange = (e, { value }) => {
+        this.setState({ title: value })
     };
 
     attemptSignup = () => {
@@ -63,6 +64,7 @@ export default class CreateSignupForm extends Component {
         this.setState({ emailError: false });
         this.setState({ passwordError : false });
         this.setState({ confirmPasswordError : false });
+        this.setState({ titleError: false });
         this.setState({ submitError: false });
         var validationError = false;
 
@@ -93,6 +95,10 @@ export default class CreateSignupForm extends Component {
             validationError = true;
         }
 
+        if (this.state.title === ''){
+            this.setState({ titleError : true });
+            validationError = true;
+        }
 
         if (validationError){
             this.setState({ errorMessage: 'No fields can be left blank.'});
@@ -180,24 +186,25 @@ export default class CreateSignupForm extends Component {
                                         icon={'key'} iconPosition={'left'} placeholder="Confirm Password" type='password'
                                         value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} />
 
-                            <div style={{display: 'flex'}}>
-                                <Radio
-                                  label='Movee'
-                                  name='radioGroup'
-                                  value='Movee'
-                                  checked={this.state.title === 'Movee'}
-                                  onChange={this.onTitleChange}
-                                />
-                                <span style={{width: 20}}/>
-                                <Radio
-                                  label='Removalist'
-                                  name='radioGroup'
-                                  value='Removalist'
-                                  checked={this.state.title === 'Removalist'}
-                                  onChange={this.onTitleChange}
-                                />
-                            </div>
-                            <br/>
+                            <Form.Field error={this.state.titleError}>
+                                <div style={{display: 'flex'}}>
+                                    <Radio
+                                      label='Movee'
+                                      name='radioGroup'
+                                      value='Movee'
+                                      checked={this.state.title === 'Movee'}
+                                      onChange={this.onTitleChange}
+                                    />
+                                    <span style={{width: 20}}/>
+                                    <Radio
+                                      label='Removalist'
+                                      name='radioGroup'
+                                      value='Removalist'
+                                      checked={this.state.title === 'Removalist'}
+                                      onChange={this.onTitleChange}
+                                    />
+                                </div>
+                            </Form.Field>
                             <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
                         </Segment>
