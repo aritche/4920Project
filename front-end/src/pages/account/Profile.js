@@ -27,18 +27,18 @@ export default class Profile extends Component {
   render() {
     return (
         <div>
-          <Header content={'User Information'} size={'huge'}/>
-          <Header content={'Name:'} size={'medium'}/>
-          <text> {this.props.name} </text>
-          <Divider/>
-          <Header content={'Address:'} size={'medium'}/>
-          <text> {this.props.address} </text>
-          <Divider/>
-          <Header content={'Mobile Number:'} size={'medium'}/>
-          <text> {this.props.mobile} </text>
-          <Divider/>
-          <Header content={'Email Address:'} size={'medium'}/>
-          <text> {this.props.email} </text>
+          <div>
+            <Header content={'User Information'} size={'huge'}/>
+            <Divider/>
+            <Header content={'Name:'} size={'medium'}/>
+            <text> {this.props.name} </text>
+            <Header content={'Address:'} size={'medium'}/>
+            <text> {this.props.address} </text>
+            <Header content={'Mobile Number:'} size={'medium'}/>
+            <text> {this.props.mobile} </text>
+            <Header content={'Email Address:'} size={'medium'}/>
+            <text> {this.props.email} </text>
+          </div>
           <Divider/>
           <ConfirmationModal
             buttonText='Delete Account'

@@ -7,7 +7,7 @@ import avatar from './elliot.jpg'
  * Author: Victor
  */
 export default class Top extends Component {
-    state = {};
+    state = { activeItem: 'Updates' };
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name });
         if (name === 'Updates') {
