@@ -12,6 +12,7 @@ import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
 import { validBudget } from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
+// import Comments from './Comments'
 
 /**
  * Title: Post Form
@@ -306,7 +307,9 @@ export default class CreatePostForm extends Component {
                 onClose={this.onTime2PopClose}
               />
 
-
+              {/*<Comments comments={[{name: "miao", date: "miao",
+                content: "miao"}]}
+              subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
             </Form>
         )
     }
