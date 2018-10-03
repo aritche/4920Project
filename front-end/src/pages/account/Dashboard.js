@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Header} from 'semantic-ui-react';
+import {Button, Header, Menu} from 'semantic-ui-react';
 import PostList from "./PostTable";
 import FeedList from "./FeedList";
 import {Link} from "react-router-dom";
@@ -19,7 +19,14 @@ export default class Dashboard extends Component {
           <Header content={'Post Collection'} size={'huge'}/>
           <PostList list={this.props.post}/>
           <br/>
-          <Button as={Link} to={'/create-post'} positive>Create Post</Button>
+          <Button.Group>
+            <Button as={Link} to={'/create-post'} primary>Create Post</Button>
+            <Button.Or />
+            <Button as={Link} to={'/posts'} secondary>Search Post</Button>
+          </Button.Group>
+        <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
+          Posts
+        </Menu.Item>
       </div>
     )
   }

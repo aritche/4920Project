@@ -58,9 +58,6 @@ export default class NavHeader extends Component {
                     <Menu.Item  as={Link} to={'/'} active={window.location.pathname === '/'}>
                         <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
-                    <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
-                        Posts
-                    </Menu.Item>
 
                     {
                         this.state.isLoggedIn ?
