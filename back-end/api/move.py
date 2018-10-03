@@ -150,7 +150,7 @@ def search_moves(json):
         move_query = move_query.filter(MoveDetails.closing_datetime1 <= json['upperDate'])
 
     if 'postcode' in json and json['postcode'] != '':
-        move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
+        move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
     resp = jsonify({
