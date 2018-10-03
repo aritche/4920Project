@@ -22,8 +22,6 @@ class User(db.Model):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'password': self.password,
-            'deleted': self.deleted
+            'deleted': self.deleted,
+            'user_type': self.user_type
         }
-
-    def __repr__(self):
-        return "<User(email='%s')" % (self.email)

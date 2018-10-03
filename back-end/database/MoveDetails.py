@@ -11,7 +11,7 @@ class MoveDetails(db.Model):
     closing_datetime1 = db.Column(db.DateTime, nullable=False)
     closing_datetime2 = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    budget = db.Column(db.String(255), nullable=False)
+    budget = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(255), nullable=False)
     creation_datetime = db.Column(db.DateTime, nullable=False)
     address_from = db.Column(db.Integer, ForeignKey('fromaddress.id'), nullable=False)
@@ -34,6 +34,3 @@ class MoveDetails(db.Model):
             'creation_datetime': self.creation_datetime,
             'deleted': self.deleted
         }
-
-    def __repr__(self):
-        return "<User(email='%s')" % (self.email)

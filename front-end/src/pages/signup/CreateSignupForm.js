@@ -122,7 +122,7 @@ export default class CreateSignupForm extends Component {
                         'lastName': this.state.lastName,
                         'email': this.state.email,
                         'hashedPassword': generate(this.state.password),
-                        'userType': 'movee' // placeholder - add actual option later
+                        'userType': this.state.title
                     })
                 }).then(response => {
                     if (response.status === 400) {

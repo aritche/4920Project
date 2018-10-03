@@ -90,10 +90,10 @@ export default class Account extends Component {
               <Segment.Group stacked>
                 <Segment inverted>
                   <Top
-                    firstName={this.state.user.firstname}
-                    lastName={this.state.user.lastname}
+                    firstName={this.state.user.first_name}
+                    lastName={this.state.user.last_name}
                     date={this.state.user.date}
-                    identity={this.state.user.ident}
+                    identity={this.state.user.user_type}
                     rating={this.state.user.rating}
                     update={this.onUpdate}
                     profile={this.onProfile}

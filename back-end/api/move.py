@@ -1,5 +1,5 @@
 from flask import abort, jsonify
-from sqlalchemy import and_, not_
+from sqlalchemy import and_, not_, or_
 from datetime import datetime
 from database.model import db
 from database.MoveDetails import MoveDetails
@@ -63,7 +63,7 @@ def create_new_move(json):
         closing_datetime1 = datetime.strptime(json['date'] + '-' + json['time1'], '%d/%m/%Y-%H:%M'),
         closing_datetime2 = datetime.strptime(json['date'] + '-' + json['time2'], '%d/%m/%Y-%H:%M'),
         description = json['desc'],
-        budget = json['budget'],
+        budget = int(json['budget']),
         status = 'OPEN',
         creation_datetime = datetime.now(),
         address_from = address_from.id,
@@ -122,7 +122,8 @@ def get_move_details(post_id):
         abort(400, 'Post id does not match any existing posts.')
 
     resp = jsonify({
-        'move': get_movee_details(get_address_details(move_query.to_dict()))
+        'move': get_movee_details(get_address_details(move_query.to_dict())),
+        'items': list(map(Item.to_dict, move_query.items))
     })
     resp.status_code = 200
     return resp
@@ -130,14 +131,25 @@ def get_move_details(post_id):
 def search_moves(json):
     move_query = db.session.query(MoveDetails).filter(not_(MoveDetails.deleted))
 
-    if 'status' in json:
+    if 'status' in json and json['status'] != '':
         move_query = move_query.filter(MoveDetails.status == json['status'])
 
-    if 'budgetLow' in json:
-        move_query = move_query.filter(MoveDetails.budget > json['budgetLow'])
+    if 'lowerBudget' in json and json['lowerBudget'].isdigit() and json['lowerBudget'] != -1:
+        print(map(MoveDetails.to_dict, move_query.all()))
+        move_query = move_query.filter(MoveDetails.budget >= int(json['lowerBudget']))
 
-    if 'budgetHigh' in json:
-        move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
+    if 'upperBudget' in json and json['upperBudget'].isdigit() and json['upperBudget'] != -1:
+        move_query = move_query.filter(MoveDetails.budget <= int(json['upperBudget']))
+
+    if 'lowerDate' in json and json['lowerDate'] and json['lowerDate'] != '':
+        move_query = move_query.filter(MoveDetails.closing_datetime1 >= json['lowerDate'])
+
+    if 'upperDate' in json and json['upperDate'] and json['upperDate'] != '':
+        move_query = move_query.filter(MoveDetails.closing_datetime1 <= json['upperDate'])
+
+    if 'postcode' in json and json['postcode'] != '':
+        move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
+        move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
     resp = jsonify({
         'moves': list(map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all()))))

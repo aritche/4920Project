@@ -11,6 +11,11 @@ export default class PostsPage extends Component {
 
         this.state = {
             posts: [],
+            postcode: '',
+            lowerBudget: '',
+            upperBudget: '',
+            lowerDate: '',
+            upperDate: ''
         };
     }
 
@@ -39,6 +44,46 @@ export default class PostsPage extends Component {
         });
     }
 
+    handleFilterChange(filter, value) {
+        console.log(filter);
+        console.log(value);
+        this.setState({ [filter]: value }, () => {
+            this.reloadPosts();
+        });
+    }
+
+    reloadPosts() {
+        fetch(url + 'search-posts', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'postcode': this.state.postcode,
+                'lowerBudget': this.state.lowerBudget,
+                'upperBudget': this.state.upperBudget,
+                'lowerDate': this.state.lowerDate,
+                'upperDate': this.state.upperDate
+            })
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.setState({
+                        posts: obj.moves
+                    })
+                    return;
+                });
+            } else {
+                this.setState({
+                    submitError: true,
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
+    }
+
     render() {
         return (
             <Container>
@@ -47,8 +92,10 @@ export default class PostsPage extends Component {
                     <Header.Content>Posts</Header.Content>
                 </Header>
                 <Button as={Link} to={'/create-post'} positive>Create Post</Button>
-                
-                <FilterBar />
+
+                <FilterBar
+                    handleChange={this.handleFilterChange.bind(this)}
+                />
 
                 <Segment secondary>
                     <PostList posts={this.state.posts} />
