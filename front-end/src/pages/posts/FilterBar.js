@@ -9,7 +9,7 @@ const sortByOptions = [
     { key: 2, text: 'Price (Low to High)', value: 2},
     { key: 3, text: 'Price (High to Low)', value: 3},
     { key: 4, text: 'Date (Early to Late)', value: 4},
-    { key: 5, text: 'Date (Late to Early', value: 5},
+    { key: 5, text: 'Date (Late to Early)', value: 5},
     { key: 6, text: 'Closest', value: 6},
 ];
 
@@ -49,6 +49,13 @@ export default class FilterBar extends Component {
         return (
             <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
                 <Menu secondary>
+                    <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
+                              floating button simple>
+                        <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
+                            <Input onChange={this.onPostcodeChange} value={this.state.postcode}
+                                   size={'tiny'} />
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <span style={{width: 10}}/>
                     <Dropdown text='Budget Range' style={{maxHeight: 38, minHeight: 38}}
                             floating button simple>
