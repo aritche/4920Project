@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, TextArea, Segment, Divider, Grid } from 'semantic-ui-react';
+import { Container, Button, Form, Header, TextArea, Segment, Divider, Grid } from 'semantic-ui-react';
 import moment from "moment";
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
@@ -189,131 +189,139 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-            <Segment>
-            <Form size={'large'} style={{paddingBottom: 80}}>
-              <ProcessStep/>
+        <Container>
+            <Segment.Group>
+              <Segment inverted secondary>
+                <Header size={'large'} content={'Make Your Move!'} />
+              </Segment>
 
-              <Header size={'large'} content={'Make Your Move!'} />
-              <Form.Field>
-                <Divider/>
-                <Form.Input
-                  name='title'
-                  style={{width: 250}} fluid label='Title'
-                  placeholder='Post Title'
-                  onChange={this.onChange}
-                />
+              <Form size={'large'} style={{paddingBottom: 80}}>
 
-                <Divider/>
+              <Segment>
+                  <ProcessStep/>
 
-                <SearchBar
-                  lowerIdent='from'
-                  upperIdent='From'
-                  addrL1={this.state.fromAddrL1}
-                  addrL2={this.state.fromAddrL2}
-                  city={this.state.fromCity}
-                  state={this.state.fromState}
-                  postCode={this.state.fromPostCo}
-                  l1N={"fromAddrL1"}
-                  l2N={"fromAddrL2"}
-                  cityN={'fromCity'}
-                  stateN={"fromState"}
-                  postN={"fromPostCo"}
-                  handleC={this.onChange}
-                  handleL1={this.onAddrFChange}
-                />
+                  <Form.Field>
+                    <Divider/>
+                    <Form.Input
+                      name='title'
+                      style={{width: 250}} fluid label='Title'
+                      placeholder='Post Title'
+                      onChange={this.onChange}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <SearchBar
-                  lowerIdent='to'
-                  upperIdent='To'
-                  addrL1={this.state.toAddrL1}
-                  addrL2={this.state.toAddrL2}
-                  city={this.state.toCity}
-                  state={this.state.toState}
-                  postCode={this.state.toPostCo}
-                  l1N={"toAddrL1"}
-                  l2N={"toAddrL2"}
-                  cityN={'toCity'}
-                  stateN={"toState"}
-                  postN={"toPostCo"}
-                  handleC={this.onChange}
-                  handleL1={this.onAddrTChange}
-                />
+                    <SearchBar
+                      lowerIdent='from'
+                      upperIdent='From'
+                      addrL1={this.state.fromAddrL1}
+                      addrL2={this.state.fromAddrL2}
+                      city={this.state.fromCity}
+                      state={this.state.fromState}
+                      postCode={this.state.fromPostCo}
+                      l1N={"fromAddrL1"}
+                      l2N={"fromAddrL2"}
+                      cityN={'fromCity'}
+                      stateN={"fromState"}
+                      postN={"fromPostCo"}
+                      handleC={this.onChange}
+                      handleL1={this.onAddrFChange}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <Header size={'tiny'}> When are you moving? </Header>
-                <DateTimePicker
-                  date={this.state.date}
-                  handleD={this.onDateChange}
-                  time1={this.state.time1}
-                  handleT1={this.onTime1Change}
-                  time2={this.state.time2}
-                  handleT2={this.onTime2Change}
-                />
+                    <SearchBar
+                      lowerIdent='to'
+                      upperIdent='To'
+                      addrL1={this.state.toAddrL1}
+                      addrL2={this.state.toAddrL2}
+                      city={this.state.toCity}
+                      state={this.state.toState}
+                      postCode={this.state.toPostCo}
+                      l1N={"toAddrL1"}
+                      l2N={"toAddrL2"}
+                      cityN={'toCity'}
+                      stateN={"toState"}
+                      postN={"toPostCo"}
+                      handleC={this.onChange}
+                      handleL1={this.onAddrTChange}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <Header size={'tiny'}> What is your budget? </Header>
-                <test> If you are unsure, we recommend you browse other jobs first. </test>
-                <InputSlider
-                    value={this.state.budget}
-                    onChange={this.onBudgetChange}
-                    min={BUDGET.MIN}
-                    max={BUDGET.MAX}
-                    step={10}
-                    icon={'dollar'}
-                />
+                    <Header size={'tiny'}> When are you moving? </Header>
+                    <DateTimePicker
+                      date={this.state.date}
+                      handleD={this.onDateChange}
+                      time1={this.state.time1}
+                      handleT1={this.onTime1Change}
+                      time2={this.state.time2}
+                      handleT2={this.onTime2Change}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <Header size={'tiny'}> Item Detail </Header>
-                <ItemTable
-                  table={this.state.itemTable}
-                  addItem={this.itemTableAdd}
-                  deleteItem={this.itemTableDelete}
-                  deleteAll={this.itemTableDeleteAll}
-                />
+                    <Header size={'tiny'}> What is your budget? </Header>
+                    <test> If you are unsure, we recommend you browse other jobs first. </test>
+                    <InputSlider
+                        value={this.state.budget}
+                        onChange={this.onBudgetChange}
+                        min={BUDGET.MIN}
+                        max={BUDGET.MAX}
+                        step={10}
+                        icon={'dollar'}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <Header size={'tiny'}> Post Description </Header>
-                <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
+                    <Header size={'tiny'}> Item Detail </Header>
+                    <ItemTable
+                      table={this.state.itemTable}
+                      addItem={this.itemTableAdd}
+                      deleteItem={this.itemTableDelete}
+                      deleteAll={this.itemTableDeleteAll}
+                    />
 
-              </Form.Field>
+                    <Divider/>
 
-              <br/>
+                    <Header size={'tiny'}> Post Description </Header>
+                    <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
 
-              <div style={{display: 'flex'}}>
-                <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
-                <span style={{width: 10}}/>
-                <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
-              </div>
+                  </Form.Field>
 
-              <ErrorInputModal
-                pop={this.state.activeDate}
-                headerText={'The move date must be after today'}
-                onClose={this.onDatePopClose}
-              />
+                  <br/>
 
-              <ErrorInputModal
-                pop={this.state.activeT1}
-                headerText={'The from time must be before the to time'}
-                onClose={this.onTime1PopClose}
-              />
+                  <div style={{display: 'flex'}}>
+                    <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
+                    <span style={{width: 10}}/>
+                    <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
+                  </div>
 
-              <ErrorInputModal
-                pop={this.state.activeT2}
-                headerText={'The to time must be before the from time'}
-                onClose={this.onTime2PopClose}
-              />
+                  <ErrorInputModal
+                    pop={this.state.activeDate}
+                    headerText={'The move date must be after today'}
+                    onClose={this.onDatePopClose}
+                  />
 
-              {/*<Comments comments={[{name: "miao", date: "miao",
-                content: "miao"}]}
-              subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
-            </Form>
-            </Segment>
+                  <ErrorInputModal
+                    pop={this.state.activeT1}
+                    headerText={'The from time must be before the to time'}
+                    onClose={this.onTime1PopClose}
+                  />
+
+                  <ErrorInputModal
+                    pop={this.state.activeT2}
+                    headerText={'The to time must be before the from time'}
+                    onClose={this.onTime2PopClose}
+                  />
+
+                  {/*<Comments comments={[{name: "miao", date: "miao",
+                    content: "miao"}]}
+                  subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
+                </Segment>
+              </Form>
+            </Segment.Group>
+        </Container>
         )
     }
 }
