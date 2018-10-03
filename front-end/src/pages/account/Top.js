@@ -31,7 +31,7 @@ export default class Top extends Component {
                       size={'huge'}/>
               <Header style={{color:'white'}} content={this.props.identity + ' joined in ' + this.props.date}
                       size={'big'}/>
-              <Rating maxRating={5} defaultRating={this.props.rating} icon='star' size='huge' />
+              <Rating maxRating={5} defaultRating={this.props.rating} icon='star' size='huge' disabled/>
             </div>
             <Menu inverted secondary attached='top'
                   style={{height: "0%", width: "15%", marginLeft: "45%", marginTop: "11%"}}>

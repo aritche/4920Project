@@ -71,8 +71,7 @@ export default class PostsPage extends Component {
                 response.json().then(obj => {
                     this.setState({
                         posts: obj.moves
-                    })
-                    return;
+                    });
                 });
             } else {
                 this.setState({
@@ -91,7 +90,6 @@ export default class PostsPage extends Component {
                     <Icon name='file alternate' />
                     <Header.Content>Posts</Header.Content>
                 </Header>
-                <Button as={Link} to={'/create-post'} positive>Create Post</Button>
 
                 <FilterBar
                     handleChange={this.handleFilterChange.bind(this)}

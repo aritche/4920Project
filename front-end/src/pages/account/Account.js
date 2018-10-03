@@ -15,9 +15,8 @@ export default class Account extends Component {
         super();
 
         this.state = {
-          user: {firstname: "Victor", lastname: "Wang", rating: 5, ident:"Movee", date:"02/09/18",
-            address:"41 Forsyth Street, Kingsford 2032", mobile: "04810927", email: "waitwhat@gmail.com"},
-          postList: [{name: "Kingsford Moving", status: "Open"}],
+          user: {},
+          postList: [],
           feeds: [{name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
           switchPage: true,
           isLoading: false,
@@ -90,8 +89,8 @@ export default class Account extends Component {
               <Segment.Group stacked>
                 <Segment inverted>
                   <Top
-                    firstName={this.state.user.first_name}
-                    lastName={this.state.user.last_name}
+                    firstName={this.state.user.userName.split(' ')[0]}
+                    lastName={this.state.user.userName.split(' ')[1]}
                     date={this.state.user.date}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating}
