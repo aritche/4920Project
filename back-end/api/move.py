@@ -139,6 +139,13 @@ def search_moves(json):
     if 'budgetHigh' in json:
         move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
 
+    if 'startDate' and 'endDate' in json:
+        move_query = move_query.filter(MoveDetails.closing_datetime1 > json['startDate'])
+        move_query = move_query.filter(MoveDetails.closing_datetime1 < json['endDate'])
+
+    if 'postcode' in json:
+        move_query = move_query.filter(MoveDetails.address_from.postcode == json['postcode'])
+
     resp = jsonify({
         'moves': list(map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all()))))
     })

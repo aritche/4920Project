@@ -40,6 +40,13 @@ export default class PostsPage extends Component {
         });
     }
 
+    // updateLowerBudget(newlowbudget) {
+    //     this.setState({
+    //         lowerBudget: newlowbudget
+    //     })
+    //     reloadPost()
+    // }
+
     render() {
         return (
             <Container>
