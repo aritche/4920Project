@@ -38,8 +38,12 @@ export default class FilterBar extends Component {
 
     onPostcodeChange = (e) => {
         this.setState({ postcode: e.target.value});
-
     };
+
+    // onLowBudgetChange = (e) => {
+    //     this.props.setLowerBudget(e.target.value)
+    // };
+
 
     onSortByChange = (e) => {
         alert('changed sort order')

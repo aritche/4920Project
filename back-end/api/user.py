@@ -94,14 +94,17 @@ def authenticate_login(json):
     if not user:
         password = ''
         user_id = -1
+        usertype = ''
     else:
         password = user.password
         user_id = user.id
+        user_type = user.user_type
 
     resp = jsonify({
         'success': True,
         'hashed_password': password,
         'user_id': user_id
+        'user_type': user_type
     })
     resp.status_code = 200
     return resp
