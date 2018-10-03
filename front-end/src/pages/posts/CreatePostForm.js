@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, TextArea } from 'semantic-ui-react';
+import { Button, Form, Header, TextArea, Segment, Divider, Grid } from 'semantic-ui-react';
 import moment from "moment";
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
@@ -189,11 +189,13 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
+            <Segment>
             <Form size={'large'} style={{paddingBottom: 80}}>
               <ProcessStep/>
 
               <Header size={'large'} content={'Make Your Move!'} />
               <Form.Field>
+                <Divider/>
                 <Form.Input
                   name='title'
                   style={{width: 250}} fluid label='Title'
@@ -201,7 +203,7 @@ export default class CreatePostForm extends Component {
                   onChange={this.onChange}
                 />
 
-                <br/>
+                <Divider/>
 
                 <SearchBar
                   lowerIdent='from'
@@ -220,7 +222,7 @@ export default class CreatePostForm extends Component {
                   handleL1={this.onAddrFChange}
                 />
 
-                <br/>
+                <Divider/>
 
                 <SearchBar
                   lowerIdent='to'
@@ -239,7 +241,7 @@ export default class CreatePostForm extends Component {
                   handleL1={this.onAddrTChange}
                 />
 
-                <br/>
+                <Divider/>
 
                 <Header size={'tiny'}> When are you moving? </Header>
                 <DateTimePicker
@@ -251,7 +253,7 @@ export default class CreatePostForm extends Component {
                   handleT2={this.onTime2Change}
                 />
 
-                <br/>
+                <Divider/>
 
                 <Header size={'tiny'}> What is your budget? </Header>
                 <test> If you are unsure, we recommend you browse other jobs first. </test>
@@ -264,7 +266,7 @@ export default class CreatePostForm extends Component {
                     icon={'dollar'}
                 />
 
-                <br/>
+                <Divider/>
 
                 <Header size={'tiny'}> Item Detail </Header>
                 <ItemTable
@@ -274,7 +276,7 @@ export default class CreatePostForm extends Component {
                   deleteAll={this.itemTableDeleteAll}
                 />
 
-                <br/>
+                <Divider/>
 
                 <Header size={'tiny'}> Post Description </Header>
                 <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
@@ -311,6 +313,7 @@ export default class CreatePostForm extends Component {
                 content: "miao"}]}
               subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
             </Form>
+            </Segment>
         )
     }
 }
