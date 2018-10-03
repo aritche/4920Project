@@ -167,8 +167,11 @@ export default class CreateSignupForm extends Component {
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 650 }}>
                     <Form error={this.state.submitError}>
+                        <Segment.Group>
+                        <Segment inverted secondary>
+                            <h1 style={{color: 'white'}}>Join the Community!</h1>
+                        </Segment>
                         <Segment>
-                            <h1>Join the Community!</h1>
                             <Form.Group widths='equal'>
                                 <Form.Input error={this.state.firstNameError} placeholder="First Name" icon={'user'}
                                             iconPosition={'left'} value={this.state.firstName}
@@ -208,6 +211,7 @@ export default class CreateSignupForm extends Component {
                             <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
                         </Segment>
+                        </Segment.Group>
                     </Form>
                 </Grid.Column>
             </Grid>
