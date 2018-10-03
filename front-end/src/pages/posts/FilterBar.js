@@ -49,13 +49,6 @@ export default class FilterBar extends Component {
         return (
             <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
                 <Menu secondary>
-                    <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
-                              floating button simple>
-                        <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
-                            <Input onChange={this.onPostcodeChange} value={this.state.postcode}
-                                   size={'tiny'} />
-                        </Dropdown.Menu>
-                    </Dropdown>
                     <span style={{width: 10}}/>
                     <Dropdown text='Budget Range' style={{maxHeight: 38, minHeight: 38}}
                             floating button simple>
