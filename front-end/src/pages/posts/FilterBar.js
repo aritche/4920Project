@@ -41,8 +41,9 @@ export default class FilterBar extends Component {
     };
 
     // onLowBudgetChange = (e) => {
-    //     this.props.setLowerBudget={this.updateLowerBudget(e.target.value).bind(this)}
+    //     this.props.setLowerBudget(e.target.value)
     // };
+
 
     onSortByChange = (e) => {
         alert('changed sort order')

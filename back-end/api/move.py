@@ -139,7 +139,11 @@ def search_moves(json):
     if 'budgetHigh' in json:
         move_query = move_query.filter(MoveDetails.budget < json['budgetHigh'])
 
-    if 'startDate' and 'endDate' in json:
+    if not 'startDate' and 'endDate' in json:
+        move_query = move_query.filter(MoveDetails.closing_datetime1 < json['endDate'])
+    elif 'startDate' and not 'endDate' in json:
+        move_query = move_query.filter(MoveDetails.closing_datetime1 > json['startDate'])
+    elif 'startDate' and 'endDate' in json:
         move_query = move_query.filter(MoveDetails.closing_datetime1 > json['startDate'])
         move_query = move_query.filter(MoveDetails.closing_datetime1 < json['endDate'])
 
