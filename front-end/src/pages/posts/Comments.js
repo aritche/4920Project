@@ -45,7 +45,7 @@ export default class Comments extends Component {
                   </Comment.Actions>
                 </Comment.Content>
                 <Comment.Group>
-                  {this.props.subComments.map((subCom) =>
+                  {comment.comments.map((subCom) =>
                     <Comment key={subCom.date}>
                       <Comment.Avatar/>
                       <Comment.Content>

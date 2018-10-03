@@ -49,28 +49,6 @@ export default class FilterBar extends Component {
         return (
             <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
                 <Menu secondary>
-                    { /*
-                    <Dropdown text='Price' floating labelled button>
-                        <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
-                        <InputSlider
-                            value={this.state.budget}
-                            onChange={this.onBudgetChange}
-                            min={BUDGET.MIN}
-                            max={BUDGET.MAX}
-                            steps={10}
-                            icon={'dollar'}
-                        />
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown text='Date' floating labelled button/>
-                    */ }
-                    <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
-                              floating button simple>
-                        <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
-                            <Input onChange={this.onPostcodeChange} value={this.state.postcode}
-                                   size={'tiny'} />
-                        </Dropdown.Menu>
-                    </Dropdown>
                     <span style={{width: 10}}/>
                     <Dropdown text='Budget Range' style={{maxHeight: 38, minHeight: 38}}
                             floating button simple>
@@ -121,15 +99,17 @@ export default class FilterBar extends Component {
                           </div>
                         </Dropdown.Menu>
                     </Dropdown>
+                    <span style={{width: 60}}/>
                     <Menu.Item style={{paddingTop: 0, paddingBottom: 4}} position='right'>
                       <Form onSubmit={this.onQuerySubmit}>
                         <Form.Input icon='search'
                                     style={{minWidth: 400, maxHeight: 38, minHeight: 38}}
-                                    placeholder='Search posts'
+                                    placeholder='Search by postcode or suburb'
                                     value={this.state.query} onChange={this.onQueryChange}
                         />
                       </Form>
                     </Menu.Item>
+                    <span style={{width: 60}}/>
                     <Header content={'Sort by'} size={'small'} style={{marginTop: 10}}/>
                     <Menu.Menu position='right'>
                         <Dropdown selection autosize={'false'} onChange={this.onSortByChange}

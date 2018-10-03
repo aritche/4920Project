@@ -100,7 +100,7 @@ export default class CreateLoginForm extends Component {
                 });
             });
         }
-    }
+    };
 
     render() {
         // code is a modified version of Semantic-UI-React login template
