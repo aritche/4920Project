@@ -10,7 +10,6 @@ class App extends Component {
             <div className="main">
                 <NavHeader />
                 <Routes />
-                <MainFooter />
             </div>
         );
     }

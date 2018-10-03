@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Comment, Form } from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
+import moment from 'moment';
+import { getLoggedInUser } from '../../Authentication';
+import { emptyString } from '../../utils/ValidationUtils';
 
 /**
  * Title: Comment
@@ -11,17 +14,23 @@ export default class Comments extends Component {
       super();
       this.state = {
         active: false,
+        comment: ''
       }
     }
 
-    onCommentChange = (e) => {
-      if (e.target.value.split(' ') !== '') {
-        //this.props.
+    addComment = (e) => {
+      if (!emptyString(this.state.comment)) {
+        this.props.addComment(getLoggedInUser(), moment().calendar(), this.state.comment);
+        this.setState({comment: ''});
       }
       else {
         this.setState({active: true});
       }
     };
+
+    onCommentChange = (e) => {
+      this.setState({comment: e.target.value});
+    }
 
     onPopClose = () => {
       this.setState({active: false});
@@ -32,8 +41,8 @@ export default class Comments extends Component {
         <div>
           <Comment.Group>
             {this.props.comments.map((comment) =>
-              <Comment key={comment.date}>
-                <Comment.Avatar/>
+              <Comment key={comment.id}>
+                <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
                   <Comment.Author as='a'> {comment.name} </Comment.Author>
                   <Comment.Metadata>
@@ -44,28 +53,31 @@ export default class Comments extends Component {
                     <Comment.Action>Reply</Comment.Action>
                   </Comment.Actions>
                 </Comment.Content>
-                <Comment.Group>
-                  {comment.comments.map((subCom) =>
-                    <Comment key={subCom.date}>
-                      <Comment.Avatar/>
-                      <Comment.Content>
-                        <Comment.Author as='a'> {subCom.name} </Comment.Author>
-                        <Comment.Metadata>
-                        <div> {subCom.date} </div>
-                        </Comment.Metadata>
-                        <Comment.Text> {subCom.content} </Comment.Text>
-                        <Comment.Actions>
-                        <Comment.Action>Reply</Comment.Action>
-                        </Comment.Actions>
-                      </Comment.Content>
-                    </Comment>
-                  )}
-                </Comment.Group>
+                {
+                  comment.comments.length > 0 &&
+                  <Comment.Group>
+                    {comment.comments.map((subCom) =>
+                      <Comment key={subCom.id}>
+                        <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'}/>
+                        <Comment.Content>
+                          <Comment.Author as='a'> {subCom.name} </Comment.Author>
+                          <Comment.Metadata>
+                          <div> {subCom.date} </div>
+                          </Comment.Metadata>
+                          <Comment.Text> {subCom.content} </Comment.Text>
+                          <Comment.Actions>
+                          <Comment.Action>Reply</Comment.Action>
+                          </Comment.Actions>
+                        </Comment.Content>
+                      </Comment>
+                    )}
+                  </Comment.Group>
+                }
               </Comment>
             )}
             <Form reply>
-              <Form.TextArea placeholder={"Please input comment"}/>
-              <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.onCommentChange} />
+              <Form.TextArea placeholder={"Type comment here"} onChange={this.onCommentChange}/>
+              <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
             </Form>
           </Comment.Group>
 
