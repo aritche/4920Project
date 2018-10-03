@@ -2,7 +2,31 @@ import React, { Component } from 'react';
 import { Header, Container, Comment, Form, Button, Step, Icon, Label, Table } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
+import Comments from './Comments';
 
+// TODO: ADD THIS OBJECT IN THE RETURNED POST OBJECT FROM BACKEND
+const comments = [
+    {
+        id: 1,
+        name: 'Matt',
+        date: 'Today at 5:42PM',
+        content: 'Hey John, can we negotiate that pricing a bit?',
+        comments: [] 
+    },
+    {
+        id: 2,
+        name: 'Elliot Fu',
+        date: 'Yesterday at 12:30AM',
+        content: 'Could you give a little more detail about the flights of stairs we\'ll need to go up and down?',
+        comments: [{
+            id: 3,
+            name: 'John Smith',
+            date: 'Just now',
+            content: 'It\'s on the 1st floor, so 1 flight of stairs :)',
+            comments: [] 
+        }] 
+    }
+];
 
 export default class PostDetailsPage extends Component {
     constructor(props) {
@@ -11,7 +35,8 @@ export default class PostDetailsPage extends Component {
             'isLoading': true,
             'post': {
                 'id': props.match.params.postId,
-            }
+            },
+            comments: comments
         }
     }
 
@@ -64,6 +89,12 @@ export default class PostDetailsPage extends Component {
             });
           }
         });
+    }
+
+    addComment = (name, date, content) => {
+        var comments = this.state.comments;
+        comments.push({ id: Math.random()*36, name: name, date: date, content: content, comments: [] });
+        this.setState({comments: comments});
     }
 
     render() {
@@ -131,61 +162,11 @@ export default class PostDetailsPage extends Component {
                         </Table.Body>
                     </Table>
 
-                    <Comment.Group>
-                        <Header as='h3' dividing>
+                    <Header as='h3' dividing>
                         Comments
-                        </Header>
+                    </Header>
 
-                        <Comment>
-                        <Comment.Avatar src='/images/default_profile_pic.jpg' />
-                        <Comment.Content>
-                            <Comment.Author as='a'>Matt</Comment.Author>
-                            <Comment.Metadata>
-                            <div>Today at 5:42PM</div>
-                            </Comment.Metadata>
-                            <Comment.Text>Hey John, can we negotiate that pricing a bit?</Comment.Text>
-                            <Comment.Actions>
-                            <Comment.Action>Reply</Comment.Action>
-                            </Comment.Actions>
-                        </Comment.Content>
-                        </Comment>
-
-                        <Comment>
-                        <Comment.Avatar src='/images/default_profile_pic.jpg' />
-                        <Comment.Content>
-                            <Comment.Author as='a'>Elliot Fu</Comment.Author>
-                            <Comment.Metadata>
-                            <div>Yesterday at 12:30AM</div>
-                            </Comment.Metadata>
-                            <Comment.Text>
-                            <p>Could you give a little more detail about the flights of stairs we'll need to go up and down?</p>
-                            </Comment.Text>
-                            <Comment.Actions>
-                            <Comment.Action>Reply</Comment.Action>
-                            </Comment.Actions>
-                        </Comment.Content>
-                        <Comment.Group>
-                            <Comment>
-                            <Comment.Avatar src='/images/default_profile_pic.jpg' />
-                            <Comment.Content>
-                                <Comment.Author as='a'>John Smith</Comment.Author>
-                                <Comment.Metadata>
-                                <div>Just now</div>
-                                </Comment.Metadata>
-                                <Comment.Text>It's on the 1st floor, so 1 flight of stairs :)</Comment.Text>
-                                <Comment.Actions>
-                                <Comment.Action>Reply</Comment.Action>
-                                </Comment.Actions>
-                            </Comment.Content>
-                            </Comment>
-                        </Comment.Group>
-                        </Comment>
-
-                        <Form reply>
-                        <Form.TextArea />
-                        <Button content='Add Reply' labelPosition='left' icon='edit' primary />
-                        </Form>
-                    </Comment.Group>
+                    <Comments comments={this.state.comments} addComment={this.addComment} />
                 </Container>
             )
         }
