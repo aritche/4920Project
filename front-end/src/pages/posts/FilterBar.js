@@ -9,7 +9,7 @@ const sortByOptions = [
     { key: 2, text: 'Price (Low to High)', value: 2},
     { key: 3, text: 'Price (High to Low)', value: 3},
     { key: 4, text: 'Date (Early to Late)', value: 4},
-    { key: 5, text: 'Date (Late to Early', value: 5},
+    { key: 5, text: 'Date (Late to Early)', value: 5},
     { key: 6, text: 'Closest', value: 6},
 ];
 
@@ -49,21 +49,6 @@ export default class FilterBar extends Component {
         return (
             <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
                 <Menu secondary>
-                    { /*
-                    <Dropdown text='Price' floating labelled button>
-                        <Dropdown.Menu style={{paddingLeft: 10, paddingRight: 10, paddingBottom:10}}>
-                        <InputSlider
-                            value={this.state.budget}
-                            onChange={this.onBudgetChange}
-                            min={BUDGET.MIN}
-                            max={BUDGET.MAX}
-                            steps={10}
-                            icon={'dollar'}
-                        />
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown text='Date' floating labelled button/>
-                    */ }
                     <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
                               floating button simple>
                         <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
