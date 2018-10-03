@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Header} from 'semantic-ui-react';
+import {Button, Header} from 'semantic-ui-react';
 import PostList from "./PostTable";
 import FeedList from "./FeedList";
+import {Link} from "react-router-dom";
 
 /**
  * Title: Dashboard
@@ -18,6 +19,7 @@ export default class Dashboard extends Component {
           <Header content={'Post Collection'} size={'huge'}/>
           <PostList list={this.props.post}/>
           <br/>
+          <Button as={Link} to={'/create-post'} positive>Create Post</Button>
       </div>
     )
   }

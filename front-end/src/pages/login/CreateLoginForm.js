@@ -100,7 +100,7 @@ export default class CreateLoginForm extends Component {
                 });
             });
         }
-    }
+    };
 
     render() {
         // code is a modified version of Semantic-UI-React login template
@@ -109,16 +109,20 @@ export default class CreateLoginForm extends Component {
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 500 }}>
                     <Form error={this.state.submitError}>
-                        <Segment>
-                            <h1>Log In</h1>
-                            <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
-                                        iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
-                            <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
-                                        iconPosition={'left'} type='password' value={this.state.password}
-                                        onChange={this.onPasswordChange} />
-                            <Button fluid color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
-                            <Message error header='Unable to Log In' content={this.state.errorMessage}/>
-                        </Segment>
+                        <Segment.Group>
+                            <Segment inverted secondary style={{padding:7}}>
+                                <h1 style={{color:'white'}}>Log In</h1>
+                            </Segment>
+                            <Segment>
+                                <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
+                                            iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
+                                <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
+                                            iconPosition={'left'} type='password' value={this.state.password}
+                                            onChange={this.onPasswordChange} />
+                                <Button fluid color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
+                                <Message error header='Unable to Log In' content={this.state.errorMessage}/>
+                            </Segment>
+                        </Segment.Group>
                     </Form>
                 </Grid.Column>
             </Grid>

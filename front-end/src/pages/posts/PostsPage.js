@@ -32,8 +32,7 @@ export default class PostsPage extends Component {
                 response.json().then(obj => {
                     this.setState({
                         posts: obj.moves
-                    })
-                    return;
+                    });
                 });
             } else {
                 this.setState({
