@@ -11,7 +11,7 @@ const comments = [
         name: 'Matt',
         date: 'Today at 5:42PM',
         content: 'Hey John, can we negotiate that pricing a bit?',
-        comments: [] 
+        comments: []
     },
     {
         id: 2,
@@ -23,8 +23,8 @@ const comments = [
             name: 'John Smith',
             date: 'Just now',
             content: 'It\'s on the 1st floor, so 1 flight of stairs :)',
-            comments: [] 
-        }] 
+            comments: []
+        }]
     }
 ];
 
@@ -46,6 +46,7 @@ export default class PostDetailsPage extends Component {
                 response.json().then(obj => {
                     this.setState({
                         post: obj.move,
+                        items: obj.items,
                         isLoading: false
                     })
                     return;
@@ -149,13 +150,13 @@ export default class PostDetailsPage extends Component {
                         </Table.Header>
 
                         <Table.Body>
-                            { this.state.post.items && this.state.post.items.map(item => {
+                            { this.state.items && this.state.items.map(item => {
                                 return <Table.Row>
                                     <Table.Cell>{item.name}</Table.Cell>
                                     <Table.Cell>{item.weight}</Table.Cell>
                                     <Table.Cell>{item.volume}</Table.Cell>
                                     <Table.Cell>{item.amount}</Table.Cell>
-                                    <Table.Cell>{item.desc}</Table.Cell>
+                                    <Table.Cell>{item.description}</Table.Cell>
                                 </Table.Row>
                                 })
                             }

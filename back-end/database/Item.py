@@ -20,7 +20,8 @@ class Item(db.Model):
             'volume': self.volume,
             'weight': self.weight,
             'amount': self.amount,
-            'move_id': self.move_id
+            'description': self.description,
+            'move_id': self.move_id,
         }
 
     def __repr__(self):

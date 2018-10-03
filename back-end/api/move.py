@@ -122,7 +122,8 @@ def get_move_details(post_id):
         abort(400, 'Post id does not match any existing posts.')
 
     resp = jsonify({
-        'move': get_movee_details(get_address_details(move_query.to_dict()))
+        'move': get_movee_details(get_address_details(move_query.to_dict())),
+        'items': list(map(Item.to_dict, move_query.items))
     })
     resp.status_code = 200
     return resp
@@ -133,10 +134,7 @@ def search_moves(json):
     if 'status' in json and json['status'] != '':
         move_query = move_query.filter(MoveDetails.status == json['status'])
 
-    print('rtorgknfg')
-
     if 'lowerBudget' in json and json['lowerBudget'].isdigit() and json['lowerBudget'] != -1:
-        print('HRELLOGRG')
         print(map(MoveDetails.to_dict, move_query.all()))
         move_query = move_query.filter(MoveDetails.budget >= int(json['lowerBudget']))
 
