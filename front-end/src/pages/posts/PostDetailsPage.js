@@ -8,6 +8,7 @@ import Comments from './Comments';
 const comments = [
     {
         id: 1,
+        isOffer: false,
         name: 'Matt',
         date: 'Today at 5:42PM',
         content: 'Hey John, can we negotiate that pricing a bit?',
@@ -15,6 +16,7 @@ const comments = [
     },
     {
         id: 2,
+        isOffer: false,
         name: 'Elliot Fu',
         date: 'Yesterday at 12:30AM',
         content: 'Could you give a little more detail about the flights of stairs we\'ll need to go up and down?',
@@ -92,9 +94,9 @@ export default class PostDetailsPage extends Component {
         });
     }
 
-    addComment = (name, date, content) => {
+    addComment = (name, date, content, isOffer, offer) => {
         var comments = this.state.comments;
-        comments.push({ id: Math.random()*36, name: name, date: date, content: content, comments: [] });
+        comments.push({ id: Math.random()*36, name: name, date: date, content: content, comments: [], isOffer: isOffer, offer: offer });
         this.setState({comments: comments});
     }
 
@@ -167,7 +169,7 @@ export default class PostDetailsPage extends Component {
                         Comments
                     </Header>
 
-                    <Comments comments={this.state.comments} addComment={this.addComment} />
+                    <Comments comments={this.state.comments} addComment={this.addComment} budget={this.state.post.budget} />
                 </Container>
             )
         }

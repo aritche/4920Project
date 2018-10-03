@@ -4,6 +4,7 @@ import ErrorInputModal from '../../widgets/ErrorInputModal';
 import moment from 'moment';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
+import OfferModal from './OfferModal';
 
 /**
  * Title: Comment
@@ -15,8 +16,17 @@ export default class Comments extends Component {
       this.state = {
         active: false,
         comment: '',
-        errorText: ''
+        errorText: '',
+        isOffering: false
       }
+    }
+
+    startOffering = () => {
+      this.setState({isOffering: true});
+    }
+
+    stopOffering = () => {
+      this.setState({isOffering: false});
     }
 
     addComment = (e) => {
@@ -46,7 +56,7 @@ export default class Comments extends Component {
               <Comment key={comment.id}>
                 <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
-                  <Comment.Author as='a'> {comment.name} </Comment.Author>
+                  <Comment.Author as='a'> {comment.isOffer ? '[OFFER] ' + comment.name + ' offers $' + comment.offer : comment.name} </Comment.Author>
                   <Comment.Metadata>
                     <div> {comment.date} </div>
                   </Comment.Metadata>
@@ -79,9 +89,12 @@ export default class Comments extends Component {
             )}
             <Form reply>
               <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
+              <Button positive onClick={this.startOffering}>Make Offer</Button>
               <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
             </Form>
           </Comment.Group>
+
+          <OfferModal open={this.state.isOffering} close={this.stopOffering} budget={this.props.budget} onOffer={this.props.addComment} />
 
           <ErrorInputModal
             pop={this.state.active}
