@@ -56,7 +56,7 @@ export default class PostsPage extends Component {
                 </Header>
                 <Button as={Link} to={'/create-post'} positive>Create Post</Button>
                 
-                <FilterBar />
+                <FilterBar setLowerBudget={this.updayeLowerBudget.bind(this)} />
 
                 <Segment secondary>
                     <PostList posts={this.state.posts} />
