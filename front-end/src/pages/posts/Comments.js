@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Comment, Form } from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import moment from 'moment';
-import { getLoggedInUser } from '../../Authentication';
+import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
 
 /**
@@ -14,17 +14,19 @@ export default class Comments extends Component {
       super();
       this.state = {
         active: false,
-        comment: ''
+        comment: '',
+        errorText: ''
       }
     }
 
     addComment = (e) => {
-      if (!emptyString(this.state.comment)) {
+      if (!isLoggedIn()) {
+        this.setState({errorText: 'Must be logged in to comment', active: true});
+      } else if (!emptyString(this.state.comment)) {
         this.props.addComment(getLoggedInUser(), moment().calendar(), this.state.comment);
         this.setState({comment: ''});
-      }
-      else {
-        this.setState({active: true});
+      } else {
+        this.setState({errorText: 'Comment cannot be empty', active: true});
       }
     };
 
@@ -83,7 +85,7 @@ export default class Comments extends Component {
 
           <ErrorInputModal
             pop={this.state.active}
-            headerText={'Comment cannot be empty'}
+            headerText={this.state.errorText}
             onClose={this.onPopClose}
           />
         </div>
