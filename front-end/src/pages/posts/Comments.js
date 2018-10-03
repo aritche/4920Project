@@ -78,7 +78,7 @@ export default class Comments extends Component {
               </Comment>
             )}
             <Form reply>
-              <Form.TextArea placeholder={"Type comment here"} onChange={this.onCommentChange}/>
+              <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
               <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
             </Form>
           </Comment.Group>

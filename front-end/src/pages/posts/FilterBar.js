@@ -3,7 +3,6 @@ import { Segment, Menu, Dropdown, Form, Input, Header } from 'semantic-ui-react'
 import { BUDGET } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 
 
 const sortByOptions = [

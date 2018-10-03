@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Comment, Form, Button, Step, Icon, Label, Table } from 'semantic-ui-react';
+import { Header, Container, Button, Step, Icon, Label, Table } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -151,7 +151,7 @@ export default class PostDetailsPage extends Component {
 
                         <Table.Body>
                             { this.state.items && this.state.items.map(item => {
-                                return <Table.Row>
+                                return <Table.Row key={item.name}>
                                     <Table.Cell>{item.name}</Table.Cell>
                                     <Table.Cell>{item.weight}</Table.Cell>
                                     <Table.Cell>{item.volume}</Table.Cell>
