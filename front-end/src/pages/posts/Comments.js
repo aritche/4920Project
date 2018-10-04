@@ -83,9 +83,9 @@ export default class Comments extends Component {
                             {comment.poster_details.first_name + ' ' + comment.poster_details.last_name}
                           </Comment.Author>
                           <Comment.Metadata>
-                          <div> {subCom.date} </div>
+                          <div> {subCom.date_string} </div>
                           </Comment.Metadata>
-                          <Comment.Text> {subCom.content} </Comment.Text>
+                          <Comment.Text> {subCom.text} </Comment.Text>
                           <Comment.Actions>
                           <Comment.Action>Reply</Comment.Action>
                           </Comment.Actions>
