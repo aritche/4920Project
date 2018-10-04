@@ -22,10 +22,10 @@ export default class OfferModal extends Component {
         } else if (!emptyString(this.state.desc) && isPositiveFloat(this.state.offer)) {
             this.props.onOffer(getLoggedInUser(), moment().calendar(), this.state.desc, true, this.state.offer);
             this.setState({desc: '', errorText: ''});
+            this.props.close();
         } else {
             this.setState({errorText: 'Please make a valid offer and add a valid description'});
         }
-        this.props.close();
     }
 
     onOfferChange = (value) => {
