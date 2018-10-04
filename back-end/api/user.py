@@ -2,17 +2,23 @@ from flask import abort, jsonify
 from datetime import datetime
 from database.model import db
 from database.User import User
+from database.MoveDetails import MoveDetails
 from sqlalchemy import and_, not_
 
 
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = jsonify(user.to_dict())
+        resp = jsonify(add_user_posts(user.to_dict()))
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
     return resp
+
+
+def add_user_posts(user):
+    user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(MoveDetails.movee_id == user['id']).all()))
+    return user
 
 
 def validate_email(email):

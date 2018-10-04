@@ -6,6 +6,20 @@ import ConfirmationModal from '../../widgets/ConfirmationModal';
  * Author: VW
  */
 export default class PostTable extends Component{
+
+  constructor(props) {
+    super(props);
+    this.routeToPost.bind(this);
+    this.state = {
+      redirect_to_post: -1
+    }
+  }
+
+  routeToPost = (e) => {
+    console.log(e.target);
+    this.props.history.push('/posts/' + e.target.id);
+  }
+
   render(){
     return (
       <div>
@@ -21,14 +35,16 @@ export default class PostTable extends Component{
           <Table.Body>
             {this.props.list.map((item) => (
               <Table.Row key={item.name}>
-                <Table.Cell> <Header size={'small'} content={item.name}/> </Table.Cell>
+                <Table.Cell> <Header size={'small'} content={item.title}/> </Table.Cell>
                 <Table.Cell> {item.status} </Table.Cell>
                 <Table.Cell>
                   <Button
                     content={"Go"}
+                    id={item.id}
                     primary
                     size='large'
                     style={{width: 140, height: 40, zIndex: 0}}
+                    onClick={this.routeToPost}
                   />
                   <ConfirmationModal buttonContentHtml={
                     [

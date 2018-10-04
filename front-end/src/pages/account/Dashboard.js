@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
           <FeedList feeds={this.props.feed}/>
           <br/>
           <Header content={'Post Collection'} size={'huge'}/>
-          <PostList list={this.props.post}/>
+          <PostList history={this.props.history} list={this.props.post}/>
           <br/>
           <Button.Group>
             <Button as={Link} to={'/create-post'} primary>Create Post</Button>

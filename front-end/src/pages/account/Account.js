@@ -15,7 +15,9 @@ export default class Account extends Component {
         super();
 
         this.state = {
-          user: {},
+          user: {
+            posts: []
+          },
           postList: [],
           feeds: [{name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
           switchPage: true,
@@ -101,7 +103,8 @@ export default class Account extends Component {
                 <Segment visible>
                   { this.state.switchPage ?
                     <Dashboard
-                      post={this.state.postList}
+                      history={this.props.history}
+                      post={this.state.user.posts}
                       feed={this.state.feeds}
                     /> :
                     <Profile
