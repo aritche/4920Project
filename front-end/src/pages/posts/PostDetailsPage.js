@@ -38,7 +38,7 @@ export default class PostDetailsPage extends Component {
             'post': {
                 'id': props.match.params.postId,
             },
-            comments: comments
+            comments: []
         }
     }
 
@@ -49,6 +49,7 @@ export default class PostDetailsPage extends Component {
                     this.setState({
                         post: obj.move,
                         items: obj.items,
+                        comments: obj.comments,
                         isLoading: false
                     })
                     return;

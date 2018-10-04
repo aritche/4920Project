@@ -56,23 +56,32 @@ export default class Comments extends Component {
               <Comment key={comment.id}>
                 <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
-                  <Comment.Author as='a'> {comment.isOffer ? '[OFFER] ' + comment.name + ' offers $' + comment.offer : comment.name} </Comment.Author>
+                  <Comment.Author as='a'>
+                    {comment.isOffer ?
+                        '[OFFER] ' + comment.poster_details.first_name + ' ' +
+                        comment.poster_details.last_name + ' offers $' + comment.offer
+                      :
+                        comment.poster_details.first_name + ' ' + comment.poster_details.last_name
+                    }
+                  </Comment.Author>
                   <Comment.Metadata>
-                    <div> {comment.date} </div>
+                    <div> {comment.date_string} </div>
                   </Comment.Metadata>
-                  <Comment.Text> {comment.content} </Comment.Text>
+                  <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>
                     <Comment.Action>Reply</Comment.Action>
                   </Comment.Actions>
                 </Comment.Content>
                 {
-                  comment.comments.length > 0 &&
+                  comment.child_comments.length > 0 &&
                   <Comment.Group>
-                    {comment.comments.map((subCom) =>
+                    {comment.child_comments.map((subCom) =>
                       <Comment key={subCom.id}>
-                        <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'}/>
+                        <Comment.Avatar src={ subCom.image ? comment.image : '/images/default_profile_pic.jpg'}/>
                         <Comment.Content>
-                          <Comment.Author as='a'> {subCom.name} </Comment.Author>
+                          <Comment.Author as='a'>
+                            {comment.poster_details.first_name + ' ' + comment.poster_details.last_name}
+                          </Comment.Author>
                           <Comment.Metadata>
                           <div> {subCom.date} </div>
                           </Comment.Metadata>

@@ -99,6 +99,7 @@ def create_new_move(json):
 
     return resp
 
+
 def delete_move_details(json):
     if 'postId' in json:
         id_to_delete = json['postId']
@@ -125,10 +126,39 @@ def get_move_details(post_id):
     resp = jsonify({
         'move': get_movee_details(get_address_details(move_query.to_dict())),
         'items': list(map(Item.to_dict, move_query.items)),
-        'comments': list(map(Comment.to_dict, move_query.comments))
+        'comments': sorted(
+            list(map(decorate_comments, map(Comment.to_dict, [c for c in move_query.comments if c.parent_comment is None]))),
+            key=lambda c: c['creation_datetime']
+        )
     })
     resp.status_code = 200
     return resp
+
+
+def decorate_comments(comment):
+    ''' Adds date string, poster details and child comments '''
+
+    comment['date_string'] = comment['creation_datetime'].strftime('%e %b %-I:%M %p')
+
+    user = db.session.query(User).filter(and_(User.id == comment['poster'], not_(User.deleted))).first()
+
+    comment['poster_details'] = user.to_dict() if user else {
+            first_name: '',
+            last_name: '[Deleted]',
+            id: -1
+    }
+
+    comment_query = db.session.query(Comment).filter(Comment.id == comment['id']).first()
+
+    if comment_query.child_comments:
+        comment['child_comments'] = sorted(
+            list(map(decorate_comments, map(Comment.to_dict, comment_query.child_comments))),
+            key=lambda c: c['creation_datetime']
+        )
+    else:
+        comment['child_comments'] = []
+
+    return comment
 
 
 def search_moves(json):
