@@ -108,7 +108,7 @@ export default class Account extends Component {
                       feed={this.state.feeds}
                     /> :
                     <Profile
-                      name={this.state.user.firstname + ' ' + this.state.user.lastname}
+                      name={this.state.user.first_name + ' ' + this.state.user.last_name}
                       address={this.state.user.address}
                       mobile={this.state.user.mobile}
                       email={this.state.user.email}
