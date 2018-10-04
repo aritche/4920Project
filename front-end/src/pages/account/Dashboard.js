@@ -24,9 +24,6 @@ export default class Dashboard extends Component {
             <Button.Or />
             <Button as={Link} to={'/posts'} secondary>Search Post</Button>
           </Button.Group>
-        <Menu.Item as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
-          Posts
-        </Menu.Item>
       </div>
     )
   }

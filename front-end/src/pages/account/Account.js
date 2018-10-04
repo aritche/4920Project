@@ -89,8 +89,8 @@ export default class Account extends Component {
               <Segment.Group stacked>
                 <Segment inverted>
                   <Top
-                    firstName={this.state.user.userName.split(' ')[0]}
-                    lastName={this.state.user.userName.split(' ')[1]}
+                    firstName={this.state.user.first_name}
+                    lastName={this.state.user.last_name}
                     date={this.state.user.date}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating}
