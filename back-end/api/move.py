@@ -130,6 +130,7 @@ def get_move_details(post_id):
     resp.status_code = 200
     return resp
 
+
 def search_moves(json):
     move_query = db.session.query(MoveDetails).filter(not_(MoveDetails.deleted))
 

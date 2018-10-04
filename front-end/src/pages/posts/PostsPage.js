@@ -45,8 +45,6 @@ export default class PostsPage extends Component {
     }
 
     handleFilterChange(filter, value) {
-        console.log(filter);
-        console.log(value);
         this.setState({ [filter]: value }, () => {
             this.reloadPosts();
         });

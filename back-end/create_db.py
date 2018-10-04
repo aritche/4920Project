@@ -28,7 +28,7 @@ with app.app_context():
         last_name = 'Smith',
         password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
         deleted = False,
-        user_type = 'movee',
+        user_type = 'Movee',
         creation_date = datetime.now()
     )
 

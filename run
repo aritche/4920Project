@@ -5,5 +5,5 @@ sudo pip install -r back-end/requirements.txt
 python back-end/main.py &
 
 cd front-end
-npm install
+#npm install
 npm run start
