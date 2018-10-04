@@ -43,6 +43,11 @@ export default class PostDetailsPage extends Component {
     }
 
     componentDidMount() {
+        this.loadComments();
+    }
+
+
+    loadComments = () => {
         fetch(url + 'post/' + this.state.post.id).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
@@ -95,10 +100,30 @@ export default class PostDetailsPage extends Component {
         });
     }
 
-    addComment = (name, date, content, isOffer, offer) => {
-        var comments = this.state.comments;
-        comments.push({ id: Math.random()*36, name: name, date: date, content: content, comments: [], isOffer: isOffer, offer: offer });
-        this.setState({comments: comments});
+    addComment = (text) => {
+        fetch(url + 'post-comment', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id,
+            'userId': getLoggedInUser(),
+            'commentText': text
+          })
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.loadComments();
+                });
+            } else {
+                this.setState({
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
     }
 
     render() {

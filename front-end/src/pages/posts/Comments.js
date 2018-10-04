@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Comment, Form } from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
-import moment from 'moment';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
 import OfferModal from './OfferModal';
@@ -33,7 +32,7 @@ export default class Comments extends Component {
       if (!isLoggedIn()) {
         this.setState({errorText: 'Must be logged in to comment', active: true});
       } else if (!emptyString(this.state.comment)) {
-        this.props.addComment(getLoggedInUser(), moment().calendar(), this.state.comment);
+        this.props.addComment(this.state.comment);
         this.setState({comment: ''});
       } else {
         this.setState({errorText: 'Comment cannot be empty', active: true});
