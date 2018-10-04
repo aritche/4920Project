@@ -73,10 +73,14 @@ export default class FilterBar extends Component {
                           style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 10, paddingTop: 10,
                             width: "185%", maxHeight: 65, minHeight: 65}}>
                             <div style={{display: 'flex'}}>
-                                <Input label={'From'} name='lowerBudget'
+                                <Header size={'tiny'} content={'From'} style={{marginTop: "8px"}}/>
+                                <span style={{width: 10}}/>
+                                <Input name='lowerBudget'
                                         onChange={this.onFilterChange} style={{width: '28%'}}/>
-                                <span style={{width: 70}}/>
-                                <Input label={'To'} name='upperBudget'
+                                <span style={{width: 5}}/>
+                                <Header size={'tiny'} content={'To'} style={{marginTop: "8px", marginLeft: "15px"}}/>
+                                <span style={{width: 10}}/>
+                                <Input name='upperBudget'
                                         onChange={this.onFilterChange} style={{width: '28%'}}/>
                             </div>
                         </Dropdown.Menu>
