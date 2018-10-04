@@ -17,7 +17,7 @@ def get_user_by_id(user_id):
 
 
 def add_user_posts(user):
-    user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(MoveDetails.movee_id == user['id']).all()))
+    user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user['id'], not_(MoveDetails.deleted))).all()))
     return user
 
 

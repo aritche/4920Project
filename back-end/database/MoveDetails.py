@@ -18,6 +18,7 @@ class MoveDetails(db.Model):
     address_to = db.Column(db.Integer, ForeignKey('toaddress.id'), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
     items = relationship('Item')
+    comments = relationship('Comment')
 
     def to_dict(self):
         return {

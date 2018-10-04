@@ -3,6 +3,7 @@ from flask_cors import cross_origin
 from api import base
 from api.user import authenticate_login, get_user_by_id, insert_new_user, delete_user
 from api.move import create_new_move, get_move_details, search_moves, delete_move_details
+from api.comment import add_comment
 
 
 @base.route('/user/<user_id>')
@@ -36,3 +37,7 @@ def delete_account():
 @base.route('/post/<post_id>')
 def get_post(post_id):
     return get_move_details(post_id)
+
+@base.route('/post-comment', methods=['POST'])
+def post_comment():
+    return add_comment(request.json)

@@ -7,6 +7,7 @@ from database.FromAddress import FromAddress
 from database.ToAddress import ToAddress
 from database.Item import Item
 from database.User import User
+from database.Comment import Comment
 
 
 def create_new_move(json):
@@ -123,7 +124,8 @@ def get_move_details(post_id):
 
     resp = jsonify({
         'move': get_movee_details(get_address_details(move_query.to_dict())),
-        'items': list(map(Item.to_dict, move_query.items))
+        'items': list(map(Item.to_dict, move_query.items)),
+        'comments': list(map(Comment.to_dict, move_query.comments))
     })
     resp.status_code = 200
     return resp

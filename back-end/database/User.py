@@ -1,5 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 from database.model import db
 
 
@@ -14,6 +15,7 @@ class User(db.Model):
     creation_date = db.Column(db.DateTime, nullable=False)
     user_type = db.Column(db.String(255), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
+    comments = relationship('Comment')
 
     def to_dict(self):
         return {
