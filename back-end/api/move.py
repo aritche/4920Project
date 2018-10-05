@@ -8,7 +8,7 @@ from database.ToAddress import ToAddress
 from database.Item import Item
 from database.User import User
 from database.Comment import Comment
-
+import urllib, urllib2, json, requests
 
 def create_new_move(json):
     if (
@@ -184,6 +184,16 @@ def search_moves(json):
         move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
+    if 'sort' in json:
+        if json['sort'] == 'priceLowToHigh':
+            move_query = move_query.order_by(MoveDetails.budget)
+        elif json['sort'] == 'priceHightToLow':
+            move_query = move_query.order_by(MoveDetails.budget.desc())
+        elif json['sort'] == 'dateEarlyToLate':
+            move_query = move_query.order_by(MoveDetails.closing_datetime1)
+        elif json['sort'] == 'dateLateToEarly':
+            move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
+
     resp = jsonify({
         'moves': list(map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all()))))
     })
@@ -203,3 +213,72 @@ def get_movee_details(move):
     movee = db.session.query(User).filter(User.id == move['movee_id']).first()
     move['movee'] = movee.to_dict()
     return move
+
+def get_distance(output, start_line1, start_city, start_state, end_line1, end_city, end_state):
+    # output = 1 for FULL DISTANCE
+    # output = 0 for SCRAMBLED DISTANCE
+    start = " "
+    end = " "
+    
+    if start_city and start_state and end_city and end_state:
+        if output == 1 and start_line1 and end_line1:
+            # Exact distance after job accepted
+            start = start.join([start_line1, ",", start_city, ",", start_state])
+            end = end.join([end_line1, ",", end_city, ",", end_state])
+        elif output == 0:
+            # Rough Distance for initial display
+            start = start.join([start_city, ",", start_state])
+            end = end.join([end_city, ",", end_state])
+
+    api_key = 'AIzaSyD3oXn3Rb9kUQRf5yC2lhLov1KpwFzmbIA'
+    request_url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=%s&destinations=%s&key=%s" % (start, end, api_key)
+    
+    json_data = ''
+    try: 
+        response = requests.get(request_url)
+        json_data = json.loads(response.text)
+    except:
+        pass
+
+    distance_in_metres = ""
+    if 'status' in json_data and json_data['status'] == 'OK':
+        distance_in_metres = int(json_data['rows'][0]['elements'][0]['distance']['value'])
+
+    return distance_in_metres
+ 
+# Example INPUT
+# start_line1 = "11 York St"
+# start_city = "Wynyard"
+# start_state = "NSW"
+
+# end_line1 = "High St"
+# end_city = "Kensington"
+# end_state = "NSW"
+
+# distance = get_distance(start_line1, start_city, start_state, end_line1, end_city, end_state)
+# print(distance) 
+#
+# Example API Response
+# {
+#    "destination_addresses" : [ "High St, Kensington NSW 2033, Australia" ],
+#    "origin_addresses" : [ "11 York St, Sydney NSW 2000, Australia" ],
+#    "rows" : [
+#       {
+#          "elements" : [
+#             {
+#                "distance" : {
+#                   "text" : "7.9 km",
+#                   "value" : 7912
+#                },
+#                "duration" : {
+#                   "text" : "18 mins",
+#                   "value" : 1069
+#                },
+#                "status" : "OK"
+#             }
+#          ]
+#       }
+#    ],
+#    "status" : "OK"
+# }
+
