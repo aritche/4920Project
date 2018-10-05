@@ -20,9 +20,9 @@ export default class Dashboard extends Component {
           <PostList history={this.props.history} list={this.props.post}/>
           <br/>
           <Button.Group>
-            <Button as={Link} to={'/create-post'} primary>Create Post</Button>
+            <Button as={Link} to={'/create-post'} primary style={{backgroundColor: '#E2B49A'}}>Create Post</Button>
             <Button.Or />
-            <Button as={Link} to={'/posts'} secondary>Search Post</Button>
+            <Button as={Link} to={'/posts'} style={{backgroundColor: '#E9C77B'}} secondary>Search Post</Button>
           </Button.Group>
       </div>
     )

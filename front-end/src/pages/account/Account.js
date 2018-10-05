@@ -89,7 +89,7 @@ export default class Account extends Component {
           <Container>
             <div style={{paddingBottom: 80}}>
               <Segment.Group stacked>
-                <Segment inverted>
+                <Segment inverted style={{backgroundColor: "#22AAB8"}}>
                   <Top
                     firstName={this.state.user.first_name}
                     lastName={this.state.user.last_name}
@@ -100,7 +100,7 @@ export default class Account extends Component {
                     profile={this.onProfile}
                   />
                 </Segment>
-                <Segment visible>
+                <Segment inverted style={{backgroundColor: 'white'}}>
                   { this.state.switchPage ?
                     <Dashboard
                       history={this.props.history}
