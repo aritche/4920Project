@@ -15,3 +15,13 @@
     height: 20px;
     vertical-align: bottom;
 }
+
+/* code from https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen */
+.centered-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+}
