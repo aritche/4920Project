@@ -184,6 +184,16 @@ def search_moves(json):
         move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
+    if 'sort' in json:
+        if json['sort'] == 'priceLowToHigh':
+            move_query = move_query.order_by(MoveDetails.budget)
+        elif json['sort'] == 'priceHightToLow':
+            move_query = move_query.order_by(MoveDetails.budget.desc())
+        elif json['sort'] == 'dateEarlyToLate':
+            move_query = move_query.order_by(MoveDetails.closing_datetime1)
+        elif json['sort'] == 'dateLateToEarly':
+            move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
+
     resp = jsonify({
         'moves': list(map(get_movee_details, map(get_address_details, map(MoveDetails.to_dict, move_query.all()))))
     })
