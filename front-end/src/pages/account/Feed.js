@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Feed, Image} from 'semantic-ui-react'
-import avatar from './elliot.jpg'
 
 export default class SingleFeed extends Component {
   render() {
