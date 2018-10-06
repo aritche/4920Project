@@ -20,7 +20,7 @@ export default class CreateLoginForm extends Component {
                         <Grid.Column>
                             <div className='centered-div'>
                                 <Header size='huge' style={{color:'white', fontSize: '4em'}}>uMove</Header>
-                                <Header as='h2' style={{color:'white'}}>Connecting movees and removalists</Header>
+                                <Header as='h2' style={{color:'white'}}>Make your move today!</Header>
                             </div>
                         </Grid.Column>
                         <Grid.Column>
