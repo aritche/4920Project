@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Feed, Image} from 'semantic-ui-react'
-import avatar from './elliot.jpg'
 
 export default class SingleFeed extends Component {
   render() {
@@ -8,7 +7,7 @@ export default class SingleFeed extends Component {
       <Feed>
         <Feed.Event>
           <Feed.Label>
-            <Image src={avatar} />
+            <Image/>
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Image, Segment, Header, Rating, Menu} from 'semantic-ui-react';
-import avatar from './elliot.jpg'
+
 
 /**
  * Title: Top
@@ -24,7 +24,7 @@ export default class Top extends Component {
           <div style={{marginTop: '1%', display: 'flex'}}>
             <Segment circular size={'small'}
                      style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1}}>
-              <Image src={avatar} circular size={'small'} bordered/>
+              <Image src={this.props.avatar} circular size={'small'} bordered/>
             </Segment>
             <div style={{marginTop: "3%", marginLeft: "1%"}}>
               <Header style={{color:'white'}} content={this.props.firstName + ' ' + this.props.lastName}

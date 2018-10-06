@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Rating, Card, Icon} from 'semantic-ui-react';
-import avatar from './elliot.jpg'
+import avatar from './elliot.jpg';
 
 /**
  * Title: Unit Card

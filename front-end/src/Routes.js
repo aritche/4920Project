@@ -7,7 +7,7 @@ import SignupPage from './pages/signup/SignupPage';
 import PostDetailsPage from './pages/posts/PostDetailsPage';
 import SearchPage from './pages/search/SearchPage';
 import Account from "./pages/account/Account";
-import Home from "./pages/home/Home";
+import Profile from "./pages/account/AccountProfile";
 
 export default class Routes extends Component {
     render() {
@@ -21,7 +21,7 @@ export default class Routes extends Component {
               <Route path='/signup' component={SignupPage}/>
               <Route path='/search' component={SearchPage}/>
               <Route path={'/account'} component={Account}/>
-              <Route path={'/home'} component={Home}/>
+              <Route path={'/profile'} component={Profile}/>
             </Switch>
         )
     }

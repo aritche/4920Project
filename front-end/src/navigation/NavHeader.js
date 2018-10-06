@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Segment, Image} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { isLoggedIn, getLoggedInUser, logout } from '../Authentication';
-import logo from './uMove_clear.png';
+import logo from './uMove.jpg';
 import { url } from '../Api';
 
 
@@ -60,6 +60,14 @@ export default class NavHeader extends Component {
                         active={window.location.pathname === '/'}>
                         <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
+
+                  <Menu.Item  as={Link} to={'/profile'} active={window.location.pathname === '/profile'}>
+                    <text> Profile </text>
+                  </Menu.Item>
+
+                  <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
+                    <text> Account </text>
+                  </Menu.Item>
 
                     {
                         this.state.isLoggedIn ?

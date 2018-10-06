@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Divider, Header} from 'semantic-ui-react';
+import {Divider, Header, Button} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
 
 /**
@@ -28,18 +28,19 @@ export default class Profile extends Component {
     return (
         <div>
           <div>
+            <Header content={'Description'} size={'huge'}/>
+            <text> {this.props.desc} </text>
             <Header content={'User Information'} size={'huge'}/>
             <Divider/>
             <Header content={'Name:'} size={'medium'}/>
             <text> {this.props.name} </text>
-            <Header content={'Address:'} size={'medium'}/>
-            <text> {this.props.address} </text>
             <Header content={'Mobile Number:'} size={'medium'}/>
             <text> {this.props.mobile} </text>
             <Header content={'Email Address:'} size={'medium'}/>
             <text> {this.props.email} </text>
           </div>
           <Divider/>
+          <Button/>
           <ConfirmationModal
             buttonText='Delete Account'
             buttonSize='small'
