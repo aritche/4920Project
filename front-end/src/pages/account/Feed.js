@@ -7,7 +7,7 @@ export default class SingleFeed extends Component {
       <Feed>
         <Feed.Event>
           <Feed.Label>
-            <Image src={avatar} />
+            <Image/>
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
