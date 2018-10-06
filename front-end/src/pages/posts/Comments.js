@@ -15,8 +15,10 @@ export default class Comments extends Component {
       this.state = {
         active: false,
         comment: '',
+        reply: '',
         errorText: '',
-        isOffering: false
+        isOffering: false,
+        replyingTo: -1
       }
     }
 
@@ -39,13 +41,36 @@ export default class Comments extends Component {
       }
     };
 
+    addReply = () => {
+      if (!isLoggedIn()) {
+        this.setState({errorText: 'Must be logged in to reply', active: true});
+      } else if (!emptyString(this.state.reply)) {
+        this.props.addReply(this.state.replyingTo, this.state.reply);
+        this.setState({reply: '', replyingTo: -1});
+      } else {
+        this.setState({errorText: 'Reply cannot be empty', active: true});
+      }
+    }
+
     onCommentChange = (e) => {
       this.setState({comment: e.target.value});
+    }
+
+    onReplyChange = (e) => {
+      this.setState({reply: e.target.value});
     }
 
     onPopClose = () => {
       this.setState({active: false});
     };
+
+    startReply = (comment_id) => {
+      this.setState({replyingTo: comment_id});
+    }
+
+    stopReply = () => {
+      this.setState({replyingTo: -1});
+    }
 
     render() {
       return (
@@ -68,8 +93,15 @@ export default class Comments extends Component {
                   </Comment.Metadata>
                   <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action>
+                    <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action>
                   </Comment.Actions>
+                  { comment.id === this.state.replyingTo &&
+                    <Form reply>
+                      <Form.Input value={this.state.reply} placeholder={"Type reply here"} onChange={this.onReplyChange}/>
+                      <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addReply} />
+                      <Button content='Cancel' negative onClick={this.stopReply}></Button>
+                    </Form>
+                  }
                 </Comment.Content>
                 {
                   comment.child_comments.length > 0 &&
@@ -85,9 +117,6 @@ export default class Comments extends Component {
                           <div> {subCom.date_string} </div>
                           </Comment.Metadata>
                           <Comment.Text> {subCom.text} </Comment.Text>
-                          <Comment.Actions>
-                          <Comment.Action>Reply</Comment.Action>
-                          </Comment.Actions>
                         </Comment.Content>
                       </Comment>
                     )}

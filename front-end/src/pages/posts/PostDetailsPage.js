@@ -126,6 +126,11 @@ export default class PostDetailsPage extends Component {
         });
     }
 
+    addReply = (comment_id, text) => {
+        // TODO connect to backend
+        alert("Replying to: [" + comment_id + "] with message: [" + text + "]")
+    }
+
     render() {
         if (this.state.isLoading || this.state.errorMessage) {
             return 'Loading...'
@@ -195,7 +200,7 @@ export default class PostDetailsPage extends Component {
                         Comments
                     </Header>
 
-                    <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} budget={this.state.post.budget} />
+                    <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} />
                 </Container>
             )
         }
