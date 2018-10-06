@@ -103,7 +103,7 @@ export default class Account extends Component {
           <Container>
             <div style={{paddingBottom: 80}}>
               <Segment.Group stacked>
-                <Segment inverted style={{backgroundColor: "#22AAB8"}}>
+                <Segment inverted secondary style={{backgroundColor: "#193446"}}>
                   <Top
                     avatar={this.state.avatar}
                     firstName={this.state.user.first_name}

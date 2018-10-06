@@ -26,7 +26,7 @@ export default class AccountProfile extends Component {
       <Container>
         <div style={{paddingBottom: 80}}>
           <Segment.Group stacked>
-            <Segment inverted>
+            <Segment inverted secondary style={{backgroundColor: "#193446"}}>
               <Top2
                 avatar={this.state.user.avatar}
                 firstName={this.state.user.first_name}

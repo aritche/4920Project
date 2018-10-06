@@ -112,7 +112,7 @@ export default class CreateLoginForm extends Component {
                 <Grid.Column style={{ maxWidth: 500 }}>
                     <Form error={this.state.submitError}>
                         <Segment.Group>
-                            <Segment inverted secondary style={{padding:7}}>
+                            <Segment inverted secondary style={{padding:7, backgroundColor: "#193446"}}>
                                 <h1 style={{color:'white'}}>Log In</h1>
                             </Segment>
                             <Segment>

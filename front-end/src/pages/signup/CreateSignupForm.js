@@ -168,7 +168,7 @@ export default class CreateSignupForm extends Component {
                 <Grid.Column style={{ maxWidth: 650 }}>
                     <Form error={this.state.submitError}>
                         <Segment.Group>
-                        <Segment inverted secondary>
+                        <Segment inverted secondary style={{backgroundColor: "#193446"}}>
                             <h1 style={{color: 'white'}}>Join the Community!</h1>
                         </Segment>
                         <Segment>

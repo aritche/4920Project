@@ -58,7 +58,7 @@ export default class FilterBar extends Component {
 
     render() {
         return (
-            <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
+            <Segment inverted secondary style={{paddingTop: 10, paddingBottom: 10, backgroundColor: "#193446"}}>
                 <Menu secondary>
                     {/* <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
                               floating button simple>
@@ -134,7 +134,7 @@ export default class FilterBar extends Component {
                         />
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                    <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10}}/>
+                    <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10, color: "white"}}/>
                         <Dropdown selection autosize={'false'} onChange={this.onSortByChange}
                                   defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating
                                   button

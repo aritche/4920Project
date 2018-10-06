@@ -89,13 +89,15 @@ export default class PostsPage extends Component {
                     <Header.Content>Posts</Header.Content>
                 </Header>
 
-                <FilterBar
-                    handleChange={this.handleFilterChange.bind(this)}
-                />
+                <Segment.Group>
+                    <FilterBar
+                        handleChange={this.handleFilterChange.bind(this)}
+                    />
 
-                <Segment secondary>
-                    <PostList posts={this.state.posts} />
-                </Segment>
+                    <Segment secondary>
+                        <PostList posts={this.state.posts} />
+                    </Segment>
+                </Segment.Group>
             </Container>
         )
     }
