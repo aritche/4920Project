@@ -195,7 +195,7 @@ export default class PostDetailsPage extends Component {
                         Comments
                     </Header>
 
-                    <Comments comments={this.state.comments} addComment={this.addComment} budget={this.state.post.budget} />
+                    <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} budget={this.state.post.budget} />
                 </Container>
             )
         }
