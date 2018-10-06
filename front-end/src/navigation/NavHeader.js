@@ -56,8 +56,8 @@ export default class NavHeader extends Component {
                 <Menu inverted pointing secondary style={{backgroundColor: '#193446'}}>
                     <Menu.Item 
                         as={Link} 
-                        to={'/'} 
-                        active={window.location.pathname === '/'}>
+                        to={'/home'} 
+                        active={window.location.pathname === '/home'}>
                         <Image src={logo} style={{height:20}}/>
                     </Menu.Item>
 
@@ -67,6 +67,10 @@ export default class NavHeader extends Component {
 
                   <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
                     <text> Account </text>
+                  </Menu.Item>
+
+                  <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
+                    <text> Posts </text>
                   </Menu.Item>
 
                     {
