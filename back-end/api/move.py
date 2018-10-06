@@ -8,7 +8,13 @@ from database.ToAddress import ToAddress
 from database.Item import Item
 from database.User import User
 from database.Comment import Comment
-import urllib, urllib2, json, requests
+import urllib, json, requests
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+   # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
 
 def create_new_move(json):
     if (
