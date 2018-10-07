@@ -53,7 +53,7 @@ export default class NavHeader extends Component {
             this.getUserName();
         }
         return (
-                <Menu inverted pointing secondary style={{backgroundColor: '#193446', margin: 0}}>
+                <Menu inverted pointing secondary style={{backgroundColor: '#193446'}}>
                     <Menu.Item 
                         as={Link} 
                         to={'/home'} 
