@@ -14,7 +14,7 @@ export default class CreateLoginForm extends Component {
 
     render() {
         return (
-            <Container style={{height: '92vh', backgroundColor: '#193446'}}>
+            <Segment attached style={{height: '92vh', backgroundColor: '#193446'}}>
                 <Grid columns={2} centered>
                     <Grid.Row>
                         <Grid.Column>
@@ -30,7 +30,7 @@ export default class CreateLoginForm extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </Container>
+            </Segment>
         )
     }
 }
