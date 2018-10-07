@@ -191,26 +191,24 @@ export default class CreatePostForm extends Component {
         return (
         <Container>
             <Segment.Group>
-              <Segment inverted secondary>
-                <Header size={'large'} content={'Make Your Move!'} />
-              </Segment>
 
               <Form size={'large'} style={{paddingBottom: 80}}>
 
               <Segment>
-                  <ProcessStep/>
+                {/*<ProcessStep/>*/}
 
                   <Form.Field>
-                    <Divider/>
+                    <Header content={'Post Title'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
                     <Form.Input
                       name='title'
-                      style={{width: 250}} fluid label='Title'
+                      style={{width: 250}} fluid
                       placeholder='Post Title'
                       onChange={this.onChange}
                     />
 
-                    <Divider/>
-
+                    <Header content={'Where are you moving from?'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
                     <SearchBar
                       lowerIdent='from'
                       upperIdent='From'
@@ -228,7 +226,8 @@ export default class CreatePostForm extends Component {
                       handleL1={this.onAddrFChange}
                     />
 
-                    <Divider/>
+                    <Header content={'Where are you moving to?'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
 
                     <SearchBar
                       lowerIdent='to'
@@ -247,9 +246,9 @@ export default class CreatePostForm extends Component {
                       handleL1={this.onAddrTChange}
                     />
 
-                    <Divider/>
+                    <Header content={'When are you moving?'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <Header size={'tiny'}> When are you moving? </Header>
                     <DateTimePicker
                       date={this.state.date}
                       handleD={this.onDateChange}
@@ -259,9 +258,9 @@ export default class CreatePostForm extends Component {
                       handleT2={this.onTime2Change}
                     />
 
-                    <Divider/>
+                    <Header content={'What is your budget?'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <Header size={'tiny'}> What is your budget? </Header>
                     <test> If you are unsure, we recommend you browse other jobs first. </test>
                     <InputSlider
                         value={this.state.budget}
@@ -272,9 +271,9 @@ export default class CreatePostForm extends Component {
                         icon={'dollar'}
                     />
 
-                    <Divider/>
+                    <Header content={'Item Detail'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <Header size={'tiny'}> Item Detail </Header>
                     <ItemTable
                       table={this.state.itemTable}
                       addItem={this.itemTableAdd}
@@ -282,19 +281,17 @@ export default class CreatePostForm extends Component {
                       deleteAll={this.itemTableDeleteAll}
                     />
 
-                    <Divider/>
+                    <Header content={'Post Description'} size={'huge'} block
+                            style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <Header size={'tiny'}> Post Description </Header>
                     <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
 
                   </Form.Field>
 
-                  <br/>
-
                   <div style={{display: 'flex'}}>
-                    <Button style={{width: 100, height: 40}} primary type='submit' onClick={this.createPost}>Post</Button>
-                    <span style={{width: 10}}/>
-                    <Button style={{width: 100, height: 40}} negative as={Link} to={'/posts'}>Discard</Button>
+                    <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}} primary type='submit' onClick={this.createPost}>Post</Button>
+                    <span style={{width: 3}}/>
+                    <Button style={{width: 100, height: 40, backgroundColor: '#193446', color: 'white'}} negative as={Link} to={'/posts'}>Discard</Button>
                   </div>
 
                   <ErrorInputModal

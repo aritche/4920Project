@@ -58,14 +58,17 @@ export default class CreateSignupForm extends Component {
     attemptSignup = () => {
         // Input validation here
         // Assume no errors to start with
-        this.setState({ passwordMismatch: false });
-        this.setState({ firstNameError: false });
-        this.setState({ lastNameError : false });
-        this.setState({ emailError: false });
-        this.setState({ passwordError : false });
-        this.setState({ confirmPasswordError : false });
-        this.setState({ titleError: false });
-        this.setState({ submitError: false });
+        this.setState
+        ({
+          passwordMismatch: false,
+          firstNameError: false,
+          lastNameError : false,
+          emailError: false,
+          passwordError : false,
+          confirmPasswordError : false,
+          titleError: false,
+          submitError: false,
+        });
         var validationError = false;
 
         // Check that fields are not blank
@@ -168,7 +171,7 @@ export default class CreateSignupForm extends Component {
                 <Grid.Column style={{ maxWidth: 650 }}>
                     <Form error={this.state.submitError}>
                         <Segment.Group>
-                        <Segment inverted secondary>
+                        <Segment style={{backgroundColor: "#193446"}} stacked>
                             <h1 style={{color: 'white'}}>Join the Community!</h1>
                         </Segment>
                         <Segment>
@@ -208,7 +211,7 @@ export default class CreateSignupForm extends Component {
                                     />
                                 </div>
                             </Form.Field>
-                            <Button fluid color='green' type='submit' onClick={this.attemptSignup}>Sign up</Button>
+                            <Button fluid style={{backgroundColor: '#193446', color: 'white'}} type='submit' onClick={this.attemptSignup}>Sign up</Button>
                             <Message error header='Unable to Sign Up' content={this.state.errorMessage}/>
                         </Segment>
                         </Segment.Group>

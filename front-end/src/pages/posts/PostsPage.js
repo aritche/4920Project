@@ -84,18 +84,17 @@ export default class PostsPage extends Component {
     render() {
         return (
             <Container>
-                <Header as='h2'>
-                    <Icon name='file alternate' />
-                    <Header.Content>Posts</Header.Content>
-                </Header>
 
-                <FilterBar
-                    handleChange={this.handleFilterChange.bind(this)}
-                />
 
-                <Segment secondary>
-                    <PostList posts={this.state.posts} />
-                </Segment>
+                <Segment.Group>
+                    <FilterBar
+                        handleChange={this.handleFilterChange.bind(this)}
+                    />
+
+                    <Segment secondary>
+                        <PostList posts={this.state.posts} />
+                    </Segment>
+                </Segment.Group>
             </Container>
         )
     }

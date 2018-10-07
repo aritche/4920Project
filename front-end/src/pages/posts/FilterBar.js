@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Menu, Dropdown, Form, Input, Header } from 'semantic-ui-react';
+import {Segment, Menu, Dropdown, Form, Input, Header, Icon} from 'semantic-ui-react';
 import { BUDGET } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -40,7 +40,7 @@ export default class FilterBar extends Component {
 
     onFilterChange = (e) => {
         this.props.handleChange(e.target.name, e.target.value);
-    }
+    };
 
     onlowerDateChange(date) {
         this.setState({ lowerDate: date });
@@ -58,7 +58,11 @@ export default class FilterBar extends Component {
 
     render() {
         return (
-            <Segment inverted tertiary style={{paddingTop: 10, paddingBottom: 10}}>
+            <Segment style={{paddingTop: 10, paddingBottom: 10, backgroundColor: "#193446"}}>
+              {/*<Header as='h2' style={{color: 'white'}}>
+                <Icon name='file alternate' style={{color: 'white'}}/>
+                Posts
+              </Header>*/}
                 <Menu secondary>
                     {/* <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
                               floating button simple>
@@ -134,7 +138,7 @@ export default class FilterBar extends Component {
                         />
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                    <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10}}/>
+                    <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10, color: "white"}}/>
                         <Dropdown selection autosize={'false'} onChange={this.onSortByChange}
                                   defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating
                                   button

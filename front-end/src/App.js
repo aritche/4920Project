@@ -7,7 +7,7 @@ import Routes from './Routes';
 class App extends Component {
     render() {
         return (
-            <div className="main">
+            <div className="main" style={{backgroundImage: 'url(/images/forest.jpg)'}}>
                 <NavHeader />
                 <Routes />
             </div>

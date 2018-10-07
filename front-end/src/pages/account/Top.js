@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Image, Segment, Header, Rating, Menu} from 'semantic-ui-react';
+import {Image, Segment, Header, Menu} from 'semantic-ui-react';
+import EditProfile from './EditProfile'
 
 
 /**
@@ -18,20 +19,33 @@ export default class Top extends Component {
         }
     };
 
+    onUpdate = (avatar, firstName, lastName, email, phone, desc) => {
+      this.props.profileUpdate(avatar, firstName, lastName, email, phone, desc);
+    };
+
     render() {
         const { activeItem } = this.state;
         return (
           <div style={{marginTop: '1%', display: 'flex'}}>
             <Segment circular size={'small'}
-                     style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1}}>
+                     style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1, backgroundColor: 'white', marginTop: '1%'}}>
               <Image src={this.props.avatar} circular size={'small'} bordered/>
             </Segment>
-            <div style={{marginTop: "3%", marginLeft: "1%"}}>
-              <Header style={{color:'white'}} content={this.props.firstName + ' ' + this.props.lastName}
-                      size={'huge'}/>
-              <Header style={{color:'white'}} content={this.props.identity + ' joined in ' + this.props.date}
-                      size={'big'}/>
-              <Rating maxRating={5} defaultRating={this.props.rating} icon='star' size='huge' disabled/>
+            <div style={{marginTop: "5%", marginLeft: "2%"}}>
+              <Header style={{color:'white'}} size={'huge'}>
+                {this.props.firstName + ' ' + this.props.lastName}
+                <br/>
+                <Header.Subheader style={{color:'white'}} content={this.props.identity + ' joined in ' + this.props.date}
+                        size={'big'}/>
+              </Header>
+              <EditProfile
+                avatar={this.props.avatar}
+                firstName={this.props.firstName}
+                lastName={this.props.lastName}
+                phone={this.props.phone}
+                email={this.props.email}
+                update={this.onUpdate}
+              />
             </div>
             <Menu inverted secondary attached='top'
                   style={{height: "0%", width: "15%", marginLeft: "45%", marginTop: "11%"}}>

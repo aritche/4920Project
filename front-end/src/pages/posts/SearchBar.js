@@ -122,7 +122,6 @@ export default class SearchBar extends React.Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <div>
-                <Header size={'tiny'}> Where are you moving from? </Header>
                 <Input
                   name={this.props.ident + 'AddrL1'} icon='building'
                   iconPosition={'left'} style={{width: 400}}

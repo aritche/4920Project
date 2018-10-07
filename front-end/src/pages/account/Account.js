@@ -30,10 +30,16 @@ export default class Account extends Component {
 
         this.state = {
           user: {
+            avatar: f1,
+            firstName: 'Agh',
+            lastName: 'AAAAA',
+            email: 'adjlk@asd',
+            phone: '12l34235',
+            desc: 'wtf',
             posts: []
           },
           postList: [],
-          feeds: [{name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
+          feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
           switchPage: true,
           isLoading: false,
         };
@@ -45,6 +51,17 @@ export default class Account extends Component {
 
     onProfile = () => {
         this.setState({switchPage: false});
+    };
+
+    onProfileUpdate = (newAvatar, firstName, lastName, email, phone, desc) => {
+        let user = Object.assign({}, this.state.user);
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email= email;
+        user.phone = phone;
+        user.desc = desc;
+        user.avatar = newAvatar;
+        this.setState({user});
     };
 
     deleteAccount = () => {
@@ -103,19 +120,20 @@ export default class Account extends Component {
           <Container>
             <div style={{paddingBottom: 80}}>
               <Segment.Group stacked>
-                <Segment inverted style={{backgroundColor: "#22AAB8"}}>
+                <Segment style={{backgroundColor: "#193446"}}>
                   <Top
-                    avatar={this.state.avatar}
+                    avatar={this.state.user.avatar}
                     firstName={this.state.user.first_name}
                     lastName={this.state.user.last_name}
                     date={this.state.user.date}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating}
                     update={this.onUpdate}
+                    profileUpdate={this.onProfileUpdate}
                     profile={this.onProfile}
                   />
                 </Segment>
-                <Segment inverted style={{backgroundColor: 'white'}}>
+                <Segment style={{backgroundColor: 'white'}}>
                   { this.state.switchPage ?
                     <Dashboard
                       history={this.props.history}
@@ -123,7 +141,9 @@ export default class Account extends Component {
                       feed={this.state.feeds}
                     /> :
                     <Profile
-                      name={this.state.user.first_name + ' ' + this.state.user.last_name}
+                      avatar={this.state.user.avatar}
+                      firstName={this.state.user.first_name}
+                      lastName={this.state.user.last_name}
                       desc={this.state.user.desc}
                       mobile={this.state.user.mobile}
                       email={this.state.user.email}
