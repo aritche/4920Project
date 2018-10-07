@@ -112,7 +112,7 @@ export default class CreateLoginForm extends Component {
                 <Grid.Column style={{ maxWidth: 500 }}>
                     <Form error={this.state.submitError}>
                         <Segment.Group>
-                            <Segment inverted secondary style={{padding:7, backgroundColor: "#193446"}}>
+                            <Segment style={{padding:7, backgroundColor: "#193446"}}>
                                 <h1 style={{color:'white'}}>Log In</h1>
                             </Segment>
                             <Segment>
@@ -121,7 +121,7 @@ export default class CreateLoginForm extends Component {
                                 <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
                                             iconPosition={'left'} type='password' value={this.state.password}
                                             onChange={this.onPasswordChange} />
-                                <Button fluid color='green' type='submit' onClick={this.attemptLogin}>Log In</Button>
+                                <Button fluid style={{backgroundColor: '#193446', color: 'white'}} type='submit' onClick={this.attemptLogin}>Log In</Button>
                                 <Message error header='Unable to Log In' content={this.state.errorMessage}/>
                             </Segment>
                         </Segment.Group>

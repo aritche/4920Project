@@ -84,10 +84,7 @@ export default class PostsPage extends Component {
     render() {
         return (
             <Container>
-                <Header as='h2'>
-                    <Icon name='file alternate' />
-                    <Header.Content>Posts</Header.Content>
-                </Header>
+
 
                 <Segment.Group>
                     <FilterBar

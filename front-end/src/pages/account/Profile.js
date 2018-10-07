@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Divider, Header, Button} from 'semantic-ui-react';
+import {Divider, Header, Segment} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
 
 /**
@@ -28,23 +28,27 @@ export default class Profile extends Component {
     return (
         <div>
           <div>
-            <Header content={'Description'} size={'huge'}/>
+            <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <text> {this.props.desc} </text>
-            <Header content={'User Information'} size={'huge'}/>
-            <Divider/>
-            <Header content={'Name:'} size={'medium'}/>
-            <text> {this.props.name} </text>
-            <Header content={'Mobile Number:'} size={'medium'}/>
-            <text> {this.props.mobile} </text>
-            <Header content={'Email Address:'} size={'medium'}/>
-            <text> {this.props.email} </text>
+            <Header content={'User Information'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+            <Segment>
+              <Header content={'Name:'} size={'medium'}/>
+              <text> {this.props.name} </text>
+              <Divider/>
+              <Header content={'Mobile Number:'} size={'medium'}/>
+              <text> {this.props.mobile} </text>
+              <Divider/>
+              <Header content={'Email Address:'} size={'medium'}/>
+              <text> {this.props.email} </text>
+              <Divider/>
+            </Segment>
+            <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           </div>
-          <Divider/>
-          <Button/>
+          <br/>
           <ConfirmationModal
             buttonText='Delete Account'
             buttonSize='small'
-            buttonStyle={{width: 150, height: 50}}
+            buttonStyle={{backgroundColor: '#193446', width: 130, height: 40}}
             headerText='Are you sure you want to delete your account?'
             onConfirm={this.props.delete}
           />

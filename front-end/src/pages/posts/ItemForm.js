@@ -92,7 +92,8 @@ export default class ItemForm extends Component {
     render() {
         return (
           <Modal trigger={
-            <Button onClick={this.open} size='large' primary style={{width: 100, height: 40, zIndex: 0}} animated='fade'>
+            <Button onClick={this.open} size='large' style={{width: 100, height: 40, zIndex: 0,
+              backgroundColor: '#22AABB', color: 'white'}} animated='fade'>
               <Button.Content visible>
                 <Icon name={'plus square'}/>
               </Button.Content>
@@ -126,10 +127,10 @@ export default class ItemForm extends Component {
               </Form>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='green' onClick={this.onSubmit} disabled={this.validation()}>
+              <Button style={{backgroundColor: '#22AABB', color: 'white'}} onClick={this.onSubmit} disabled={this.validation()}>
                 <Icon name='checkmark' /> Yes
               </Button>
-              <Button color='red' onClick={this.close}>
+              <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.close}>
                 <Icon name='remove' /> No
               </Button>
             </Modal.Actions>

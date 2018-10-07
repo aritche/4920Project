@@ -7,7 +7,7 @@ import SignupPage from './pages/signup/SignupPage';
 import PostDetailsPage from './pages/posts/PostDetailsPage';
 import SearchPage from './pages/search/SearchPage';
 import Account from "./pages/account/Account";
-import Profile from "./pages/account/AccountProfile";
+import OtherAccount from "./pages/account/OtherAccount";
 import Home from "./pages/home/Home";
 
 export default class Routes extends Component {
@@ -22,7 +22,7 @@ export default class Routes extends Component {
               <Route path='/signup' component={SignupPage}/>
               <Route path='/search' component={SearchPage}/>
               <Route path={'/account'} component={Account}/>
-              <Route path={'/profile'} component={Profile}/>
+              <Route path={'/otherAccount'} component={OtherAccount}/>
               <Route path='/home' component={Home}/>
             </Switch>
         )

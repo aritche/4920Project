@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Image} from 'semantic-ui-react';
+import { Menu, Container, Image} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { isLoggedIn, getLoggedInUser, logout } from '../Authentication';
 import logo from './uMove_clear.png';
@@ -53,61 +53,63 @@ export default class NavHeader extends Component {
             this.getUserName();
         }
         return (
-                <Menu inverted pointing secondary style={{backgroundColor: '#193446'}}>
-                    <Menu.Item 
-                        as={Link} 
-                        to={'/home'} 
-                        active={window.location.pathname === '/home'}>
-                        <Image src={logo} style={{height:20}}/>
-                    </Menu.Item>
+            <Menu inverted pointing secondary style={{backgroundColor: '#193446'}}>
+              <Container>
+                <Menu.Item
+                    as={Link}
+                    to={'/home'}
+                    active={window.location.pathname === '/home'}>
+                    <Image src={logo} style={{height:20}}/>
+                </Menu.Item>
 
-                  <Menu.Item  as={Link} to={'/profile'} active={window.location.pathname === '/profile'}>
-                    <text> Profile </text>
-                  </Menu.Item>
+              <Menu.Item  as={Link} to={'/otherAccount'} active={window.location.pathname === '/otherAccount'}>
+                <text> Other Profile </text>
+              </Menu.Item>
 
-                  <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
-                    <text> Account </text>
-                  </Menu.Item>
+              <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
+                <text> Account </text>
+              </Menu.Item>
 
-                  <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
-                    <text> Posts </text>
-                  </Menu.Item>
+              <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
+                <text> Posts </text>
+              </Menu.Item>
 
-                    {
-                        this.state.isLoggedIn ?
-                            <Menu.Menu position='right'>
-                                <Menu.Item 
-                                    as={Link}
-                                    to={'/account'}
-                                    active={window.location.pathname === '/account'}>
-                                    {'userName' in this.state ? this.state.userName : 'Account'}
-                                </Menu.Item>
-                                <Menu.Item
-                                    onClick={logout}
-                                    as={Link}
-                                    to={'/login'}
-                                    active={window.location.pathname === '/login'}>
-                                    Log Out
-                                </Menu.Item>
-                            </Menu.Menu>
-                        :
-                            <Menu.Menu position='right'>
-                                <Menu.Item 
-                                    as={Link}
-                                    to={'/login'}
-                                    active={window.location.pathname === '/login'}>
-                                    Log In
-                                </Menu.Item>
-                                <Menu.Item
-                                    as={Link}
-                                    to={'/signup'}
-                                    active={window.location.pathname === '/signup'}>
-                                    Sign Up
-                                </Menu.Item>
-                            </Menu.Menu>
-                    }
+                {
+                    this.state.isLoggedIn ?
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                as={Link}
+                                to={'/account'}
+                                active={window.location.pathname === '/account'}>
+                                {'userName' in this.state ? this.state.userName : 'Account'}
+                            </Menu.Item>
+                            <Menu.Item
+                                onClick={logout}
+                                as={Link}
+                                to={'/login'}
+                                active={window.location.pathname === '/login'}>
+                                Log Out
+                            </Menu.Item>
+                        </Menu.Menu>
+                    :
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                as={Link}
+                                to={'/login'}
+                                active={window.location.pathname === '/login'}>
+                                Log In
+                            </Menu.Item>
+                            <Menu.Item
+                                as={Link}
+                                to={'/signup'}
+                                active={window.location.pathname === '/signup'}>
+                                Sign Up
+                            </Menu.Item>
+                        </Menu.Menu>
+                }
+              </Container>
+            </Menu>
 
-                </Menu>
         )
     };
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Header, Menu} from 'semantic-ui-react';
+import {Button, Header, Segment} from 'semantic-ui-react';
 import PostList from "./PostTable";
 import FeedList from "./FeedList";
 import {Link} from "react-router-dom";
@@ -13,16 +13,22 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-          <Header content={'Recent Updates'} size={'huge'}/>
-          <FeedList feeds={this.props.feed}/>
+          <Header content={'Recent Updates'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          <Segment>
+            <FeedList feeds={this.props.feed}/>
+          </Segment>
           <br/>
-          <Header content={'Post Collection'} size={'huge'}/>
-          <PostList history={this.props.history} list={this.props.post}/>
+          <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          <Segment>
+            <PostList history={this.props.history} list={this.props.post}/>
+          </Segment>
           <br/>
           <Button.Group>
-            <Button as={Link} to={'/create-post'} primary style={{backgroundColor: '#E2B49A'}}>Create Post</Button>
+            <Button as={Link} to={'/create-post'} style={{backgroundColor: '#193446', color: 'white',
+              width: 120, height: 40}}>Create Post</Button>
             <Button.Or />
-            <Button as={Link} to={'/posts'} style={{backgroundColor: '#E9C77B'}} secondary>Search Post</Button>
+            <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
+              width: 120, height: 40}}>Search Post</Button>
           </Button.Group>
       </div>
     )

@@ -53,7 +53,7 @@ export default class ItemTable extends Component{
                 }
                 buttonSize='large'
                 buttonAnimated='fade'
-                buttonStyle={{width: 100, height: 40, zIndex: 0}}
+                buttonStyle={{width: 100, height: 40, zIndex: 0, backgroundColor: '#193446', color: 'white'}}
                 headerText='Are you sure you want to delete all items?'
                 onConfirm={this.props.deleteAll}
               />
