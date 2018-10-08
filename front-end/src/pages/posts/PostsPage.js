@@ -83,14 +83,11 @@ export default class PostsPage extends Component {
 
     render() {
         return (
-            <Container>
-
-
+            <Container style={{minHeight: 480, maxHeight: 1000}}>
                 <Segment.Group>
                     <FilterBar
                         handleChange={this.handleFilterChange.bind(this)}
                     />
-
                     <Segment secondary>
                         <PostList posts={this.state.posts} />
                     </Segment>

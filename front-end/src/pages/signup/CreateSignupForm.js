@@ -168,7 +168,7 @@ export default class CreateSignupForm extends Component {
         //   - found at https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/LoginLayout.js
         return (
             <Grid textAlign='center' verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 650 }}>
+                <Grid.Column style={{ maxWidth: 650, height:500 }}>
                     <Form error={this.state.submitError}>
                         <Segment.Group>
                         <Segment style={{backgroundColor: "#193446"}} stacked>

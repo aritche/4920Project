@@ -109,24 +109,24 @@ export default class CreateLoginForm extends Component {
         //   - found at https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/LoginLayout.js
         return (
             <Grid textAlign='center' verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 500 }}>
-                    <Form error={this.state.submitError}>
-                        <Segment.Group>
-                            <Segment style={{padding:7, backgroundColor: "#193446"}}>
-                                <h1 style={{color:'white'}}>Log In</h1>
-                            </Segment>
-                            <Segment>
-                                <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
-                                            iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
-                                <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
-                                            iconPosition={'left'} type='password' value={this.state.password}
-                                            onChange={this.onPasswordChange} />
-                                <Button fluid style={{backgroundColor: '#193446', color: 'white'}} type='submit' onClick={this.attemptLogin}>Log In</Button>
-                                <Message error header='Unable to Log In' content={this.state.errorMessage}/>
-                            </Segment>
-                        </Segment.Group>
-                    </Form>
-                </Grid.Column>
+              <Grid.Column style={{ maxWidth: 500, height: 500}}>
+                <Form error={this.state.submitError}>
+                  <Segment.Group>
+                    <Segment style={{padding:7, backgroundColor: "#193446"}}>
+                      <h1 style={{color:'white'}}>Log In</h1>
+                    </Segment>
+                    <Segment>
+                      <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
+                                  iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
+                      <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}
+                                  iconPosition={'left'} type='password' value={this.state.password}
+                                  onChange={this.onPasswordChange} />
+                      <Button fluid style={{backgroundColor: '#193446', color: 'white'}} type='submit' onClick={this.attemptLogin}>Log In</Button>
+                      <Message error header='Unable to Log In' content={this.state.errorMessage}/>
+                    </Segment>
+                  </Segment.Group>
+                </Form>
+              </Grid.Column>
             </Grid>
         )
     }

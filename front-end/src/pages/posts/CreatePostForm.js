@@ -190,7 +190,6 @@ export default class CreatePostForm extends Component {
     render() {
         return (
         <Container>
-            <Segment.Group>
 
               <Form size={'large'} style={{paddingBottom: 80}}>
 
@@ -317,7 +316,6 @@ export default class CreatePostForm extends Component {
                   subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
                 </Segment>
               </Form>
-            </Segment.Group>
         </Container>
         )
     }

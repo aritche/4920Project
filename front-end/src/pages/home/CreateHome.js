@@ -14,7 +14,7 @@ export default class CreateLoginForm extends Component {
 
     render() {
         return (
-            <Container style={{height: '92vh', backgroundColor: '#193446'}}>
+            <Container style={{height: '92vh', backgroundColor: "#193446"}}>
                 <Grid columns={2} centered>
                     <Grid.Row>
                         <Grid.Column>
@@ -25,6 +25,7 @@ export default class CreateLoginForm extends Component {
                         </Grid.Column>
                         <Grid.Column>
                             <div className='centered-div'>
+                                <span style={{height: 80}}/>
                                 <Signup/>
                             </div>
                         </Grid.Column>
