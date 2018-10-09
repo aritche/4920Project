@@ -3,7 +3,6 @@ import { Button, Modal, Icon, Form, Header, TextArea, Message } from 'semantic-u
 import PositiveFloatInput from '../../widgets/PositiveFloatInput';
 import { emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
 import moment from 'moment';
-import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 
 export default class OfferModal extends Component {
     constructor(props) {
@@ -17,9 +16,7 @@ export default class OfferModal extends Component {
     }
 
     onSubmit = () => {
-        if (!isLoggedIn()) {
-            this.setState({errorText: 'Must be logged in to make an offer'});
-        } else if (!emptyString(this.state.desc) && isPositiveFloat(this.state.offer)) {
+        if (!emptyString(this.state.desc) && isPositiveFloat(this.state.offer)) {
             this.props.onOffer(this.state.offer, this.state.desc);
             this.setState({desc: '', errorText: ''});
             this.props.close();
