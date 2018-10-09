@@ -57,7 +57,10 @@ def insert_new_user(json):
         user_type = json['userType'],
         password = json['hashedPassword'],
         creation_date = datetime.now(),
-        deleted = False
+        deleted = False,
+        description = '',
+        phone_number = '',
+        avatar = ''
     )
     db.session.add(user)
     db.session.commit()

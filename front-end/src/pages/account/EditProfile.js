@@ -96,13 +96,12 @@ export default class EditProfile extends Component {
   };
 
   emailValid = () => {
-    return !emptyString(this.state.email) && this.state.email !== undefined &&this.state.email.length > 5
+    return !emptyString(this.state.email) && this.state.email !== undefined && this.state.email.length >= 5
       && this.state.email.includes('@');
   };
 
   phoneValid = () => {
-    return !emptyString(this.state.phone) && this.state.phone !== undefined && this.state.phone.length > 5
-      && !isZero(this.state.phone);
+    return this.state.phone !== undefined && ((this.state.phone.length >= 5 && !isZero(this.state.phone)) || this.state.phone.length === 0);
   };
 
   onFormPopClose = () => {
@@ -212,16 +211,16 @@ export default class EditProfile extends Component {
 
         <Modal.Actions>
           <Button style={{backgroundColor: '#22AABB', color: 'white'}} onClick={this.onSubmit} disabled={this.validation()}>
-            <Icon name='checkmark' /> Yes
+            <Icon name='checkmark' /> Save
           </Button>
-          <Button style={{backgroundColor: '#193446', color:'white'}}onClick={this.close}>
-            <Icon name='remove' /> No
+          <Button style={{backgroundColor: '#193446', color:'white'}} onClick={this.close}>
+            <Icon name='remove' /> Cancel
           </Button>
         </Modal.Actions>
 
         <ErrorInputModal
           pop={this.state.activeForm}
-          headerText={'Please fill every field of this form'}
+          headerText={'Please fill the required fields'}
           onClose={this.onFormPopClose}
         />
       </Modal>

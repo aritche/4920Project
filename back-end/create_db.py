@@ -29,7 +29,10 @@ with app.app_context():
         password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
         deleted = False,
         user_type = 'Movee',
-        creation_date = datetime.now()
+        creation_date = datetime.now(),
+        description = '',
+        phone_number = '',
+        avatar = ''
     )
 
     db.session.add(user1)
