@@ -133,7 +133,7 @@ export default class Comments extends Component {
                         <Comment.Avatar src={ subCom.image ? comment.image : '/images/default_profile_pic.jpg'}/>
                         <Comment.Content>
                           <Comment.Author as='a'>
-                            {comment.poster_details.first_name + ' ' + comment.poster_details.last_name}
+                            {subCom.poster_details.first_name + ' ' + subCom.poster_details.last_name}
                           </Comment.Author>
                           <Comment.Metadata>
                           <div> {subCom.date_string} </div>
