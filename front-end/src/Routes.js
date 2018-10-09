@@ -22,7 +22,7 @@ export default class Routes extends Component {
               <Route path='/signup' component={SignupPage}/>
               <Route path='/search' component={SearchPage}/>
               <Route path={'/account'} component={Account}/>
-              <Route path={'/otherAccount'} component={OtherAccount}/>
+              <Route path={'/profile'} component={OtherAccount}/>
               <Route path='/home' component={Home}/>
             </Switch>
         )

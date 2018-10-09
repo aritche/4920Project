@@ -52,6 +52,10 @@ export default class Comments extends Component {
       }
     }
 
+    acceptOffer = (commentId) => {
+      this.props.acceptOffer(commentId);
+    }
+
     onCommentChange = (e) => {
       this.setState({comment: e.target.value});
     }
@@ -64,8 +68,8 @@ export default class Comments extends Component {
       this.setState({active: false});
     };
 
-    startReply = (comment_id) => {
-      this.setState({replyingTo: comment_id});
+    startReply = (commentId) => {
+      this.setState({replyingTo: commentId});
     }
 
     stopReply = () => {
@@ -77,12 +81,14 @@ export default class Comments extends Component {
         <div>
           <Comment.Group>
             {this.props.comments.map((comment) =>
-              <Comment key={comment.id}>
+              <Comment key={comment.id} style={ this.props.acceptedComment === comment.id ? {backgroundColor: '#2185d0', padding: '10px', borderRadius: '10px'} : {}}>
                 <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
                   <Comment.Author as='a'>
+                    [
+                    {this.props.acceptedComment === comment.id && 'ACCEPTED '}
                     {comment.is_offer ?
-                        '[OFFER] ' + comment.poster_details.first_name + ' ' +
+                        'OFFER] ' + comment.poster_details.first_name + ' ' +
                         comment.poster_details.last_name + ' offers $' + comment.offer_amount
                       :
                         comment.poster_details.first_name + ' ' + comment.poster_details.last_name
@@ -94,6 +100,9 @@ export default class Comments extends Component {
                   <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>
                     <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action>
+                    { this.props.acceptedComment === -1 && comment.is_offer && this.props.isPostCreator &&
+                        <Comment.Action style={{fontWeight: 'bold'}} onClick={() => this.acceptOffer(comment.id)}>Accept Offer</Comment.Action>
+                    }
                   </Comment.Actions>
                   { comment.id === this.state.replyingTo &&
                     <Form reply>

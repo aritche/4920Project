@@ -18,11 +18,11 @@ export default class PostDetailsPage extends Component {
     }
 
     componentDidMount() {
-        this.loadComments();
+        this.loadPost();
     }
 
 
-    loadComments = () => {
+    loadPost = () => {
         fetch(url + 'post/' + this.state.post.id).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
@@ -90,7 +90,7 @@ export default class PostDetailsPage extends Component {
         }).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
-                    this.loadComments();
+                    this.loadPost();
                 });
             } else {
                 this.setState({
@@ -118,7 +118,7 @@ export default class PostDetailsPage extends Component {
         }).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
-                    this.loadComments();
+                    this.loadPost();
                 });
             } else {
                 this.setState({
@@ -130,8 +130,55 @@ export default class PostDetailsPage extends Component {
     }
 
     addReply = (comment_id, text) => {
-        // TODO connect to backend
-        alert("Replying to: [" + comment_id + "] with message: [" + text + "]")
+        fetch(url + 'post-comment', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id,
+            'userId': getLoggedInUser(),
+            'commentText': text,
+            'parentCommentId': comment_id
+          })
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.loadPost();
+                });
+            } else {
+                this.setState({
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
+    }
+
+    acceptOffer = (commentId) => {
+        fetch(url + 'accept-offer', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id,
+            'offerId': commentId
+          })
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.loadPost();
+                });
+            } else {
+                this.setState({
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
     }
 
     render() {
@@ -149,7 +196,7 @@ export default class PostDetailsPage extends Component {
                                 </Label>
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
-                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px" }} negative>Delete</Button>
+                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right', marginRight: '30px', marginTop: '10px' }} negative>Delete</Button>
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal" }}>By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
 
@@ -206,7 +253,9 @@ export default class PostDetailsPage extends Component {
                                 <Header as='h3' dividing>
                                     Comments
                                 </Header>
-                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} addOffer={this.addOffer} />
+                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments}
+                                    addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget}
+                                    addOffer={this.addOffer} acceptOffer={this.acceptOffer} acceptedComment={this.state.post.status === 'ACCEPTED' ? this.state.post.chosen_offer : -1 } />
                             </Segment>
                         </Segment.Group>
                     </div>

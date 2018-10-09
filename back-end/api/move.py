@@ -220,12 +220,43 @@ def get_movee_details(move):
     move['movee'] = movee.to_dict()
     return move
 
+
+def mark_move_as_accepted(json):
+    if (
+        not json
+        or (not 'postId' in json)
+        or (not 'offerId' in json)
+    ):
+        abort(400, 'Not all required fields were received.')
+
+    move_query = db.session.query(MoveDetails).filter(and_(MoveDetails.id == json['postId'], not_(MoveDetails.deleted))).first()
+    if not move_query:
+        abort(400, 'Given postId does not match any existing posts.')
+
+    move_query.status = 'ACCEPTED'
+
+    offer = [x for x in move_query.comments if x.id == json['offerId']]
+    if not offer:
+        abort(400, 'Given offerId does not match with given postId.')
+
+    move_query.chosen_offer = json['offerId']
+
+    db.session.commit()
+
+    resp = jsonify({
+        'success': True
+    })
+    resp.status_code = 200
+    return resp
+
+
+
 def get_distance(output, start_line1, start_city, start_state, end_line1, end_city, end_state):
     # output = 1 for FULL DISTANCE
     # output = 0 for SCRAMBLED DISTANCE
     start = " "
     end = " "
-    
+
     if start_city and start_state and end_city and end_state:
         if output == 1 and start_line1 and end_line1:
             # Exact distance after job accepted
@@ -238,9 +269,9 @@ def get_distance(output, start_line1, start_city, start_state, end_line1, end_ci
 
     api_key = 'AIzaSyD3oXn3Rb9kUQRf5yC2lhLov1KpwFzmbIA'
     request_url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=%s&destinations=%s&key=%s" % (start, end, api_key)
-    
+
     json_data = ''
-    try: 
+    try:
         response = requests.get(request_url)
         json_data = json.loads(response.text)
     except:
@@ -251,7 +282,7 @@ def get_distance(output, start_line1, start_city, start_state, end_line1, end_ci
         distance_in_metres = int(json_data['rows'][0]['elements'][0]['distance']['value'])
 
     return distance_in_metres
- 
+
 # Example INPUT
 # start_line1 = "11 York St"
 # start_city = "Wynyard"
@@ -262,7 +293,7 @@ def get_distance(output, start_line1, start_city, start_state, end_line1, end_ci
 # end_state = "NSW"
 
 # distance = get_distance(start_line1, start_city, start_state, end_line1, end_city, end_state)
-# print(distance) 
+# print(distance)
 #
 # Example API Response
 # {
