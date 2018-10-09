@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Item, Grid } from 'semantic-ui-react';
+import { Item, Grid, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './Post.css';
 
@@ -12,7 +12,11 @@ export default class Post extends Component {
                 <Item.Image circular size='tiny' src='/images/default_profile_pic.jpg' />
 
                 <Item.Content>
-                    <Item.Header>{post.title}</Item.Header>
+                    <Item.Header>{post.title}
+                        <Label color={post.status === 'ACCEPTED' ? 'green' : 'blue'} style={{marginLeft: '20px'}}>
+                            { post.status }
+                        </Label>
+                    </Item.Header>
                     <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name}</Item.Meta>
                     <Item.Description>
                         <Grid>
@@ -32,7 +36,7 @@ export default class Post extends Component {
                                 [Stars go here]
                             </Grid.Column>
                             <Grid.Column width={3} >
-                                [Date goes here]
+                                {post.closing_datetime1}
                             </Grid.Column>
                         </Grid>
                     </Item.Description>

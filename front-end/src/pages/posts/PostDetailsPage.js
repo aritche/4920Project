@@ -191,7 +191,7 @@ export default class PostDetailsPage extends Component {
                         <Segment.Group stacked>
                             <Header as='h1' style={{backgroundColor: '#193446', color: 'white', padding: '20px', margin: 0}} >
                                 { this.state.post.title }
-                                <Label color={"blue"} key={"blue"} style={{marginLeft: '30px'}}>
+                                <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
                                     { this.state.post.status }
                                 </Label>
                                 {
