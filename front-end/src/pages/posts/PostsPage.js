@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PostList from './PostList';
 import FilterBar from './FilterBar';
-import { Button, Container, Header, Icon, Segment } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Container, Segment } from 'semantic-ui-react';
 import { url } from '../../Api';
 
 export default class PostsPage extends Component {

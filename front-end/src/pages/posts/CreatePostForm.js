@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Button, Form, Header, TextArea, Segment, Divider, Grid } from 'semantic-ui-react';
+import { Container, Button, Form, Header, TextArea, Segment } from 'semantic-ui-react';
 import moment from "moment";
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
-import ProcessStep from './ProcessStep'
 import InputSlider from '../../widgets/InputSlider'
 import DateTimePicker from './DateTimePicker'
 import ItemTable from './ItemTable'

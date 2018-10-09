@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Segment, Menu, Dropdown, Form, Input, Header, Icon} from 'semantic-ui-react';
+import {Segment, Menu, Dropdown, Form, Input, Header} from 'semantic-ui-react';
 import { BUDGET } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

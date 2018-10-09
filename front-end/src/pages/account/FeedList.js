@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { List, Divider } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 import Feed from './Feed'
 
 export default class FeedList extends Component {

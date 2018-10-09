@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Segment, Container, Header, Grid } from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 import PostList from '../posts/PostList';
 import { url } from '../../Api';
 
@@ -41,7 +40,7 @@ export default class RecentMoves extends Component {
     render() {
         return (
             <Segment attached>
-                <Header huge block style={{backgroundColor: '#193446', color:'white'}}>Recent Moves</Header>
+                <Header size='huge' block style={{backgroundColor: '#193446', color:'white'}}>Recent Moves</Header>
                 <PostList posts={this.state.posts} />
             </Segment>
         )

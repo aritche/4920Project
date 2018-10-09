@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Container, Header, Grid, Image } from 'semantic-ui-react';
+import { Segment, Header, Grid, Image } from 'semantic-ui-react';
 import { url } from '../../Api';
 import ProcessStep from './ProcessStep'
 
@@ -40,7 +40,7 @@ export default class HowItWorks extends Component {
     render() {
         return (
             <Segment attached secondary>
-                <Header huge block style={{backgroundColor: '#193446', color:'white'}}>How it works</Header>
+                <Header size='huge' block style={{backgroundColor: '#193446', color:'white'}}>How it works</Header>
                 <Grid textAlign='center' columns={4}>
                     <Grid.Row verticalAlign='middle'>
                     <ProcessStep/>

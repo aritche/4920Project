@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Input } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 const searchOptions = {

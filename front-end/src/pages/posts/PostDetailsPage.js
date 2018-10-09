@@ -112,7 +112,7 @@ export default class PostDetailsPage extends Component {
           body: JSON.stringify({
             'postId': this.state.post.id,
             'userId': getLoggedInUser(),
-            'offerAmount': parseInt(amount),
+            'offerAmount': parseInt(amount, 10),
             'offerDescription': desc
           })
         }).then(response => {

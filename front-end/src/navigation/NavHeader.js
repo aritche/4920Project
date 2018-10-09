@@ -63,15 +63,15 @@ export default class NavHeader extends Component {
                 </Menu.Item>
 
               <Menu.Item  as={Link} to={'/profile'} active={window.location.pathname === '/profile'}>
-                <text> Other Profile </text>
+                Other Profile
               </Menu.Item>
 
               <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
-                <text> Account </text>
+                Account
               </Menu.Item>
 
               <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
-                <text> Posts </text>
+                Posts
               </Menu.Item>
 
                 {
