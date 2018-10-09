@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Button, Step, Icon, Label, Table } from 'semantic-ui-react';
+import { Header, Container, Button, Step, Icon, Label, Table, Segment } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -137,70 +137,76 @@ export default class PostDetailsPage extends Component {
         } else {
             return (
                 <Container>
-                    <Header as='h1'>
-                        { this.state.post.title }
-                        <Label color={"blue"} key={"blue"} style={{marginLeft: '30px'}}>
-                            { this.state.post.status }
-                        </Label>
-                    </Header>
-                    {
-                        isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
-                        <Button onClick={this.deletePost} style={{ marginBottom: "10px" }} negative>Delete</Button>
-                    }
-                    <p className="heading-subtitle">By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
+                    <div style={{paddingBottom: 80}}>
+                        <Segment.Group stacked>
+                            <Header as='h1' style={{backgroundColor: '#193446', color: 'white', padding: '20px', margin: 0}} >
+                                { this.state.post.title }
+                                <Label color={"blue"} key={"blue"} style={{marginLeft: '30px'}}>
+                                    { this.state.post.status }
+                                </Label>
+                                {
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
+                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px" }} negative>Delete</Button>
+                                }
+                                <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal" }}>By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
 
-                    <p> { this.state.post.description } </p>
-                    <p> <b>Budget:</b> { '$' + this.state.post.budget } </p>
-                    <p> <b>Date:</b> { this.state.post.closing_datetime1 } </p>
+                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
+                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Budget:</b> { '$' + this.state.post.budget } </p>
+                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Date:</b> { this.state.post.closing_datetime1 } </p>
+                            </Header>
+                            <Segment style={{backgroundColor: 'white'}}>
+                                <Step.Group widths={2}>
+                                    <Step active>
+                                        <Icon name='truck' />
+                                        <Step.Content>
+                                            <Step.Title>From Address</Step.Title>
+                                            <Step.Description>{ this.state.post.address_from.city }</Step.Description>
+                                        </Step.Content>
+                                    </Step>
+                                    <Step active>
+                                        <Icon name='truck' />
+                                        <Step.Content>
+                                            <Step.Title>To Address</Step.Title>
+                                            <Step.Description>{ this.state.post.address_to.city }</Step.Description>
+                                        </Step.Content>
+                                    </Step>
+                                </Step.Group>
+                            </Segment>
+                            <Segment style={{backgroundColor: 'white'}}>
+                                <Header as='h3'>Items</Header>
+                                <Table celled>
+                                    <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>Name</Table.HeaderCell>
+                                        <Table.HeaderCell>Weight</Table.HeaderCell>
+                                        <Table.HeaderCell>Volume</Table.HeaderCell>
+                                        <Table.HeaderCell>Amount</Table.HeaderCell>
+                                        <Table.HeaderCell>Description</Table.HeaderCell>
+                                    </Table.Row>
+                                    </Table.Header>
 
-                    <Step.Group widths={2}>
-                        <Step active>
-                            <Icon name='truck' />
-                            <Step.Content>
-                                <Step.Title>From Address</Step.Title>
-                                <Step.Description>{ this.state.post.address_from.city }</Step.Description>
-                            </Step.Content>
-                        </Step>
-                        <Step active>
-                            <Icon name='truck' />
-                            <Step.Content>
-                                <Step.Title>To Address</Step.Title>
-                                <Step.Description>{ this.state.post.address_to.city }</Step.Description>
-                            </Step.Content>
-                        </Step>
-                    </Step.Group>
-
-                    <Header as='h3'>Items</Header>
-                    <Table celled>
-                        <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell>Weight</Table.HeaderCell>
-                            <Table.HeaderCell>Volume</Table.HeaderCell>
-                            <Table.HeaderCell>Amount</Table.HeaderCell>
-                            <Table.HeaderCell>Description</Table.HeaderCell>
-                        </Table.Row>
-                        </Table.Header>
-
-                        <Table.Body>
-                            { this.state.items && this.state.items.map(item => {
-                                return <Table.Row key={item.name}>
-                                    <Table.Cell>{item.name}</Table.Cell>
-                                    <Table.Cell>{item.weight}</Table.Cell>
-                                    <Table.Cell>{item.volume}</Table.Cell>
-                                    <Table.Cell>{item.amount}</Table.Cell>
-                                    <Table.Cell>{item.description}</Table.Cell>
-                                </Table.Row>
-                                })
-                            }
-                        </Table.Body>
-                    </Table>
-
-                    <Header as='h3' dividing>
-                        Comments
-                    </Header>
-
-                    <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} />
+                                    <Table.Body>
+                                        { this.state.items && this.state.items.map(item => {
+                                            return <Table.Row key={item.name}>
+                                                <Table.Cell>{item.name}</Table.Cell>
+                                                <Table.Cell>{item.weight}</Table.Cell>
+                                                <Table.Cell>{item.volume}</Table.Cell>
+                                                <Table.Cell>{item.amount}</Table.Cell>
+                                                <Table.Cell>{item.description}</Table.Cell>
+                                            </Table.Row>
+                                            })
+                                        }
+                                    </Table.Body>
+                                </Table>
+                            </Segment>
+                            <Segment style={{backgroundColor: 'white'}}>
+                                <Header as='h3' dividing>
+                                    Comments
+                                </Header>
+                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} />
+                            </Segment>
+                        </Segment.Group>
+                    </div>
                 </Container>
             )
         }
