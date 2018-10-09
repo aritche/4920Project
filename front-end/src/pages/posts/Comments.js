@@ -81,9 +81,9 @@ export default class Comments extends Component {
                 <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
                   <Comment.Author as='a'>
-                    {comment.isOffer ?
+                    {comment.is_offer ?
                         '[OFFER] ' + comment.poster_details.first_name + ' ' +
-                        comment.poster_details.last_name + ' offers $' + comment.offer
+                        comment.poster_details.last_name + ' offers $' + comment.offer_amount
                       :
                         comment.poster_details.first_name + ' ' + comment.poster_details.last_name
                     }
@@ -134,7 +134,7 @@ export default class Comments extends Component {
             </Form>
           </Comment.Group>
 
-          <OfferModal open={this.state.isOffering} close={this.stopOffering} budget={this.props.budget} onOffer={this.props.addComment} />
+          <OfferModal open={this.state.isOffering} close={this.stopOffering} budget={this.props.budget} onOffer={this.props.addOffer} />
 
           <ErrorInputModal
             pop={this.state.active}

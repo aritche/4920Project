@@ -20,7 +20,7 @@ export default class OfferModal extends Component {
         if (!isLoggedIn()) {
             this.setState({errorText: 'Must be logged in to make an offer'});
         } else if (!emptyString(this.state.desc) && isPositiveFloat(this.state.offer)) {
-            this.props.onOffer(getLoggedInUser(), moment().calendar(), this.state.desc, true, this.state.offer);
+            this.props.onOffer(this.state.offer, this.state.desc);
             this.setState({desc: '', errorText: ''});
             this.props.close();
         } else {
@@ -46,10 +46,10 @@ export default class OfferModal extends Component {
                                             placeholder='Offer' onChange={this.onOfferChange} />
 
                         <Header content={'Offer Description'} />
-                        <Form.Field error={emptyString(this.state.desc)} control={TextArea} placeholder='Tell us more about why you best suit the job...' 
+                        <Form.Field error={emptyString(this.state.desc)} control={TextArea} placeholder='Tell us more about why you best suit the job...'
                                     autoHeight value={this.state.desc} onChange={(e) => this.onDescChange(e.target.value)} />
                     </Form>
-                    { this.state.errorText && 
+                    { this.state.errorText &&
                         <Message negative>
                             <Message.Header>{this.state.errorText}</Message.Header>
                         </Message>

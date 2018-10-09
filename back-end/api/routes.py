@@ -1,7 +1,7 @@
 from flask import request
 from flask_cors import cross_origin
 from api import base
-from api.comment import add_comment
+from api.comment import add_comment, add_offer
 from api.user import authenticate_login, get_user_by_id, insert_new_user, delete_user
 from api.move import create_new_move, get_move_details, search_moves, delete_move_details
 
@@ -41,3 +41,7 @@ def get_post(post_id):
 @base.route('/post-comment', methods=['POST'])
 def post_comment():
     return add_comment(request.json)
+
+@base.route('/insert-offer', methods=['POST'])
+def insert_offer():
+    return add_offer(request.json)

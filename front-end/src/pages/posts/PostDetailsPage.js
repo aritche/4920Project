@@ -4,31 +4,6 @@ import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
 
-// TODO: ADD THIS OBJECT IN THE RETURNED POST OBJECT FROM BACKEND
-const comments = [
-    {
-        id: 1,
-        isOffer: false,
-        name: 'Matt',
-        date: 'Today at 5:42PM',
-        content: 'Hey John, can we negotiate that pricing a bit?',
-        comments: []
-    },
-    {
-        id: 2,
-        isOffer: false,
-        name: 'Elliot Fu',
-        date: 'Yesterday at 12:30AM',
-        content: 'Could you give a little more detail about the flights of stairs we\'ll need to go up and down?',
-        comments: [{
-            id: 3,
-            name: 'John Smith',
-            date: 'Just now',
-            content: 'It\'s on the 1st floor, so 1 flight of stairs :)',
-            comments: []
-        }]
-    }
-];
 
 export default class PostDetailsPage extends Component {
     constructor(props) {
@@ -126,6 +101,34 @@ export default class PostDetailsPage extends Component {
         });
     }
 
+
+    addOffer = (amount, desc) => {
+        fetch(url + 'insert-offer', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id,
+            'userId': getLoggedInUser(),
+            'offerAmount': parseInt(amount),
+            'offerDescription': desc
+          })
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(obj => {
+                    this.loadComments();
+                });
+            } else {
+                this.setState({
+                    errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                    isLoading: false
+                });
+            }
+        });
+    }
+
     addReply = (comment_id, text) => {
         // TODO connect to backend
         alert("Replying to: [" + comment_id + "] with message: [" + text + "]")
@@ -203,7 +206,7 @@ export default class PostDetailsPage extends Component {
                                 <Header as='h3' dividing>
                                     Comments
                                 </Header>
-                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} />
+                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments} addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget} addOffer={this.addOffer} />
                             </Segment>
                         </Segment.Group>
                     </div>
