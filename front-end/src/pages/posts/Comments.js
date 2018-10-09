@@ -118,8 +118,9 @@ export default class Comments extends Component {
                   <Comment.Actions>
                     <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action>
                     { this.props.acceptedComment === -1 && comment.is_offer && this.props.isPostCreator &&
-                        <Comment.Action style={{fontWeight: 'bold'}} onClick={() => this.acceptOffer(comment.id)}>Accept Offer</Comment.Action>
+                      <Button positive size='tiny' icon='check' content='Accept' onClick={() => this.acceptOffer(comment.id)} />
                     }
+                    
                   </Comment.Actions>
                   { comment.id === this.state.replyingTo &&
                     <Form reply>
@@ -154,7 +155,7 @@ export default class Comments extends Component {
               <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
               {
                 !this.props.isPostCreator && this.props.acceptedComment === -1 &&
-                <Button positive onClick={this.startOffering}>Make Offer</Button>
+                <Button content='Make Offer' labelPosition='left' icon='handshake' positive onClick={this.startOffering} />
               }
               <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
             </Form>
