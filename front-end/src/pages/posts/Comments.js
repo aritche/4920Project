@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Comment, Form } from 'semantic-ui-react';
+import { Button, Comment, Form, Label } from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
@@ -81,19 +81,32 @@ export default class Comments extends Component {
         <div>
           <Comment.Group>
             {this.props.comments.map((comment) =>
-              <Comment key={comment.id} style={ this.props.acceptedComment === comment.id ? {backgroundColor: '#2185d0', padding: '10px', borderRadius: '10px'} : {}}>
+              <Comment key={comment.id} className={ this.props.acceptedComment === comment.id ? 'bordered-selection' : ''}>
                 <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
                 <Comment.Content>
-                  <Comment.Author as='a'>
-                    [
-                    {this.props.acceptedComment === comment.id && 'ACCEPTED '}
-                    {comment.is_offer ?
-                        'OFFER] ' + comment.poster_details.first_name + ' ' +
-                        comment.poster_details.last_name + ' offers $' + comment.offer_amount
+                  { this.props.acceptedComment === comment.id ?
+                    <Comment.Author as='a'>
+                      <Label color='green' horizontal>
+                        ACCEPTED OFFER
+                      </Label>
+                      { comment.poster_details.first_name + ' ' +
+                      comment.poster_details.last_name + ' offered $' + comment.offer_amount }
+                    </Comment.Author>
                       :
-                        comment.poster_details.first_name + ' ' + comment.poster_details.last_name
-                    }
-                  </Comment.Author>
+                    comment.is_offer ?
+                      <Comment.Author as='a'>
+                        <Label color='blue' horizontal>
+                          OFFER
+                        </Label>
+                        { comment.poster_details.first_name + ' ' +
+                        comment.poster_details.last_name + ' offers $' + comment.offer_amount }
+                      </Comment.Author>
+                      :
+                      <Comment.Author as='a'>
+                        { comment.poster_details.first_name + ' ' + comment.poster_details.last_name }
+                      </Comment.Author>
+                  
+                  }
                   <Comment.Metadata>
                     <div> {comment.date_string} </div>
                   </Comment.Metadata>

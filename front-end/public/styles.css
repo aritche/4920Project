@@ -25,3 +25,10 @@
   text-align: center;
   min-height: 80vh;
 }
+
+.bordered-selection {
+   border: 1px #c8e2f5 solid !important;
+   background-color: #DFF2FF !important;
+   padding-top: 15px !important;
+   padding-left: 20px !important;
+}
