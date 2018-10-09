@@ -62,13 +62,17 @@ export default class NavHeader extends Component {
                     <Image src={logo} style={{height:20}}/>
                 </Menu.Item>
 
+            { this.state.isLoggedIn &&
               <Menu.Item  as={Link} to={'/profile'} active={window.location.pathname === '/profile'}>
                 Other Profile
               </Menu.Item>
+            }
 
+            { this.state.isLoggedIn &&
               <Menu.Item  as={Link} to={'/account'} active={window.location.pathname === '/account'}>
                 Account
               </Menu.Item>
+            }
 
               <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                 Posts
