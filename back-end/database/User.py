@@ -15,6 +15,10 @@ class User(db.Model):
     creation_date = db.Column(db.DateTime, nullable=False)
     user_type = db.Column(db.String(255), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
+    description = db.Column(db.String(4000), nullable=False)
+    phone_number = db.Column(db.String(50), nullable=False)
+    avatar = db.Column(db.String(255), nullable=False)
+
     comments = relationship('Comment')
 
     def to_dict(self):
@@ -25,5 +29,8 @@ class User(db.Model):
             'last_name': self.last_name,
             'password': self.password,
             'deleted': self.deleted,
-            'user_type': self.user_type
+            'user_type': self.user_type,
+            'description': self.description,
+            'phone_number': self.phone_number,
+            'avatar': self.avatar
         }

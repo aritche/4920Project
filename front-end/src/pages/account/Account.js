@@ -31,11 +31,11 @@ export default class Account extends Component {
         this.state = {
           user: {
             avatar: f1,
-            firstName: 'Agh',
-            lastName: 'AAAAA',
-            email: 'adjlk@asd',
-            phone: '12l34235',
-            desc: 'wtf',
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone_number: '',
+            desc: '',
             posts: []
           },
           postList: [],
@@ -54,11 +54,13 @@ export default class Account extends Component {
     };
 
     onProfileUpdate = (newAvatar, firstName, lastName, email, phone, desc) => {
+        console.log(newAvatar, firstName, lastName, email, phone, desc);
+        // TODO UPDATE DB
         let user = Object.assign({}, this.state.user);
         user.firstName = firstName;
         user.lastName = lastName;
-        user.email= email;
-        user.phone = phone;
+        user.email = email;
+        user.phone_number = phone;
         user.desc = desc;
         user.avatar = newAvatar;
         this.setState({user});
@@ -116,6 +118,7 @@ export default class Account extends Component {
     }
 
     render() {
+      console.log(this.state.user);
         return (
           <Container>
             <div style={{paddingBottom: 80}}>
@@ -125,6 +128,8 @@ export default class Account extends Component {
                     avatar={this.state.user.avatar}
                     firstName={this.state.user.first_name}
                     lastName={this.state.user.last_name}
+                    email={this.state.user.email}
+                    phone={this.state.user.phone_number}
                     date={this.state.user.date}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating}
@@ -145,7 +150,7 @@ export default class Account extends Component {
                       firstName={this.state.user.first_name}
                       lastName={this.state.user.last_name}
                       desc={this.state.user.desc}
-                      mobile={this.state.user.mobile}
+                      mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       delete={this.deleteAccount}
                     />
