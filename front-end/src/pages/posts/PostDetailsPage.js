@@ -195,7 +195,7 @@ export default class PostDetailsPage extends Component {
                                     { this.state.post.status }
                                 </Label>
                                 {
-                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id &&
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
                                     <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right', marginRight: '30px', marginTop: '10px' }} negative>Delete</Button>
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal" }}>By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
@@ -253,9 +253,13 @@ export default class PostDetailsPage extends Component {
                                 <Header as='h3' dividing>
                                     Comments
                                 </Header>
-                                <Comments isPostCreator={getLoggedInUser() === this.state.post.movee_id} comments={this.state.comments}
-                                    addComment={this.addComment} addReply={this.addReply} budget={this.state.post.budget}
-                                    addOffer={this.addOffer} acceptOffer={this.acceptOffer} acceptedComment={this.state.post.status === 'ACCEPTED' ? this.state.post.chosen_offer : -1 } />
+                                <Comments
+                                    isPostCreator={getLoggedInUser() === this.state.post.movee_id}
+                                    comments={this.state.comments} addComment={this.addComment}
+                                    addReply={this.addReply} budget={this.state.post.budget}
+                                    addOffer={this.addOffer} acceptOffer={this.acceptOffer}
+                                    acceptedComment={this.state.post.status === 'ACCEPTED' ? this.state.post.chosen_offer : -1 }
+                                />
                             </Segment>
                         </Segment.Group>
                     </div>
