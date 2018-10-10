@@ -170,7 +170,7 @@ export default class Account extends Component {
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       identity={this.state.user.identity}
-                      reviews={this.state.user.reviews}
+                      reviews={[]}
                       delete={this.deleteAccount}
                     />
                   }

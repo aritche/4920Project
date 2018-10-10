@@ -90,7 +90,7 @@ export default class Comments extends Component {
           <Comment.Group>
             {this.props.comments.map((comment) =>
               <Comment key={comment.id} className={ this.props.acceptedComment === comment.id ? 'bordered-selection' : ''}>
-                <Comment.Avatar style={{cursor: "pointer"}} src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} onClick={() => { this.goToProfile(comment.poster_details.id) }}/>
+                <Comment.Avatar style={{cursor: "pointer"}} src={'/images/avatar/' + comment.poster_details.avatar + '.jpg'} onClick={() => { this.goToProfile(comment.poster_details.id) }}/>
                 <Comment.Content>
                   { this.props.acceptedComment === comment.id ?
                     <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
@@ -145,7 +145,7 @@ export default class Comments extends Component {
                   <Comment.Group>
                     {comment.child_comments.map((subCom) =>
                       <Comment key={subCom.id}>
-                        <Comment.Avatar style={{cursor: "pointer"}} src={ subCom.image ? comment.image : '/images/default_profile_pic.jpg'} onClick={() => { this.goToProfile(subCom.poster_details.id) }}/>
+                        <Comment.Avatar style={{cursor: "pointer"}} src={ '/images/avatar/' + subCom.poster_details.avatar + '.jpg'} onClick={() => { this.goToProfile(subCom.poster_details.id) }}/>
                         <Comment.Content>
                           <Comment.Author as='a' onClick={() => { this.goToProfile(subCom.poster_details.id) }}>
                             {subCom.poster_details.first_name + ' ' + subCom.poster_details.last_name}

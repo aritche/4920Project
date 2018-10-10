@@ -9,8 +9,9 @@ export default class Post extends Component {
 
         return (
             <Item key={ post.id } as={Link} to={"/posts/" + post.id}>
-                <Item.Image circular size='tiny' src='/images/default_profile_pic.jpg' />
-
+                <div style={{display: 'flex', paddingRight: '20px'}}>
+                    <Item.Image circular size='tiny' src={'/images/avatar/' + post.movee.avatar + '.jpg'} />
+                </div>
                 <Item.Content>
                     <Item.Header>{post.title}
                         <Label color={post.status === 'ACCEPTED' ? 'green' : 'blue'} style={{marginLeft: '20px'}}>

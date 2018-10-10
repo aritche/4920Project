@@ -197,13 +197,13 @@ export default class PostDetailsPage extends Component {
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
                                     <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
-                                      marginRight: '30px', marginTop: '10px', backgroundColor: '#193446',
+                                      marginRight: '30px', marginTop: '10px', backgroundColor: 'red',
                                       color: 'white' }}>Delete</Button>
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
                                   color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} >By { this.state.post.movee.first_name + ' ' +
                                 this.state.post.movee.last_name } <img className="heading-subtitle-icon"
-                                                                       src='/images/default_profile_pic.jpg'
+                                                                       src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                                                        alt="Default Profile"/></p>
                             </Header>
                             <Segment>
