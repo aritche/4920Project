@@ -261,6 +261,7 @@ export default class PostDetailsPage extends Component {
                                     Comments
                                 </Header>
                                 <Comments
+                                    history={this.props.history}
                                     isPostCreator={getLoggedInUser() === this.state.post.movee_id}
                                     comments={this.state.comments} addComment={this.addComment}
                                     addReply={this.addReply} budget={this.state.post.budget}

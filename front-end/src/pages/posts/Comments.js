@@ -34,6 +34,10 @@ export default class Comments extends Component {
       this.setState({isOffering: false});
     };
 
+    goToProfile = (userId) => {
+      this.props.history.push('/profile/' + userId);
+    }
+
     addComment = (e) => {
       if (!isLoggedIn()) {
         this.setState({errorText: 'Must be logged in to comment', active: true});
@@ -86,10 +90,10 @@ export default class Comments extends Component {
           <Comment.Group>
             {this.props.comments.map((comment) =>
               <Comment key={comment.id} className={ this.props.acceptedComment === comment.id ? 'bordered-selection' : ''}>
-                <Comment.Avatar src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} />
+                <Comment.Avatar style={{cursor: "pointer"}} src={ comment.image ? comment.image : '/images/default_profile_pic.jpg'} onClick={() => { this.goToProfile(comment.poster_details.id) }}/>
                 <Comment.Content>
                   { this.props.acceptedComment === comment.id ?
-                    <Comment.Author as='a'>
+                    <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                       <Label style={{color: '#193446'}} horizontal>
                         ACCEPTED OFFER
                       </Label>
@@ -98,7 +102,7 @@ export default class Comments extends Component {
                     </Comment.Author>
                       :
                     comment.is_offer ?
-                      <Comment.Author as='a'>
+                      <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                         <Label style={{color: '#22AABB'}} horizontal>
                           OFFER
                         </Label>
@@ -106,7 +110,7 @@ export default class Comments extends Component {
                         comment.poster_details.last_name + ' offers $' + comment.offer_amount }
                       </Comment.Author>
                       :
-                      <Comment.Author as='a'>
+                      <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                         { comment.poster_details.first_name + ' ' + comment.poster_details.last_name }
                       </Comment.Author>
                   
@@ -141,9 +145,9 @@ export default class Comments extends Component {
                   <Comment.Group>
                     {comment.child_comments.map((subCom) =>
                       <Comment key={subCom.id}>
-                        <Comment.Avatar src={ subCom.image ? comment.image : '/images/default_profile_pic.jpg'}/>
+                        <Comment.Avatar style={{cursor: "pointer"}} src={ subCom.image ? comment.image : '/images/default_profile_pic.jpg'} onClick={() => { this.goToProfile(subCom.poster_details.id) }}/>
                         <Comment.Content>
-                          <Comment.Author as='a'>
+                          <Comment.Author as='a' onClick={() => { this.goToProfile(subCom.poster_details.id) }}>
                             {subCom.poster_details.first_name + ' ' + subCom.poster_details.last_name}
                           </Comment.Author>
                           <Comment.Metadata>

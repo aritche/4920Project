@@ -32,19 +32,19 @@ export default class OtherProfile extends Component {
           { !!this.props.desc &&
             <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/> }
 
-          <text> {this.props.desc} </text>
+           {this.props.desc} 
           <Header content={'User Information'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Segment>
             <Header content={'Name:'} size={'medium'}/>
-            <text> {this.props.name} </text>
+              {this.props.name}
             <Divider/>
             <Header content={'Email Address:'} size={'medium'}/>
-            <text> {this.props.email} </text>
+              {this.props.email}
             <Divider/>
             { !!this.props.mobile &&
               <div>
                 <Header content={'Mobile Number:'} size={'medium'}/>
-                <text> {this.props.mobile} </text>
+                  {this.props.mobile}
                 <Divider/>
               </div>
             }
