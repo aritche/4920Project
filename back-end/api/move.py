@@ -8,6 +8,7 @@ from database.ToAddress import ToAddress
 from database.Item import Item
 from database.User import User
 from database.Comment import Comment
+from database.Update import Update
 import urllib, json, requests
 try:
     # For Python 3.0 and later
@@ -241,6 +242,18 @@ def mark_move_as_accepted(json):
 
     move_query.chosen_offer = json['offerId']
 
+    db.session.commit()
+
+    update = Update(
+        update_type = 'accepted',
+        updated_movee_id = offer[0].poster,
+        concerning_movee_id = move_query.movee_id,
+        description = '',
+        move_id = move_query.id,
+        update_time = datetime.now()
+    )
+
+    db.session.add(update)
     db.session.commit()
 
     resp = jsonify({
