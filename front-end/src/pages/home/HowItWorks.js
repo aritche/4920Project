@@ -39,7 +39,7 @@ export default class HowItWorks extends Component {
 
     render() {
         return (
-            <Segment attached secondary>
+            <Segment attached secondary style={{borderRadius: '4px'}}>
                 <Header size='huge' block style={{backgroundColor: '#193446', color:'white'}}>How it works</Header>
                 <Grid textAlign='center' columns={4}>
                     <Grid.Row verticalAlign='middle'>

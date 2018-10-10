@@ -39,7 +39,7 @@ export default class RecentMoves extends Component {
 
     render() {
         return (
-            <Segment attached>
+            <Segment attached style={{borderRadius: '4px'}}>
                 <Header size='huge' block style={{backgroundColor: '#193446', color:'white'}}>Recent Moves</Header>
                 <PostList posts={this.state.posts} />
             </Segment>
