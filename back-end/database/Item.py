@@ -23,6 +23,3 @@ class Item(db.Model):
             'description': self.description,
             'move_id': self.move_id,
         }
-
-    def __repr__(self):
-        return "<User(email='%s')" % (self.email)

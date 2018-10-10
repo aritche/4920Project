@@ -3,6 +3,7 @@ from datetime import datetime
 from database.model import db
 from database.User import User
 from database.MoveDetails import MoveDetails
+from database.Update import Update
 from sqlalchemy import and_, not_
 
 
@@ -19,7 +20,24 @@ def get_user_by_id(user_id):
 def decorate_user(user):
     user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user['id'], not_(MoveDetails.deleted))).all()))
     user['joined_in'] = user['creation_date'].strftime('%B %Y')
+    user['updates'] = list(map(decorate_update, map(
+        Update.to_dict,
+        db.session.query(Update).filter(Update.updated_movee_id == user['id']).order_by(Update.update_time.desc()).limit(5).all()
+    )))
     return user
+
+
+def decorate_update(update):
+    update['concerning_details'] = db.session.query(User).filter(User.id == update['concerning']).first().to_dict()
+    if update['update_type'] == 'comment':
+        update['event'] = 'commented on your post'
+    elif update['update_type'] == 'offer':
+        update['event'] = 'made an offer on your post'
+    else:
+        update['event'] = update['update_type']
+    update['update_time_string'] = update['update_time'].strftime('%-I:%M %p on %d %B, %Y')
+
+    return update
 
 
 def validate_email(email):

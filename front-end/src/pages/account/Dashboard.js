@@ -15,7 +15,7 @@ export default class Dashboard extends Component {
       <div>
           <Header content={'Recent Updates'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Segment>
-            <FeedList feeds={this.props.feed}/>
+            <FeedList feeds={this.props.updates} history={this.props.history}/>
           </Segment>
           <br/>
           <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>

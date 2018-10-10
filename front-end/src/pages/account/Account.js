@@ -40,6 +40,7 @@ export default class Account extends Component {
             reviews: [],
             joined_in: ''
           },
+          updates: [],
           postList: [],
           feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
           switchPage: true,
@@ -122,6 +123,7 @@ export default class Account extends Component {
           response.json().then(obj => {
             this.setState({
               user: obj,
+              updates: obj.updates,
               isLoading: false
             })
           });
@@ -160,7 +162,7 @@ export default class Account extends Component {
                     <Dashboard
                       history={this.props.history}
                       post={this.state.user.posts}
-                      feed={this.state.feeds}
+                      updates={this.state.updates}
                     /> :
                     <Profile
                       avatar={this.state.user.avatar}

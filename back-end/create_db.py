@@ -15,6 +15,7 @@ from database.Comment import Comment
 from database.Item import Item
 from database.MoveDetails import MoveDetails
 from database.User import User
+from database.Update import Update
 
 with app.app_context():
     db.drop_all()

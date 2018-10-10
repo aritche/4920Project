@@ -7,13 +7,15 @@ export default class FeedList extends Component {
     return (
       <List divided reflexed>
         {this.props.feeds.map((feed) =>
-          <List.Item key={feed.time}>
+          <List.Item key={feed.id}>
             <Feed
-              avatar={feed.avatar}
-              dateTime={feed.time}
-              name={feed.name}
+              avatar={feed.concerning_details.avatar}
+              dateTime={feed.update_time_string}
+              name={feed.concerning_details.first_name + ' ' + feed.concerning_details.last_name}
+              userId={feed.concerning_details.id}
               event={feed.event}
-              detail={feed.detail}
+              detail={feed.description}
+              history={this.props.history}
             />
           </List.Item>
         )}

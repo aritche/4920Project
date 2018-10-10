@@ -7,11 +7,11 @@ export default class SingleFeed extends Component {
       <Feed>
         <Feed.Event>
           <Feed.Label>
-            <Image src={this.props.avatar} size='tiny'/>
+            <Image onClick={() => {this.props.history.push('/profile/' + this.props.userId)} }src={'/images/avatar/' + this.props.avatar + '.jpg'} size='tiny'/>
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
-              <Feed.User>{this.props.name}</Feed.User> {this.props.event}
+              <Feed.User onClick={() => {this.props.history.push('/profile/' + this.props.userId)}}>{this.props.name}</Feed.User> {this.props.event}
               <Feed.Date>{this.props.dateTime}</Feed.Date>
             </Feed.Summary>
             <Feed.Extra text>
