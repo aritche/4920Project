@@ -50,17 +50,18 @@ def add_comment(json):
 
     db.session.commit()
 
-    update = Update(
-        update_type = 'comment',
-        updated_movee_id = post_query.movee_id,
-        concerning_movee_id = user_query.id,
-        description = json['commentText'],
-        move_id = post_query.id,
-        update_time = datetime.now()
-    )
+    if post_query.movee_id != user_query.id:
+        update = Update(
+            update_type = 'comment',
+            updated_movee_id = post_query.movee_id,
+            concerning_movee_id = user_query.id,
+            description = json['commentText'],
+            move_id = post_query.id,
+            update_time = datetime.now()
+        )
 
-    db.session.add(update)
-    db.session.commit()
+        db.session.add(update)
+        db.session.commit()
 
     resp = jsonify({
         'comment': comment.to_dict(),
@@ -100,18 +101,19 @@ def add_offer(json):
     post_query.comments.append(comment)
     db.session.commit()
 
-    update = Update(
-        update_type = 'offer',
-        updated_movee_id = post_query.movee_id,
-        concerning_movee_id = user_query.id,
-        description = json['offerDescription'],
-        amount = json['offerAmount'],
-        move_id = post_query.id,
-        update_time = datetime.now()
-    )
+    if post_query.movee_id != user_query.id:
+        update = Update(
+            update_type = 'offer',
+            updated_movee_id = post_query.movee_id,
+            concerning_movee_id = user_query.id,
+            description = json['offerDescription'],
+            amount = json['offerAmount'],
+            move_id = post_query.id,
+            update_time = datetime.now()
+        )
 
-    db.session.add(update)
-    db.session.commit()
+        db.session.add(update)
+        db.session.commit()
 
     resp = jsonify({
         'offer': comment.to_dict(),
