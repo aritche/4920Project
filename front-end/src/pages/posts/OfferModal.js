@@ -23,7 +23,7 @@ export default class OfferModal extends Component {
         } else {
             this.setState({errorText: 'Please make a valid offer and add a valid description'});
         }
-    }
+    };
 
     onOfferChange = (value) => {
         this.setState({offer: value});
@@ -53,10 +53,12 @@ export default class OfferModal extends Component {
                     }
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button color='green' onClick={this.onSubmit} >
+                    <Button style={{backgroundColor: '#193446', color: 'white', width: 120, height: 40}}
+                            onClick={this.onSubmit} >
                         <Icon name='checkmark' /> Yes
                     </Button>
-                    <Button color='red' onClick={this.props.close}>
+                    <Button style={{backgroundColor: '#22AABB', color: 'white', width: 120, height: 40}}
+                            onClick={this.props.close}>
                         <Icon name='remove' /> No
                     </Button>
                 </Modal.Actions>
