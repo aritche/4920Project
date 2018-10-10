@@ -25,10 +25,10 @@ export default class Dashboard extends Component {
           <br/>
           <Button.Group>
             <Button as={Link} to={'/create-post'} style={{backgroundColor: '#193446', color: 'white',
-              width: 120, height: 40}}>Create Post</Button>
+              width: 130, height: 38}}>Create Post</Button>
             <Button.Or />
             <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
-              width: 120, height: 40}}>Search Post</Button>
+              width: 130, height: 38}}>Search Posts</Button>
           </Button.Group>
       </div>
     )

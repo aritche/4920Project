@@ -113,29 +113,29 @@ export default class Comments extends Component {
                       <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                         { comment.poster_details.first_name + ' ' + comment.poster_details.last_name }
                       </Comment.Author>
-                  
+
                   }
                   <Comment.Metadata>
                     <div> {comment.date_string} </div>
                   </Comment.Metadata>
                   <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>
-                    <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action>
+                    { isLoggedIn() && <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action> }
                     { this.props.acceptedComment === -1 && comment.is_offer && this.props.isPostCreator &&
                       <Button positive size='tiny' icon='check' content='Accept' onClick={() => this.acceptOffer(comment.id)} />
                     }
-                    
+
                   </Comment.Actions>
                   { comment.id === this.state.replyingTo &&
                     <Form reply>
                       <Form.Input value={this.state.reply} placeholder={"Type reply here"} onChange={this.onReplyChange}/>
                       <Button.Group>
                         <Button content='Add Reply' labelPosition='left' icon='edit'
-                                style={{backgroundColor: '#193446', color: 'white', width: 120, height: 40}}
+                                style={{backgroundColor: '#193446', color: 'white', width: 145, height: 38}}
                                 onClick={this.addReply} />
                         <Button.Or />
-                        <Button content='Cancel' style={{backgroundColor: '#22AABB', color: 'white', width: 120,
-                          height: 40}} onClick={this.stopReply}/>
+                        <Button content='Cancel' style={{backgroundColor: '#22AABB', color: 'white', width: 130,
+                          height: 38}} onClick={this.stopReply}/>
                       </Button.Group>
                     </Form>
                   }
@@ -161,14 +161,16 @@ export default class Comments extends Component {
                 }
               </Comment>
             )}
-            <Form reply>
-              <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
-              {
-                !this.props.isPostCreator && this.props.acceptedComment === -1 &&
-                <Button content='Make Offer' labelPosition='left' icon='handshake' positive onClick={this.startOffering} />
-              }
-              <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
-            </Form>
+            { isLoggedIn() &&
+              <Form reply>
+                <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
+                {
+                  !this.props.isPostCreator && this.props.acceptedComment === -1 &&
+                  <Button content='Make Offer' labelPosition='left' icon='handshake' positive onClick={this.startOffering} />
+                }
+                <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
+              </Form>
+            }
           </Comment.Group>
 
           <OfferModal open={this.state.isOffering} close={this.stopOffering} budget={this.props.budget} onOffer={this.props.addOffer} />
