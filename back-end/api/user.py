@@ -22,7 +22,7 @@ def decorate_user(user):
     user['joined_in'] = user['creation_date'].strftime('%B %Y')
     user['updates'] = list(map(decorate_update, map(
         Update.to_dict,
-        db.session.query(Update).filter(Update.updated_movee_id == user['id']).order_by(Update.update_time.desc()).limit(5).all()
+        db.session.query(Update).filter(and_(Update.updated_movee_id == user['id'], Update.concerning_movee_id != user['id'])).order_by(Update.update_time.desc()).limit(5).all()
     )))
     return user
 
