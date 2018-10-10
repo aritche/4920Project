@@ -36,7 +36,7 @@ export default class Top extends Component {
               <Header style={{color:'white'}} size={'huge'}>
                 {this.props.firstName + ' ' + this.props.lastName}
                 <br/>
-                <Header.Subheader style={{color:'white'}} content={this.props.identity + ' joined in ' + this.props.date}
+                <Header.Subheader style={{color:'white'}} content={this.props.identity + (!!this.props.joinedIn ? ' joined in ' + this.props.joinedIn : '')}
                         size={'big'}/>
               </Header>
               <EditProfile

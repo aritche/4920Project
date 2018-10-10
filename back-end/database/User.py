@@ -32,5 +32,6 @@ class User(db.Model):
             'user_type': self.user_type,
             'description': self.description,
             'phone_number': self.phone_number,
-            'avatar': self.avatar
+            'avatar': self.avatar,
+            'creation_date': self.creation_date
         }

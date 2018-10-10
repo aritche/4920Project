@@ -37,7 +37,8 @@ export default class Account extends Component {
             phone_number: '',
             description: '',
             posts: [],
-            reviews: []
+            reviews: [],
+            joined_in: ''
           },
           postList: [],
           feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
@@ -146,7 +147,7 @@ export default class Account extends Component {
                     lastName={this.state.user.last_name}
                     email={this.state.user.email}
                     phone={this.state.user.phone_number}
-                    date={this.state.user.date}
+                    joinedIn={this.state.user.joined_in}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating}
                     update={this.onUpdate}

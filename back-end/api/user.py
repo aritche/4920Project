@@ -9,15 +9,16 @@ from sqlalchemy import and_, not_
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = jsonify(add_user_posts(user.to_dict()))
+        resp = jsonify(decorate_user(user.to_dict()))
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
     return resp
 
 
-def add_user_posts(user):
+def decorate_user(user):
     user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user['id'], not_(MoveDetails.deleted))).all()))
+    user['joined_in'] = user['creation_date'].strftime('%B %Y')
     return user
 
 
