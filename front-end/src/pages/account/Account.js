@@ -40,7 +40,7 @@ export default class Account extends Component {
           },
           postList: [],
           feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
-          switchPage: true,
+          switchPage: false,
           isLoading: false,
         };
     }

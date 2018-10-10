@@ -13,12 +13,12 @@ export default class PostTable extends Component{
     this.state = {
       redirect_to_post: -1
     }
-  }
+  };
 
   routeToPost = (e) => {
     console.log(e.target);
     this.props.history.push('/posts/' + e.target.id);
-  }
+  };
 
   render(){
     return (
@@ -41,9 +41,8 @@ export default class PostTable extends Component{
                   <Button
                     content={"Go"}
                     id={item.id}
-                    primary
                     size='large'
-                    style={{width: 140, height: 40, zIndex: 0}}
+                    style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white'}}
                     onClick={this.routeToPost}
                   />
                   <ConfirmationModal buttonContentHtml={
@@ -52,7 +51,7 @@ export default class PostTable extends Component{
                     ]
                   }
                     buttonSize='large'
-                    buttonStyle={{width: 140, height: 40, zIndex: 0}}
+                    buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#22AABB' , color: 'white'}}
                     headerText='Are you sure you want to delete this post record?'
                     onConfirm={this.props.deleteAll}
                   />

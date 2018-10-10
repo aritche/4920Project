@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile";
  * Title: Top
  * Author: Victor
  */
-export default class Top2 extends Component {
+export default class OtherTop extends Component {
 
   render() {
     return (

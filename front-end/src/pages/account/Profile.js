@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Divider, Header, Segment} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
+import Rating from "./UserRating"
+import ReviewForm from './ReviewForm'
 
 /**
  * Title: Account Dashboard
@@ -43,6 +45,8 @@ export default class Profile extends Component {
               <Divider/>
             </Segment>
             <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+            <Rating
+            />
           </div>
           <br/>
           <ConfirmationModal
@@ -52,6 +56,7 @@ export default class Profile extends Component {
             headerText='Are you sure you want to delete your account?'
             onConfirm={this.props.delete}
           />
+          <ReviewForm/>
         </div>
     )
   }

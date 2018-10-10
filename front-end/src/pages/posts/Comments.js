@@ -28,11 +28,11 @@ export default class Comments extends Component {
       } else {
         this.setState({isOffering: true});
       }
-    }
+    };
 
     stopOffering = () => {
       this.setState({isOffering: false});
-    }
+    };
 
     addComment = (e) => {
       if (!isLoggedIn()) {
@@ -54,19 +54,19 @@ export default class Comments extends Component {
       } else {
         this.setState({errorText: 'Reply cannot be empty', active: true});
       }
-    }
+    };
 
     acceptOffer = (commentId) => {
       this.props.acceptOffer(commentId);
-    }
+    };
 
     onCommentChange = (e) => {
       this.setState({comment: e.target.value});
-    }
+    };
 
     onReplyChange = (e) => {
       this.setState({reply: e.target.value});
-    }
+    };
 
     onPopClose = () => {
       this.setState({active: false});
@@ -74,11 +74,11 @@ export default class Comments extends Component {
 
     startReply = (commentId) => {
       this.setState({replyingTo: commentId});
-    }
+    };
 
     stopReply = () => {
       this.setState({replyingTo: -1});
-    }
+    };
 
     render() {
       return (
