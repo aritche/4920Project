@@ -123,7 +123,7 @@ export default class Account extends Component {
         return (
           <Container>
             <div style={{paddingBottom: 80}}>
-              <Segment.Group stacked>
+              <Segment.Group stacked style={{boxShadow: '2px 2px 2px #000000'}}>
                 <Segment style={{backgroundColor: "#193446"}}>
                   <Top
                     avatar={this.state.user.avatar}

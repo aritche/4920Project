@@ -4,7 +4,8 @@ import { Segment} from 'semantic-ui-react';
 export default class MainFooter extends Component {
     render() {
         return (
-          <Segment style={{backgroundColor: '#193446', color: 'white'}} textAlign='right'>
+          <Segment style={{backgroundColor: '#193446', color: 'white', boxShadow: '-10px 2px 10px black'}}
+                   textAlign='right'>
               uMove © 2018
           </Segment>
         )
