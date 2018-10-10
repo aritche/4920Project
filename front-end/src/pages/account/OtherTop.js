@@ -14,13 +14,13 @@ export default class OtherTop extends Component {
         <Segment circular size={'small'}
                  style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1, backgroundColor: 'white',
                    marginTop: '1%'}}>
-          <Image src={this.props.avatar} circular size={'small'} bordered/>
+          <Image src={'/images/avatar/' + this.props.avatar + '.jpg'} circular size={'small'} bordered/>
         </Segment>
         <div style={{marginTop: "5%", marginLeft: "2%"}}>
           <Header style={{color:'white'}} size={'huge'}>
             {this.props.firstName + ' ' + this.props.lastName}
             <br/>
-            <Header.Subheader style={{color:'white'}} content={this.props.identity + ' joined in ' + this.props.date}
+            <Header.Subheader style={{color:'white'}} content={this.props.identity + (!!this.props.joinedIn ? ' joined in ' + this.props.joinedIn : '')}
                               size={'big'}/>
           </Header>
         </div>

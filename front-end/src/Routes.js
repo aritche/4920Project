@@ -21,8 +21,8 @@ export default class Routes extends Component {
               <Route path='/login' component={LoginPage}/>
               <Route path='/signup' component={SignupPage}/>
               <Route path='/search' component={SearchPage}/>
-              <Route path={'/account'} component={Account}/>
-              <Route path={'/profile'} component={OtherAccount}/>
+              <Route path='/account' component={Account}/>
+              <Route path='/profile/:userId' component={OtherAccount}/>
               <Route path='/home' component={Home}/>
             </Switch>
         )

@@ -29,7 +29,9 @@ export default class OtherProfile extends Component {
     return (
       <div>
         <div>
-          <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          { !!this.props.desc &&
+            <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/> }
+
           <text> {this.props.desc} </text>
           <Header content={'User Information'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Segment>
@@ -39,6 +41,13 @@ export default class OtherProfile extends Component {
             <Header content={'Email Address:'} size={'medium'}/>
             <text> {this.props.email} </text>
             <Divider/>
+            { !!this.props.mobile &&
+              <div>
+                <Header content={'Mobile Number:'} size={'medium'}/>
+                <text> {this.props.mobile} </text>
+                <Divider/>
+              </div>
+            }
           </Segment>
           <Header content={'Past Record'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Header content={'Past Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>

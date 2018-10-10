@@ -30,7 +30,7 @@ export default class Account extends Component {
 
         this.state = {
           user: {
-            avatar: f1,
+            avatar: 'default',
             first_name: '',
             last_name: '',
             email: '',

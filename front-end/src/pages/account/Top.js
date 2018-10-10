@@ -49,7 +49,7 @@ export default class Top extends Component {
               />
             </div>
             <Menu inverted secondary attached='top'
-                  style={{height: "0%", width: "15%", marginLeft: "45%", marginTop: "11%"}}>
+                  style={{height: "0%", width: "15%", paddingLeft: "45%", marginTop: "11%"}}>
               <Menu.Item name='Updates' size={'big'} active={activeItem === 'Updates'} onClick={this.handleItemClick}/>
               <Menu.Item name='Profile' size={'big'} active={activeItem === 'Profile'} onClick={this.handleItemClick}/>
             </Menu>
