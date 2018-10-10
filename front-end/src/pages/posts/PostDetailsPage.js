@@ -196,7 +196,9 @@ export default class PostDetailsPage extends Component {
                                 </Label>
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
-                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right', marginRight: '30px', marginTop: '10px' }} negative>Delete</Button>
+                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
+                                      marginRight: '30px', marginTop: '10px', backgroundColor: '#193446',
+                                      color: 'white' }}>Delete</Button>
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
                                   color: 'white' }}>By { this.state.post.movee.first_name + ' ' +
