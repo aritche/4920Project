@@ -49,6 +49,7 @@ export default class NavHeader extends Component {
     };
 
     render() {
+        const homeUrl = isLoggedIn() ? '/posts' : '/home';
         if (isLoggedIn() !== this.state.isLoggedIn) {
             this.getUserName();
         }
@@ -57,8 +58,8 @@ export default class NavHeader extends Component {
               <Container>
                 <Menu.Item
                     as={Link}
-                    to={'/home'}
-                    active={window.location.pathname === '/home'}>
+                    to={homeUrl}
+                    active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
                     <Image src={logo} style={{height:20}}/>
                 </Menu.Item>
 
