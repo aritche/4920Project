@@ -43,10 +43,9 @@ export default class OtherProfile extends Component {
           <Header content={'Past Record'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Header content={'Past Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           <Reviews
-            reviews={[{id: 1, name: "miaomiaomiao", image: m1, date:'2 days ago', service: 5, reliability: 5, speed: 5, content: 'It\'s so nice OMG'}]}
+            reviews={[]}
           />
         </div>
-        <br/>
       </div>
     )
   }

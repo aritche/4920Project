@@ -31,7 +31,7 @@ export default class PostDetailsPage extends Component {
                         items: obj.items,
                         comments: obj.comments,
                         isLoading: false
-                    })
+                    });
                     return;
                 });
             } else {
@@ -41,7 +41,7 @@ export default class PostDetailsPage extends Component {
                 });
             }
         });
-    }
+    };
 
     deletePost = () => {
         this.setState({isLoading: true});
@@ -73,7 +73,7 @@ export default class PostDetailsPage extends Component {
             });
           }
         });
-    }
+    };
 
     addComment = (text) => {
         fetch(url + 'post-comment', {
@@ -99,7 +99,7 @@ export default class PostDetailsPage extends Component {
                 });
             }
         });
-    }
+    };
 
 
     addOffer = (amount, desc) => {
@@ -127,7 +127,7 @@ export default class PostDetailsPage extends Component {
                 });
             }
         });
-    }
+    };
 
     addReply = (comment_id, text) => {
         fetch(url + 'post-comment', {
@@ -154,7 +154,7 @@ export default class PostDetailsPage extends Component {
                 });
             }
         });
-    }
+    };
 
     acceptOffer = (commentId) => {
         fetch(url + 'accept-offer', {
@@ -179,7 +179,7 @@ export default class PostDetailsPage extends Component {
                 });
             }
         });
-    }
+    };
 
     render() {
         if (this.state.isLoading || this.state.errorMessage) {
@@ -198,12 +198,17 @@ export default class PostDetailsPage extends Component {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
                                     <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right', marginRight: '30px', marginTop: '10px' }} negative>Delete</Button>
                                 }
-                                <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal" }}>By { this.state.post.movee.first_name + ' ' + this.state.post.movee.last_name } <img className="heading-subtitle-icon" src='/images/default_profile_pic.jpg' alt="Default Profile"/></p>
-
-                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
-                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Budget:</b> { '$' + this.state.post.budget } </p>
-                                <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Date:</b> { this.state.post.closing_datetime1 } </p>
+                                <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
+                                  color: 'white' }}>By { this.state.post.movee.first_name + ' ' +
+                                this.state.post.movee.last_name } <img className="heading-subtitle-icon"
+                                                                       src='/images/default_profile_pic.jpg'
+                                                                       alt="Default Profile"/></p>
                             </Header>
+                            <Segment>
+                              <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
+                              <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Budget:</b> { '$' + this.state.post.budget } </p>
+                              <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Date:</b> { this.state.post.closing_datetime1 } </p>
+                            </Segment>
                             <Segment style={{backgroundColor: 'white'}}>
                                 <Step.Group widths={2}>
                                     <Step active>

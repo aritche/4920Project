@@ -24,25 +24,33 @@ export default class PastReviews extends Component {
               </Comment.Metadata>
               <Comment.Text>
                 <br/>
-                <div style={{display: 'flex'}}>
+                {this.props.isMovee ?
                   <div style={{display: 'flex'}}>
-                    <Header size={'tiny'} content={'Service'} />
+                    <Header size={'tiny'} content={'Rating'} />
                     <span style={{width: 5}}/>
-                    <Rating defaultRating={review.service} maxRating={5} disabled/>
+                    <Rating defaultRating={review.rating} maxRating={5} disabled/>
                   </div>
-                  <span style={{width: 10}}/>
+                  :
                   <div style={{display: 'flex'}}>
-                    <Header size={'tiny'} content={'Reliability'} />
-                    <span style={{width: 5}}/>
-                    <Rating defaultRating={review.reliability} maxRating={5} disabled/>
+                    <div style={{display: 'flex'}}>
+                      <Header size={'tiny'} content={'Service'} />
+                      <span style={{width: 5}}/>
+                      <Rating defaultRating={review.service} maxRating={5} disabled/>
+                    </div>
+                    <span style={{width: 10}}/>
+                    <div style={{display: 'flex'}}>
+                      <Header size={'tiny'} content={'Reliability'} />
+                      <span style={{width: 5}}/>
+                      <Rating defaultRating={review.reliability} maxRating={5} disabled/>
+                    </div>
+                    <span style={{width: 10}}/>
+                    <div style={{display: 'flex'}}>
+                      <Header size={'tiny'} content={'Speed'} />
+                      <span style={{width: 5}}/>
+                      <Rating defaultRating={review.speed} maxRating={5} disabled/>
+                    </div>
                   </div>
-                  <span style={{width: 10}}/>
-                  <div style={{display: 'flex'}}>
-                    <Header size={'tiny'} content={'Speed'} />
-                    <span style={{width: 5}}/>
-                    <Rating defaultRating={review.speed} maxRating={5} disabled/>
-                  </div>
-                </div>
+                }
                 {review.content}
               </Comment.Text>
             </Comment.Content>

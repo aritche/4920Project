@@ -48,6 +48,9 @@ export default class Profile extends Component {
             </Segment>
             <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <Rating
+              avatar={this.props.avatar}
+              isMovee={this.props.identity === 'Movee'}
+              reviews={this.props.reviews}
             />
           </div>
           <br/>
@@ -58,7 +61,6 @@ export default class Profile extends Component {
             headerText='Are you sure you want to delete your account?'
             onConfirm={this.props.delete}
           />
-          <ReviewForm/>
         </div>
     )
   }
