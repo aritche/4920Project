@@ -14,7 +14,8 @@ export default class CreateLoginForm extends Component {
 
     render() {
         return (
-            <Container style={{height: '92vh', backgroundColor: "#193446"}}>
+            <Container style={{backgroundColor: "#193446"}}>
+                <br/>
                 <Grid columns={2} centered>
                     <Grid.Row>
                         <Grid.Column>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Segment, Container} from 'semantic-ui-react';
 import OtherProfile from "./OtherProfile"
-import Top2 from "./Top2"
+import OtherTop from "./OtherTop"
 import m1 from '../../avatar/male1.jpg';
 import m2 from '../../avatar/male2.jpg';
 import m3 from '../../avatar/male3.jpg';
@@ -42,7 +42,7 @@ export default class OtherAccount extends Component {
         <div style={{paddingBottom: 80}}>
           <Segment.Group stacked>
             <Segment style={{backgroundColor: "#193446"}}>
-              <Top2
+              <OtherTop
                 avatar={this.state.user.avatar}
                 firstName={this.state.user.first_name}
                 lastName={this.state.user.last_name}

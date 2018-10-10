@@ -97,7 +97,7 @@ export default class EditProfile extends Component {
 
   emailValid = () => {
     return !emptyString(this.state.email) && this.state.email !== undefined && this.state.email.length >= 5
-      && this.state.email.includes('@');
+      && this.state.email.includes('@') && this.state.email.includes('.');
   };
 
   phoneValid = () => {
