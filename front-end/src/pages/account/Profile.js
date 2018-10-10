@@ -31,7 +31,9 @@ export default class Profile extends Component {
         <div>
           <div>
             <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-            <text> {!!this.props.desc ? this.props.desc : 'Please tell us more about yourself by clicking Edit My Profile above.'} </text>
+            <Segment>
+              <text> {!!this.props.desc ? this.props.desc : 'Please tell us more about yourself by clicking Edit My Profile above.'} </text>
+            </Segment>
             <Header content={'User Information'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <Segment>
               <Header content={'Name:'} size={'medium'}/>
@@ -46,6 +48,9 @@ export default class Profile extends Component {
             </Segment>
             <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <Rating
+              avatar={this.props.avatar}
+              isMovee={this.props.identity === 'Movee'}
+              reviews={this.props.reviews}
             />
           </div>
           <br/>
@@ -56,7 +61,6 @@ export default class Profile extends Component {
             headerText='Are you sure you want to delete your account?'
             onConfirm={this.props.delete}
           />
-          <ReviewForm/>
         </div>
     )
   }

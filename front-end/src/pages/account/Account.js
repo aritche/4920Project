@@ -36,7 +36,8 @@ export default class Account extends Component {
             email: '',
             phone_number: '',
             description: '',
-            posts: []
+            posts: [],
+            reviews: []
           },
           postList: [],
           feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
@@ -167,6 +168,8 @@ export default class Account extends Component {
                       desc={this.state.user.description}
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
+                      identity={this.state.user.identity}
+                      reviews={this.state.user.reviews}
                       delete={this.deleteAccount}
                     />
                   }

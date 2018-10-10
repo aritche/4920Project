@@ -19,7 +19,9 @@ export default class ReviewForm extends Component {
       reliability: 0,
       speed: '',
       content: '',
-      activeForm: false
+      activeForm: false,
+      rating: 0,
+      isMovee: false,
     }
   }
 
@@ -31,16 +33,27 @@ export default class ReviewForm extends Component {
     this.setState({
       open: true,
       name: this.props.name,
-      date: 'today'
+      date: 'today',
+      isMovee: this.props.identity === 'Movee'
     });
   };
 
   onServiceChange = (e) => {
-    if (e.target.value == 0) {
+    if (e.target.value === 0) {
 
     }
     else {
       this.setState({service: e});
+    }
+
+  };
+
+  onRatingChange = (e) => {
+    if (e.target.value === 0) {
+
+    }
+    else {
+      this.setState({rating: e});
     }
 
   };
@@ -86,25 +99,33 @@ export default class ReviewForm extends Component {
           <Header block style={{backgroundColor: '#193446', color: 'white'}}> Review </Header>
           <br/>
           <Form>
-            <div style={{display: 'flex'}}>
+            {this.props.isMovee ?
               <div style={{display: 'flex'}}>
-                <Header size={'tiny'} content={'Service'}/>
+                <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
                 <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
               </div>
-              <span style={{width: 10}}/>
+              :
               <div style={{display: 'flex'}}>
-                <Header size={'tiny'} content={'Reliability'} />
-                <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onReliabilityChange}/>
+                <div style={{display: 'flex'}}>
+                  <Header size={'tiny'} content={'Service'}/>
+                  <span style={{width: 5}}/>
+                  <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
+                </div>
+                <span style={{width: 10}}/>
+                <div style={{display: 'flex'}}>
+                  <Header size={'tiny'} content={'Reliability'} />
+                  <span style={{width: 5}}/>
+                  <Rating defaultRating={0} maxRating={5} onClick={this.onReliabilityChange}/>
+                </div>
+                <span style={{width: 10}}/>
+                <div style={{display: 'flex'}}>
+                  <Header size={'tiny'} content={'Speed'} />
+                  <span style={{width: 5}}/>
+                  <Rating defaultRating={0} maxRating={5} onClick={this.onSpeedChange}/>
+                </div>
               </div>
-              <span style={{width: 10}}/>
-              <div style={{display: 'flex'}}>
-                <Header size={'tiny'} content={'Speed'} />
-                <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onSpeedChange}/>
-              </div>
-            </div>
+            }
             <Header content={'Review'} />
             <Form.Field error={emptyString(this.state.desc)} control={TextArea} placeholder='Please provide feedback...'
                         autoHeight value={this.state.desc} onChange={this.onContentChange}/>

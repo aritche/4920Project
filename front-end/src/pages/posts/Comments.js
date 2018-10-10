@@ -90,7 +90,7 @@ export default class Comments extends Component {
                 <Comment.Content>
                   { this.props.acceptedComment === comment.id ?
                     <Comment.Author as='a'>
-                      <Label color='green' horizontal>
+                      <Label style={{color: '#193446'}} horizontal>
                         ACCEPTED OFFER
                       </Label>
                       { comment.poster_details.first_name + ' ' +
@@ -99,7 +99,7 @@ export default class Comments extends Component {
                       :
                     comment.is_offer ?
                       <Comment.Author as='a'>
-                        <Label color='blue' horizontal>
+                        <Label style={{color: '#22AABB'}} horizontal>
                           OFFER
                         </Label>
                         { comment.poster_details.first_name + ' ' +
@@ -125,8 +125,14 @@ export default class Comments extends Component {
                   { comment.id === this.state.replyingTo &&
                     <Form reply>
                       <Form.Input value={this.state.reply} placeholder={"Type reply here"} onChange={this.onReplyChange}/>
-                      <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addReply} />
-                      <Button content='Cancel' negative onClick={this.stopReply}></Button>
+                      <Button.Group>
+                        <Button content='Add Reply' labelPosition='left' icon='edit'
+                                style={{backgroundColor: '#193446', color: 'white', width: 120, height: 40}}
+                                onClick={this.addReply} />
+                        <Button.Or />
+                        <Button content='Cancel' style={{backgroundColor: '#22AABB', color: 'white', width: 120,
+                          height: 40}} onClick={this.stopReply}/>
+                      </Button.Group>
                     </Form>
                   }
                 </Comment.Content>
