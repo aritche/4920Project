@@ -60,7 +60,7 @@ def insert_new_user(json):
         deleted = False,
         description = '',
         phone_number = '',
-        avatar = ''
+        avatar = 'default'
     )
     db.session.add(user)
     db.session.commit()
@@ -72,6 +72,7 @@ def insert_new_user(json):
     resp.status_code = 200
 
     return resp
+
 
 def delete_user(json):
     if json and 'userId' in json:
@@ -94,6 +95,7 @@ def delete_user(json):
 
         return resp
 
+
 def authenticate_login(json):
     if not 'email' in json:
         abort(400, 'No email received.')
@@ -114,6 +116,39 @@ def authenticate_login(json):
         'hashed_password': password,
         'user_id': user_id,
         'user_type': user_type
+    })
+    resp.status_code = 200
+    return resp
+
+
+def update_user(json):
+    if (
+        not json
+        or (not 'userId' in json)
+        or (not 'avatar' in json)
+        or (not 'firstName' in json)
+        or (not 'lastName' in json)
+        or (not 'email' in json)
+        or (not 'phoneNumber' in json)
+        or (not 'description' in json)
+    ):
+        abort(400, 'Not all required fields were received.')
+
+    user = db.session.query(User).filter(and_(User.id == json['userId'], not_(User.deleted))).first()
+    if not user:
+        abort(400, 'User with given userId does not exist.')
+
+    user.avatar = json['avatar']
+    user.first_name = json['firstName']
+    user.last_name = json['lastName']
+    user.email = json['email']
+    user.phone_number = json['phoneNumber']
+    user.description = json['description']
+
+    db.session.commit()
+
+    resp = jsonify({
+        'success': True
     })
     resp.status_code = 200
     return resp

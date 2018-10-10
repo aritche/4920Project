@@ -2,20 +2,6 @@ import React, { Component } from 'react';
 import { Form, TextArea, Header, Modal, Button, Icon, Image, Segment, Divider, Input } from 'semantic-ui-react';
 import { isZero, emptyString } from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
-import m1 from '../../avatar/male1.jpg';
-import m2 from '../../avatar/male2.jpg';
-import m3 from '../../avatar/male3.jpg';
-import m4 from '../../avatar/male4.jpg';
-import m5 from '../../avatar/male5.jpg';
-import m6 from '../../avatar/male6.jpg';
-import m7 from '../../avatar/male7.jpg';
-import f1 from '../../avatar/female1.jpg';
-import f2 from '../../avatar/female2.jpg';
-import f3 from '../../avatar/female3.jpg';
-import f4 from '../../avatar/female4.jpg';
-import f5 from '../../avatar/female5.jpg';
-import f6 from '../../avatar/female6.jpg';
-import f7 from '../../avatar/female7.jpg';
 
 /**
  * Author: VW
@@ -51,8 +37,8 @@ export default class EditProfile extends Component {
     });
   };
 
-  onAvatarChange = (e) => {
-    this.setState({avatar: e});
+  onAvatarChange = (avatarName) => {
+    this.setState({avatar: avatarName});
   };
 
   onEmailChange = (e) => {
@@ -97,7 +83,7 @@ export default class EditProfile extends Component {
 
   emailValid = () => {
     return !emptyString(this.state.email) && this.state.email !== undefined && this.state.email.length >= 5
-      && this.state.email.includes('@') && this.state.email.includes('.');
+      && this.state.email.includes('@');
   };
 
   phoneValid = () => {
@@ -127,46 +113,46 @@ export default class EditProfile extends Component {
             <Segment raised>
               <div style={{display: 'flex'}}>
                 <div>
-                  <Image src={this.state.avatar} size={'small'} bordered circular/>
+                  <Image src={'/images/avatar/' + this.state.avatar +'.jpg'} size={'small'} bordered circular/>
                   <Header size={'small'} centred content={'Current Profile Picture'} style={{backgroundColor: '#193446', color: 'white'}}
                   block/>
                 </div>
                 <span style={{width: '6%'}}/>
                 <div>
                   <div style={{display: 'flex'}}>
-                    <Image src={m1} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m1)}/>
-                    <Image src={m2} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m2)}/>
-                    <Image src={m3} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m3)}/>
-                    <Image src={m4} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m4)}/>
-                    <Image src={m5} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m5)}/>
-                    <Image src={m6} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m6)}/>
-                    <Image src={m7} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(m7)}/>
+                    <Image src={'/images/avatar/male1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male1')}/>
+                    <Image src={'/images/avatar/male2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male2')}/>
+                    <Image src={'/images/avatar/male3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male3')}/>
+                    <Image src={'/images/avatar/male4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male4')}/>
+                    <Image src={'/images/avatar/male5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male5')}/>
+                    <Image src={'/images/avatar/male6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male6')}/>
+                    <Image src={'/images/avatar/male7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('male7')}/>
                   </div>
                   <br/>
                   <Divider/>
                   <br/>
                   <div style={{display: 'flex'}}>
-                    <Image src={f1} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f1)}/>
-                    <Image src={f2} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f2)}/>
-                    <Image src={f3} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f3)}/>
-                    <Image src={f4} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f4)}/>
-                    <Image src={f5} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f5)}/>
-                    <Image src={f6} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f6)}/>
-                    <Image src={f7} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
-                           onClick={() => this.onAvatarChange(f7)}/>
+                    <Image src={'/images/avatar/female1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female1')}/>
+                    <Image src={'/images/avatar/female2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female2')}/>
+                    <Image src={'/images/avatar/female3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female3')}/>
+                    <Image src={'/images/avatar/female4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female4')}/>
+                    <Image src={'/images/avatar/female5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female5')}/>
+                    <Image src={'/images/avatar/female6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female6')}/>
+                    <Image src={'/images/avatar/female7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                           onClick={() => this.onAvatarChange('female7')}/>
                   </div>
                 </div>
               </div>

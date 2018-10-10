@@ -32,7 +32,7 @@ with app.app_context():
         creation_date = datetime.now(),
         description = '',
         phone_number = '',
-        avatar = ''
+        avatar = 'male1'
     )
 
     db.session.add(user1)

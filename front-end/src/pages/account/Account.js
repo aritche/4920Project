@@ -31,16 +31,16 @@ export default class Account extends Component {
         this.state = {
           user: {
             avatar: f1,
-            firstName: '',
-            lastName: '',
+            first_name: '',
+            last_name: '',
             email: '',
             phone_number: '',
-            desc: '',
+            description: '',
             posts: []
           },
           postList: [],
           feeds: [{avatar: m1, name: "Allen", time: "3 hours ago", event: "Offered you a deal", detail: "Hey man I can do for $100"}],
-          switchPage: false,
+          switchPage: true,
           isLoading: false,
         };
     }
@@ -54,14 +54,29 @@ export default class Account extends Component {
     };
 
     onProfileUpdate = (newAvatar, firstName, lastName, email, phone, desc) => {
-        console.log(newAvatar, firstName, lastName, email, phone, desc);
-        // TODO UPDATE DB
+        fetch(url + 'edit-account', {
+          method: 'POST',
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'userId': this.state.user.id,
+            'avatar': newAvatar,
+            'firstName': firstName,
+            'lastName': lastName,
+            'email': email,
+            'phoneNumber': phone,
+            'description': desc
+          })
+        });
+
         let user = Object.assign({}, this.state.user);
-        user.firstName = firstName;
-        user.lastName = lastName;
+        user.first_name = firstName;
+        user.last_name = lastName;
         user.email = email;
         user.phone_number = phone;
-        user.desc = desc;
+        user.description = desc;
         user.avatar = newAvatar;
         this.setState({user});
     };
@@ -149,7 +164,7 @@ export default class Account extends Component {
                       avatar={this.state.user.avatar}
                       firstName={this.state.user.first_name}
                       lastName={this.state.user.last_name}
-                      desc={this.state.user.desc}
+                      desc={this.state.user.description}
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       delete={this.deleteAccount}

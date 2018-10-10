@@ -2,7 +2,10 @@ from flask import request
 from flask_cors import cross_origin
 from api import base
 from api.comment import add_comment, add_offer
-from api.user import authenticate_login, get_user_by_id, insert_new_user, delete_user
+from api.user import (
+    authenticate_login, get_user_by_id, insert_new_user, delete_user,
+    update_user
+)
 from api.move import (
     create_new_move, get_move_details, search_moves, delete_move_details,
     mark_move_as_accepted
@@ -52,3 +55,7 @@ def insert_offer():
 @base.route('/accept-offer', methods=['POST'])
 def accept_offer():
     return mark_move_as_accepted(request.json)
+
+@base.route('/edit-account', methods=['POST'])
+def edit_account():
+    return update_user(request.json)
