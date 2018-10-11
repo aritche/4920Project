@@ -201,8 +201,8 @@ export default class PostDetailsPage extends Component {
                                       color: 'white' }}>Delete</Button>
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
-                                  color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} >By { this.state.post.movee.first_name + ' ' +
-                                this.state.post.movee.last_name } <img className="heading-subtitle-icon"
+                                  color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} ><span className="user-link">By { this.state.post.movee.first_name + ' ' +
+                                this.state.post.movee.last_name }</span> <img style={{cursor: "pointer"}} className="heading-subtitle-icon"
                                                                        src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                                                        alt="Default Profile"/></p>
                             </Header>

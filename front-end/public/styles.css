@@ -37,3 +37,11 @@
     height: 80px !important;
     width: 80px !important;
 }
+
+.user-link {
+    cursor: pointer;
+}
+
+.user-link:hover {
+    color: #4183c4;
+}
