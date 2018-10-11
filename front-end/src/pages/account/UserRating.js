@@ -19,7 +19,7 @@ export default class UserRating extends Component {
               <Segment circular size={'small'}
                        style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1,
                          backgroundColor: 'white', marginTop: '1%'}}>
-                <Image src={this.props.avatar} circular size={'small'} bordered/>
+                <Image src={'images/avatar/' + this.props.avatar + '.jpg'} circular size={'small'} bordered/>
               </Segment>
             </Grid.Row>
             <Grid.Row>
