@@ -32,3 +32,8 @@
    padding-top: 15px !important;
    padding-left: 20px !important;
 }
+
+.avatar_select {
+    height: 80px !important;
+    width: 80px !important;
+}

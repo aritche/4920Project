@@ -120,38 +120,38 @@ export default class EditProfile extends Component {
                 <span style={{width: '6%'}}/>
                 <div>
                   <div style={{display: 'flex'}}>
-                    <Image src={'/images/avatar/male1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male1')}/>
-                    <Image src={'/images/avatar/male2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male2')}/>
-                    <Image src={'/images/avatar/male3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male3')}/>
-                    <Image src={'/images/avatar/male4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male4')}/>
-                    <Image src={'/images/avatar/male5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male5')}/>
-                    <Image src={'/images/avatar/male6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male6')}/>
-                    <Image src={'/images/avatar/male7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/male7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('male7')}/>
                   </div>
                   <br/>
                   <Divider/>
                   <br/>
                   <div style={{display: 'flex'}}>
-                    <Image src={'/images/avatar/female1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female1.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female1')}/>
-                    <Image src={'/images/avatar/female2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female2.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female2')}/>
-                    <Image src={'/images/avatar/female3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female3.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female3')}/>
-                    <Image src={'/images/avatar/female4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female4.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female4')}/>
-                    <Image src={'/images/avatar/female5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female5.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female5')}/>
-                    <Image src={'/images/avatar/female6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female6.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female6')}/>
-                    <Image src={'/images/avatar/female7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
+                    <Image className="avatar_select" src={'/images/avatar/female7.jpg'} size={'tiny'} bordered circular style={{cursor: 'pointer'}}
                            onClick={() => this.onAvatarChange('female7')}/>
                   </div>
                 </div>
