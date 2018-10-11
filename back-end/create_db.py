@@ -23,7 +23,7 @@ with app.app_context():
 
     print("All tables created.")
 
-    user1 = User(
+    js = User(
         email = 'js@ex',
         first_name = 'John',
         last_name = 'Smith',
@@ -32,11 +32,43 @@ with app.app_context():
         user_type = 'Movee',
         creation_date = datetime.now(),
         description = '',
-        phone_number = '',
+        phone_number = '0400 111 222',
         avatar = 'male1'
     )
 
-    db.session.add(user1)
+    db.session.add(js)
+    db.session.commit()
+
+    ml = User(
+        email = 'ml@ex',
+        first_name = 'Movee',
+        last_name = 'Lee',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Movee',
+        creation_date = datetime.now(),
+        description = '',
+        phone_number = '0400 123 123',
+        avatar = 'male2'
+    )
+
+    db.session.add(ml)
+    db.session.commit()
+
+    rj = User(
+        email = 'rj@ex',
+        first_name = 'Remov',
+        last_name = 'Jones',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I have been a trusted removalist for 30 years, ranging from mansions in Russia to apartments in Australia.',
+        phone_number = '0400 567 567',
+        avatar = 'male3'
+    )
+
+    db.session.add(rj)
     db.session.commit()
 
     from_address = FromAddress(
@@ -59,7 +91,7 @@ with app.app_context():
     db.session.commit()
 
     move1 = MoveDetails(
-        movee_id = user1.id,
+        movee_id = js.id,
         title = 'Example Post',
         closing_datetime1 = datetime.now(),
         closing_datetime2 = datetime.now(),
@@ -87,6 +119,42 @@ with app.app_context():
         move_id = move1.id
     )
     db.session.add(item1)
+    db.session.commit()
+
+
+    comment1 = Comment(
+        poster=rj.id,
+        parent_post=move1.id,
+        creation_datetime=datetime.now(),
+        text='Hi, can I just confirm that there is only one bed to move?',
+        is_offer=False
+    )
+
+    move1.comments.append(comment1)
+    db.session.commit()
+
+    update1 = Update(
+        update_type = 'comment',
+        updated_movee_id = move1.movee_id,
+        concerning_movee_id = rj.id,
+        description='Hi, can I just confirm that there is only one bed to move?',
+        move_id = move1.id,
+        update_time = datetime.now()
+    )
+
+    db.session.add(update1)
+    db.session.commit()
+
+    comment2 = Comment(
+        poster=js.id,
+        parent_post=move1.id,
+        creation_datetime=datetime.now(),
+        text='Yep! Just the one.',
+        is_offer=False,
+        parent_comment = comment1.id
+    )
+
+    move1.comments.append(comment2)
     db.session.commit()
 
     print("Initial data added.")
