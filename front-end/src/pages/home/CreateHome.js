@@ -27,7 +27,7 @@ export default class CreateLoginForm extends Component {
                         <Grid.Column>
                             <div className='centered-div'>
                                 <span style={{height: 80}}/>
-                                <Signup/>
+                                <Signup history={this.props.history}/>
                             </div>
                         </Grid.Column>
                     </Grid.Row>
