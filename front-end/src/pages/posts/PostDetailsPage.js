@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Button, Step, Icon, Label, Table, Segment } from 'semantic-ui-react';
+import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -260,6 +260,15 @@ export default class PostDetailsPage extends Component {
                                 <Header as='h3' dividing>
                                     Comments
                                 </Header>
+                                {
+                                    this.state.comments.length === 0 &&
+                                    <Message>
+                                    <Message.Header>No comments so far</Message.Header>
+                                    <p>
+                                      Be the first to add a comment!
+                                    </p>
+                                  </Message>
+                                }
                                 <Comments
                                     history={this.props.history}
                                     isPostCreator={getLoggedInUser() === this.state.post.movee_id}
