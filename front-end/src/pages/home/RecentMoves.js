@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Segment, Header } from 'semantic-ui-react';
 import PostList from '../posts/PostList';
+import PostSmall from '../posts/PostSmall';
+import PostListSmall from '../posts/PostListSmall';
 import { url } from '../../Api';
 
 export default class RecentMoves extends Component {
@@ -41,7 +43,7 @@ export default class RecentMoves extends Component {
         return (
             <Segment attached style={{borderRadius: '0px'}}>
                 <Header align='middle' as='h1'>Recent Moves</Header>
-                <PostList posts={this.state.posts} />
+                <PostListSmall posts={this.state.posts} />
             </Segment>
         )
     }
