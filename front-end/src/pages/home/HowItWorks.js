@@ -41,9 +41,9 @@ export default class HowItWorks extends Component {
         return (
             <Segment attached secondary style={{borderRadius: '0', paddingTop: '30px',paddingBottom:'30px'}}>
                 <Header align='middle' as='h1'>Connecting Movees and Removalists</Header>
-                <Container align='middle' style={{paddingBottom: '25px', width: '60%'}}>
+                <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
                     <strong>Having trouble moving things on your own? Have a large vehicle that could help others move?
-                    <br/>uMove is the place for you! We strive to connect movees and removalists to make the moving process as
+                    uMove is the place for you! We strive to connect movees and removalists to make the moving process as
                     simple as possible.</strong>
                 </Container>
                 <ProcessStep/>
