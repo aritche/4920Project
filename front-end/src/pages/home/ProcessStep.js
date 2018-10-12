@@ -1,50 +1,55 @@
 import React, { Component } from 'react';
-import { Icon, Step } from 'semantic-ui-react';
+import { Icon, Grid, Header } from 'semantic-ui-react';
 
 export default class ProcessStep extends Component{
   render(){
     return (
-      <Step.Group>
-        <Step active>
-          <Icon name='info' />
-          <Step.Content>
-            <Step.Title>Post</Step.Title>
-            <Step.Description>Make a post</Step.Description>
-          </Step.Content>
-        </Step>
+        <Grid columns={4} style={{marginLeft: '40px', marginRight: '40px'}}>
+            <Grid.Row>
+                <Grid.Column>
+                    <Icon name='file alternate' size='huge' color='blue'/>
+                </Grid.Column>
+                <Grid.Column>
+                    <Icon name='handshake' size='huge' color='yellow'/>
+                </Grid.Column>
+                <Grid.Column>
+                    <Icon name='truck' size='huge' color='orange'/>
+                </Grid.Column>
+                <Grid.Column>
+                    <Icon name='thumbs up' size='huge' color='green'/>
+                </Grid.Column>
+            </Grid.Row>
 
-        <Step active>
-          <Icon name='wait' />
-          <Step.Content>
-            <Step.Title>Wait</Step.Title>
-            <Step.Description>Wait for offer</Step.Description>
-          </Step.Content>
-        </Step>
+            <Grid.Row style={{paddingBottom: 0, paddingTop: 0}}>
+                <Grid.Column>
+                    <Header as='h3'>Post</Header>
+                </Grid.Column>
+                <Grid.Column>
+                    <Header as='h3'>Accept</Header>
+                </Grid.Column>
+                <Grid.Column>
+                    <Header as='h3'>Move</Header>
+                </Grid.Column>
+                <Grid.Column>
+                    <Header as='h3'>Review</Header>
+                </Grid.Column>
+            </Grid.Row>
 
-        <Step active>
-          <Icon name='handshake' />
-          <Step.Content>
-            <Step.Title>Accept</Step.Title>
-            <Step.Description>Accept an offer</Step.Description>
-          </Step.Content>
-        </Step>
-
-        <Step active>
-          <Icon name='truck' />
-          <Step.Content>
-            <Step.Title>Move</Step.Title>
-            <Step.Description>Make the move!</Step.Description>
-          </Step.Content>
-        </Step>
-
-        <Step active>
-          <Icon name='thumbs up' />
-          <Step.Content>
-            <Step.Title>Review</Step.Title>
-            <Step.Description>Rate your removalist</Step.Description>
-          </Step.Content>
-        </Step>
-      </Step.Group>
+            <Grid.Row style={{paddingTop: 0}}>
+                <Grid.Column>
+                    Movees post about what they need moved.
+                </Grid.Column>
+                <Grid.Column>
+                    Removalists describe and offer their services.
+                </Grid.Column>
+                <Grid.Column>
+                    When both parties are satisfied, the move happens.
+                </Grid.Column>
+                <Grid.Column>
+                    Finish the exchange by leaving a review!
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
     );
   }
 }
