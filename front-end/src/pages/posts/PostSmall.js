@@ -8,24 +8,24 @@ export default class PostSmall extends Component {
         const { post } = this.props;
 
         return (
-            <Container key={ post.id } as={Link} to={"/posts/" + post.id} style={{borderRadius: '20px', backgroundColor: '#fbfbfb', border: '2px solid black', color:'black', padding: '20px', width: '200px'}}>
+            <Container key={ post.id } as={Link} to={"/posts/" + post.id} style={{borderRadius: '0px', backgroundColor: '#fbfbfb', border: '1.25px solid black', color:'black', padding: '14px', width: '250px'}}>
                 <Grid columns={1} align='middle'>
-                    <Container>
-                        <Header as='h3'>
+                    <Container style={{backgroundColor: '#193446', paddingTop: '10px', paddingBottom: '10px'}}>
+                        <Header as='h3' style={{color: 'white'}}>
                         <Grid.Row>
                             {post.address_from.city}
-                            <Icon name='angle right'/>
+                            <Icon name='angle right' style={{paddingLeft: '10px'}}/>
                             {post.address_to.city}
                         </Grid.Row>
                         </Header>
                     </Container>
 
-                    <Container>
-                        <Grid.Row>
+                    <Container style={{paddingTop: '10px', paddingBottom: '10px'}}>
+                        <Grid.Row style={{paddingBottom: '10px'}}>
                             {post.closing_datetime1}
                         </Grid.Row>
 
-                        <Grid.Row>
+                        <Grid.Row style={{paddingBottom: '10px'}}>
                             ${ post.budget }
                         </Grid.Row>
 
