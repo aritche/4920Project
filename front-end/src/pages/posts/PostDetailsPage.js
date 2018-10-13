@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message, Image } from 'semantic-ui-react';
+import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -73,6 +73,16 @@ export default class PostDetailsPage extends Component {
             });
           }
         });
+    };
+
+    editPost = () => {
+        this.props.history.push({
+            pathname: '/create-post',
+            state: {
+                post: this.state.post,
+                items: this.state.items
+            }
+        })
     };
 
     addComment = (text) => {
@@ -194,15 +204,21 @@ export default class PostDetailsPage extends Component {
                                 <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
                                     { this.state.post.status }
                                 </Label>
+                                
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
-                                    <Button onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
-                                      marginRight: '30px', marginTop: '10px', backgroundColor: 'red',
-                                      color: 'white' }}>Delete</Button>
+                                    <Button negative onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
+                                      marginRight: '30px', marginTop: '10px' }}>Delete</Button>
                                 }
+                                {
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
+                                    <Button primary onClick={this.editPost} style={{ marginBottom: "10px", float: 'right',
+                                      marginRight: '30px', marginTop: '10px' }}>Edit</Button>
+                                }
+
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
                                   color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} ><span className="user-link">By { this.state.post.movee.first_name + ' ' +
-                                this.state.post.movee.last_name }</span> <img circular style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
+                                this.state.post.movee.last_name }</span> <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
                                                                        src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                                                        alt="Default Profile"/></p>
                             </Header>

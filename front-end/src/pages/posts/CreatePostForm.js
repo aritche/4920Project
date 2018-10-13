@@ -18,9 +18,37 @@ import ErrorInputModal from '../../widgets/ErrorInputModal';
  * Author: Victor & Jimmy
  */
 export default class CreatePostForm extends Component {
-    constructor() {
-        super();
-        this.state = {
+    constructor(props) {
+        super(props);
+        const post = props.location.state && props.location.state.post ? props.location.state.post : undefined;
+        this.state = post ? 
+        {
+            postId: post.id,
+            title: post.title,
+            fromAddrL1: post.address_from.line1,
+            fromAddrL2: post.address_from.line2,
+            fromCity: post.address_from.city,
+            fromState: post.address_from.state,
+            fromPostCo: post.address_from.postcode,
+            toAddrL1: post.address_to.line1,
+            toAddrL2: post.address_to.line2,
+            toCity: post.address_to.city,
+            toState: post.address_to.state,
+            toPostCo: post.address_to.postcode,
+            date: moment(post.closing_datetime1),
+            time1: moment(post.closing_datetime1),
+            time2: moment(post.closing_datetime2),
+            budget: post.budget,
+            itemTable: props.location.state.items,
+            desc: post.description,
+            submitError: false,
+            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+            activeDate: false,
+            activeT1: false,
+            activeT2: false
+        }
+        : {
+            postId: -1,
             title: '',
             fromAddrL1: '',
             fromAddrL2: '',
@@ -44,6 +72,7 @@ export default class CreatePostForm extends Component {
             activeT1: false,
             activeT2: false
         }
+        console.log(post)
     }
 
     itemTableAdd = (name, weight, volume, desc, amount) => {
@@ -134,6 +163,7 @@ export default class CreatePostForm extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                'id': this.state.postId,
                 'title': this.state.title,
                 'fromAddrL1': this.state.fromAddrL1,
                 'fromAddrL2': this.state.fromAddrL2,
@@ -203,6 +233,7 @@ export default class CreatePostForm extends Component {
                       style={{width: 250}} fluid
                       placeholder='Post Title'
                       onChange={this.onChange}
+                      value={this.state.title}
                     />
 
                     <Header content={'Where are you moving from?'} size={'huge'} block
@@ -259,7 +290,7 @@ export default class CreatePostForm extends Component {
                     <Header content={'What is your budget?'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <test> If you are unsure, we recommend you browse other jobs first. </test>
+                        If you are unsure, we recommend you browse other jobs first.
                     <InputSlider
                         value={this.state.budget}
                         onChange={this.onBudgetChange}
@@ -282,7 +313,7 @@ export default class CreatePostForm extends Component {
                     <Header content={'Post Description'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange}/>
+                    <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange} value={this.state.desc}/>
 
                   </Form.Field>
 

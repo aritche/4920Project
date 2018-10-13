@@ -6,7 +6,7 @@ export default class CreatePostPage extends Component {
     render() {
         return (
             <Container>
-                <CreatePostForm history={this.props.history}/>
+                <CreatePostForm history={this.props.history} location={this.props.location} />
             </Container>
         )
     }

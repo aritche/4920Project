@@ -3,6 +3,7 @@ import {Segment, Menu, Dropdown, Form, Input, Header} from 'semantic-ui-react';
 import { BUDGET } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 
 const sortByOptions = [
@@ -21,8 +22,8 @@ export default class FilterBar extends Component {
         this.state = {
             query: '',
             budget: BUDGET.DEFAULT,
-            lowerDate: '',
-            upperDate: ''
+            lowerDate: moment(),
+            upperDate: moment()
         }
     }
 
