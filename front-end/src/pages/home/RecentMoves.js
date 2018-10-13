@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Header } from 'semantic-ui-react';
+import { Segment, Header, Container } from 'semantic-ui-react';
 import PostList from '../posts/PostList';
 import PostSmall from '../posts/PostSmall';
 import PostListSmall from '../posts/PostListSmall';
@@ -41,8 +41,11 @@ export default class RecentMoves extends Component {
 
     render() {
         return (
-            <Segment attached style={{borderRadius: '0px'}}>
-                <Header align='middle' as='h1' style={{paddingBottom: '20px'}}>Recent Moves</Header>
+            <Segment attached secondary style={{borderRadius: '0px', backgroundColor:'white'}}>
+                <Header align='middle' as='h1' style={{paddingBottom: '0px'}}>Recent Moves</Header>
+                <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
+                    <strong>Moves are happening all the time. <br/>Wondering what a post looks like? Click one of the following and have a peak!</strong>
+                </Container>
                 <PostListSmall posts={this.state.posts} />
             </Segment>
         )
