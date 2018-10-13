@@ -8,9 +8,9 @@ export default class PostSmall extends Component {
         const { post } = this.props;
 
         return (
-            <Container key={ post.id } as={Link} to={"/posts/" + post.id} style={{borderRadius: '0px', backgroundColor: '#fbfbfb', border: '1.25px solid black', color:'black', padding: '14px', width: '250px'}}>
+            <Container key={ post.id } as={Link} to={"/posts/" + post.id} style={{borderRadius: '10px', backgroundColor: '#fbfbfb', border: '1.25px solid black', color:'black', padding: '14px', width: '250px'}}>
                 <Grid columns={1} align='middle'>
-                    <Container style={{backgroundColor: '#193446', paddingTop: '10px', paddingBottom: '10px'}}>
+                    <Container style={{borderTopRightRadius:'9px', borderTopLeftRadius: '9px', backgroundColor: '#193446', paddingTop: '10px', paddingBottom: '10px'}}>
                         <Header as='h3' style={{color: 'white'}}>
                         <Grid.Row>
                             {post.address_from.city}
