@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message } from 'semantic-ui-react';
+import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message, Image } from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -202,7 +202,7 @@ export default class PostDetailsPage extends Component {
                                 }
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
                                   color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} ><span className="user-link">By { this.state.post.movee.first_name + ' ' +
-                                this.state.post.movee.last_name }</span> <img style={{cursor: "pointer"}} className="heading-subtitle-icon"
+                                this.state.post.movee.last_name }</span> <img circular style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
                                                                        src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                                                        alt="Default Profile"/></p>
                             </Header>

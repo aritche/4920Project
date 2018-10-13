@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Header, Grid, Image } from 'semantic-ui-react';
+import { Segment, Header, Grid, Image, Container } from 'semantic-ui-react';
 import { url } from '../../Api';
 import ProcessStep from './ProcessStep'
 
@@ -39,37 +39,14 @@ export default class HowItWorks extends Component {
 
     render() {
         return (
-            <Segment attached secondary style={{borderRadius: '4px'}}>
-                <Header size='huge' block style={{backgroundColor: '#193446', color:'white'}}>How it works</Header>
-                <Grid textAlign='center' columns={4}>
-                    <Grid.Row verticalAlign='middle'>
-                    <ProcessStep/>
-                    </Grid.Row>
-                    <Grid.Row verticalAlign='middle'>
-                        <Grid.Column>
-                          <Image src='/images/post.jpg' size='small' />
-                        </Grid.Column>
-                        <Grid.Column>
-                          Movees who need things to be moved post jobs with a budget!
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row verticalAlign='middle'>
-                        <Grid.Column>
-                          <Image src='/images/handshake.jpg' size='small' />
-                        </Grid.Column>
-                        <Grid.Column>
-                          Removalists offer their services at a price
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row verticalAlign='middle'>
-                        <Grid.Column>
-                          <Image src='/images/moving box.jpg' size='small' />
-                        </Grid.Column>
-                        <Grid.Column>
-                          Movees accept an offer and removalists get the job done!
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+            <Segment attached secondary style={{borderRadius: '0', paddingTop: '30px',paddingBottom:'30px'}}>
+                <Header align='middle' as='h1'>Connecting Movees and Removalists</Header>
+                <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
+                    <strong>Having trouble moving things on your own? Have a large vehicle that could help others move?
+                    uMove is the place for you! We strive to connect movees and removalists to make the moving process as
+                    simple as possible.</strong>
+                </Container>
+                <ProcessStep/>
             </Segment>
         )
     }
