@@ -42,7 +42,7 @@ export default class RecentMoves extends Component {
     render() {
         return (
             <Segment attached style={{borderRadius: '0px'}}>
-                <Header align='middle' as='h1'>Recent Moves</Header>
+                <Header align='middle' as='h1' style={{paddingBottom: '20px'}}>Recent Moves</Header>
                 <PostListSmall posts={this.state.posts} />
             </Segment>
         )
