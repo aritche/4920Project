@@ -63,11 +63,7 @@ def insert_new_user(json):
     if not validate_email(json['email']):
         abort(400, 'The email address is invalid.')
 
-    # validate names?
-
-    # Check for account with same email
-
-    query_result = db.session.query(User).filter(and_(User.email == json['email'], not User.deleted)).first()
+    query_result = db.session.query(User).filter(and_(User.email == json['email'], not_(User.deleted))).first()
     if query_result:
         abort(400, 'A user with this email address already exists.')
 
