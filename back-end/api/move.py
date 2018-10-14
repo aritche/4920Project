@@ -414,3 +414,46 @@ def get_distance(output, start_line1, start_city, start_state, end_line1, end_ci
 #    "status" : "OK"
 # }
 
+
+def close_move(json):
+    if (
+        not json
+        or (not 'postId' in json)
+    ):
+        abort(400, 'Not all required fields were received.')
+
+    move = db.session.query(MoveDetails).filter(and_(MoveDetails.id == json['postId'], not_(MoveDetails.deleted))).first()
+    if not move:
+        abort(400, 'Post does not exist.')
+
+
+    move.status = 'CLOSED'
+    db.session.commit()
+
+    update1 = Update(
+        update_type = 'close_movee',
+        updated_movee_id = move.movee_id,
+        concerning_movee_id = move.movee_id,
+        description = '',
+        move_id = move.id,
+        update_time = datetime.now()
+    )
+
+    update2 = Update(
+        update_type = 'close_removalist',
+        updated_movee_id = db.session.query(Comment).filter(Comment.id == move.chosen_offer).first().poster,
+        concerning_movee_id = move.movee_id,
+        description = '',
+        move_id = move.id,
+        update_time = datetime.now()
+    )
+
+    db.session.add(update1)
+    db.session.add(update2)
+    db.session.commit()
+
+    resp = jsonify({
+        'success': True
+    })
+    resp.status_code = 200
+    return resp

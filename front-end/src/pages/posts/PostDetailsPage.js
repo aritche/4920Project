@@ -75,6 +75,39 @@ export default class PostDetailsPage extends Component {
         });
     };
 
+    closePost = () => {
+        fetch(url + 'close-post', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'postId': this.state.post.id
+          })
+        }).then(response => {
+          if (response.status === 200) {
+            response.json().then(obj => {
+              if (obj.success) {
+                  let post = Object.assign({}, this.state.post);
+                  post.status = 'CLOSED';
+                  this.setState({post});
+              } else {
+                this.setState({
+                  errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+                  isLoading: false
+                });
+              }
+            });
+          } else {
+            this.setState({
+              errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+              isLoading: false
+            });
+          }
+        });
+    }
+
     editPost = () => {
         this.props.history.push({
             pathname: '/create-post',
@@ -206,14 +239,19 @@ export default class PostDetailsPage extends Component {
                                 </Label>
 
                                 {
-                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
                                     <Button negative onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
                                       marginRight: '30px', marginTop: '10px' }}>Delete</Button>
                                 }
                                 {
-                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
                                     <Button primary onClick={this.editPost} style={{ marginBottom: "10px", float: 'right',
                                       marginRight: '30px', marginTop: '10px' }}>Edit</Button>
+                                }
+                                {
+                                    isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'ACCEPTED' &&
+                                    <Button primary onClick={this.closePost} style={{ marginBottom: "10px", float: 'right',
+                                      marginRight: '30px', marginTop: '10px' }}>Close</Button>
                                 }
 
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
@@ -291,7 +329,7 @@ export default class PostDetailsPage extends Component {
                                     comments={this.state.comments} addComment={this.addComment}
                                     addReply={this.addReply} budget={this.state.post.budget}
                                     addOffer={this.addOffer} acceptOffer={this.acceptOffer}
-                                    acceptedComment={this.state.post.status === 'ACCEPTED' ? this.state.post.chosen_offer : -1 }
+                                    acceptedComment={this.state.post.status !== 'OPEN' ? this.state.post.chosen_offer : -1 }
                                 />
                             </Segment>
                         </Segment.Group>

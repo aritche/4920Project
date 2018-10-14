@@ -102,13 +102,23 @@ export default class Comments extends Component {
                     </Comment.Author>
                       :
                     comment.is_offer ?
-                      <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
-                        <Label style={{color: '#22AABB'}} horizontal>
-                          OFFER
-                        </Label>
-                        { comment.poster_details.first_name + ' ' +
-                        comment.poster_details.last_name + ' offers $' + comment.offer_amount }
-                      </Comment.Author>
+                      (comment.is_stale ?
+                        <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
+                          <Label style={{color: '#22AABB'}} horizontal>
+                            OLD OFFER
+                          </Label>
+                          { comment.poster_details.first_name + ' ' +
+                          comment.poster_details.last_name + ' offers $' + comment.offer_amount }
+                        </Comment.Author>
+                      :
+                        <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
+                          <Label style={{color: '#22AABB'}} horizontal>
+                            OFFER
+                          </Label>
+                          { comment.poster_details.first_name + ' ' +
+                          comment.poster_details.last_name + ' offers $' + comment.offer_amount }
+                        </Comment.Author>
+                      )
                       :
                       <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                         { comment.poster_details.first_name + ' ' + comment.poster_details.last_name }
@@ -121,7 +131,7 @@ export default class Comments extends Component {
                   <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>
                     { isLoggedIn() && <Comment.Action onClick={() => { this.startReply(comment.id) }}>Reply</Comment.Action> }
-                    { this.props.acceptedComment === -1 && comment.is_offer && this.props.isPostCreator &&
+                    { this.props.acceptedComment === -1 && comment.is_offer && this.props.isPostCreator && !comment.is_stale &&
                       <Button positive size='tiny' icon='check' content='Accept' onClick={() => this.acceptOffer(comment.id)} />
                     }
 

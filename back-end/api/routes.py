@@ -8,7 +8,7 @@ from api.user import (
 )
 from api.move import (
     create_new_move, get_move_details, search_moves, delete_move_details,
-    mark_move_as_accepted
+    mark_move_as_accepted, close_move
 )
 
 
@@ -59,3 +59,7 @@ def accept_offer():
 @base.route('/edit-account', methods=['POST'])
 def edit_account():
     return update_user(request.json)
+
+@base.route('/close-post', methods=['POST'])
+def close_post():
+    return close_move(request.json)

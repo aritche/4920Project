@@ -35,6 +35,10 @@ def decorate_update(update):
         update['event'] = 'made an offer on your post'
     elif update['update_type'] == 'accepted':
         update['event'] = ' has accepted your offer'
+    elif update['update_type'] == 'close_movee':
+        update['event'] = ' have marked your move as closed'
+    elif update['update_type'] == 'close_removalist':
+        update['event'] = ' has marked your move as closed'
     else:
         update['event'] = update['update_type']
     update['update_time_string'] = update['update_time'].strftime('%-I:%M %p on %d %B, %Y')

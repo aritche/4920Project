@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Feed, Image} from 'semantic-ui-react'
+import { getLoggedInUser } from '../../Authentication';
 
 export default class SingleFeed extends Component {
   render() {
@@ -11,7 +12,10 @@ export default class SingleFeed extends Component {
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
-              <Feed.User onClick={() => {this.props.history.push('/profile/' + this.props.userId)}}>{this.props.name}</Feed.User> {this.props.event}
+              { getLoggedInUser() === this.props.userId ? ' You' :
+              <Feed.User onClick={() => {this.props.history.push('/profile/' + this.props.userId)}}>{this.props.name}</Feed.User>
+              }
+              {' ' + this.props.event}
               <Feed.Date>{this.props.dateTime}</Feed.Date>
             </Feed.Summary>
             <Feed.Extra text>
