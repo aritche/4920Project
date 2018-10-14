@@ -23,7 +23,8 @@ export default class FilterBar extends Component {
             query: '',
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
-            upperDate: moment()
+            upperDate: moment(),
+            sortBy: moment()
         }
     }
 
@@ -54,7 +55,8 @@ export default class FilterBar extends Component {
     }
 
     onSortByChange = (e) => {
-        alert('changed sort order')
+        this.setState({ sortBy: e });
+        this.props.handleChange('sortBy', e);
     };
 
     render() {
