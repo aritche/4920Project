@@ -89,8 +89,6 @@ def create_new_move(json):
     db.session.add(move)
     db.session.commit()
 
-    print(move.to_dict())
-
     # create items
     for item in json['items']:
         new_item = Item(
@@ -258,7 +256,6 @@ def search_moves(json):
         move_query = move_query.filter(MoveDetails.status == json['status'])
 
     if 'lowerBudget' in json and json['lowerBudget'].isdigit() and json['lowerBudget'] != -1:
-        print(map(MoveDetails.to_dict, move_query.all()))
         move_query = move_query.filter(MoveDetails.budget >= int(json['lowerBudget']))
 
     if 'upperBudget' in json and json['upperBudget'].isdigit() and json['upperBudget'] != -1:
@@ -299,9 +296,6 @@ def decorate_move(move):
 
     movee = db.session.query(User).filter(User.id == move['movee_id']).first()
     move['movee'] = movee.to_dict()
-
-    print(move['closing_datetime1'].time())
-    print(move['closing_datetime2'].time())
 
     if move['closing_datetime1'].strftime('%-I:%M %p') == move['closing_datetime2'].strftime('%-I:%M %p'):
         move['date_string'] = move['closing_datetime2'].strftime('%-I:%M %p on %d %B %Y')
