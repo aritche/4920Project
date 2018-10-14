@@ -23,6 +23,7 @@ export default class CreatePostForm extends Component {
         const post = props.location.state && props.location.state.post ? props.location.state.post : undefined;
         this.state = post ?
         {
+            editing: true,
             postId: post.id,
             title: post.title,
             fromAddrL1: post.address_from.line1,
@@ -48,6 +49,7 @@ export default class CreatePostForm extends Component {
             activeT2: false
         }
         : {
+            editing: false,
             postId: -1,
             title: '',
             fromAddrL1: '',
@@ -72,7 +74,6 @@ export default class CreatePostForm extends Component {
             activeT1: false,
             activeT2: false
         }
-        console.log(post)
     }
 
     itemTableAdd = (name, weight, volume, desc, amount) => {
@@ -318,7 +319,7 @@ export default class CreatePostForm extends Component {
                   </Form.Field>
 
                   <div style={{display: 'flex'}}>
-                    <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}} primary type='submit' onClick={this.createPost}>Post</Button>
+                    <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}} primary type='submit' onClick={this.createPost}>{this.state.editing ? 'Edit' : 'Post'}</Button>
                     <span style={{width: 3}}/>
                     <Button style={{width: 100, height: 40, backgroundColor: '#193446', color: 'white'}} negative as={Link} to={'/posts'}>Discard</Button>
                   </div>
