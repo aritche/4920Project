@@ -3,6 +3,7 @@ import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message }
 import { isLoggedIn, getLoggedInUser } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
+import ConfirmationModal from '../../widgets/ConfirmationModal';
 
 
 export default class PostDetailsPage extends Component {
@@ -240,25 +241,29 @@ export default class PostDetailsPage extends Component {
 
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
-                                    <Button negative onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
-                                      marginRight: '30px', marginTop: '10px' }}>Delete</Button>
+                                    <ConfirmationModal
+                                      buttonText='Delete'
+                                      buttonStyle={{ marginBottom: "10px", float: 'right', marginRight: '30px', marginTop: '10px' }}
+                                      headerText='Are you sure you want to delete this post?'
+                                      onConfirm={this.deletePost}
+                                    />
                                 }
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
                                     <Button primary onClick={this.editPost} style={{ marginBottom: "10px", float: 'right',
-                                      marginRight: '30px', marginTop: '10px' }}>Edit</Button>
+                                      marginRight: '20px', marginTop: '10px' }}>Edit</Button>
                                 }
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'ACCEPTED' &&
                                     <Button primary onClick={this.closePost} style={{ marginBottom: "10px", float: 'right',
-                                      marginRight: '30px', marginTop: '10px' }}>Close</Button>
+                                      marginRight: '20px', marginTop: '10px' }}>Close</Button>
                                 }
 
                                 <p className="heading-subtitle" style={{ fontSize: "14px", fontWeight: "normal",
-                                  color: 'white'}} onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} ><span className="user-link">By { this.state.post.movee.first_name + ' ' +
-                                this.state.post.movee.last_name }</span> <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
-                                                                       src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
-                                                                       alt="Default Profile"/></p>
+                                  color: 'white'}} >By <span onClick={() => {this.props.history.push('/profile/' + this.state.post.movee.id);}} className="user-link">{ this.state.post.movee.first_name + ' ' +
+                                this.state.post.movee.last_name } <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
+                                src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
+                                alt="Default Profile"/></span></p>
                             </Header>
                             <Segment>
                               <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
