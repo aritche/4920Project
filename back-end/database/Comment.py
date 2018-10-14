@@ -12,6 +12,7 @@ class Comment(db.Model):
     text = db.Column(db.String(500), nullable=False)
 
     is_offer = db.Column(db.Boolean, nullable=False)
+    is_stale = db.Column(db.Boolean, default=False, nullable=False)
     offer_amount = db.Column(db.Integer)
 
     parent_comment = db.Column(db.Integer, ForeignKey('comment.id'))
@@ -26,5 +27,6 @@ class Comment(db.Model):
             'creation_datetime': self.creation_datetime,
             'text': self.text,
             'is_offer': self.is_offer,
+            'is_stale': self.is_stale,
             'offer_amount': self.offer_amount if self.offer_amount else 0
         }
