@@ -4,7 +4,7 @@ from database.model import db
 from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Review import Review
-from sqlalchemy import and_, not_
+from sqlalchemy import and_, not_, func
 
 def insert_new_review_for_movee(json):
     if (
@@ -17,6 +17,8 @@ def insert_new_review_for_movee(json):
         or (not 'review' in json)
     ):
         abort(400, 'Not all fields were received.')
+
+    # Validate Job is closed
 
     # Validate Poster and Reviewed User are both in database
     if json['poster'] == json['reviewedUser']:
@@ -74,6 +76,8 @@ def insert_new_review_for_removalist(json):
         or (not 'review' in json)
     ):
         abort(400, 'Not all fields were received.')
+
+    # Validate Job is closed
 
     # Validate Poster and Reviewed User are both in database
     if json['poster'] == json['reviewedUser']:
@@ -142,22 +146,35 @@ def remove_review(json):
 
         return resp
 
-def get_average_rating(id):
+def update_average_rating(id, rating_to_update):
     # query_result = db.session.query(User).filter(User.id == json['id']).first()
     user_type = db.session.select([User.user_type]).where(User.id == id)
-    print(user_type)
-    print(type(user_type))
-    
+    # print(user_type)
+    # print(type(user_type))
+    # average_rating = 0
+    # list_of_ratings = []
+    average = 0
+
     if user_type == "Movee":
-        list_of_ratings = db.session.query([Review.rating]).filter(Review.reviewedUser == id).all()
-        sum_of_ratings = 0
-        for item in list_of_ratings:
-            sum_of_ratings += item
-        average_rating = sum_of_ratings/len(list_of_ratings)
+        # list_of_ratings = db.session.query([Review.rating_general]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+        average = db.session.query(func.avg(Review.rating_general)).filter(not_(Rating.deleted))
     elif user_type == "Removalist":
-        pass
-   
-    return average_rating
+        if rating_to_update == "rating_speed":
+            average = db.session.query(func.avg(Review.rating_speed)).filter(not_(Rating.deleted))
+            # list_of_ratings = db.session.query([Review.rating_speed]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+        elif rating_to_update == "rating_service":
+            average = db.session.query(func.avg(Review.rating_service)).filter(not_(Rating.deleted))
+            # list_of_ratings = db.session.query([Review.rating_service]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+        elif rating_to_update == "rating_reliability":
+            # list_of_ratings = db.session.query([Review.rating_reliability]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+            average = db.session.query(func.avg(Review.rating_reliability)).filter(not_(Rating.deleted))
+
+    # sum_of_ratings = 0
+    # for item in list_of_ratings:
+    #     sum_of_ratings += item
+    # average_rating = sum_of_ratings/len(list_of_ratings)
+
+    return average
 
 
 
