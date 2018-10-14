@@ -204,7 +204,7 @@ export default class PostDetailsPage extends Component {
                                 <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
                                     { this.state.post.status }
                                 </Label>
-                                
+
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status !== 'ACCEPTED' &&
                                     <Button negative onClick={this.deletePost} style={{ marginBottom: "10px", float: 'right',
@@ -225,7 +225,7 @@ export default class PostDetailsPage extends Component {
                             <Segment>
                               <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
                               <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Budget:</b> { '$' + this.state.post.budget } </p>
-                              <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Date:</b> { this.state.post.closing_datetime1 } </p>
+                              <p style={{ fontSize: "14px", fontWeight: "normal" }}> <b>Date:</b> { this.state.post.date_string } </p>
                             </Segment>
                             <Segment style={{backgroundColor: 'white'}}>
                                 <Step.Group widths={2}>

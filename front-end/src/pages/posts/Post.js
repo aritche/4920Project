@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Item, Grid, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import moment from "moment";
+
 import './Post.css';
 
 export default class Post extends Component {
@@ -37,7 +39,7 @@ export default class Post extends Component {
                                 [Stars go here]
                             </Grid.Column>
                             <Grid.Column width={3} >
-                                {post.closing_datetime1}
+                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h a')}
                             </Grid.Column>
                         </Grid>
                     </Item.Description>

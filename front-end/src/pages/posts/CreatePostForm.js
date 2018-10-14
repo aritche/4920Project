@@ -21,7 +21,7 @@ export default class CreatePostForm extends Component {
     constructor(props) {
         super(props);
         const post = props.location.state && props.location.state.post ? props.location.state.post : undefined;
-        this.state = post ? 
+        this.state = post ?
         {
             postId: post.id,
             title: post.title,
@@ -35,9 +35,9 @@ export default class CreatePostForm extends Component {
             toCity: post.address_to.city,
             toState: post.address_to.state,
             toPostCo: post.address_to.postcode,
-            date: moment(post.closing_datetime1),
-            time1: moment(post.closing_datetime1),
-            time2: moment(post.closing_datetime2),
+            date: moment(post.closing_datetime1).utcOffset(0),
+            time1: moment(post.closing_datetime1).utcOffset(0),
+            time2: moment(post.closing_datetime2).utcOffset(0),
             budget: post.budget,
             itemTable: props.location.state.items,
             desc: post.description,
@@ -78,7 +78,7 @@ export default class CreatePostForm extends Component {
     itemTableAdd = (name, weight, volume, desc, amount) => {
         let items = this.state.itemTable;
         if (!items.find(i => i.name === name )) {
-            items.push({name: name, weight: weight, volume: volume, desc: desc, amount: amount});
+            items.push({name: name, weight: weight, volume: volume, description: desc, amount: amount});
             this.setState({itemTable: items});
         }
     };

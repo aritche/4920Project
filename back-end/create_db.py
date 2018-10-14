@@ -90,6 +90,8 @@ with app.app_context():
     db.session.add(to_address)
     db.session.commit()
 
+    now = datetime.now()
+
     move1 = MoveDetails(
         movee_id = js.id,
         title = 'Example Post',
@@ -98,7 +100,8 @@ with app.app_context():
         description = 'This is an example post. This description is just a placeholder description, but this is how movees will make a first impression with removealists.',
         budget = 400,
         status = 'OPEN',
-        creation_datetime = datetime.now(),
+        creation_datetime = now,
+        last_updated = now,
         address_from = from_address.id,
         address_to = to_address.id,
         deleted = False

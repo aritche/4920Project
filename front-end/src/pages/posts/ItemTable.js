@@ -29,7 +29,7 @@ export default class ItemTable extends Component{
                     <Table.Cell> {item.weight} </Table.Cell>
                     <Table.Cell> {item.volume} </Table.Cell>
                     <Table.Cell> {item.amount} </Table.Cell>
-                    <Table.Cell> {item.desc} </Table.Cell>
+                    <Table.Cell> {item.description} </Table.Cell>
                     <Table.Cell>
                       <Button style={{backgroundColor: 'transparent'}} onClick={() => { this.props.deleteItem(item.name) }}>
                         <Icon size='large' name={'close'}/>
