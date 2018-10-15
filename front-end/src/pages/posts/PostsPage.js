@@ -95,7 +95,7 @@ export default class PostsPage extends Component {
                     />
                     <Segment secondary>
                         { this.state.isLoading ?
-                            <Loader active />
+                            <Loader style={{zIndex: 0}} active />
                         :
                             <PaginatedPostList posts={this.state.posts} defaultActivePage={1} postsPerPage={5} />
                         }
