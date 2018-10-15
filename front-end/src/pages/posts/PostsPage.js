@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PostList from './PostList';
+import PaginatedPostList from './PaginatedPostList';
 import FilterBar from './FilterBar';
-import { Container, Segment } from 'semantic-ui-react';
+import { Container, Segment, Loader } from 'semantic-ui-react';
 import { url } from '../../Api';
 
 export default class PostsPage extends Component {
@@ -20,6 +20,7 @@ export default class PostsPage extends Component {
     }
 
     componentDidMount() {
+        this.setState({ isLoading: true });
         fetch(url + 'search-posts', {
             method: 'POST',
             headers: {
@@ -31,7 +32,8 @@ export default class PostsPage extends Component {
             if (response.status === 200) {
                 response.json().then(obj => {
                     this.setState({
-                        posts: obj.moves
+                        posts: obj.moves,
+                        isLoading: false
                     });
                 });
             } else {
@@ -51,6 +53,7 @@ export default class PostsPage extends Component {
     }
 
     reloadPosts() {
+        this.setState({ isLoading: true });
         fetch(url + 'search-posts', {
             method: 'POST',
             headers: {
@@ -69,7 +72,8 @@ export default class PostsPage extends Component {
             if (response.status === 200) {
                 response.json().then(obj => {
                     this.setState({
-                        posts: obj.moves
+                        posts: obj.moves,
+                        isLoading: false
                     });
                 });
             } else {
@@ -90,7 +94,11 @@ export default class PostsPage extends Component {
                         handleChange={this.handleFilterChange.bind(this)}
                     />
                     <Segment secondary>
-                        <PostList posts={this.state.posts} />
+                        { this.state.isLoading ?
+                            <Loader active />
+                        :
+                            <PaginatedPostList posts={this.state.posts} defaultActivePage={1} postsPerPage={5} />
+                        }
                     </Segment>
                 </Segment.Group>
             </Container>

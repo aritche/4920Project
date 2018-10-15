@@ -45,3 +45,8 @@
 .user-link:hover {
     color: #4183c4;
 }
+
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
