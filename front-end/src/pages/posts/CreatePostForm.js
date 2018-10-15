@@ -9,7 +9,7 @@ import ItemTable from './ItemTable'
 import { BUDGET } from '../../constants';
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
-import { validBudget } from '../../utils/ValidationUtils';
+import {emptyString, validBudget} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 // import Comments from './Comments'
 
@@ -46,7 +46,8 @@ export default class CreatePostForm extends Component {
             errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
             activeDate: false,
             activeT1: false,
-            activeT2: false
+            activeT2: false,
+            errT: false,
         }
         : {
             editing: false,
@@ -144,6 +145,10 @@ export default class CreatePostForm extends Component {
         this.setState({activeT2: false});
     };
 
+    onErrorClose = () => {
+        this.setState({errorT: false});
+    };
+
     onBudgetChange = (value) => {
         if (value === '') {
             value = 0;
@@ -155,7 +160,13 @@ export default class CreatePostForm extends Component {
 
     createPost = () => {
         // form validation here (e.g. check title is not empty)
-
+        let validation = [this.state.title, this.state.fromAddrL1, this.state.fromCity, this.state.fromState,
+          this.state.fromPostCo, this.state.toAddrL1, this.state.toCity, this.state.toState, this.state.toPostCo,
+          this.state.desc];
+        if (validation.includes(" ") || this.state.itemTable.length === 0 || validation.includes("")) {
+            this.setState({errorT: true});
+            return;
+        }
         // connect to back-end
         fetch(url + 'create-post', {
             method: 'POST',
@@ -224,12 +235,11 @@ export default class CreatePostForm extends Component {
               <Form size={'large'} style={{paddingBottom: 80}}>
 
               <Segment>
-                {/*<ProcessStep/>*/}
-
                   <Form.Field>
                     <Header content={'Post Title'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
                     <Form.Input
+                      error={this.state.title === undefined || emptyString(this.state.title)}
                       name='title'
                       style={{width: 250}} fluid
                       placeholder='Post Title'
@@ -314,14 +324,17 @@ export default class CreatePostForm extends Component {
                     <Header content={'Post Description'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <TextArea autoHeight name='desc' placeholder={'Description'} onChange={this.onChange} value={this.state.desc}/>
+                    <Form.TextArea autoHeight error={emptyString(this.state.desc)} name='desc'
+                              placeholder={'Description'} onChange={this.onChange} value={this.state.desc}/>
 
                   </Form.Field>
 
                   <div style={{display: 'flex'}}>
-                    <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}} primary type='submit' onClick={this.createPost}>{this.state.editing ? 'Edit' : 'Post'}</Button>
+                    <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}}
+                            type='submit' onClick={this.createPost}>{this.state.editing ? 'Edit' : 'Post'}</Button>
                     <span style={{width: 3}}/>
-                    <Button style={{width: 100, height: 40, backgroundColor: '#193446', color: 'white'}} negative as={Link} to={'/posts'}>Discard</Button>
+                    <Button style={{width: 100, height: 40, backgroundColor: '#193446', color: 'white'}}
+                            as={Link} to={'/posts'}>Discard</Button>
                   </div>
 
                   <ErrorInputModal
@@ -342,9 +355,18 @@ export default class CreatePostForm extends Component {
                     onClose={this.onTime2PopClose}
                   />
 
-                  {/*<Comments comments={[{name: "miao", date: "miao",
-                    content: "miao"}]}
-                  subComments={[{name: "miao", date: "miao", content: "miao"}]}/> */}
+                  <ErrorInputModal
+                    pop={this.state.activeT2}
+                    headerText={'The to time must be before the from time'}
+                    onClose={this.onTime2PopClose}
+                  />
+
+                  <ErrorInputModal
+                    pop={this.state.errorT}
+                    headerText={'Please fill all the necessary field'}
+                    onClose={this.onErrorClose}
+                  />
+
                 </Segment>
               </Form>
         </Container>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import {emptyString} from "../../utils/ValidationUtils";
 
 const searchOptions = {
   types: ['address'],
@@ -122,7 +123,8 @@ export default class SearchBar extends React.Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <div>
-                <Input
+                <Form.Input
+                  error={this.props.addrL1.length <= 0|| emptyString(this.props.addr1)}
                   name={this.props.ident + 'AddrL1'} icon='building'
                   iconPosition={'left'} style={{width: 400}}
                        {...getInputProps({
@@ -152,7 +154,7 @@ export default class SearchBar extends React.Component {
                   })}
                 </div>
                 <br/>
-                <Input
+                <Form.Input
                   name={this.props.ident + 'AddrL2'}
                   icon='building' iconPosition='left'
                   style={{width: 400}} fluid placeholder='Unit/Room Number'
@@ -160,7 +162,8 @@ export default class SearchBar extends React.Component {
                 />
                 <br/>
                 <div style={{display: 'flex'}} >
-                  <Input
+                  <Form.Input
+                    error={emptyString(this.props.city)}
                     value={this.props.city}
                     style={{width: 160}}
                     fluid
@@ -168,7 +171,8 @@ export default class SearchBar extends React.Component {
                     onChange={this.onCityChange}
                   />
                   <span style={{width: 20}}/>
-                  <Input
+                  <Form.Input
+                    error={emptyString(this.props.state)}
                     value={this.props.state}
                     style={{width: 80}}
                     fluid
@@ -176,7 +180,8 @@ export default class SearchBar extends React.Component {
                     onChange={this.onStateChange}
                   />
                   <span style={{width: 20}}/>
-                  <Input
+                  <Form.Input
+                    error={emptyString(this.props.postCode)}
                     value={this.props.postCode}
                     style={{width: 120}}
                     fluid

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon, Table } from 'semantic-ui-react';
+import {Button, Icon, Message, Table} from 'semantic-ui-react';
 import ItemForm from './ItemForm'
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 
@@ -10,6 +10,13 @@ export default class ItemTable extends Component{
     render(){
         return (
           <div>
+            {this.props.table.length === 0
+            ?
+            <Message>
+              <Message.Header>No item to view</Message.Header>
+              <p>Add an item now!</p>
+            </Message>
+            :
             <Table basic='very'>
               <Table.Header>
                 <Table.Row>
@@ -39,7 +46,7 @@ export default class ItemTable extends Component{
                 ))}
               </Table.Body>
             </Table>
-
+            }
             <div>
               <ItemForm
                 addItem={this.props.addItem}

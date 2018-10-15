@@ -72,8 +72,9 @@ export default class FilterBar extends Component {
                         </Dropdown.Menu>
                     </Dropdown> */}
                     {/* <span style={{width: 10}}/> */}
-                    <Dropdown text='Budget Range' style={{maxHeight: 38, minHeight: 38}}
-                            button simple>
+                    <Dropdown text='Budget Range'
+                              style={{maxHeight: 38, minHeight: 38, backgroundColor: 'white', color: 'black'}}
+                              button simple>
                         <Dropdown.Menu
                           style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 10, paddingTop: 10,
                             width: "185%", maxHeight: 65, minHeight: 65}}>
@@ -91,8 +92,9 @@ export default class FilterBar extends Component {
                         </Dropdown.Menu>
                     </Dropdown>
                     <span style={{width: 10}}/>
-                    <Dropdown text='Time Range' style={{maxHeight: 38, minHeight: 38}}
-                            button simple>
+                    <Dropdown text='Time Range'
+                              style={{maxHeight: 38, minHeight: 38, backgroundColor: 'white', color: 'black'}}
+                              button simple>
                         <Dropdown.Menu
                           style={{paddingLeft: 25, paddingRight: 25, paddingBottom: 10, paddingTop: 10, width: "320%",
                             maxHeight: 65, minHeight: 65}}>
