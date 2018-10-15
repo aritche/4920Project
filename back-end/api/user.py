@@ -39,6 +39,8 @@ def decorate_update(update):
         update['event'] = ' have marked your move as closed'
     elif update['update_type'] == 'close_removalist':
         update['event'] = ' has marked your move as closed'
+    elif update['update_type'] == 'comment_reply':
+        update['event'] = ' has replied to your comment'
     else:
         update['event'] = update['update_type']
     update['update_time_string'] = update['update_time'].strftime('%-I:%M %p on %d %B, %Y')

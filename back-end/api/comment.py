@@ -50,7 +50,20 @@ def add_comment(json):
 
     db.session.commit()
 
-    if post_query.movee_id != user_query.id:
+    if 'parentCommentId' in json:
+        update = Update(
+            update_type = 'comment_reply',
+            updated_movee_id = comment_query.poster,
+            concerning_movee_id = user_query.id,
+            description = json['commentText'],
+            move_id = post_query.id,
+            update_time = datetime.now()
+        )
+
+        db.session.add(update)
+        db.session.commit()
+
+    if post_query.movee_id != user_query.id and not 'parentCommentId' in json:
         update = Update(
             update_type = 'comment',
             updated_movee_id = post_query.movee_id,
