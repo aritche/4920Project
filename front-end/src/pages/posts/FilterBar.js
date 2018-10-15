@@ -85,7 +85,7 @@ export default class FilterBar extends Component {
                               style={{maxHeight: 38, minHeight: 38, backgroundColor: 'white', color: 'black'}}
                               button simple>
                         <Dropdown.Menu
-                          style={{paddingLeft: 25, paddingRight: 25, paddingBottom: 10, paddingTop: 10, width: "320%",
+                          style={{paddingLeft: 25, paddingRight: 25, paddingBottom: 10, paddingTop: 10, width: "500px",
                             maxHeight: 65, minHeight: 65}}>
                           <Form>
                               <Form.Group widths='equal'>
