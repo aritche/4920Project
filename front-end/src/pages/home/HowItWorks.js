@@ -40,13 +40,21 @@ export default class HowItWorks extends Component {
     render() {
         return (
             <Segment attached secondary style={{borderRadius: '0', paddingTop: '30px',paddingBottom:'30px'}}>
-                <Header align='middle' as='h1'>Connecting Movees and Removalists</Header>
-                <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
-                    <strong>Having trouble moving things on your own? Have a large vehicle that could help others move?
-                    uMove is the place for you! We strive to connect movees and removalists to make the moving process as
-                    simple as possible.</strong>
-                </Container>
-                <ProcessStep/>
+                <Grid centered>
+                    <Grid.Row>
+                        <Header align='middle' as='h1'>Connecting Movees and Removalists</Header>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
+                            <strong>Having trouble moving things on your own? Have a large vehicle that could help others move?
+                            uMove is the place for you! We strive to connect movees and removalists to make the moving process as
+                            simple as possible.</strong>
+                        </Container>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <ProcessStep/>
+                    </Grid.Row>
+                </Grid>
             </Segment>
         )
     }
