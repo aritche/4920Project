@@ -64,8 +64,6 @@ export default class ItemForm extends Component {
     };
 
     onSubmit = () => {
-        //TODO: validation that fields are not empty
-        // Make sure name is unique
         if (!this.validation()) {
             const { name, weight, volume, desc, amount } = this.state;
             this.props.addItem(name, weight, volume, desc, amount);

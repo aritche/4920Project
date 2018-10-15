@@ -60,18 +60,7 @@ export default class FilterBar extends Component {
     render() {
         return (
             <Segment style={{paddingTop: 10, paddingBottom: 10, backgroundColor: "#193446"}}>
-              {/*<Header as='h2' style={{color: 'white'}}>
-                <Icon name='file alternate' style={{color: 'white'}}/>
-                Posts
-              </Header>*/}
                 <Menu secondary>
-                    {/* <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
-                              floating button simple>
-                        <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
-                            <Input name='postcode' onChange={this.onFilterChange} size='tiny' />
-                        </Dropdown.Menu>
-                    </Dropdown> */}
-                    {/* <span style={{width: 10}}/> */}
                     <Dropdown text='Budget Range'
                               style={{maxHeight: 38, minHeight: 38, backgroundColor: 'white', color: 'black'}}
                               button simple>
