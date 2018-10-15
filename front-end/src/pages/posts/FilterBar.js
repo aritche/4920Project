@@ -7,12 +7,11 @@ import moment from 'moment';
 
 
 const sortByOptions = [
-    { key: 1, text: 'Most Recent', value: 1},
-    { key: 2, text: 'Price (Low to High)', value: 2},
-    { key: 3, text: 'Price (High to Low)', value: 3},
-    { key: 4, text: 'Date (Early to Late)', value: 4},
-    { key: 5, text: 'Date (Late to Early)', value: 5},
-    { key: 6, text: 'Closest', value: 6},
+    {text: 'Most Recent', value: 'mostRecent'},
+    {text: 'Oldest', value: 'oldest'},
+    {text: 'Closest', value: 'closest'},
+    {text: 'Price (Low to High)', value: 'priceLowToHigh'},
+    {text: 'Price (High to Low)', value: 'priceHighToLow'},
 ];
 
 export default class FilterBar extends Component {
@@ -24,7 +23,6 @@ export default class FilterBar extends Component {
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
             upperDate: moment(),
-            sortBy: moment()
         }
     }
 
@@ -54,9 +52,8 @@ export default class FilterBar extends Component {
         this.props.handleChange('upperDate', date);
     }
 
-    onSortByChange = (e) => {
-        this.setState({ sortBy: e });
-        this.props.handleChange('sortBy', e);
+    onSortByChange = (e, data) => {
+        this.props.handleChange('sortBy', data.value);
     };
 
     render() {
