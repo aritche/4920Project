@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PaginatedPostList from './PaginatedPostList';
 import FilterBar from './FilterBar';
-import { Container, Segment } from 'semantic-ui-react';
+import { Container, Segment, Loader } from 'semantic-ui-react';
 import { url } from '../../Api';
 
 export default class PostsPage extends Component {
@@ -92,7 +92,9 @@ export default class PostsPage extends Component {
                         handleChange={this.handleFilterChange.bind(this)}
                     />
                     <Segment secondary>
-                        { !this.state.isLoading &&
+                        { this.state.isLoading ?
+                            <Loader active />
+                        :
                             <PaginatedPostList posts={this.state.posts} defaultActivePage={1} postsPerPage={5} />
                         }
                     </Segment>
