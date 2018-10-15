@@ -128,7 +128,7 @@ export default class Account extends Component {
       console.log(this.state.user);
         return (
           <Container>
-            <div style={{paddingBottom: 80}}>
+            <div style={{paddingBottom: 80, minHeight: '100vh'}}>
               <Segment.Group stacked style={{boxShadow: '2px 2px 2px #000000'}}>
                 <Segment style={{backgroundColor: "#193446"}}>
                   <Top

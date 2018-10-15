@@ -230,7 +230,7 @@ export default class CreatePostForm extends Component {
 
     render() {
         return (
-        <Container>
+        <Container style={{minHeight: '100vh'}}>
 
               <Form size={'large'} style={{paddingBottom: 80}}>
 

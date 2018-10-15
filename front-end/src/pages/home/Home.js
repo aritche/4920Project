@@ -7,7 +7,7 @@ import { Container } from 'semantic-ui-react';
 export default class HomePage extends Component {
     render() {
         return (
-            <Container style={{boxShadow: '0px 2px 10px #000000'}}>
+            <Container style={{boxShadow: '0px 2px 10px #000000', minHeight: '100vh'}}>
                 <CreateHome history={this.props.history}/>
                 <HowItWorks />
                 <RecentMoves />
