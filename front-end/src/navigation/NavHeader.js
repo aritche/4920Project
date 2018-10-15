@@ -81,38 +81,22 @@ export default class NavHeader extends Component {
                             style={{boxShadow: '2px 3px 2px #000000'}}
                             trigger={<Image style={{width: "6%", height: '4%', marginBottom: '-1.5%',
                               marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
-                                            circular/>}
-                            content=
-                              {
-                                <UserPopup/>
-                              }
-                            on='click'
-                          />
-
-                        </Menu.Item>
-                      </Menu.Menu>
-                    :
-                      <Menu.Menu position='right'>
-                        <Menu.Item>
-                          <Popup
-                            style={{boxShadow: '2px 3px 2px #000000'}}
-                            trigger={<Image style={{width: "6%", height: '4%', marginBottom: '-1.5%',
-                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
                                             circular avatar/>}
                             content=
                               {
                                 <UserPopup
-                                userName={this.state.userName}
+                                  userName={this.state.userName}
                                 />
                               }
                             on='click'
                           />
                           <Image src={'/images/red.jpg'} circular
-                                   style={{backgroundColor:'red', position:'absolute', zIndex:2,
-                                     width: '1.6%', height: '20%', marginLeft: '95.5%', marginBottom:'1.6%'}}/>
+                                 style={{backgroundColor:'red', position:'absolute', zIndex:2,
+                                   width: '1.6%', height: '20%', marginLeft: '95.5%', marginBottom:'1.6%'}}/>
                         </Menu.Item>
-                          {/*
-                        </Menu.Item>
+                      </Menu.Menu>
+                    :
+                      <Menu.Menu position='right'>
                             <Menu.Item
                                 as={Link}
                                 to={'/login'}
@@ -124,8 +108,8 @@ export default class NavHeader extends Component {
                                 to={'/signup'}
                                 active={window.location.pathname === '/signup'}>
                                 Sign Up
-                            </Menu.Item> */}
-                        </Menu.Menu>
+                            </Menu.Item>
+                      </Menu.Menu>
                 }
               </Container>
             </Menu>
