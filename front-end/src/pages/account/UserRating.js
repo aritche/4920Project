@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Image, Segment, Header, Menu, Rating, Grid} from 'semantic-ui-react';
-import m1 from '../../avatar/male1.jpg';
 import Reviews from './PastReviews'
 
 
@@ -25,7 +24,7 @@ export default class UserRating extends Component {
             <Grid.Row>
               <div>
                 <Header content={'Rating'} />
-                <Rating defaultRating={this.props.reliability} maxRating={5} disabled/>
+                <Rating defaultRating={this.props.overall} maxRating={5} disabled/>
               </div>
             </Grid.Row>
             <div/>

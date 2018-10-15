@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Feed, Image, Button } from 'semantic-ui-react'
-
 import ReviewForm from './ReviewForm';
 import { getLoggedInUser } from '../../Authentication';
 

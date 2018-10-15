@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Divider, Header, Segment} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
 import Rating from "./UserRating"
-import ReviewForm from './ReviewForm'
+import {Message} from "semantic-ui-react/dist/commonjs/collections/Message/Message";
 
 /**
  * Title: Account Dashboard
@@ -47,11 +47,23 @@ export default class Profile extends Component {
               <Divider/>
             </Segment>
             <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-            <Rating
+            {this.props.overall === 0
+              ?
+              <Message>
+                <Message.Header>There is no rating yet</Message.Header>
+                <p>There is no rating at the moment.</p>
+              </Message>
+              :
+              <Rating
               avatar={this.props.avatar}
               isMovee={this.props.identity === 'Movee'}
+              overall={this.props.overall}
+              service={this.props.service}
+              reliability={this.props.reliability}
+              speed={this.props.speed}
               reviews={this.props.reviews}
-            />
+              />
+            }
           </div>
           <br/>
           <ConfirmationModal

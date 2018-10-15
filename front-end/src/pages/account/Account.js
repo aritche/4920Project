@@ -25,7 +25,9 @@ export default class Account extends Component {
             description: '',
             posts: [],
             reviews: [],
-            joined_in: ''
+            joined_in: '',
+            rating: {overall: 3},
+            identity: 'Movee'
           },
           updates: [],
           postList: [],
@@ -144,12 +146,14 @@ export default class Account extends Component {
                   />
                 </Segment>
                 <Segment style={{backgroundColor: 'white'}}>
-                  { this.state.switchPage ?
+                  { this.state.switchPage
+                    ?
                     <Dashboard
                       history={this.props.history}
                       post={this.state.user.posts}
                       updates={this.state.updates}
-                    /> :
+                    />
+                    :
                     <Profile
                       avatar={this.state.user.avatar}
                       firstName={this.state.user.first_name}
@@ -158,6 +162,10 @@ export default class Account extends Component {
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       identity={this.state.user.identity}
+                      overall={this.state.user.rating.overall}
+                      service={this.state.user.rating.service}
+                      reliability={this.state.user.rating.reliability}
+                      speed={this.state.user.rating.speed}
                       reviews={[]}
                       delete={this.deleteAccount}
                     />

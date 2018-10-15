@@ -82,8 +82,8 @@ export default class PostsPage extends Component {
 
     render() {
         return (
-            <Container style={{minHeight: 480, minHeight: '96vh'}}>
-                <Segment.Group style={{boxShadow: '2px 2px 2px #000000'}}>
+            <Container style={{minHeight: '96vh'}}>
+                <Segment.Group style={{boxShadow: '2px 1px 2px #000000'}}>
                     <FilterBar
                         handleChange={this.handleFilterChange.bind(this)}
                     />
