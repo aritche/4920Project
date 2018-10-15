@@ -18,7 +18,7 @@ export default class UserPopup extends Component {
 
           </Grid.Row>
           <Grid.Row>
-            <Header content={'Frank Wang'}/>
+            <Header content={this.props.userName ? this.props.userName : 'Account'}/>
           </Grid.Row>
           <Divider/>
           <Grid.Row>
@@ -27,9 +27,10 @@ export default class UserPopup extends Component {
               style={{backgroundColor: '#193446', color: 'white', width: 100, height: 38}}
               as={Link}
               to={'/account'}
-              active={window.location.pathname === '/account'}>
-              {'userName' in this.state ? this.state.userName : 'Account'}
-              >Dashboard</Button>
+              active={window.location.pathname === '/account'}
+            >
+              Dashboard
+            </Button>
             <Button style={{backgroundColor: '#22AABB', color: 'white', width: 100, height: 38}}
                     onClick={logout}
                     as={Link}
