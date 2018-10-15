@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {Button, Header, Table, Pagination} from 'semantic-ui-react';
-import ConfirmationModal from '../../widgets/ConfirmationModal';
+import {Button, Header, Table} from 'semantic-ui-react';
 import Page from "../../widgets/Page";
 
 /**
  * Author: VW
  */
-export default class PostTable extends Component{
+export default class PastPosts extends Component{
 
   constructor(props) {
     super(props);
@@ -45,32 +44,6 @@ export default class PostTable extends Component{
                     style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white'}}
                     onClick={this.routeToPost}
                   />
-                  {this.props.isMovee
-                  ?
-                    <div style={{display: 'flex'}}>
-                    <ConfirmationModal buttonContentHtml={
-                      [
-                        <Button.Content key='text' hidden>Close Post</Button.Content>
-                      ]
-                    }
-                       buttonSize='large'
-                       buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#22AABB' , color: 'white'}}
-                       headerText='Are you sure you want to close this post?'
-                       onConfirm={this.props.closePost}
-                    />
-                    <ConfirmationModal buttonContentHtml={
-                      [
-                        <Button.Content key='text' hidden>Delete Post</Button.Content>
-                      ]
-                    }
-                       buttonSize='large'
-                       buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#22AABB' , color: 'white'}}
-                       headerText='Are you sure you want to delete this post?'
-                       onConfirm={this.props.deletePost}
-                    />
-                    </div>
-                  :
-                   <div/>
                   }
                 </Table.Cell>
               </Table.Row>
@@ -86,7 +59,6 @@ export default class PostTable extends Component{
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
-
         </Table>
       </div>
     );

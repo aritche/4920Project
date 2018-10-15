@@ -24,6 +24,10 @@ export default class OtherTop extends Component {
                               size={'big'}/>
           </Header>
         </div>
+        <div style={{paddingLeft: "55%",  marginTop: "5%"}}>
+          <Rating size={'massive'} style={{marginBottom: '20%'}} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
+          <br/>
+        </div>
       </div>
     )
   }

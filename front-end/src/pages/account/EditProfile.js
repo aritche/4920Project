@@ -87,7 +87,8 @@ export default class EditProfile extends Component {
   };
 
   phoneValid = () => {
-    return this.state.phone !== undefined && ((this.state.phone.length >= 5 && !isZero(this.state.phone)) || this.state.phone.length === 0);
+    return this.state.phone !== undefined && ((this.state.phone.length >= 5 &&
+      !isZero(this.state.phone))) && this.state.phone.search(/[a-z]/i);
   };
 
   onFormPopClose = () => {
