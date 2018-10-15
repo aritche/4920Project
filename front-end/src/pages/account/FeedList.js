@@ -16,6 +16,8 @@ export default class FeedList extends Component {
               event={feed.event}
               detail={feed.description}
               history={this.props.history}
+              updateType={feed.update_type}
+              postId={feed.move_id}
             />
           </List.Item>
         )}

@@ -430,10 +430,12 @@ def close_move(json):
     move.status = 'CLOSED'
     db.session.commit()
 
+    chosen_removalist = db.session.query(Comment).filter(Comment.id == move.chosen_offer).first().poster
+
     update1 = Update(
         update_type = 'close_movee',
         updated_movee_id = move.movee_id,
-        concerning_movee_id = move.movee_id,
+        concerning_movee_id = chosen_removalist,
         description = '',
         move_id = move.id,
         update_time = datetime.now()
@@ -441,7 +443,7 @@ def close_move(json):
 
     update2 = Update(
         update_type = 'close_removalist',
-        updated_movee_id = db.session.query(Comment).filter(Comment.id == move.chosen_offer).first().poster,
+        updated_movee_id = chosen_removalist,
         concerning_movee_id = move.movee_id,
         description = '',
         move_id = move.id,
