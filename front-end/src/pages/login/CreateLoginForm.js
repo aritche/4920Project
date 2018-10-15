@@ -111,7 +111,7 @@ export default class CreateLoginForm extends Component {
             <Grid textAlign='center' verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 500, minHeight: '100vh'}}>
                 <Form error={this.state.submitError}>
-                  <Segment.Group  style={{boxShadow: '5px 10px 18px #000000'}}>
+                  <Segment.Group  style={{boxShadow: '2px 1px 2px #000000'}}>
                     <Segment style={{padding:7, backgroundColor: "#193446"}}>
                       <h1 style={{color:'white'}}>Log In</h1>
                     </Segment>
