@@ -139,7 +139,7 @@ export default class Account extends Component {
                     phone={this.state.user.phone_number}
                     joinedIn={this.state.user.joined_in}
                     identity={this.state.user.user_type}
-                    rating={this.state.user.rating.overall}
+                    // rating={this.state.user.rating.overall}
                     update={this.onUpdate}
                     profileUpdate={this.onProfileUpdate}
                     profile={this.onProfile}

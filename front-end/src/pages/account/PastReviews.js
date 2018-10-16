@@ -28,26 +28,26 @@ export default class PastReviews extends Component {
                   <div style={{display: 'flex'}}>
                     <Header size={'tiny'} content={'Rating'} />
                     <span style={{width: 5}}/>
-                    <Rating defaultRating={review.rating} maxRating={5} disabled/>
+                    <Rating defaultRating={this.state.review.rating} maxRating={5} disabled/>
                   </div>
                   :
                   <div style={{display: 'flex'}}>
                     <div style={{display: 'flex'}}>
                       <Header size={'tiny'} content={'Service'} />
                       <span style={{width: 5}}/>
-                      <Rating defaultRating={review.service} maxRating={5} disabled/>
+                      <Rating defaultRating={this.state.review.service} maxRating={5} disabled/>
                     </div>
                     <span style={{width: 10}}/>
                     <div style={{display: 'flex'}}>
                       <Header size={'tiny'} content={'Reliability'} />
                       <span style={{width: 5}}/>
-                      <Rating defaultRating={review.reliability} maxRating={5} disabled/>
+                      <Rating defaultRating={this.state.review.reliability} maxRating={5} disabled/>
                     </div>
                     <span style={{width: 10}}/>
                     <div style={{display: 'flex'}}>
                       <Header size={'tiny'} content={'Speed'} />
                       <span style={{width: 5}}/>
-                      <Rating defaultRating={review.speed} maxRating={5} disabled/>
+                      <Rating defaultRating={this.state.review.speed} maxRating={5} disabled/>
                     </div>
                   </div>
                 }

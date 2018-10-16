@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Segment, Menu, Dropdown, Form, Input, Header} from 'semantic-ui-react';
-import { BUDGET } from '../../constants';
+import { BUDGET, SORT } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
@@ -24,6 +24,10 @@ export default class FilterBar extends Component {
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
             upperDate: moment(),
+<<<<<<< Updated upstream
+=======
+            sortBy: SORT.DEFAULT
+>>>>>>> Stashed changes
         }
     }
 
@@ -44,6 +48,7 @@ export default class FilterBar extends Component {
     };
 
     onlowerDateChange(date) {
+        console.log(date)
         this.setState({ lowerDate: date });
         this.props.handleChange('lowerDate', date);
     }

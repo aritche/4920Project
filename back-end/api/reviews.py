@@ -147,9 +147,38 @@ def remove_review(json):
 
         return resp
 
-def update_average_rating(id, rating_to_update):
-    # query_result = db.session.query(User).filter(User.id == json['id']).first()
-    user_type = db.session.select([User.user_type]).where(User.id == id)
+def get_user_ratings(userId):
+
+    user = db.session.query(User).filter(and_(User.id == json['userId'], not_(User.deleted))).first()
+    if not user:
+        abort(400, 'User with given userId does not exist.')
+
+    user_type = db.session.select([User.user_type]).where(User.userId == userId).first()
+
+    if user_type == "Movee":
+        overall = get_average_rating(userId, rating_general)
+        rating_speed = 0
+        rating_service = 0
+        rating_reliability = 0
+    elif user_type == "Removalist":
+        rating_speed = get_average_rating(userId, rating_speed)
+        rating_service = get_average_rating(userId, rating_service)
+        rating_reliability = get_average_rating(userId, rating_reliability)
+        overall = float((rating_speed + rating_service + rating_reliability)/3)
+
+    resp = jsonify({
+        'success': True,
+        'overall': overall,
+        'rating_reliability': rating_reliability,
+        'rating_service': rating_service,
+        'rating_speed': rating_speed
+    })
+    resp.status_code = 200
+    return resp
+
+def get_average_rating(userId, rating_to_fetch):
+    # query_result = db.session.query(User).filter(User.userId == json['userId']).first()
+    user_type = db.session.select([User.user_type]).where(User.userId == userId).first()
     # print(user_type)
     # print(type(user_type))
     # average_rating = 0
@@ -158,17 +187,17 @@ def update_average_rating(id, rating_to_update):
 
     if user_type == "Movee":
         # list_of_ratings = db.session.query([Review.rating_general]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
-        average = db.session.query(func.avg(Review.rating_general)).filter(not_(Rating.deleted))
+        average = db.session.query(func.avg(Review.rating_general)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
     elif user_type == "Removalist":
-        if rating_to_update == "rating_speed":
-            average = db.session.query(func.avg(Review.rating_speed)).filter(not_(Rating.deleted))
+        if rating_to_fetch == "rating_speed":
+            average = db.session.query(func.avg(Review.rating_speed)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
             # list_of_ratings = db.session.query([Review.rating_speed]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
-        elif rating_to_update == "rating_service":
-            average = db.session.query(func.avg(Review.rating_service)).filter(not_(Rating.deleted))
+        elif rating_to_fetch == "rating_service":
+            average = db.session.query(func.avg(Review.rating_service)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
             # list_of_ratings = db.session.query([Review.rating_service]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
-        elif rating_to_update == "rating_reliability":
+        elif rating_to_fetch == "rating_reliability":
             # list_of_ratings = db.session.query([Review.rating_reliability]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
-            average = db.session.query(func.avg(Review.rating_reliability)).filter(not_(Rating.deleted))
+            average = db.session.query(func.avg(Review.rating_reliability)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
 
     # sum_of_ratings = 0
     # for item in list_of_ratings:
@@ -176,6 +205,3 @@ def update_average_rating(id, rating_to_update):
     # average_rating = sum_of_ratings/len(list_of_ratings)
 
     return average
-
-
-
