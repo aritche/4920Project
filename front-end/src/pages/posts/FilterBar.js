@@ -24,10 +24,7 @@ export default class FilterBar extends Component {
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
             upperDate: moment(),
-<<<<<<< Updated upstream
-=======
             sortBy: SORT.DEFAULT
->>>>>>> Stashed changes
         }
     }
 
