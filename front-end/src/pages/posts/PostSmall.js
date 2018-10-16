@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Item, Grid, Label, Icon, Rating, Container, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './Post.css';
+import moment from "moment";
 
 export default class PostSmall extends Component {
     render() {
@@ -22,7 +23,7 @@ export default class PostSmall extends Component {
 
                     <Container style={{paddingTop: '10px', paddingBottom: '10px'}}>
                         <Grid.Row style={{paddingBottom: '10px'}}>
-                            {post.closing_datetime1}
+                            {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
                         </Grid.Row>
 
                         <Grid.Row style={{paddingBottom: '10px'}}>

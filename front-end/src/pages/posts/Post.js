@@ -39,7 +39,7 @@ export default class Post extends Component {
                                 [Stars go here]
                             </Grid.Column>
                             <Grid.Column width={3} >
-                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h a')}
+                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
                             </Grid.Column>
                         </Grid>
                     </Item.Description>
