@@ -271,17 +271,17 @@ def search_moves(json):
         move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
-    if 'sort' in json:
-        if json['sort'] == '1':
-            move_query = move_query.order_by(MoveDetails.closing_datetime1)
-        elif json['sort'] == '2':
-            move_query = move_query.order_by(MoveDetails.budget)
-        elif json['sort'] == '3':
-            move_query = move_query.order_by(MoveDetails.budget.desc())
-        elif json['sort'] == '4':
-            move_query = move_query.order_by(MoveDetails.closing_datetime1)
-        elif json['sort'] == '5':
-            move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
+    # if 'sort' in json:
+    if json['sortBy'] == 1:
+        move_query = move_query.order_by(MoveDetails.creation_datetime)
+    elif json['sortBy'] == 2:
+        move_query = move_query.order_by(MoveDetails.budget)
+    elif json['sortBy'] == 3:
+        move_query = move_query.order_by(MoveDetails.budget.desc())
+    elif json['sortBy'] == 4:
+        move_query = move_query.order_by(MoveDetails.closing_datetime1)
+    elif json['sortBy'] == 5:
+        move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
 
     resp = jsonify({
         'moves': list(map(decorate_move, map(MoveDetails.to_dict, move_query.all())))
