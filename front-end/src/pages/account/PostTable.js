@@ -39,7 +39,7 @@ export default class PostTable extends Component{
                 <Table.Cell> {item.status} </Table.Cell>
                 <Table.Cell>
                   <Button
-                    content={"Go"}
+                    content={"View"}
                     id={item.id}
                     size='large'
                     style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white'}}
@@ -47,11 +47,11 @@ export default class PostTable extends Component{
                   />
                   <ConfirmationModal buttonContentHtml={
                     [
-                      <Button.Content key='text' hidden>Delete Post</Button.Content>
+                      <Button.Content key='text' hidden>Delete</Button.Content>
                     ]
                   }
                     buttonSize='large'
-                    buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#22AABB' , color: 'white'}}
+                    buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#c24e4e' , color: 'white'}}
                     headerText='Are you sure you want to delete this post record?'
                     onConfirm={this.props.deleteAll}
                   />

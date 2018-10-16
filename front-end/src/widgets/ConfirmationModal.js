@@ -40,10 +40,10 @@ export default class ConfirmationModal extends Component {
                     <Header size={'small'} content={ this.props.headerText }/>
                 </Modal.Content>
                 <Modal.Actions style={{paddingRight: 150}}>
-                    <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.confirm}>
+                    <Button style={{backgroundColor: '#c24e4e', color: 'white'}} onClick={this.confirm}>
                     <Icon name='checkmark' /> Yes
                     </Button>
-                    <Button style={{backgroundColor: '#22AABB', color: 'white'}} onClick={this.close}>
+                    <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.close}>
                     <Icon name='remove' /> No
                     </Button>
                 </Modal.Actions>
