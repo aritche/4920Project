@@ -12,7 +12,7 @@ const sortByOptions = [
     { text: 'Price (High to Low)', value: 3},
     { text: 'Date (Early to Late)', value: 4},
     { text: 'Date (Late to Early)', value: 5},
-    { text: 'Closest', value: 6},
+    // { text: 'Closest', value: 6},
 ];
 
 export default class FilterBar extends Component {

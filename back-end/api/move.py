@@ -272,13 +272,15 @@ def search_moves(json):
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
     if 'sort' in json:
-        if json['sort'] == 'priceLowToHigh':
-            move_query = move_query.order_by(MoveDetails.budget)
-        elif json['sort'] == 'priceHightToLow':
-            move_query = move_query.order_by(MoveDetails.budget.desc())
-        elif json['sort'] == 'dateEarlyToLate':
+        if json['sort'] == '1':
             move_query = move_query.order_by(MoveDetails.closing_datetime1)
-        elif json['sort'] == 'dateLateToEarly':
+        elif json['sort'] == '2':
+            move_query = move_query.order_by(MoveDetails.budget)
+        elif json['sort'] == '3':
+            move_query = move_query.order_by(MoveDetails.budget.desc())
+        elif json['sort'] == '4':
+            move_query = move_query.order_by(MoveDetails.closing_datetime1)
+        elif json['sort'] == '5':
             move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
 
     resp = jsonify({

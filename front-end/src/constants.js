@@ -5,3 +5,9 @@ export const BUDGET = {
     MAX: 1000,
     DEFAULT: 500
 }
+
+export const SORT = {
+	MIN: 1,
+	MAX: 5,
+	DEFAULT: 1
+}
