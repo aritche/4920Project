@@ -5,3 +5,8 @@ export const BUDGET = {
     MAX: 1000,
     DEFAULT: 500
 }
+
+export const userType = {
+    MOVEE: 'Movee',
+    REMOVALIST: 'Removalist'
+}

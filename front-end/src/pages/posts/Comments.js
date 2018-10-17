@@ -175,7 +175,7 @@ export default class Comments extends Component {
               <Form reply>
                 <Form.TextArea value={this.state.comment} placeholder={"Type comment here"} onChange={this.onCommentChange}/>
                 {
-                  !this.props.isPostCreator && this.props.acceptedComment === -1 &&
+                  !this.props.isPostCreator && this.props.acceptedComment === -1 && !this.props.isMovee &&
                   <Button content='Make Offer' labelPosition='left' icon='handshake' positive onClick={this.startOffering} />
                 }
                 <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={this.addComment} />
