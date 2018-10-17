@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Menu, Container, Image} from 'semantic-ui-react';
+import { Menu, Container, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { isLoggedIn, getLoggedInUser, logout } from '../Authentication';
+import { isLoggedIn, getLoggedInUser, logout, getLoggedInUserType } from '../Authentication';
 import logo from './uMove_clear.png';
 import { url } from '../Api';
+import { userType } from '../constants';
 
 
 export default class NavHeader extends Component {
@@ -62,6 +63,13 @@ export default class NavHeader extends Component {
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
                     <Image src={logo} style={{height:20}}/>
                 </Menu.Item>
+
+                {
+                    this.state.isLoggedIn && getLoggedInUserType() === userType.MOVEE &&
+                    <Menu.Item as={Link} to={'/create-post'} active={window.location.pathname === '/create-post'}>
+                        Create Post
+                    </Menu.Item>
+                }
 
               <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                 Browse Posts
