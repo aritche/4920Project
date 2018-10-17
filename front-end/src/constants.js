@@ -12,7 +12,7 @@ export const userType = {
 }
 
 export const SORT = {
-	MIN: 1,
+	MIN: 0,
 	MAX: 5,
-	DEFAULT: 1
+	DEFAULT: 0
 }
