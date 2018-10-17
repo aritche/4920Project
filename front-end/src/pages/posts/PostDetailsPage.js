@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message } from 'semantic-ui-react';
-import { isLoggedIn, getLoggedInUser } from '../../Authentication';
+import { isLoggedIn, getLoggedInUser, getLoggedInUserType } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
 import ConfirmationModal from '../../widgets/ConfirmationModal';
+import { userType } from '../../constants';
 
 
 export default class PostDetailsPage extends Component {
@@ -331,6 +332,7 @@ export default class PostDetailsPage extends Component {
                                 <Comments
                                     history={this.props.history}
                                     isPostCreator={getLoggedInUser() === this.state.post.movee_id}
+                                    isMovee={getLoggedInUserType() === userType.MOVEE}
                                     comments={this.state.comments} addComment={this.addComment}
                                     addReply={this.addReply} budget={this.state.post.budget}
                                     addOffer={this.addOffer} acceptOffer={this.acceptOffer}

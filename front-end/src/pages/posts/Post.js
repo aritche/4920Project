@@ -20,26 +20,26 @@ export default class Post extends Component {
                             { post.status }
                         </Label>
                     </Item.Header>
-                    <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name}</Item.Meta>
+                    <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name} [stars here]</Item.Meta>
                     <Item.Description>
                         <Grid>
                             <Grid.Column width={3} >
                                 From { post.address_from.city }<br/>
                                 To { post.address_to.city }
                             </Grid.Column>
-                            <Grid.Column width={2} >
+                            <Grid.Column width={1} >
                                 ${ post.budget }
                             </Grid.Column>
-                            <Grid.Column width={5} >
+                            <Grid.Column width={2} >
+                                [Distance here]
+                            </Grid.Column>
+                            <Grid.Column width={7} >
                                 <div className="post-description">
-                                    "{ post.description }"
+                                    <em>"{ post.description }"</em>
                                 </div>
                             </Grid.Column>
                             <Grid.Column width={3} >
-                                [Stars go here]
-                            </Grid.Column>
-                            <Grid.Column width={3} >
-                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h a')}
+                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
                             </Grid.Column>
                         </Grid>
                     </Item.Description>

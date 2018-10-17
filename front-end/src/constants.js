@@ -6,6 +6,11 @@ export const BUDGET = {
     DEFAULT: 500
 }
 
+export const userType = {
+    MOVEE: 'Movee',
+    REMOVALIST: 'Removalist'
+}
+
 export const SORT = {
 	MIN: 1,
 	MAX: 5,

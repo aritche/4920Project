@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostList from './PostList';
-import { Pagination } from 'semantic-ui-react';
+import { Pagination, Divider, Grid } from 'semantic-ui-react';
 
 export default class PaginatedPostList extends Component {
     constructor(props) {
@@ -32,6 +32,9 @@ export default class PaginatedPostList extends Component {
         return (
             <div>
                 <PostList posts={this.state.postsToDisplay} />
+                <Grid textAlign='center' style={{marginTop: '5px'}}> 
+                    <Divider style={{width: '30%', marginBottom: '5px'}}/>
+                </Grid>
                 <div className="pagination-container">
                     <Pagination defaultActivePage={this.props.defaultActivePage ? this.props.defaultActivePage : 1} 
                         totalPages={Math.ceil(this.props.posts.length/this.props.postsPerPage)} 

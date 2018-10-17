@@ -3,6 +3,8 @@ import {Button, Message, Header, Segment} from 'semantic-ui-react';
 import FeedList from "./FeedList";
 import PostList from './PostTable';
 import {Link} from 'react-router-dom';
+import { getLoggedInUserType } from '../../Authentication';
+import { userType } from '../../constants';
 
 /**
  * Title: Dashboard
@@ -48,13 +50,18 @@ export default class Dashboard extends Component {
             }
           </Segment>
           <br/>
-          <Button.Group>
-            <Button as={Link} to={'/create-post'} style={{backgroundColor: '#193446', color: 'white',
-              width: 130, height: 38}}>Create Post</Button>
-            <Button.Or />
+          { getLoggedInUserType() === userType.MOVEE ?
+            <Button.Group>
+              <Button as={Link} to={'/create-post'} style={{backgroundColor: '#193446', color: 'white',
+                width: 130, height: 38}}>Create Post</Button>
+              <Button.Or />
+              <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
+                width: 130, height: 38}}>Search Posts</Button>
+            </Button.Group>
+          :
             <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
-              width: 130, height: 38}}>Search Posts</Button>
-          </Button.Group>
+                width: 130, height: 38}}>Search Posts</Button>
+          }
       </div>
     )
   }

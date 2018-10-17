@@ -73,7 +73,7 @@ export default class CreateLoginForm extends Component {
                     response.json().then(obj => {
                         if (obj.success) {
                             if (verify(this.state.password, obj.hashed_password)) {
-                                updateAuthentication(true, obj.user_id);
+                                updateAuthentication(true, obj.user_id, obj.user_type);
                                 this.props.history.push('/account');
                             } else {
                                 this.setState({

@@ -68,7 +68,7 @@ export default class FilterBar extends Component {
                               button simple>
                         <Dropdown.Menu
                           style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 10, paddingTop: 10,
-                            width: "185%", maxHeight: 65, minHeight: 65}}>
+                            width: "185%", maxHeight: 65, minHeight: 65, backgroundColor:'#fbfbfb'}}>
                             <div style={{display: 'flex'}}>
                                 <Header size={'tiny'} content={'From'} style={{marginTop: "8px"}}/>
                                 <span style={{width: 10}}/>
@@ -88,7 +88,7 @@ export default class FilterBar extends Component {
                               button simple>
                         <Dropdown.Menu
                           style={{paddingLeft: 25, paddingRight: 25, paddingBottom: 10, paddingTop: 10, width: "500px",
-                            maxHeight: 65, minHeight: 65}}>
+                            maxHeight: 65, minHeight: 65, backgroundColor: '#fbfbfb'}}>
                           <Form>
                               <Form.Group widths='equal'>
                                 <div style={{display: 'flex'}}>
