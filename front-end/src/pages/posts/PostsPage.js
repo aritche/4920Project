@@ -14,7 +14,8 @@ export default class PostsPage extends Component {
             lowerBudget: '',
             upperBudget: '',
             lowerDate: '',
-            upperDate: ''
+            upperDate: '',
+            sortBy: 'mostRecent'
         };
     }
 
@@ -64,7 +65,8 @@ export default class PostsPage extends Component {
                 'lowerBudget': this.state.lowerBudget,
                 'upperBudget': this.state.upperBudget,
                 'lowerDate': this.state.lowerDate,
-                'upperDate': this.state.upperDate
+                'upperDate': this.state.upperDate,
+                'sortBy' : this.state.sortBy
             })
         }).then(response => {
             if (response.status === 200) {
@@ -93,7 +95,7 @@ export default class PostsPage extends Component {
                     />
                     <Segment secondary>
                         { this.state.isLoading ?
-                            <Loader active />
+                            <Loader style={{zIndex: 0}} active />
                         :
                             <PaginatedPostList posts={this.state.posts} defaultActivePage={1} postsPerPage={5} />
                         }

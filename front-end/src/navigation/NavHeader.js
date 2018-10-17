@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Menu, Container, Image } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import {Menu, Container, Image, Popup, Segment} from 'semantic-ui-react';
+import {Link, Route} from 'react-router-dom';
 import { isLoggedIn, getLoggedInUser, logout, getLoggedInUserType } from '../Authentication';
 import logo from './uMove_clear.png';
 import { url } from '../Api';
 import { userType } from '../constants';
-
+import UserPopup from '../pages/account/UserPopup'
 
 export default class NavHeader extends Component {
     constructor(){
@@ -55,7 +55,7 @@ export default class NavHeader extends Component {
             this.getUserName();
         }
         return (
-            <Menu inverted pointing secondary style={{backgroundColor: '#193446', boxShadow: '2px 1px 2px #000000'}}>
+            <Menu inverted pointing secondary style={{backgroundColor: '#193446', boxShadow: '2px 1px 2px #000000', maxHeight: '45px'}}>
               <Container>
                 <Menu.Item
                     as={Link}
@@ -63,6 +63,13 @@ export default class NavHeader extends Component {
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
                     <Image src={logo} style={{height:20}}/>
                 </Menu.Item>
+                {/*
+                <Menu.Item
+                  as={Link}
+                  to={'/account' }
+                  active={isLoggedIn() ? false : window.location.pathname === '/account' }>
+                  account
+                </Menu.Item>*/}
 
                 {
                     this.state.isLoggedIn && getLoggedInUserType() === userType.MOVEE &&
@@ -74,26 +81,30 @@ export default class NavHeader extends Component {
               <Menu.Item  as={Link} to={'/posts'} active={window.location.pathname === '/posts'}>
                 Browse Posts
               </Menu.Item>
-
                 {
                     this.state.isLoggedIn ?
-                        <Menu.Menu position='right'>
-                            <Menu.Item
-                                as={Link}
-                                to={'/account'}
-                                active={window.location.pathname === '/account'}>
-                                {'userName' in this.state ? this.state.userName : 'Account'}
-                            </Menu.Item>
-                            <Menu.Item
-                                onClick={logout}
-                                as={Link}
-                                to={'/login'}
-                                active={window.location.pathname === '/login'}>
-                                Log Out
-                            </Menu.Item>
-                        </Menu.Menu>
+                      <Menu.Menu position='right'>
+                        <Menu.Item>
+                          <Popup
+                            style={{boxShadow: '2px 3px 2px #000000'}}
+                            trigger={<Image style={{width: "6%", height: '4%', marginBottom: '-1.5%',
+                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
+                                            circular avatar/>}
+                            content=
+                              {
+                                <UserPopup
+                                  userName={this.state.userName}
+                                />
+                              }
+                            on='click'
+                          />
+                          <Image src={'/images/red.jpg'} circular
+                                 style={{backgroundColor:'red', position:'absolute', zIndex:2,
+                                   width: '1.6%', height: '20%', marginLeft: '95.5%', marginBottom:'1.6%'}}/>
+                        </Menu.Item>
+                      </Menu.Menu>
                     :
-                        <Menu.Menu position='right'>
+                      <Menu.Menu position='right'>
                             <Menu.Item
                                 as={Link}
                                 to={'/login'}
@@ -106,7 +117,7 @@ export default class NavHeader extends Component {
                                 active={window.location.pathname === '/signup'}>
                                 Sign Up
                             </Menu.Item>
-                        </Menu.Menu>
+                      </Menu.Menu>
                 }
               </Container>
             </Menu>

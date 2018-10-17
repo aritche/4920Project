@@ -128,7 +128,7 @@ export default class Account extends Component {
       console.log(this.state.user);
         return (
           <Container>
-            <div style={{paddingBottom: 80}}>
+            <div style={{paddingBottom: 80, minHeight: '100vh'}}>
               <Segment.Group stacked style={{boxShadow: '2px 2px 2px #000000'}}>
                 <Segment style={{backgroundColor: "#193446"}}>
                   <Top
@@ -139,7 +139,7 @@ export default class Account extends Component {
                     phone={this.state.user.phone_number}
                     joinedIn={this.state.user.joined_in}
                     identity={this.state.user.user_type}
-                    rating={this.state.user.rating}
+                    // rating={this.state.user.rating.overall}
                     update={this.onUpdate}
                     profileUpdate={this.onProfileUpdate}
                     profile={this.onProfile}
@@ -152,6 +152,7 @@ export default class Account extends Component {
                       history={this.props.history}
                       post={this.state.user.posts}
                       updates={this.state.updates}
+                      isMovee={this.state.user.identity === "Movee"}
                     />
                     :
                     <Profile

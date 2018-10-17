@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import {Segment, Menu, Dropdown, Form, Input, Header} from 'semantic-ui-react';
-import { BUDGET } from '../../constants';
+import { BUDGET, SORT } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
 
 const sortByOptions = [
-    { key: 1, text: 'Most Recent', value: 1},
-    { key: 2, text: 'Price (Low to High)', value: 2},
-    { key: 3, text: 'Price (High to Low)', value: 3},
-    { key: 4, text: 'Date (Early to Late)', value: 4},
-    { key: 5, text: 'Date (Late to Early)', value: 5},
-    { key: 6, text: 'Closest', value: 6},
+    { text: 'Most Recent', value: 1},
+    { text: 'Price (Low to High)', value: 2},
+    { text: 'Price (High to Low)', value: 3},
+    { text: 'Date (Early to Late)', value: 4},
+    { text: 'Date (Late to Early)', value: 5},
+    // { text: 'Closest', value: 6},
 ];
 
 export default class FilterBar extends Component {
@@ -23,7 +23,8 @@ export default class FilterBar extends Component {
             query: '',
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
-            upperDate: moment()
+            upperDate: moment(),
+            sortBy: SORT.DEFAULT
         }
     }
 
@@ -44,6 +45,7 @@ export default class FilterBar extends Component {
     };
 
     onlowerDateChange(date) {
+        console.log(date)
         this.setState({ lowerDate: date });
         this.props.handleChange('lowerDate', date);
     }
@@ -53,25 +55,14 @@ export default class FilterBar extends Component {
         this.props.handleChange('upperDate', date);
     }
 
-    onSortByChange = (e) => {
-        alert('changed sort order')
+    onSortByChange = (e, data) => {
+        this.props.handleChange('sortBy', data.value)
     };
 
     render() {
         return (
-            <Segment style={{paddingTop: 15, paddingLeft: 20, paddingRight: 20, paddingBottom: 10, backgroundColor: "#193446"}}>
-              {/*<Header as='h2' style={{color: 'white'}}>
-                <Icon name='file alternate' style={{color: 'white'}}/>
-                Posts
-              </Header>*/}
+            <Segment style={{paddingTop: 10, paddingBottom: 10, backgroundColor: "#193446"}}>
                 <Menu secondary>
-                    {/* <Dropdown text='Postcode' style={{maxHeight: 38, minHeight: 38}}
-                              floating button simple>
-                        <Dropdown.Menu style={{maxHeight: 65, minHeight: 65}}>
-                            <Input name='postcode' onChange={this.onFilterChange} size='tiny' />
-                        </Dropdown.Menu>
-                    </Dropdown> */}
-                    {/* <span style={{width: 10}}/> */}
                     <Dropdown text='Budget Range'
                               style={{maxHeight: 38, minHeight: 38, backgroundColor: 'white', color: 'black'}}
                               button simple>

@@ -10,3 +10,9 @@ export const userType = {
     MOVEE: 'Movee',
     REMOVALIST: 'Removalist'
 }
+
+export const SORT = {
+	MIN: 1,
+	MAX: 5,
+	DEFAULT: 1
+}

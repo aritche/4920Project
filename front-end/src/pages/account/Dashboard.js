@@ -28,7 +28,13 @@ export default class Dashboard extends Component {
             }
           </Segment>
           <br/>
-          <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          {this.props.isMovee
+            ?
+            <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+            :
+            <Header content={'Offered Posts'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          }
+
           <Segment>
             {this.props.post.length === 0
               ?
@@ -37,7 +43,10 @@ export default class Dashboard extends Component {
                 <p>There are no post at the moment.</p>
               </Message>
               :
-              <PostList history={this.props.history} list={this.props.post}/>
+              <PostList
+                history={this.props.history}
+                list={this.props.post}
+              />
             }
           </Segment>
           <br/>

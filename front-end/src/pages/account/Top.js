@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Image, Segment, Header, Menu} from 'semantic-ui-react';
+import {Image, Segment, Header, Menu, Rating} from 'semantic-ui-react';
 import EditProfile from './EditProfile'
 
 
@@ -48,11 +48,15 @@ export default class Top extends Component {
                 update={this.onUpdate}
               />
             </div>
-            <Menu inverted secondary attached='top'
-                  style={{height: "0%", width: "15%", paddingLeft: "45%", marginTop: "11%"}}>
-              <Menu.Item name='Updates' size={'big'} active={activeItem === 'Updates'} onClick={this.handleItemClick}/>
-              <Menu.Item name='Profile' size={'big'} active={activeItem === 'Profile'} onClick={this.handleItemClick}/>
-            </Menu>
+            <div style={{paddingLeft: "55%",  marginTop: "5%"}}>
+              <Rating size={'massive'} style={{marginBottom: '20%'}} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
+              <br/>
+              <Menu inverted secondary attached='top'
+                    style={{height: "0%", width: "15%"}}>
+                <Menu.Item name='Updates' size={'big'} active={activeItem === 'Updates'} onClick={this.handleItemClick}/>
+                <Menu.Item name='Profile' size={'big'} active={activeItem === 'Profile'} onClick={this.handleItemClick}/>
+              </Menu>
+            </div>
           </div>
         )
     }
