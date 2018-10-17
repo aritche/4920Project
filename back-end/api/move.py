@@ -271,17 +271,18 @@ def search_moves(json):
         move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
         move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
 
-    # if 'sort' in json:
-    if json['sortBy'] == 1:
-        move_query = move_query.order_by(MoveDetails.creation_datetime)
-    elif json['sortBy'] == 2:
-        move_query = move_query.order_by(MoveDetails.budget)
-    elif json['sortBy'] == 3:
-        move_query = move_query.order_by(MoveDetails.budget.desc())
-    elif json['sortBy'] == 4:
-        move_query = move_query.order_by(MoveDetails.closing_datetime1)
-    elif json['sortBy'] == 5:
-        move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
+    if 'sortBy' in json:
+        if json['sortBy'] == 1:
+            move_query = move_query.order_by(MoveDetails.creation_datetime)
+            # print(move_query)
+        elif json['sortBy'] == 2:
+            move_query = move_query.order_by(MoveDetails.budget)
+        elif json['sortBy'] == 3:
+            move_query = move_query.order_by(MoveDetails.budget.desc())
+        elif json['sortBy'] == 4:
+            move_query = move_query.order_by(MoveDetails.closing_datetime1)
+        elif json['sortBy'] == 5:
+            move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
 
     resp = jsonify({
         'moves': list(map(decorate_move, map(MoveDetails.to_dict, move_query.all())))
@@ -377,8 +378,9 @@ def get_distance(output, start_line1, start_city, start_state, end_line1, end_ci
     distance_in_metres = ""
     if 'status' in json_data and json_data['status'] == 'OK':
         distance_in_metres = int(json_data['rows'][0]['elements'][0]['distance']['value'])
+        travel_time = json_data['rows'][0]['elements'][0]['duration']['text']
 
-    return distance_in_metres
+    return distance_in_metres, travel_time
 
 # Example INPUT
 # start_line1 = "11 York St"
