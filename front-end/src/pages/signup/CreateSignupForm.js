@@ -138,7 +138,7 @@ export default class CreateSignupForm extends Component {
                     } else if (response.status === 200) {
                         response.json().then(obj => {
                             if (obj.success) {
-                                updateAuthentication(true, obj.user.id);
+                                updateAuthentication(true, obj.user.id, obj.user.user_type);
                                 this.props.history.push('/account');
                             } else {
                                 this.setState({
