@@ -13,8 +13,6 @@ export default class CreateLoginForm extends Component {
 
     render() {
         return (
-          <Segment style={{paddingTop: 1, paddingLeft: 1, paddingRight: 1, backgroundColor: '#9AABB9',
-            boxShadow: '2px 1px 2px #000000', paddingBottom: -1}}>
             <Container style={{backgroundColor: "#193446", borderRadius: '4px'}}>
                 <br/>
                 <Grid columns={2} centered>
@@ -34,7 +32,6 @@ export default class CreateLoginForm extends Component {
                     </Grid.Row>
                 </Grid>
             </Container>
-          </Segment>
         )
     }
 }
