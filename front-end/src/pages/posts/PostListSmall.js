@@ -6,9 +6,9 @@ export default class PostListSmall extends Component {
     render() {
         return (
             this.props.posts && this.props.posts.length > 0 ?
-                <div className="list-container">
+                <div align='center' className="list-container">
                 
-                    <Grid link columns={this.props.posts.length}>
+                    <Grid link columns={this.props.posts.length} style={{width: '75%'}}>
                         {
                             this.props.posts.map(post => <Grid.Column><PostSmall key={post.id} post={post} /></Grid.Column>)
                         }

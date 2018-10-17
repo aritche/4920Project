@@ -19,7 +19,7 @@ export default class ErrorInputModal extends Component {
         </Modal.Content>
         <Modal.Actions style={{paddingRight: 180}}>
           <Button color='red' onClick={this.close}>
-            <Icon name='checkmark' /> I see
+            <Icon name='checkmark' /> Okay 
           </Button>
         </Modal.Actions>
       </Modal>

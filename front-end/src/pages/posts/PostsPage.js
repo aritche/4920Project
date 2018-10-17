@@ -27,7 +27,7 @@ export default class PostsPage extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({})
+            body: JSON.stringify({'sortBy' : this.state.sortBy})
         }).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
