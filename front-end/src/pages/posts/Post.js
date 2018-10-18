@@ -16,7 +16,7 @@ export default class Post extends Component {
                 </div>
                 <Item.Content>
                     <Item.Header>{post.title}
-                        <Label color={post.status === 'ACCEPTED' ? 'green' : 'blue'} style={{marginLeft: '20px'}}>
+                        <Label color={post.status === 'ACCEPTED' ? 'green' : post.status === 'CLOSED' ? 'red' : 'blue'} style={{marginLeft: '20px'}}>
                             { post.status }
                         </Label>
                     </Item.Header>
