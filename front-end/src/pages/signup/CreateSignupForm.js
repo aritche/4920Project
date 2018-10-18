@@ -69,9 +69,9 @@ export default class CreateSignupForm extends Component {
           titleError: false,
           submitError: false,
         });
-        var validationError = false;
+      let validationError = false;
 
-        // Check that fields are not blank
+      // Check that fields are not blank
         if (this.state.firstName === ''){
             this.setState({ firstNameError : true });
             validationError = true;

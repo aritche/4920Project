@@ -1,6 +1,0 @@
-.post-description {
-    max-height: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}

@@ -45,7 +45,7 @@ export default class FilterBar extends Component {
     };
 
     onlowerDateChange(date) {
-        console.log(date)
+        console.log(date);
         this.setState({ lowerDate: date });
         this.props.handleChange('lowerDate', date);
     }

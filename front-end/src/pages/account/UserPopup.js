@@ -7,21 +7,24 @@ export default class UserPopup extends Component {
   render() {
     return (
       <div>
-        <Button
-          style={{backgroundColor: '#193446', color: 'white', width: 100, height: 38}}
-          as={Link}
-          to={'/account'}
-          active={window.location.pathname === '/account'}
-        >
-          Dashboard
-        </Button>
-        <Button style={{backgroundColor: '#22AABB', color: 'white', width: 100, height: 38}}
-                onClick={logout}
-                as={Link}
-                to={'/login'}
-                active={window.location.pathname === '/login'}>
-          Log out
-        </Button>
+        <Button.Group>
+          <Button
+            style={{backgroundColor: '#193446', color: 'white', width: 100, height: 38}}
+            as={Link}
+            to={'/account'}
+            active={window.location.pathname === '/account'}
+          >
+            Dashboard
+          </Button>
+          <Button.Or />
+          <Button style={{backgroundColor: '#22AABB', color: 'white', width: 100, height: 38}}
+                  onClick={logout}
+                  as={Link}
+                  to={'/login'}
+                  active={window.location.pathname === '/login'}>
+            Log out
+          </Button>
+        </Button.Group>
       </div>
     )
   }

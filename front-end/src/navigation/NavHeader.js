@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Menu, Container, Image, Popup, Segment} from 'semantic-ui-react';
-import {Link, Route} from 'react-router-dom';
-import { isLoggedIn, getLoggedInUser, logout, getLoggedInUserType } from '../Authentication';
-import logo from './uMove_clear.png';
+import {Menu, Container, Image, Popup} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import { isLoggedIn, getLoggedInUser, getLoggedInUserType } from '../Authentication';
 import { url } from '../Api';
 import { userType } from '../constants';
 import UserPopup from '../pages/account/UserPopup'
@@ -61,7 +60,7 @@ export default class NavHeader extends Component {
                     as={Link}
                     to={homeUrl}
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
-                    <Image src={logo} style={{height:20}}/>
+                    <Image src={'/images/logo.png'} style={{height:20}}/>
                 </Menu.Item>
                 {
                     /*

@@ -3,8 +3,6 @@ import { Item, Grid, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from "moment";
 
-import './Post.css';
-
 export default class Post extends Component {
     render() {
         const { post } = this.props;
@@ -34,7 +32,8 @@ export default class Post extends Component {
                                 { post.distance_string }
                             </Grid.Column>
                             <Grid.Column width={7} >
-                                <div className="post-description">
+                                <div style={{maxHeight: '90px', overflow: 'hidden', textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap'}}>
                                     <em>"{ post.description }"</em>
                                 </div>
                             </Grid.Column>

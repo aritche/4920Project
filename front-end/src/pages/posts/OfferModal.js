@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Modal, Icon, Form, Header, TextArea, Message } from 'semantic-ui-react';
 import PositiveFloatInput from '../../widgets/PositiveFloatInput';
 import { emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
-import moment from 'moment';
 
 export default class OfferModal extends Component {
     constructor(props) {

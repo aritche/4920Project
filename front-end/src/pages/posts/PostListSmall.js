@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostSmall from './PostSmall';
-import { Item, Message, Grid } from 'semantic-ui-react';
+import { Message, Grid } from 'semantic-ui-react';
 
 export default class PostListSmall extends Component {
     render() {

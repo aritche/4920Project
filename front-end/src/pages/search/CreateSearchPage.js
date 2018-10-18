@@ -31,13 +31,13 @@ const results = [
         addressFrom: "South Pole",
         description: "Reindeers on holidays, need help :("
     }
-]
+];
 
 const sortByOptions = [
     { key: 1, text: 'Best Match', value: 1},
     { key: 2, text: 'Price', value: 2},
     { key: 3, text: 'Most Recent', value: 3}
-]
+];
 
 export default class CreateLoginForm extends Component {
     constructor() {
@@ -53,11 +53,11 @@ export default class CreateLoginForm extends Component {
         if (/^[0-9]*$/g.exec(value) && value >= BUDGET.MIN && value <= BUDGET.MAX) {
             this.setState({ budget: value });
         }
-    }
+    };
 
     onSortByChange = (value) => {
         alert("Sorting by:  " + value);
-    }
+    };
     
     render() {
         // code is a modified version of Semantic-UI-React login template

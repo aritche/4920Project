@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {Segment, Header, Container, Grid} from 'semantic-ui-react';
-import PostList from '../posts/PostList';
-import PostSmall from '../posts/PostSmall';
 import PostListSmall from '../posts/PostListSmall';
 import { url } from '../../Api';
 

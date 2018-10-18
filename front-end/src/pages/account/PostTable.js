@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Button, Header, Table, Pagination} from 'semantic-ui-react';
+import {Button, Header, Table} from 'semantic-ui-react';
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 import PaginationContainer from '../../widgets/PaginationContainer';
-import Page from "../../widgets/Page";
 import moment from "moment";
 
 /**
@@ -29,15 +28,15 @@ export default class PostTable extends Component{
 
   handlePaginationChange = (e, { activePage }) => {
     this.setState({ activePage: activePage }, this.updateDisplayedPosts);
-  }
+  };
 
   updateDisplayedPosts = () => {
-    var start = (this.state.activePage - 1) * POSTS_PER_PAGE;
-    var end = this.state.activePage * POSTS_PER_PAGE;
+    const start = (this.state.activePage - 1) * POSTS_PER_PAGE;
+    let end = this.state.activePage * POSTS_PER_PAGE;
     end = end > this.props.list.length ? this.props.list.length : end;
 
     this.setState({ postsToDisplay: this.props.list.slice(start, end) });
-  }
+  };
 
   routeToPost = (e) => {
     console.log(e.target);

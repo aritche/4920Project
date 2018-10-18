@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PostList from './PostList';
 import PaginationContainer from '../../widgets/PaginationContainer';
-import { Pagination, Divider, Grid } from 'semantic-ui-react';
 
 export default class PaginatedPostList extends Component {
     constructor(props) {
@@ -19,15 +18,15 @@ export default class PaginatedPostList extends Component {
 
     handlePaginationChange = (e, { activePage }) => {
         this.setState({ activePage: activePage }, this.updateDisplayedPosts);
-    }
+    };
 
     updateDisplayedPosts = () => {
-        var start = (this.state.activePage - 1) * this.props.postsPerPage;
-        var end = this.state.activePage * this.props.postsPerPage;
-        end = end > this.props.posts.length ? this.props.posts.length : end;
+      const start = (this.state.activePage - 1) * this.props.postsPerPage;
+      let end = this.state.activePage * this.props.postsPerPage;
+      end = end > this.props.posts.length ? this.props.posts.length : end;
 
         this.setState({ postsToDisplay: this.props.posts.slice(start, end) });
-    }
+    };
 
     render() {
         return (
