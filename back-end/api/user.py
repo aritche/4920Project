@@ -4,13 +4,14 @@ from database.model import db
 from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Update import Update
+from database.PrivateView import PrivateView
 from sqlalchemy import and_, not_
 
 
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = jsonify(decorate_user(user.to_dict()))
+        resp = jsonify(decorate_user(user))
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
@@ -18,13 +19,15 @@ def get_user_by_id(user_id):
 
 
 def decorate_user(user):
-    user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user['id'], not_(MoveDetails.deleted))).all()))
-    user['joined_in'] = user['creation_date'].strftime('%B %Y')
-    user['updates'] = list(map(decorate_update, map(
+    user_dict = user.to_dict()
+    user_dict['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user.id, not_(MoveDetails.deleted))).all()))
+    user_dict['joined_in'] = user.creation_date.strftime('%B %Y')
+    user_dict['updates'] = list(map(decorate_update, map(
         Update.to_dict,
-        db.session.query(Update).filter(Update.updated_movee_id == user['id']).order_by(Update.update_time.desc()).limit(5).all()
+        db.session.query(Update).filter(Update.updated_movee_id == user.id).order_by(Update.update_time.desc()).all()
     )))
-    return user
+    user_dict['viewable'] = list(map(PrivateView.get_viewer, db.session.query(PrivateView).filter(PrivateView.viewable_user == user.id).all()))
+    return user_dict
 
 
 def decorate_update(update):
