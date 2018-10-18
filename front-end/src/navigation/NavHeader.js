@@ -49,7 +49,7 @@ export default class NavHeader extends Component {
     };
 
     render() {
-        const homeUrl = isLoggedIn() ? '/posts' : '/home';
+        const homeUrl = isLoggedIn() ? '/discover' : '/home';
         if (isLoggedIn() !== this.state.isLoggedIn) {
             this.getUserName();
         }

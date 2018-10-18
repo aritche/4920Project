@@ -34,6 +34,7 @@ export default class RecentMoves extends Component {
                     isLoading: false
                 });
             }
+            console.log(this.state.posts[0])
         });
     }
 
