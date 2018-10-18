@@ -19,6 +19,8 @@ class MoveDetails(db.Model):
     address_to = db.Column(db.Integer, ForeignKey('toaddress.id'), nullable=False)
     deleted = db.Column(db.Boolean, nullable=False)
     chosen_offer = db.Column(db.Integer)
+    rough_distance = db.Column(db.Integer, nullable=False)
+    exact_distance = db.Column(db.Integer, nullable=False)
 
     items = relationship('Item')
     comments = relationship('Comment')
@@ -38,5 +40,5 @@ class MoveDetails(db.Model):
             'creation_datetime': self.creation_datetime,
             'deleted': self.deleted,
             'chosen_offer': self.chosen_offer if self.chosen_offer else -1,
-            'last_updated': self.last_updated
+            'last_updated': self.last_updated,
         }

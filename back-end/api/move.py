@@ -10,6 +10,7 @@ from database.User import User
 from database.Comment import Comment
 from database.Update import Update
 from database.PrivateView import PrivateView
+from database.Distances import Distances
 import urllib, json, requests
 try:
     # For Python 3.0 and later
@@ -70,6 +71,14 @@ def create_new_move(json):
     db.session.add(address_to)
     db.session.commit()
 
+    rough_distance = get_distance(False, json['fromAddrL1'], json['fromCity'], json['fromState'], json['toAddrL1'], json['toCity'], json['toState'])
+    if not rough_distance:
+        rough_distance = -1
+
+    exact_distance = get_distance(True, json['fromAddrL1'], json['fromCity'], json['fromState'], json['toAddrL1'], json['toCity'], json['toState'])
+    if not exact_distance:
+        exact_distance = -1
+
     now = datetime.now()
 
     # create move details
@@ -85,7 +94,9 @@ def create_new_move(json):
         last_updated = now,
         address_from = address_from.id,
         address_to = address_to.id,
-        deleted = False
+        deleted = False,
+        rough_distance = rough_distance,
+        exact_distance = exact_distance
     )
     db.session.add(move)
     db.session.commit()
@@ -286,10 +297,37 @@ def search_moves(json):
             move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
 
     resp = jsonify({
-        'moves': list(map(decorate_move, map(MoveDetails.to_dict, move_query.all())))
+        'moves': list(map(decorate_move_search, move_query.all()))
     })
     resp.status_code = 200
     return resp
+
+
+def decorate_move_search(move):
+    move_dict = {}
+    move_dict['id'] = move.id
+
+    movee = db.session.query(User).filter(User.id == move.movee_id).first()
+    move_dict['movee'] = {
+        'first_name': movee.first_name,
+        'last_name': movee.last_name,
+        'avatar': movee.avatar,
+        # insert rating here
+    }
+
+    move_dict['title'] = move.title
+    move_dict['status'] = move.status
+    move_dict['from_suburb'] = db.session.query(FromAddress).filter(FromAddress.id == move.address_from).first().city
+    move_dict['to_suburb'] = db.session.query(ToAddress).filter(ToAddress.id == move.address_to).first().city
+    move_dict['budget'] = move.budget
+    if move.rough_distance != -1:
+        move_dict['distance_string'] = str(int(round(float(move.rough_distance)/1000.0))) + ' km'
+    else:
+        move_dict['distance_string'] = ''
+    move_dict['description'] = move.description
+
+    move_dict['date_string'] = move.closing_datetime1.strftime('%d %b %Y at %-I:%M %p')
+    return move_dict
 
 
 def decorate_move(move):
@@ -362,38 +400,47 @@ def mark_move_as_accepted(json):
 
 
 
-def get_distance(output, start_line1, start_city, start_state, end_line1, end_city, end_state):
-    # output = 1 for FULL DISTANCE
-    # output = 0 for SCRAMBLED DISTANCE
+def get_distance(exact, start_line1, start_city, start_state, end_line1, end_city, end_state):
     start = " "
     end = " "
 
     if start_city and start_state and end_city and end_state:
-        if output == 1 and start_line1 and end_line1:
+        if exact and start_line1 and end_line1:
             # Exact distance after job accepted
             start = start.join([start_line1, ",", start_city, ",", start_state])
             end = end.join([end_line1, ",", end_city, ",", end_state])
-        elif output == 0:
+        else:
             # Rough Distance for initial display
             start = start.join([start_city, ",", start_state])
             end = end.join([end_city, ",", end_state])
 
+    db_distance = db.session.query(Distances).filter(and_(Distances.from_string == start, Distances.to_string == end)).first()
+    if db_distance:
+        return db_distance.distance
+
     api_key = 'AIzaSyD3oXn3Rb9kUQRf5yC2lhLov1KpwFzmbIA'
     request_url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=%s&destinations=%s&key=%s" % (start, end, api_key)
 
-    json_data = ''
     try:
         response = requests.get(request_url)
         json_data = json.loads(response.text)
     except:
-        pass
+        return None
 
-    distance_in_metres = ""
+    distance_in_metres = None
     if 'status' in json_data and json_data['status'] == 'OK':
         distance_in_metres = int(json_data['rows'][0]['elements'][0]['distance']['value'])
-        travel_time = json_data['rows'][0]['elements'][0]['duration']['text']
+        # travel_time = json_data['rows'][0]['elements'][0]['duration']['text']
 
-    return distance_in_metres, travel_time
+    db.session.add(Distances(
+        from_string = start,
+        to_string = end,
+        distance = distance_in_metres
+    ))
+
+    db.session.commit()
+
+    return distance_in_metres
 
 # Example INPUT
 # start_line1 = "11 York St"

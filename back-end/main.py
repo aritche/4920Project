@@ -17,6 +17,7 @@ from database.Item import Item
 from database.MoveDetails import MoveDetails
 from database.User import User
 from database.PrivateView import PrivateView
+from database.Distances import Distances
 
 db.init_app(app)
 app.register_blueprint(base, url_prefix='/api')

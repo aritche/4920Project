@@ -24,14 +24,14 @@ export default class Post extends Component {
                     <Item.Description>
                         <Grid>
                             <Grid.Column width={3} >
-                                From { post.address_from.city }<br/>
-                                To { post.address_to.city }
+                                From { post.from_suburb }<br/>
+                                To { post.to_suburb }
                             </Grid.Column>
                             <Grid.Column width={1} >
                                 ${ post.budget }
                             </Grid.Column>
                             <Grid.Column width={2} >
-                                [Distance here]
+                                { post.distance_string }
                             </Grid.Column>
                             <Grid.Column width={7} >
                                 <div className="post-description">
@@ -39,7 +39,7 @@ export default class Post extends Component {
                                 </div>
                             </Grid.Column>
                             <Grid.Column width={3} >
-                                {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
+                                { post.date_string }
                             </Grid.Column>
                         </Grid>
                     </Item.Description>

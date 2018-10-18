@@ -93,7 +93,7 @@ export default class PostsPage extends Component {
                     <FilterBar
                         handleChange={this.handleFilterChange.bind(this)}
                     />
-                    <Segment secondary>
+                    <Segment secondary style={{minHeight: '90px'}}>
                         { this.state.isLoading ?
                             <Loader style={{zIndex: 0}} active />
                         :
