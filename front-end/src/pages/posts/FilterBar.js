@@ -12,7 +12,7 @@ const sortByOptions = [
     { text: 'Price (High to Low)', value: 3},
     { text: 'Date (Early to Late)', value: 4},
     { text: 'Date (Late to Early)', value: 5},
-    // { text: 'Closest', value: 6},
+    { text: 'Shortest Distance', value: 6},
 ];
 
 export default class FilterBar extends Component {
@@ -43,6 +43,12 @@ export default class FilterBar extends Component {
     onFilterChange = (e) => {
         this.props.handleChange(e.target.name, e.target.value);
     };
+
+    onSearch = (e) => {
+        if (e.key == 'Enter') {
+            this.props.handleChange('suburb', e.target.value);
+        }
+    }
 
     onlowerDateChange(date) {
         console.log(date);
@@ -125,10 +131,10 @@ export default class FilterBar extends Component {
                     </Dropdown>
                     <span style={{width: 60}}/>
                     <Menu.Item style={{paddingTop: 0, paddingBottom: 4}} position='right'>
-                        <Input icon='search' name='postcode'
+                        <Input icon='search' name='suburb'
                             style={{minWidth: 400, maxHeight: 38, minHeight: 38}}
-                            placeholder='Search postcode'
-                            onChange={this.onFilterChange}
+                            placeholder='Search suburb'
+                            onKeyPress={this.onSearch}
                         />
                     </Menu.Item>
                     <Menu.Menu position='right'>

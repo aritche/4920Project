@@ -55,7 +55,7 @@ def create_new_move(json):
     address_from = FromAddress(
         line1 = json['fromAddrL1'],
         line2 = json['fromAddrL2'],
-        city = json['fromCity'],
+        city = json['fromCity'].strip(),
         state = json['fromState'],
         postcode = json['fromPostCo']
     )
@@ -64,7 +64,7 @@ def create_new_move(json):
     address_to = ToAddress(
         line1 = json['toAddrL1'],
         line2 = json['toAddrL2'],
-        city = json['toCity'],
+        city = json['toCity'].strip(),
         state = json['toState'],
         postcode = json['toPostCo']
     )
@@ -279,9 +279,9 @@ def search_moves(json):
     if 'upperDate' in json and json['upperDate'] and json['upperDate'] != '':
         move_query = move_query.filter(MoveDetails.closing_datetime1 <= json['upperDate'])
 
-    if 'postcode' in json and json['postcode'] != '':
+    if 'suburb' in json and json['suburb'] != '':
         move_query = move_query.join(FromAddress, FromAddress.id == MoveDetails.address_from).join(ToAddress, ToAddress.id == MoveDetails.address_to)
-        move_query = move_query.filter(or_(FromAddress.postcode == json['postcode'], ToAddress.postcode == json['postcode']))
+        move_query = move_query.filter(or_(FromAddress.city.ilike('%' + json['suburb'].strip() + '%'), ToAddress.city.ilike('%' + json['suburb'].strip() + '%')))
 
     if 'sortBy' in json:
         if json['sortBy'] == 1:
@@ -296,8 +296,15 @@ def search_moves(json):
         elif json['sortBy'] == 5:
             move_query = move_query.order_by(MoveDetails.closing_datetime1.desc())
 
+    moves = move_query.all()
+
+    if 'sortBy' in json and json['sortBy'] == 6:
+        moves = sorted(moves, key=lambda x: int(round(float(x.rough_distance)/1000.0)))
+
+    moves = list(map(decorate_move_search, moves))
+
     resp = jsonify({
-        'moves': list(map(decorate_move_search, move_query.all()))
+        'moves': moves
     })
     resp.status_code = 200
     return resp
