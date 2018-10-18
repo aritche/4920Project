@@ -1,5 +1,5 @@
 import React from 'react';
-import {Divider, Form, Header, Segment} from 'semantic-ui-react';
+import {Divider, Form, Segment} from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {emptyString} from "../../utils/ValidationUtils";
 

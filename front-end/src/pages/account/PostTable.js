@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Button, Header, Table} from 'semantic-ui-react';
-import ConfirmationModal from '../../widgets/ConfirmationModal';
 import PaginationContainer from '../../widgets/PaginationContainer';
 import moment from "moment";
 
