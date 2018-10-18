@@ -20,6 +20,7 @@ class User(db.Model):
     avatar = db.Column(db.String(255), nullable=False)
 
     comments = relationship('Comment')
+    post_records = relationship('PostRecord')
 
     def to_dict(self):
         return {

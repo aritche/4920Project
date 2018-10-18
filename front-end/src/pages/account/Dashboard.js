@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Message, Header, Segment} from 'semantic-ui-react';
 import FeedList from "./FeedList";
 import PostList from './PostTable';
+import PostRecordList from './PostRecordList';
+import { getLoggedInUserType } from '../../Authentication';
 
 /**
  * Title: Dashboard
@@ -25,27 +27,39 @@ export default class Dashboard extends Component {
             }
           </Segment>
           <br/>
-          {this.props.isMovee
-            ?
-            <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-            :
-            <Header content={'Offered Posts'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-          }
+          <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
 
-          <Segment>
-            {this.props.post.length === 0
-              ?
-              <Message>
-                <Message.Header>No post to view</Message.Header>
-                <p>There are no post at the moment.</p>
-              </Message>
-              :
-              <PostList
-                history={this.props.history}
-                list={this.props.post}
-              />
-            }
-          </Segment>
+          { getLoggedInUserType() === 'Movee' &&
+            <Segment>
+              {this.props.post.length === 0
+                ?
+                <Message>
+                  <Message.Header>No posts to view</Message.Header>
+                  <p>You have not created any posts yet.</p>
+                </Message>
+                :
+                <PostList
+                  history={this.props.history}
+                  list={this.props.post}
+                />
+              }
+            </Segment>
+          }
+          { getLoggedInUserType() === 'Removalist' &&
+            <Segment>
+              {this.props.postRecords.length === 0
+                ?
+                <Message>
+                  <Message.Header>You have no posts to view.</Message.Header>
+                </Message>
+                :
+                <PostRecordList
+                  history={this.props.history}
+                  list={this.props.postRecords}
+                />
+              }
+            </Segment>
+          }
       </div>
     )
   }

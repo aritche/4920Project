@@ -5,6 +5,7 @@ from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Update import Update
 from database.PrivateView import PrivateView
+from database.PostRecord import PostRecord
 from sqlalchemy import and_, not_
 
 
@@ -27,7 +28,18 @@ def decorate_user(user):
         db.session.query(Update).filter(Update.updated_movee_id == user.id).order_by(Update.update_time.desc()).all()
     )))
     user_dict['viewable'] = list(map(PrivateView.get_viewer, db.session.query(PrivateView).filter(PrivateView.viewable_user == user.id).all()))
+    user_dict['post_records'] = list(map(decorate_post_record, sorted(db.session.query(PostRecord).filter(PostRecord.user_id == user.id).all(), key=lambda x: db.session.query(MoveDetails).filter(MoveDetails.id == x.move_id).first().closing_datetime1)))
     return user_dict
+
+
+def decorate_post_record(post_record):
+    record_dict = {}
+    move_query = db.session.query(MoveDetails).filter(MoveDetails.id == post_record.move_id).first()
+    record_dict['name'] = move_query.title
+    record_dict['closing_datetime'] = move_query.closing_datetime1
+    record_dict['status'] = move_query.status
+    record_dict['move_id'] = move_query.id
+    return record_dict
 
 
 def decorate_update(update):

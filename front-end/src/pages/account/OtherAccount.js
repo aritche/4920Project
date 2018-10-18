@@ -66,7 +66,7 @@ export default class OtherAccount extends Component {
             <Segment visible>
               {
                 <OtherProfile
-                  viewable={this.state.user.viewable.includes(getLoggedInUser())}
+                  viewable={this.state.user.viewable.includes(getLoggedInUser()) || parseInt(this.props.match.params.userId) === getLoggedInUser()}
                   desc={this.state.user.description}
                   mobile={this.state.user.phone_number}
                   email={this.state.user.email}
