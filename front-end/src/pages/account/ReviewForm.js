@@ -4,6 +4,7 @@ import { isPositiveInteger, isZero, emptyString, isPositiveFloat } from '../../u
 import PositiveFloatInput from '../../widgets/PositiveFloatInput';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { url } from '../../Api';
+import { getLoggedInUser } from '../../Authentication';
 
 /**
  * Author: VW
@@ -23,7 +24,7 @@ export default class ReviewForm extends Component {
       date: '',
       service: 0,
       reliability: 0,
-      speed: '',
+      speed: 0,
       content: '',
       activeForm: false,
       rating: 0,
@@ -95,9 +96,54 @@ export default class ReviewForm extends Component {
 
   onSubmit = () => {
     if (!this.validation()) {
-    }
-    else {
-
+      this.setState({ isLoading: true });
+      fetch(url + 'submit-review', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: this.props.isMovee ? (
+          JSON.stringify({
+              'poster': getLoggedInUser(),
+              'reviewedUser': this.props.userId,
+              'move': this.props.postId,
+              'review': this.state.content,
+              'ratingGeneral': this.state.rating
+          })
+        :
+          JSON.stringify({
+              'poster': getLoggedInUser(),
+              'reviewedUser': this.props.userId,
+              'move': this.props.postId,
+              'review': this.state.content,
+              'ratingSpeed': this.state.speed,
+              'ratingReliability': this.state.reliability,
+              'ratingService': this.state.service
+          })
+        )
+      }).then(response => {
+        if (response.status === 200) {
+          this.close();
+          this.setState({ isLoading: false })
+        } else if (response.status === 400) {
+          response.json().then(obj => {
+            this.setState({
+              isLoading: false,
+              errorMessage: obj.error
+            }) 
+          })
+        } else {
+          this.setState({
+            isLoading: false,
+            errorMessage: "Error in submitting review"
+          }) 
+        }
+      });
+    } else {
+      this.setState({
+        errorMessage: "Error in submitting review"
+      })
     }
   };
 
@@ -118,7 +164,7 @@ export default class ReviewForm extends Component {
           <Button.Content >Leave a Review</Button.Content>
         </Button>
       } open={this.state.open} onClose={this.close} closeIcon>
-        <Modal.Content>
+        <Modal.Content>   
           <Header block style={{backgroundColor: '#193446', color: 'white'}}>Leave a Review</Header>
           <br/>
           <div style={{display: 'flex'}}>
