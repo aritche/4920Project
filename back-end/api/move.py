@@ -9,6 +9,7 @@ from database.Item import Item
 from database.User import User
 from database.Comment import Comment
 from database.Update import Update
+from database.PrivateView import PrivateView
 import urllib, json, requests
 try:
     # For Python 3.0 and later
@@ -326,6 +327,18 @@ def mark_move_as_accepted(json):
         abort(400, 'Given offerId does not match with given postId.')
 
     move_query.chosen_offer = json['offerId']
+
+    db.session.commit()
+
+    db.session.add(PrivateView(
+        viewable_user = offer[0].poster,
+        viewer = move_query.movee_id
+    ))
+
+    db.session.add(PrivateView(
+        viewable_user = move_query.movee_id,
+        viewer = offer[0].poster
+    ))
 
     db.session.commit()
 

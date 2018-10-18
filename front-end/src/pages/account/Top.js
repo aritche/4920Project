@@ -32,24 +32,36 @@ export default class Top extends Component {
                        marginTop: '1%'}}>
               <Image src={'/images/avatar/' + this.props.avatar + '.jpg'} circular size={'small'} bordered/>
             </Segment>
-            <div style={{marginTop: "5%", marginLeft: "2%"}}>
+            <div style={{marginTop: "2.3%", marginLeft: "2%"}}>
               <Header style={{color:'white'}} size={'huge'}>
                 {this.props.firstName + ' ' + this.props.lastName}
                 <br/>
-                <Header.Subheader style={{color:'white'}} content={this.props.identity + (!!this.props.joinedIn ? ' joined in ' + this.props.joinedIn : '')}
-                        size={'big'}/>
+                {<Header.Subheader style={{color:'white'}} content={this.props.identity + (!!this.props.joinedIn ? ' joined in ' + this.props.joinedIn : '')}
+                        size={'big'}/>}
+                <Header.Subheader size={'medium'}>
+                  {this.props.rating === 0
+                    ?
+                    <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
+                    :
+                    <Rating size={'medium'} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
+                  }
+                </Header.Subheader>
+                <Header.Subheader>
+                  <EditProfile
+                    avatar={this.props.avatar}
+                    firstName={this.props.firstName}
+                    lastName={this.props.lastName}
+                    phone={this.props.phone}
+                    email={this.props.email}
+                    update={this.onUpdate}
+                  />
+                </Header.Subheader>
               </Header>
-              <EditProfile
-                avatar={this.props.avatar}
-                firstName={this.props.firstName}
-                lastName={this.props.lastName}
-                phone={this.props.phone}
-                email={this.props.email}
-                update={this.onUpdate}
-              />
+
+
             </div>
-            <div style={{paddingLeft: "55%",  marginTop: "5%"}}>
-              <Rating size={'massive'} style={{marginBottom: '20%'}} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
+            <div style={{paddingLeft: "55%",  marginTop: "6%"}}>
+
               <br/>
               <Menu inverted secondary attached='top'
                     style={{height: "0%", width: "15%"}}>

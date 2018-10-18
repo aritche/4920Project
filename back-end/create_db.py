@@ -16,6 +16,7 @@ from database.Item import Item
 from database.MoveDetails import MoveDetails
 from database.User import User
 from database.Update import Update
+from database.PrivateView import PrivateView
 
 with app.app_context():
     db.drop_all()
