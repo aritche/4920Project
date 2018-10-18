@@ -38,7 +38,7 @@ export default class Top extends Component {
                 {<Header.Subheader style={{color:'white'}} content={this.props.identity + (!!this.props.joinedIn ? ' joined in ' + this.props.joinedIn : '')}
                         size={'big'}/>}
                 <Header.Subheader size={'medium'}>
-                  {this.props.rating === 0
+                  {this.props.rating === undefined || this.props.rating === 0
                     ?
                     <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
                     :
@@ -56,11 +56,8 @@ export default class Top extends Component {
                   />
                 </Header.Subheader>
               </Header>
-
-
             </div>
             <div style={{paddingLeft: "55%",  marginTop: "6%"}}>
-
               <br/>
               <Menu inverted secondary attached='top'
                     style={{height: "0%", width: "15%"}}>

@@ -19,6 +19,7 @@ from database.Update import Update
 from database.PrivateView import PrivateView
 from database.Distances import Distances
 from database.Postcode import Postcode
+from database.PostRecord import PostRecord
 
 with app.app_context():
     db.drop_all()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import {Divider, Form, Segment} from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {emptyString} from "../../utils/ValidationUtils";
 
@@ -9,12 +9,22 @@ const searchOptions = {
 };
 
 export default class SearchBar extends React.Component {
+    constructor(){
+        super();
+
+        this.state = {
+            segT: false,
+            l1: '',
+        }
+    };
 
     onChange = (e) => {
         this.props.handleC(e);
     };
 
     onAddr1Change = (addrL1) => {
+        this.setState({segT: true});
+        this.setState({l1: addrL1});
         geocodeByAddress(addrL1)
             .then(results => getLatLng(results[0]))
             .then(this.props.handleL1(addrL1))
@@ -23,6 +33,7 @@ export default class SearchBar extends React.Component {
     };
 
     onAddr1Select = (addrL1) => {
+        this.setState({segT: false});
         geocodeByAddress(addrL1)
             .then(results => getLatLng(results[0]))
             .then(this.onChange(this.convertCity(addrL1.split(',')[addrL1.split(',').length - 2])))
@@ -124,7 +135,7 @@ export default class SearchBar extends React.Component {
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <div>
                 <Form.Input
-                  error={this.props.addrL1.length <= 0|| emptyString(this.props.addr1)}
+                  error={(this.props.addrL1.length <= 0|| emptyString(this.props.addr1)) && this.props.submitT}
                   name={this.props.ident + 'AddrL1'} icon='building'
                   iconPosition={'left'} style={{width: 400}}
                        {...getInputProps({
@@ -133,25 +144,33 @@ export default class SearchBar extends React.Component {
                        })}
                 />
                 <div className="autocomplete-dropdown-container">
-                  {loading}
-                  {suggestions.map(suggestion => {
-                    const className = suggestion.active
-                      ? 'suggestion-item--active'
-                      : 'suggestion-item';
-                    const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'pointer', width: 400 }
-                      : { backgroundColor: '#D3D3D3', cursor: 'pointer', width: 400 };
-                    return (
-                      <div
-                        {...getSuggestionItemProps(suggestion, {
-                          className,
-                          style,
-                        })}
-                      >
-                        <span>{suggestion.description}</span>
-                      </div>
-                    );
-                  })}
+                  {loading && <div>Loading...</div>}
+                  {loading !== undefined && !loading && this.state.segT && this.state.l1 !== ""
+                  ?
+                    <Segment style={{width: 400}}>
+                      {suggestions.map(suggestion => {
+                        const className = suggestion.active
+                          ? 'suggestion-item--active'
+                          : 'suggestion-item';
+                        const style = suggestion.active
+                          ? { backgroundColor: '#99A3A4', cursor: 'pointer', width: 350}
+                          : { backgroundColor: 'white', cursor: 'pointer', width: 350};
+                        return (
+                          <div style={{borderRadius: '4px', width: 350}}
+                               {...getSuggestionItemProps(suggestion, {
+                                 className,
+                                 style,
+                               })}
+                          >
+                            <div style={{width: 350}}>{suggestion.description}</div>
+                            <Divider style={{marginTop: 2, marginBottom: 2}}/>
+                          </div>
+                        );
+                      })}
+                    </Segment>
+                  :
+                  <div/>
+                  }
                 </div>
                 <br/>
                 <Form.Input
@@ -163,7 +182,7 @@ export default class SearchBar extends React.Component {
                 <br/>
                 <div style={{display: 'flex'}} >
                   <Form.Input
-                    error={emptyString(this.props.city)}
+                    error={emptyString(this.props.city) && this.props.submitT}
                     value={this.props.city}
                     style={{width: 160}}
                     fluid
@@ -172,7 +191,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Form.Input
-                    error={emptyString(this.props.state)}
+                    error={emptyString(this.props.state) && this.props.submitT}
                     value={this.props.state}
                     style={{width: 80}}
                     fluid
@@ -181,7 +200,7 @@ export default class SearchBar extends React.Component {
                   />
                   <span style={{width: 20}}/>
                   <Form.Input
-                    error={emptyString(this.props.postCode)}
+                    error={emptyString(this.props.postCode) && this.props.submitT && this.props.postCode.length !== 4}
                     value={this.props.postCode}
                     style={{width: 120}}
                     fluid

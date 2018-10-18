@@ -25,9 +25,9 @@ export default class Account extends Component {
             description: '',
             posts: [],
             reviews: [],
+            post_records: [],
             joined_in: '',
             rating: {overall: 3},
-            identity: 'Movee'
           },
           updates: [],
           postList: [],
@@ -152,7 +152,7 @@ export default class Account extends Component {
                       history={this.props.history}
                       post={this.state.user.posts}
                       updates={this.state.updates}
-                      isMovee={this.state.user.identity === "Movee"}
+                      postRecords={this.state.user.post_records}
                     />
                     :
                     <Profile

@@ -47,6 +47,7 @@ export default class CreatePostForm extends Component {
             activeT1: false,
             activeT2: false,
             errT: false,
+            submitT: false,
         }
         : {
             editing: false,
@@ -72,7 +73,8 @@ export default class CreatePostForm extends Component {
             errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
             activeDate: false,
             activeT1: false,
-            activeT2: false
+            activeT2: false,
+            submitT: false,
         }
     }
 
@@ -164,6 +166,7 @@ export default class CreatePostForm extends Component {
           this.state.desc];
         if (validation.includes(" ") || this.state.itemTable.length === 0 || validation.includes("")) {
             this.setState({errorT: true});
+            this.setState({submitT: true});
             return;
         }
         // connect to back-end
@@ -238,7 +241,7 @@ export default class CreatePostForm extends Component {
                     <Header content={'Post Title'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
                     <Form.Input
-                      error={this.state.title === undefined || emptyString(this.state.title)}
+                      error={(this.state.title === undefined || emptyString(this.state.title)) && this.state.submitT}
                       name='title'
                       style={{width: 250}} fluid
                       placeholder='Post Title'
@@ -263,6 +266,7 @@ export default class CreatePostForm extends Component {
                       postN={"fromPostCo"}
                       handleC={this.onChange}
                       handleL1={this.onAddrFChange}
+                      submitT={this.state.submitT}
                     />
 
                     <Header content={'Where are you moving to?'} size={'huge'} block
@@ -283,6 +287,7 @@ export default class CreatePostForm extends Component {
                       postN={"toPostCo"}
                       handleC={this.onChange}
                       handleL1={this.onAddrTChange}
+                      submitT={this.state.submitT}
                     />
 
                     <Header content={'When are you moving?'} size={'huge'} block
@@ -323,18 +328,18 @@ export default class CreatePostForm extends Component {
                     <Header content={'Post Description'} size={'huge'} block
                             style={{backgroundColor: '#193446', color: 'white'}}/>
 
-                    <Form.TextArea autoHeight error={emptyString(this.state.desc)} name='desc'
+                    <Form.TextArea autoHeight error={emptyString(this.state.desc) && this.state.submitT} name='desc'
                               placeholder={'Description'} onChange={this.onChange} value={this.state.desc}/>
 
                   </Form.Field>
 
-                  <div style={{display: 'flex'}}>
+                  <Button.Group>
                     <Button style={{width: 100, height: 40, backgroundColor: '#22AABB', color: 'white'}}
                             type='submit' onClick={this.createPost}>{this.state.editing ? 'Edit' : 'Post'}</Button>
-                    <span style={{width: 3}}/>
+                    <Button.Or/>
                     <Button style={{width: 100, height: 40, backgroundColor: '#193446', color: 'white'}}
                             as={Link} to={'/posts'}>Discard</Button>
-                  </div>
+                  </Button.Group>
 
                   <ErrorInputModal
                     pop={this.state.activeDate}
