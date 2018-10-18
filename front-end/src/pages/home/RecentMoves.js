@@ -45,7 +45,7 @@ export default class RecentMoves extends Component {
                         <Header align='middle' as='h1' style={{paddingBottom: '0px'}}>Recent Moves</Header>
                     </Grid.Row>
                     <Grid.Row>
-                        <Container text align='middle' style={{paddingBottom: '35px', width: '70%'}}>
+                        <Container text align='middle' style={{paddingBottom: '10px', width: '70%'}}>
                             <strong>Moves are happening all the time. <br/>Wondering what a post looks like? Click one of the following and have a peak!</strong>
                         </Container>
                     </Grid.Row>
