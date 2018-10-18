@@ -3,6 +3,14 @@ import { Container, Segment, Header, Divider } from 'semantic-ui-react';
 import AccountList from './AccountList';
 
 export default class MoveeDiscover extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            removalists: [],
+        };
+    }
+
     render() {
         return (
             <Container style={{backgroundColor: "white", borderRadius: '4px'}}>
