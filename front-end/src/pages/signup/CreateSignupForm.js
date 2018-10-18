@@ -170,11 +170,11 @@ export default class CreateSignupForm extends Component {
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 650, minHeight: '100vh'}}>
                     <Form error={this.state.submitError}>
-                        <Segment.Group style={{boxShadow: '2px 1px 2px #000000'}}>
-                        <Segment style={{backgroundColor: "#193446"}} stacked>
+                        <Segment.Group style={{}}>
+                        <Segment style={{backgroundColor: "#193446", boxShadow: '2px 1px 2px #000000'}} stacked>
                             <h1 style={{color: 'white'}}>Join the Community!</h1>
                         </Segment>
-                        <Segment>
+                        <Segment style={{boxShadow: '2px 1px 2px #000000'}}>
                             <Form.Group widths='equal'>
                                 <Form.Input error={this.state.firstNameError} placeholder="First Name" icon={'user'}
                                             iconPosition={'left'} value={this.state.firstName}

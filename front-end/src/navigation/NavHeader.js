@@ -63,13 +63,16 @@ export default class NavHeader extends Component {
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
                     <Image src={logo} style={{height:20}}/>
                 </Menu.Item>
-                {/*
-                <Menu.Item
-                  as={Link}
-                  to={'/account' }
-                  active={isLoggedIn() ? false : window.location.pathname === '/account' }>
-                  account
-                </Menu.Item>*/}
+                {
+                    /*
+                  <Menu.Item
+                    as={Link}
+                    to={'/account' }
+                    active={isLoggedIn() ? false : window.location.pathname === '/account' }>
+                    account
+                  </Menu.Item>
+                  */
+                }
 
                 {
                     this.state.isLoggedIn && getLoggedInUserType() === userType.MOVEE &&
@@ -98,9 +101,6 @@ export default class NavHeader extends Component {
                               }
                             on='click'
                           />
-                          <Image src={'/images/red.jpg'} circular
-                                 style={{backgroundColor:'red', position:'absolute', zIndex:2,
-                                   width: '1.6%', height: '20%', marginLeft: '95.5%', marginBottom:'1.6%'}}/>
                         </Menu.Item>
                       </Menu.Menu>
                     :
