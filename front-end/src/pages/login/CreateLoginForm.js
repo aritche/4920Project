@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { verify } from 'password-hash';
 import { url } from '../../Api';
-import { Link } from 'react-router-dom';
 import { updateAuthentication } from '../../Authentication';
 import {Menu} from "semantic-ui-react/dist/commonjs/collections/Menu/Menu";
 
@@ -34,9 +33,9 @@ export default class CreateLoginForm extends Component {
         this.setState({ emailError: false });
         this.setState({ passwordError: false });
         this.setState({ submitError : false });
-        var validationError = false;
+      let validationError = false;
 
-        if (this.state.email === ''){
+      if (this.state.email === ''){
             this.setState({ emailError : true });
             validationError = true;
         }

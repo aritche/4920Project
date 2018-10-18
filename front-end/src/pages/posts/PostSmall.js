@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Item, Grid, Label, Icon, Rating, Container, Header} from 'semantic-ui-react';
+import { Grid, Icon, Rating, Container, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import './Post.css';
 import moment from "moment";
 
 export default class PostSmall extends Component {

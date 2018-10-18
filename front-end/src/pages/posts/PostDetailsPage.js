@@ -34,7 +34,7 @@ export default class PostDetailsPage extends Component {
                         comments: obj.comments,
                         isLoading: false
                     });
-                    return;
+
                 });
             } else {
                 this.setState({
@@ -134,7 +134,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -162,7 +162,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -189,7 +189,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -214,7 +214,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -239,7 +239,6 @@ export default class PostDetailsPage extends Component {
                                 <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : this.state.post.status === 'CLOSED' ? 'red' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
                                     { this.state.post.status }
                                 </Label>
-
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
                                     <ConfirmationModal

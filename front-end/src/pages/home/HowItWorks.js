@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Header, Grid, Image, Container } from 'semantic-ui-react';
+import { Segment, Header, Grid, Container } from 'semantic-ui-react';
 import { url } from '../../Api';
 import ProcessStep from './ProcessStep'
 

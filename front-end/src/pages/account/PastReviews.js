@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {Image, Segment, Header, Menu, Rating, Grid, Comment, List, Label, Button} from 'semantic-ui-react';
-import m1 from '../../avatar/male1.jpg';
-import Feed from "./Feed";
+import {Header, Rating, Comment} from 'semantic-ui-react';
 import {Form} from "semantic-ui-react/dist/commonjs/collections/Form/Form";
 
 

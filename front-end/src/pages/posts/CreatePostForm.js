@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Form, Header, TextArea, Segment } from 'semantic-ui-react';
+import { Container, Button, Form, Header, Segment } from 'semantic-ui-react';
 import moment from "moment";
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar'
@@ -11,7 +11,6 @@ import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
 import {emptyString, validBudget} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
-// import Comments from './Comments'
 
 /**
  * Title: Post Form

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Form, TextArea, Header, Modal, Button, Icon, Rating, Image} from 'semantic-ui-react';
-import { isPositiveInteger, isZero, emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
-import PositiveFloatInput from '../../widgets/PositiveFloatInput';
+import {isZero, emptyString} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { url } from '../../Api';
 
@@ -131,7 +130,7 @@ export default class ReviewForm extends Component {
               <div style={{display: 'flex'}}>
                 <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
+                <Rating defaultRating={0} maxRating={5} onClick={this.onRatingChange}/>
               </div>
               :
               <div style={{display: 'flex'}}>

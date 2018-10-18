@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Image, Segment, Header, Rating, Menu} from 'semantic-ui-react';
-import EditProfile from "./EditProfile";
+import {Image, Segment, Header, Rating} from 'semantic-ui-react';
 
 /**
  * Title: Top
