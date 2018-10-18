@@ -13,8 +13,8 @@ export default class ItemTable extends Component{
             {this.props.table.length === 0
             ?
             <Message>
-              <Message.Header>No item to view</Message.Header>
-              <p>Add an item now!</p>
+              <Message.Header>You have not added any items yet</Message.Header>
+              <p>Please add at least one</p>
             </Message>
             :
             <Table basic='very'>

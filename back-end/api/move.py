@@ -328,6 +328,7 @@ def decorate_move_search(move):
     move_dict['from_suburb'] = db.session.query(FromAddress).filter(FromAddress.id == move.address_from).first().city
     move_dict['to_suburb'] = db.session.query(ToAddress).filter(ToAddress.id == move.address_to).first().city
     move_dict['budget'] = move.budget
+    move_dict['closing_datetime'] = move.closing_datetime1
     if move.rough_distance != -1:
         move_dict['distance_string'] = str(int(round(float(move.rough_distance)/1000.0))) + ' km'
     else:

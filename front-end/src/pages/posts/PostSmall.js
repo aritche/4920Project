@@ -13,16 +13,16 @@ export default class PostSmall extends Component {
                     <Container style={{borderTopRightRadius:'9px', borderTopLeftRadius: '9px', backgroundColor: '#193446', paddingTop: '10px', paddingBottom: '10px'}}>
                         <Header as='h3' style={{color: 'white'}}>
                         <Grid.Row>
-                            {post.address_from.city}
+                            {post.from_suburb}
                             <Icon name='angle right' style={{paddingLeft: '10px'}}/>
-                            {post.address_to.city}
+                            {post.to_suburb}
                         </Grid.Row>
                         </Header>
                     </Container>
 
                     <Container style={{paddingTop: '10px', paddingBottom: '10px'}}>
                         <Grid.Row style={{paddingBottom: '10px'}}>
-                            {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
+                            {moment(post.closing_datetime).calendar()}
                         </Grid.Row>
 
                         <Grid.Row style={{paddingBottom: '10px'}}>
