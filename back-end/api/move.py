@@ -299,6 +299,7 @@ def search_moves(json):
     moves = move_query.all()
 
     if 'sortBy' in json and json['sortBy'] == 6:
+        moves = [x for x in moves if x.rough_distance != -1]
         moves = sorted(moves, key=lambda x: int(round(float(x.rough_distance)/1000.0)))
 
     moves = list(map(decorate_move_search, moves))
@@ -434,8 +435,8 @@ def get_distance(exact, start_line1, start_city, start_state, end_line1, end_cit
     except:
         return None
 
-    distance_in_metres = None
-    if 'status' in json_data and json_data['status'] == 'OK':
+    distance_in_metres = -1
+    if 'status' in json_data and json_data['status'] == 'OK' and json_data['rows'][0]['elements'][0]['status'] == 'OK':
         distance_in_metres = int(json_data['rows'][0]['elements'][0]['distance']['value'])
         # travel_time = json_data['rows'][0]['elements'][0]['duration']['text']
 
