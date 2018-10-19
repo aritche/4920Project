@@ -62,36 +62,33 @@ export default class ReviewForm extends Component {
     });
   };
 
-  onServiceChange = (e) => {
-    if (e.target.value === 0) {
-
-    }
-    else {
-      this.setState({service: e});
-    }
-
-  };
-
   onRatingChange = (e) => {
     if (e.target.value === 0) {
-
-    }
-    else {
       this.setState({rating: e});
     }
 
   };
 
+  onServiceChange = (e) => {
+    if (e.target.value === 0) {
+      this.setState({service: e.target.value});
+    }
+  };
+
   onReliabilityChange = (e) => {
-    this.setState({reliability: e});
+    if (e.target.value !== 0) {
+      this.setState({reliability: e.target.value});
+    }
   };
 
   onSpeedChange = (e) => {
-    this.setState({speed: e});
+    if (e.target.value !== 0) {
+      this.setState({speed: e.target.value});
+    }
   };
 
   onContentChange = (e) => {
-    this.setState({content: e});
+    this.setState({content: e.target.value});
   };
 
   onSubmit = () => {
@@ -177,7 +174,7 @@ export default class ReviewForm extends Component {
               <div style={{display: 'flex'}}>
                 <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
+                <Rating defaultRating={0} maxRating={5} onClick={this.onRatingChange}/>
               </div>
               :
               <div style={{display: 'flex'}}>
