@@ -25,11 +25,13 @@ export default class SearchBar extends React.Component {
     onAddr1Change = (addrL1) => {
         this.setState({segT: true});
         this.setState({l1: addrL1});
-        geocodeByAddress(addrL1)
-            .then(results => getLatLng(results[0]))
-            .then(this.props.handleL1(addrL1))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
+        setTimeout(() => {
+          geocodeByAddress(addrL1)
+              .then(results => getLatLng(results[0]))
+              .then(this.props.handleL1(addrL1))
+              .then(latLng => console.log('Success', latLng))
+              .catch(error => console.error('Error', error));
+        }, 100);
     };
 
     onAddr1Select = (addrL1) => {
