@@ -147,29 +147,36 @@ export default class SearchBar extends React.Component {
                   {loading && <div>Loading...</div>}
                   {loading !== undefined && !loading && this.state.segT && this.state.l1 !== ""
                   ?
-                    <Segment style={{width: 400}}>
-                      {suggestions.map(suggestion => {
-                        const className = suggestion.active
-                          ? 'suggestion-item--active'
-                          : 'suggestion-item';
-                        const style = suggestion.active
-                          ? { backgroundColor: '#99A3A4', cursor: 'pointer', width: 350}
-                          : { backgroundColor: 'white', cursor: 'pointer', width: 350};
-                        return (
-                          <div style={{borderRadius: '4px', width: 350}}
-                               {...getSuggestionItemProps(suggestion, {
-                                 className,
-                                 style,
-                               })}
-                          >
-                            <div style={{width: 350}}>{suggestion.description}</div>
-                            <Divider style={{marginTop: 2, marginBottom: 2}}/>
-                          </div>
-                        );
-                      })}
-                    </Segment>
+                    suggestions.length > 0
+                    ?
+                        <Segment style={{width: 400}}>
+                          {
+                            suggestions.map(suggestion => {
+                                const className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#99A3A4', cursor: 'pointer', width: 350}
+                                  : { backgroundColor: 'white', cursor: 'pointer', width: 350};
+                                return (
+                                  <div style={{borderRadius: '4px', width: 350}}
+                                       {...getSuggestionItemProps(suggestion, {
+                                         className,
+                                         style,
+                                       })}
+                                  >
+                                    <div style={{width: 350}}>{suggestion.description}</div>
+                                    <Divider style={{marginTop: 2, marginBottom: 2}}/>
+                                  </div>
+                                );
+                            })
+                          }
+                        </Segment>
+                    :
+                        <div/>
+
                   :
-                  <div/>
+                    <div/>
                   }
                 </div>
                 <br/>

@@ -349,25 +349,25 @@ export default class CreatePostForm extends Component {
 
                   <ErrorInputModal
                     pop={this.state.activeT1}
-                    headerText={'The from time must be before the to time'}
+                    headerText={'Make sure your times are in the correct order!'}
                     onClose={this.onTime1PopClose}
                   />
 
                   <ErrorInputModal
                     pop={this.state.activeT2}
-                    headerText={'The to time must be before the from time'}
+                    headerText={'Make sure your times are in the correct order!'}
                     onClose={this.onTime2PopClose}
                   />
 
                   <ErrorInputModal
                     pop={this.state.activeT2}
-                    headerText={'The to time must be before the from time'}
+                    headerText={'Make sure your times are in the correct order!'}
                     onClose={this.onTime2PopClose}
                   />
 
                   <ErrorInputModal
                     pop={this.state.errorT}
-                    headerText={'Please fill all the necessary field'}
+                    headerText={'Please fill all the necessary fields'}
                     onClose={this.onErrorClose}
                   />
 

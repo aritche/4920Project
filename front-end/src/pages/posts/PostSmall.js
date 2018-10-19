@@ -22,7 +22,7 @@ export default class PostSmall extends Component {
 
                     <Container style={{paddingTop: '10px', paddingBottom: '10px'}}>
                         <Grid.Row style={{paddingBottom: '10px'}}>
-                            {moment(post.closing_datetime1).format('D MMM YYYY') + ' at ' + moment(post.closing_datetime1).format('h A')}
+                            {moment(post.closing_datetime).calendar()}
                         </Grid.Row>
 
                         <Grid.Row style={{paddingBottom: '10px'}}>
