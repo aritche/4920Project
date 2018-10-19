@@ -103,47 +103,46 @@ export default class ReviewForm extends Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: this.props.isMovee ? (
+        body: this.props.isMovee ? 
           JSON.stringify({
-              'poster': getLoggedInUser(),
-              'reviewedUser': this.props.userId,
-              'move': this.props.postId,
-              'review': this.state.content,
-              'ratingGeneral': this.state.rating
+            'poster': getLoggedInUser(),
+            'reviewedUser': this.props.userId,
+            // 'move': this.props.postId,
+            // 'review': this.state.field,
+            // 'ratingGeneral': this.state.content
           })
         :
           JSON.stringify({
-              'poster': getLoggedInUser(),
-              'reviewedUser': this.props.userId,
-              'move': this.props.postId,
-              'review': this.state.content,
-              'ratingSpeed': this.state.speed,
-              'ratingReliability': this.state.reliability,
-              'ratingService': this.state.service
+            'poster': getLoggedInUser(),
+            'reviewedUser': this.props.userId,
+            'move': this.props.postId,
+            'ratingSpeed': this.state.speed,
+            // 'ratingReliability': this.state.reliability,
+            // 'ratingService': this.state.service,
+            // 'review': this.state.content
           })
-        )
       }).then(response => {
         if (response.status === 200) {
           this.close();
-          this.setState({ isLoading: false })
+          this.setState({ isLoading: false });
         } else if (response.status === 400) {
           response.json().then(obj => {
             this.setState({
               isLoading: false,
               errorMessage: obj.error
-            }) 
+            }); 
           })
         } else {
           this.setState({
             isLoading: false,
             errorMessage: "Error in submitting review"
-          }) 
+          }); 
         }
       });
     } else {
       this.setState({
         errorMessage: "Error in submitting review"
-      })
+      });
     }
   };
 
