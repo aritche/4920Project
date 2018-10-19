@@ -9,7 +9,8 @@ export default class UserPopup extends Component {
       <div>
         <Button.Group>
           <Button
-            style={{backgroundColor: '#193446', color: 'white', width: 100, height: 38}}
+            onClick={this.props.closePopup}
+            style={{backgroundColor: '#193446', color: 'white', width: 110, height: 38}}
             as={Link}
             to={'/account'}
             active={window.location.pathname === '/account'}
@@ -18,7 +19,10 @@ export default class UserPopup extends Component {
           </Button>
           <Button.Or />
           <Button style={{backgroundColor: '#22AABB', color: 'white', width: 100, height: 38}}
-                  onClick={logout}
+                  onClick={() => {
+                    this.props.closePopup();
+                    logout();
+                  }}
                   as={Link}
                   to={'/login'}
                   active={window.location.pathname === '/login'}>

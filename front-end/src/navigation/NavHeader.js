@@ -12,6 +12,7 @@ export default class NavHeader extends Component {
 
         this.state = {
             query: '',
+            userPopupOpen: false,
             isLoggedIn: false
         }
     };
@@ -47,6 +48,14 @@ export default class NavHeader extends Component {
         //this.props.history.push('/')
 
     };
+
+    triggerUserPopup = () => {
+        this.setState({ userPopupOpen: !this.state.userPopupOpen });
+    }
+
+    closeUserPopup = () => {
+        this.setState({ userPopupOpen: false });
+    }
 
     render() {
         const homeUrl = isLoggedIn() ? '/discover' : '/home';
@@ -88,14 +97,17 @@ export default class NavHeader extends Component {
                       <Menu.Menu position='right'>
                         <Menu.Item>
                           <Popup
+                            onClose={this.closeUserPopup}
+                            open={this.state.userPopupOpen}
                             style={{boxShadow: '2px 3px 2px #000000'}}
-                            trigger={<Image style={{width: "6%", height: '4%', marginBottom: '-1.5%',
+                            trigger={<Image onClick={this.triggerUserPopup} style={{width: "6%", height: '4%', marginBottom: '-1.5%',
                               marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
                                             circular avatar/>}
                             content=
                               {
                                 <UserPopup
                                   userName={this.state.userName}
+                                  closePopup={this.closeUserPopup}
                                 />
                               }
                             on='click'
