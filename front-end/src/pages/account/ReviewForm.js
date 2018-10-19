@@ -64,7 +64,7 @@ export default class ReviewForm extends Component {
 
   onRatingChange = (e) => {
     if (e.target.value !== 0) {
-      this.setState({rating: e});
+      this.setState({rating: e.target.value});
     }
 
   };
