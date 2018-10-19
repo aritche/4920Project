@@ -8,10 +8,17 @@ export default class AccountList extends Component {
             this.props.accounts && this.props.accounts.length > 0 ?
                 <div align='center' className="list-container">
                 
-                    <Grid link columns={this.props.accounts.length} style={{width: '75%'}}>
+                    <Grid link columns={3} style={{width: '100%', padding: '20px'}}>
+                        <Grid.Row style={{marginBottom: '40px'}}>
                         {
                             this.props.accounts.map(account => <Grid.Column><Account key={account.id} account={account} /></Grid.Column>)
                         }
+                        </Grid.Row>
+                        <Grid.Row>
+                        {
+                            this.props.accounts.map(account => <Grid.Column><Account key={account.id} account={account} /></Grid.Column>)
+                        }
+                        </Grid.Row>
                     </Grid>
                 </div>
             :
