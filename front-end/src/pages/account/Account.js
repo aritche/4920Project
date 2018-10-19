@@ -163,7 +163,7 @@ export default class Account extends Component {
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       identity={this.state.user.identity}
-                      overall={this.state.user.rating.overall}
+                      // overall={this.state.user.rating.overall}
                       service={this.state.user.rating.service}
                       reliability={this.state.user.rating.reliability}
                       speed={this.state.user.rating.speed}
