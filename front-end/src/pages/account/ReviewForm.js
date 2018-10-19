@@ -62,28 +62,32 @@ export default class ReviewForm extends Component {
     });
   };
 
-  onRatingChange = (e) => {
-    if (e.target.value !== 0) {
-      this.setState({rating: e.target.value});
+  onRatingChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({rating: rating});
     }
 
   };
 
-  onServiceChange = (e) => {
-    if (e.target.value !== 0) {
-      this.setState({service: e.target.value});
+  onServiceChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({service: rating});
     }
   };
 
-  onReliabilityChange = (e) => {
-    if (e.target.value !== 0) {
-      this.setState({reliability: e.target.value});
+  onReliabilityChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({reliability: rating});
     }
   };
 
-  onSpeedChange = (e) => {
-    if (e.target.value !== 0) {
-      this.setState({speed: e.target.value});
+  onSpeedChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({speed: rating});
     }
   };
 
@@ -173,26 +177,26 @@ export default class ReviewForm extends Component {
               <div style={{display: 'flex'}}>
                 <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onRatingChange}/>
+                <Rating defaultRating={0} maxRating={5} onRate={this.onRatingChange}/>
               </div>
               :
               <div style={{display: 'flex'}}>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Service'}/>
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onServiceChange}/>
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Reliability'} />
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onReliabilityChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onReliabilityChange}/>
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Speed'} />
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onSpeedChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onSpeedChange}/>
                 </div>
               </div>
             }
