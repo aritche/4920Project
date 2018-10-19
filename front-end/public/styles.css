@@ -51,3 +51,8 @@
     text-align: center;
     margin-top: 20px;
 }
+
+.autocomplete-dropdown-container {
+    position: relative;
+    top: -14px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Divider, Form, Segment} from 'semantic-ui-react';
+import {Divider, Form, Segment, Loader} from 'semantic-ui-react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {emptyString} from "../../utils/ValidationUtils";
 
@@ -25,13 +25,12 @@ export default class SearchBar extends React.Component {
     onAddr1Change = (addrL1) => {
         this.setState({segT: true});
         this.setState({l1: addrL1});
-        setTimeout(() => {
-          geocodeByAddress(addrL1)
-              .then(results => getLatLng(results[0]))
-              .then(this.props.handleL1(addrL1))
-              .then(latLng => console.log('Success', latLng))
-              .catch(error => console.error('Error', error));
-        }, 100);
+        
+        geocodeByAddress(addrL1)
+            .then(results => getLatLng(results[0]))
+            .then(this.props.handleL1(addrL1))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
     };
 
     onAddr1Select = (addrL1) => {
@@ -146,29 +145,32 @@ export default class SearchBar extends React.Component {
                        })}
                 />
                 <div className="autocomplete-dropdown-container">
-                  {loading && <div>Loading...</div>}
+                  {loading && 
+                    <Segment style={{width: 400}}>
+                      <Loader active style={{marginTop:"10px"}}/>
+                    </Segment>
+                  }
                   {loading !== undefined && !loading && this.state.segT && this.state.l1 !== ""
                   ?
                     suggestions.length > 0
                     ?
-                        <Segment style={{width: 400}}>
+                        <Segment style={{width: 400, padding: '1px'}}>
                           {
                             suggestions.map(suggestion => {
                                 const className = suggestion.active
                                   ? 'suggestion-item--active'
                                   : 'suggestion-item';
                                 const style = suggestion.active
-                                  ? { backgroundColor: '#99A3A4', cursor: 'pointer', width: 350}
-                                  : { backgroundColor: 'white', cursor: 'pointer', width: 350};
+                                  ? { backgroundColor: '#DFF2FF', cursor: 'pointer', padding: '10px', border: '1px solid #c8e2f5'}
+                                  : { backgroundColor: 'white', cursor: 'pointer', padding: '10px', border: '1px solid white'};
                                 return (
-                                  <div style={{borderRadius: '4px', width: 350}}
+                                  <div style={{borderRadius: '4px'}}
                                        {...getSuggestionItemProps(suggestion, {
                                          className,
                                          style,
                                        })}
                                   >
-                                    <div style={{width: 350}}>{suggestion.description}</div>
-                                    <Divider style={{marginTop: 2, marginBottom: 2}}/>
+                                    <div style={{marginLeft: "10px"}}>{suggestion.description}</div>
                                   </div>
                                 );
                             })
