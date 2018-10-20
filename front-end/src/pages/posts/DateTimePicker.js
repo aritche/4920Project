@@ -3,9 +3,6 @@ import DatePicker from 'react-datepicker';
 import { Header } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 
-/**
- * Author: VW
- */
 export default class DateTimePicker extends Component{
 
     onDateChange = (date) => {

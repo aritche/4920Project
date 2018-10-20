@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import {Image, Segment, Header, Rating} from 'semantic-ui-react';
-import EditProfile from "./EditProfile";
 
-/**
- * Title: Top
- * Author: Victor
- */
 export default class OtherTop extends Component {
 
   render() {

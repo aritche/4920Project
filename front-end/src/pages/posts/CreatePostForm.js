@@ -12,10 +12,6 @@ import { getLoggedInUser } from '../../Authentication';
 import {emptyString, validBudget} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 
-/**
- * Title: Post Form
- * Author: Victor & Jimmy
- */
 export default class CreatePostForm extends Component {
     constructor(props) {
         super(props);

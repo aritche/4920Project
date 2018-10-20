@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {Divider, Header, Message, Segment} from 'semantic-ui-react';
 import Rating from './UserRating';
 
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class OtherProfile extends Component {
   constructor() {
     super();

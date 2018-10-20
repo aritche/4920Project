@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Segment, Header, Divider } from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 import AccountList from './AccountList';
 import { url } from '../../Api';
-import { getLoggedInUser, logout } from '../../Authentication';
 
 export default class MoveeDiscover extends Component {
     constructor(props) {

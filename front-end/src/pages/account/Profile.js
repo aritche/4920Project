@@ -3,10 +3,6 @@ import {Divider, Header, Segment, Message} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
 import Rating from "./UserRating"
 
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class Profile extends Component {
   constructor() {
     super();

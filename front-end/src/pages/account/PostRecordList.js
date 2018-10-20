@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from "moment";
-
 import {Button, Header, Table} from 'semantic-ui-react';
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 import PaginationContainer from '../../widgets/PaginationContainer';
@@ -52,10 +51,10 @@ export default class PostRecordList extends Component{
       body: JSON.stringify({
         'postRecordId': id
       })
-    }).then(response => {
+    }).then(() => {
       this.props.loadPostRecords();
     });
-  }
+  };
 
   render(){
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Rating, Container, Header} from 'semantic-ui-react';
+import { Grid, Icon, Container, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from "moment";
 

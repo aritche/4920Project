@@ -5,9 +5,6 @@ import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
 
-/**
- * Author: VW
- */
 export default class ReviewForm extends Component {
   constructor() {
     super();

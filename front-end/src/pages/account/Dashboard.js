@@ -10,9 +10,6 @@ import { getLoggedInUserType } from '../../Authentication';
  * Author: Victor
  */
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -21,12 +18,12 @@ export default class Dashboard extends Component {
           <Segment>
             {this.props.updates.length === 0
               ?
-              <Message>
-                <Message.Header>No update to view</Message.Header>
-                <p>There are no update at the moment.</p>
-              </Message>
+                <Message>
+                  <Message.Header>No update to view</Message.Header>
+                  <p>There are no update at the moment.</p>
+                </Message>
               :
-              <FeedList feeds={this.props.updates} history={this.props.history}/>
+                <FeedList feeds={this.props.updates} history={this.props.history}/>
             }
           </Segment>
           <br/>

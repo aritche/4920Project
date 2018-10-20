@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Item, Grid, Rating, Label, Container, Header } from 'semantic-ui-react';
+import { Item, Grid, Rating, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import moment from "moment";
 
 export default class Account extends Component {
     render() {

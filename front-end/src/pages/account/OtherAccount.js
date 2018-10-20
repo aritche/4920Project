@@ -5,11 +5,6 @@ import OtherTop from "./OtherTop"
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';
 
-
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class OtherAccount extends Component {
   constructor() {
     super();
