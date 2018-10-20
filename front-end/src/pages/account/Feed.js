@@ -32,6 +32,12 @@ export default class SingleFeed extends Component {
                   <Button.Content >View post</Button.Content>
                 </Button>
             }
+            { this.props.updateType === 'post_update' &&
+                <Button onClick={() => {this.props.history.push('/posts/' + this.props.postId)}} size='large' style={{width: 190, height: 45, zIndex: 0,
+                  backgroundColor: '#22AABB', color: 'white', marginLeft: 'auto', marginRight: '40px', marginTop: 'auto', marginBottom: 'auto'}}>
+                  <Button.Content >Make a new offer</Button.Content>
+                </Button>
+            }
           </Feed.Content>
         </Feed.Event>
       </Feed>

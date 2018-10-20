@@ -186,7 +186,21 @@ def update_move(json):
         post.items.append(new_item)
     db.session.commit()
 
+    updated = []
+
     for comment in post.comments:
+        if comment.is_offer and not comment.is_stale and comment.poster not in updated:
+            update = Update(
+                update_type = 'post_update',
+                updated_movee_id = comment.poster,
+                concerning_movee_id = post.movee_id,
+                description = '',
+                move_id = post.id,
+                update_time = datetime.now()
+            )
+            db.session.add(update)
+            updated.append(comment.poster)
+
         comment.is_stale = True
     db.session.commit()
 

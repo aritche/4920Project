@@ -46,9 +46,9 @@ def decorate_post_record(post_record):
 def decorate_update(update):
     update['concerning_details'] = db.session.query(User).filter(User.id == update['concerning']).first().to_dict()
     if update['update_type'] == 'comment':
-        update['event'] = 'commented on your post'
+        update['event'] = 'commented on your move'
     elif update['update_type'] == 'offer':
-        update['event'] = 'made an offer on your post'
+        update['event'] = 'made an offer on your move'
     elif update['update_type'] == 'accepted':
         update['event'] = ' has accepted your offer'
     elif update['update_type'] == 'close_movee':
@@ -57,6 +57,8 @@ def decorate_update(update):
         update['event'] = ' has marked your move as closed'
     elif update['update_type'] == 'comment_reply':
         update['event'] = ' has replied to your comment'
+    elif update['update_type'] == 'post_update':
+        update['event'] = ' has edited the details of their move'
     else:
         update['event'] = update['update_type']
     update['update_time_string'] = update['update_time'].strftime('%-I:%M %p on %d %B, %Y')
