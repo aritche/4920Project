@@ -370,9 +370,9 @@ def decorate_move(move):
     move['movee'] = movee.to_dict()
 
     if move['closing_datetime1'].strftime('%-I:%M %p') == move['closing_datetime2'].strftime('%-I:%M %p'):
-        move['date_string'] = move['closing_datetime2'].strftime('%-I:%M %p on %d %B %Y')
+        move['date_string'] = move['closing_datetime2'].strftime('%-I:%M %p on %-d %B %Y')
     else:
-        move['date_string'] = move['closing_datetime1'].strftime('%-I:%M %p to ') + move['closing_datetime2'].strftime('%-I:%M %p on %d %B %Y')
+        move['date_string'] = move['closing_datetime1'].strftime('%-I:%M %p to ') + move['closing_datetime2'].strftime('%-I:%M %p on %-d %B %Y')
     return move
 
 

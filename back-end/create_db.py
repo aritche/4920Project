@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from database.model import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 app = Flask(__name__)
@@ -147,13 +147,13 @@ with app.app_context():
     db.session.add(to_address)
     db.session.commit()
 
-    now = datetime.now()
+    now = datetime.now() - timedelta(days=1, hours=2, minutes=13)
 
     move1 = MoveDetails(
         movee_id = js.id,
         title = 'Queen Bed in Kensington',
-        closing_datetime1 = datetime.now(),
-        closing_datetime2 = datetime.now(),
+        closing_datetime1 = datetime.now() + timedelta(days=14, hours=1, minutes=24),
+        closing_datetime2 = datetime.now() + timedelta(days=14, hours=6, minutes=24),
         description = 'This is an example post. This description is just a placeholder description, but this is how movees will make a first impression with removealists.',
         budget = 400,
         status = 'OPEN',
@@ -245,12 +245,12 @@ with app.app_context():
     move2 = MoveDetails(
         movee_id = ml.id,
         title = 'Short distance move!',
-        closing_datetime1 = datetime.now(),
-        closing_datetime2 = datetime.now(),
+        closing_datetime1 = datetime.now() + timedelta(days=14, hours=3, minutes=41),
+        closing_datetime2 = datetime.now() + timedelta(days=14, hours=10, minutes=41),
         description = 'I just need a few things moved a really short distance!',
         budget = 250,
         status = 'OPEN',
-        creation_datetime = now,
+        creation_datetime = now - timedelta(days=1, hours=20),
         last_updated = now,
         address_from = from_address.id,
         address_to = to_address.id,
