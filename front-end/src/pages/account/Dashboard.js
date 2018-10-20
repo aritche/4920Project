@@ -10,6 +10,9 @@ import { getLoggedInUserType } from '../../Authentication';
  * Author: Victor
  */
 export default class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
@@ -56,6 +59,7 @@ export default class Dashboard extends Component {
                 <PostRecordList
                   history={this.props.history}
                   list={this.props.postRecords}
+                  loadPostRecords={this.props.loadPostRecords}
                 />
               }
             </Segment>
