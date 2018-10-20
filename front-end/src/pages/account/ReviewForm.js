@@ -148,8 +148,13 @@ export default class ReviewForm extends Component {
   };
 
   validation = () => {
-    return isZero(this.state.reliability) || isZero(this.state.service) || isZero(this.state.speed)
-      || emptyString(this.state.content);
+    if (this.state.isMovee){
+      return isZero(this.state.rating);
+    }
+    else {
+      return isZero(this.state.reliability) || isZero(this.state.service) || isZero(this.state.speed)
+        || emptyString(this.state.content);
+    }
   };
 
   onFormPopClose = () => {
