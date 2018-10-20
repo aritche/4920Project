@@ -28,6 +28,8 @@ with app.app_context():
 
     print("All tables created.")
 
+
+    # Users
     js = User(
         email = 'js@ex',
         first_name = 'John',
@@ -124,6 +126,8 @@ with app.app_context():
     db.session.add(tl)
     db.session.commit()
 
+
+    # MOVE 1
     from_address = FromAddress(
         line1 = '1 Example Rd',
         line2 = '',
@@ -147,7 +151,7 @@ with app.app_context():
 
     move1 = MoveDetails(
         movee_id = js.id,
-        title = 'Example Post',
+        title = 'Queen Bed in Kensington',
         closing_datetime1 = datetime.now(),
         closing_datetime2 = datetime.now(),
         description = 'This is an example post. This description is just a placeholder description, but this is how movees will make a first impression with removealists.',
@@ -170,9 +174,9 @@ with app.app_context():
 
     item1 = Item(
         name = 'Queen Bed',
-        weight = '50',
-        volume = '2x2x2',
-        amount = '1',
+        weight = 50,
+        volume = 10,
+        amount = 1,
         description = 'As you\'d expect. Large bed',
         move_id = move1.id
     )
@@ -213,6 +217,74 @@ with app.app_context():
     )
 
     move1.comments.append(comment2)
+    db.session.commit()
+
+
+    # MOVE 2
+    from_address = FromAddress(
+        line1 = '1 Example Rd',
+        line2 = '',
+        city = 'Randwick',
+        state = 'NSW',
+        postcode = '2001'
+    )
+    db.session.add(from_address)
+
+    to_address = ToAddress(
+        line1 = '2 Example St',
+        line2 = '',
+        city = 'Randwick',
+        state = 'NSW',
+        postcode = '2001'
+    )
+    db.session.add(to_address)
+    db.session.commit()
+
+    now = datetime.now()
+
+    move2 = MoveDetails(
+        movee_id = ml.id,
+        title = 'Short distance move!',
+        closing_datetime1 = datetime.now(),
+        closing_datetime2 = datetime.now(),
+        description = 'I just need a few things moved a really short distance!',
+        budget = 250,
+        status = 'OPEN',
+        creation_datetime = now,
+        last_updated = now,
+        address_from = from_address.id,
+        address_to = to_address.id,
+        deleted = False,
+        rough_distance = 290,
+        exact_distance = 240
+    )
+    db.session.add(move2)
+    db.session.commit()
+
+    from_address.move_id = move2.id
+    to_address.move_id = move2.id
+    db.session.commit()
+
+    item2 = Item(
+        name = 'Cupboard',
+        weight = 50,
+        volume = 10,
+        amount = 1,
+        description = 'Large and wooden',
+        move_id = move2.id
+    )
+    db.session.add(item2)
+    db.session.commit()
+
+    item2 = Item(
+        name = 'Table',
+        weight = 20,
+        volume = 10,
+        amount = 1,
+        description = 'Round glass table (fragile!)',
+        move_id = move2.id
+    )
+    db.session.add(item2)
     db.session.commit()
 
     print("Initial data added.")
