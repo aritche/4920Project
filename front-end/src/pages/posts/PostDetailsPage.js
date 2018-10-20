@@ -279,15 +279,18 @@ export default class PostDetailsPage extends Component {
                                 this.state.post.movee.last_name } <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
                                 src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                 alt="Default Profile"/></span></p>
-                                <Header.Subheader size={'medium'}>
-                                  {this.state.post.movee.rating === undefined || this.state.post.movee.rating === 0
-                                    ?
-                                    <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
-                                    :
-                                    <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating}
-                                            maxRating={5} disabled/>
-                                  }
-                                </Header.Subheader>
+
+                                { this.state.post.status === 'CLOSED' &&
+                                    <Header.Subheader size={'medium'}>
+                                    {this.state.post.movee.rating === undefined || this.state.post.movee.rating === 0
+                                        ?
+                                        <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
+                                        :
+                                        <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating}
+                                                maxRating={5} disabled/>
+                                    }
+                                    </Header.Subheader>
+                                }
                             </Header>
                             <Segment>
                               <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
