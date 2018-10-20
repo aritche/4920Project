@@ -103,7 +103,7 @@ export default class ReviewForm extends Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: this.props.isMovee ? 
+        body: this.props.isMovee ?
           JSON.stringify({
             'poster': getLoggedInUser(),
             'reviewedUser': this.props.userId,
@@ -123,20 +123,20 @@ export default class ReviewForm extends Component {
           })
       }).then(response => {
         if (response.status === 200) {
-          this.close();
+          this.props.history.push('/posts/' + this.props.postId);
           this.setState({ isLoading: false });
         } else if (response.status === 400) {
           response.json().then(obj => {
             this.setState({
               isLoading: false,
               errorMessage: obj.error
-            }); 
+            });
           })
         } else {
           this.setState({
             isLoading: false,
             errorMessage: "Error in submitting review"
-          }); 
+          });
         }
       });
     } else {
@@ -168,7 +168,7 @@ export default class ReviewForm extends Component {
           <Button.Content >Leave a Review</Button.Content>
         </Button>
       } open={this.state.open} onClose={this.close} closeIcon>
-        <Modal.Content>   
+        <Modal.Content>
           <Header block style={{backgroundColor: '#193446', color: 'white'}}>Leave a Review</Header>
           <br/>
           <div style={{display: 'flex'}}>

@@ -96,13 +96,13 @@ export default class NavHeader extends Component {
                 {
                     this.state.isLoggedIn ?
                       <Menu.Menu position='right'>
-                        <Menu.Item>
+                        <Menu.Item style={{display: 'inline-block'}}>
                           <Popup
                             onClose={this.closeUserPopup}
                             open={this.state.userPopupOpen}
                             style={{boxShadow: '2px 3px 2px #000000'}}
-                            trigger={<Image onClick={this.triggerUserPopup} style={{width: "6%", height: '4%', marginBottom: '-1.5%',
-                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + this.state.avatar + '.jpg'}
+                            trigger={<Image onClick={this.triggerUserPopup} style={{width: "30px", height: '30px', marginLeft: 'auto', marginBottom: '-6px',
+                              cursor: 'pointer'}} src={'/images/avatar/' + this.state.avatar + '.jpg'}
                                             circular avatar/>}
                             content=
                               {
