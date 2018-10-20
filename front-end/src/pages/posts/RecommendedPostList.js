@@ -10,7 +10,7 @@ export default class RecommendedPostList extends Component {
                         <Item.Group link>
                         <Grid>
                         {
-                            this.props.posts.map(post => <Grid.Column style={{width: '300px'}}><DiscoverPost key={post.id} post={post} /></Grid.Column>)
+                            this.props.posts.map(post => <Grid.Column style={{width: '270px'}}><DiscoverPost key={post.id} post={post} /></Grid.Column>)
                         }
                         </Grid>
                         </Item.Group>

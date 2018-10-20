@@ -28,6 +28,7 @@ export default class RemovalistDiscover extends Component {
                         var move = obj.moves[i];
                         if (move.status === "OPEN"){
                             result.push(obj.moves[i])
+                            result.push(obj.moves[i])
                         }
                     }
                     this.setState({
