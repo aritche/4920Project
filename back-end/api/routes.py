@@ -11,6 +11,10 @@ from api.move import (
     mark_move_as_accepted, close_move
 )
 
+from api.reviews import (
+    insert_review, get_user_ratings, list_all_reviews
+)
+
 
 @base.route('/user/<user_id>')
 def get_user(user_id):
@@ -63,6 +67,10 @@ def edit_account():
 @base.route('/close-post', methods=['POST'])
 def close_post():
     return close_move(request.json)
+
+@base.route('/submit-review', methods=['POST'])
+def submit_review():
+    return insert_review(request.json)
 
 @base.route('/remove-post-record', methods=['POST'])
 def remove_post_record():
