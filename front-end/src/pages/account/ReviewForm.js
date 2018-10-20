@@ -28,7 +28,7 @@ export default class ReviewForm extends Component {
       content: '',
       activeForm: false,
       rating: 0,
-      isMovee: true,
+      isMovee: false,
       isLoading: true
     }
   }
@@ -58,7 +58,7 @@ export default class ReviewForm extends Component {
       open: true,
       name: this.props.name,
       date: 'today',
-      isMovee: true
+      isMovee: this.props.isMovee,
     });
   };
 
