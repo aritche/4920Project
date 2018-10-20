@@ -35,6 +35,7 @@ def decorate_user(user):
 def decorate_post_record(post_record):
     record_dict = {}
     move_query = db.session.query(MoveDetails).filter(MoveDetails.id == post_record.move_id).first()
+    record_dict['id'] = post_record.id
     record_dict['name'] = move_query.title
     record_dict['closing_datetime'] = move_query.closing_datetime1
     record_dict['status'] = move_query.status
@@ -183,6 +184,27 @@ def update_user(json):
     user.phone_number = json['phoneNumber']
     user.description = json['description']
 
+    db.session.commit()
+
+    resp = jsonify({
+        'success': True
+    })
+    resp.status_code = 200
+    return resp
+
+
+def delete_post_record(json):
+    if (
+        not json
+        or (not 'postRecordId' in json)
+    ):
+        abort(400, 'Not all required fields were received.')
+
+    post_record = db.session.query(PostRecord).filter(PostRecord.id == json['postRecordId']).first()
+    if not post_record:
+        abort(400, 'PostRecord could not be found.')
+
+    db.session.delete(post_record)
     db.session.commit()
 
     resp = jsonify({

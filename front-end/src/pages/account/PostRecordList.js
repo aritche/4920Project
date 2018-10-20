@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import moment from "moment";
+
 import {Button, Header, Table} from 'semantic-ui-react';
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 import PaginationContainer from '../../widgets/PaginationContainer';
-import moment from "moment";
+import { url } from '../../Api';
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 5;
 
 export default class PostRecordList extends Component{
 
@@ -15,7 +17,9 @@ export default class PostRecordList extends Component{
       postsToDisplay: [],
       redirect_to_post: -1,
       activePage: 1
-    }
+    };
+
+    this.removePostRecord = this.removePostRecord.bind(this);
   };
 
   componentDidMount() {
@@ -35,9 +39,23 @@ export default class PostRecordList extends Component{
   };
 
   routeToPost = (e) => {
-    console.log(e.target);
     this.props.history.push('/posts/' + e.target.id);
   };
+
+  removePostRecord = (id) => {
+    fetch(url + 'remove-post-record', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'postRecordId': id
+      })
+    }).then(response => {
+      this.props.loadPostRecords();
+    });
+  }
 
   render(){
     return (
@@ -60,13 +78,13 @@ export default class PostRecordList extends Component{
                 <Table.Cell>
                   <ConfirmationModal buttonContentHtml={
                     [
-                      <Button.Content key='text' hidden>Delete</Button.Content>
+                      <Button.Content key='text' hidden>Remove</Button.Content>
                     ]
                   }
                     buttonSize='large'
                     buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#c24e4e' , color: 'white', float: 'right'}}
-                    headerText='Are you sure you want to delete this post record?'
-                    onConfirm={this.props.deleteAll}
+                    headerText='Are you sure you want to remove this post record?'
+                    onConfirm={() => this.removePostRecord(item.id)}
                   />
                   <Button
                     content={"View"}

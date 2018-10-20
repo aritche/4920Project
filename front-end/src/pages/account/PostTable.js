@@ -7,7 +7,7 @@ import moment from "moment";
  * Author: VW
  */
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 5;
 
 export default class PostTable extends Component{
 
