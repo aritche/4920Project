@@ -81,7 +81,7 @@ export default class ItemForm extends Component {
 
     uniqueName = () => {
         return this.props.itemNames.indexOf(this.state.name) === -1;
-    }
+    };
 
     onFormPopClose = () => {
         this.setState({activeForm: false});

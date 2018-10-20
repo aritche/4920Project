@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Segment, Header, Divider, Grid, Message} from 'semantic-ui-react';
+import { Grid, Message} from 'semantic-ui-react';
 import Account from './Account';
 
 export default class AccountList extends Component {

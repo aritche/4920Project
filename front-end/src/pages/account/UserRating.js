@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {Image, Segment, Header, Rating, Grid} from 'semantic-ui-react';
 import Reviews from './PastReviews'
 
-/**
- * Title: Top
- * Author: Victor
- */
 export default class UserRating extends Component {
 
   render() {

@@ -113,7 +113,7 @@ export default class PostDetailsPage extends Component {
 
     fullAddressViewable = (obj) => {
         return getLoggedInUser() === obj.move.movee_id || this.acceptedRemovalist(obj);
-    }
+    };
 
     acceptedRemovalist = (obj) => {
         const acceptedOfferId = obj.move.chosen_offer;
@@ -123,7 +123,7 @@ export default class PostDetailsPage extends Component {
         } else {
             return getLoggedInUser() === acceptedComment.poster_details.id;
         }
-    }
+    };
 
     editPost = () => {
         this.props.history.push({

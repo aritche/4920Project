@@ -52,11 +52,11 @@ export default class NavHeader extends Component {
 
     triggerUserPopup = () => {
         this.setState({ userPopupOpen: !this.state.userPopupOpen });
-    }
+    };
 
     closeUserPopup = () => {
         this.setState({ userPopupOpen: false });
-    }
+    };
 
     render() {
         const homeUrl = isLoggedIn() ? '/discover' : '/home';
@@ -72,17 +72,6 @@ export default class NavHeader extends Component {
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
                     <Image src={'/images/logo.png'} style={{height:20}}/>
                 </Menu.Item>
-                {
-                    /*
-                  <Menu.Item
-                    as={Link}
-                    to={'/account' }
-                    active={isLoggedIn() ? false : window.location.pathname === '/account' }>
-                    account
-                  </Menu.Item>
-                  */
-                }
-
                 {
                     this.state.isLoggedIn && getLoggedInUserType() === userType.MOVEE &&
                     <Menu.Item as={Link} to={'/create-post'} active={window.location.pathname === '/create-post'}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Comment, Form, Label } from 'semantic-ui-react';
+import {Button, Comment, Form, Icon, Label} from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { isLoggedIn } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
@@ -123,10 +123,22 @@ export default class Comments extends Component {
                       <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
                         { comment.poster_details.first_name + ' ' + comment.poster_details.last_name }
                       </Comment.Author>
-
                   }
                   <Comment.Metadata>
                     <div> {comment.date_string} </div>
+                    {comment.poster_details.identity === 'Movee'
+                      ?
+                        <div/>
+                      :
+                      comment.poster_details.rating === 0
+                        ?
+                          <p>Not Rated Yet</p>
+                        :
+                          <div>
+                            <Icon name='star' />
+                            {comment.poster_details.rating}
+                          </div>
+                    }
                   </Comment.Metadata>
                   <Comment.Text> {comment.text} </Comment.Text>
                   <Comment.Actions>

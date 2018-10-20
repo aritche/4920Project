@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Container, Segment } from 'semantic-ui-react';
-import { isLoggedIn, getLoggedInUser, getLoggedInUserType } from '../../Authentication';
+import { getLoggedInUserType } from '../../Authentication';
 import { userType } from '../../constants';
 import MoveeDiscover from './MoveeDiscover';
 import RemovalistDiscover from './RemovalistDiscover';

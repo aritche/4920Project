@@ -6,11 +6,6 @@ import Dashboard from "./Dashboard"
 import Profile from "./Profile"
 import Top from "./Top"
 
-
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class Account extends Component {
     constructor() {
         super();

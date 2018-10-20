@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import {Header, Rating, Comment} from 'semantic-ui-react';
 import {Form} from "semantic-ui-react/dist/commonjs/collections/Form/Form";
 
-
-/**
- * Title: Top
- * Author: Victor
- */
 export default class PastReviews extends Component {
 
   render() {

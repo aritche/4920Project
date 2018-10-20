@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {Image, Segment, Header, Menu, Rating} from 'semantic-ui-react';
 import EditProfile from './EditProfile'
 
-/**
- * Title: Top
- * Author: Victor
- */
 export default class Top extends Component {
     state = { activeItem: 'Updates' };
     handleItemClick = (e, { name }) => {

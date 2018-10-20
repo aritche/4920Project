@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Item, Grid, Label, Rating } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import moment from "moment";
 
 export default class Post extends Component {
     render() {
