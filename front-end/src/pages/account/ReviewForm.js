@@ -58,7 +58,7 @@ export default class ReviewForm extends Component {
       open: true,
       name: this.props.name,
       date: 'today',
-      isMovee: true
+      isMovee: this.props.identity === 'Movee'
     });
   };
 
