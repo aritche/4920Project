@@ -212,3 +212,13 @@ def delete_post_record(json):
     })
     resp.status_code = 200
     return resp
+
+
+def get_top_removalists():
+
+    # order by rating once reviews is implemented
+    removalists = db.session.query(User).filter(and_(User.user_type == 'Removalist', not_(User.deleted))).limit(6).all()
+
+    resp = jsonify(list(map(User.to_dict, removalists)))
+    resp.status_code = 200
+    return resp

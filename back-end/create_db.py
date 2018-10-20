@@ -75,6 +75,54 @@ with app.app_context():
     db.session.add(rj)
     db.session.commit()
 
+    hl = User(
+        email = 'hl@ex',
+        first_name = 'Harper',
+        last_name = 'Lee',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I\'m well known for being a careful and trustworthy removalist. Choose my services.',
+        phone_number = '0400 999 000',
+        avatar = 'female3'
+    )
+
+    db.session.add(hl)
+    db.session.commit()
+
+    gj = User(
+        email = 'gj@ex',
+        first_name = 'Greg',
+        last_name = 'Jebson',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I run a family business of removalists. We are all efficient and friendly workers.',
+        phone_number = '0400 111 222',
+        avatar = 'male4'
+    )
+
+    db.session.add(gj)
+    db.session.commit()
+
+    tl = User(
+        email = 'tl@ex',
+        first_name = 'Timothy',
+        last_name = 'Lee',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I am young and fresh and ready to help my community!',
+        phone_number = '0400 333 444',
+        avatar = 'male5'
+    )
+
+    db.session.add(tl)
+    db.session.commit()
+
     from_address = FromAddress(
         line1 = '1 Example Rd',
         line2 = '',
