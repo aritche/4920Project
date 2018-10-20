@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Divider, Header, Message, Segment} from 'semantic-ui-react';
-import Reviews from './PastReviews'
-import PastPosts from "./PastPosts";
+import Rating from './UserRating';
 
 /**
  * Title: Account Dashboard
@@ -52,17 +51,23 @@ export default class OtherProfile extends Component {
                 <p>Private information is only shared with users who are directly involved with each other.</p>
               </Message>
           }
-          <Header content={'Past Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+          <Header content={'Reviews'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           {this.props.reviews === undefined || this.props.reviews.length === 0
             ?
             <Message>
-              <Message.Header>No review history</Message.Header>
-              <p>This user haven't received any reviews.</p>
+              <Message.Header>This user has not received any reviews yet</Message.Header>
             </Message>
             :
-            <Reviews
-              reviews={[]}
-            />
+              <Rating
+                history={this.props.history}
+                avatar={this.props.avatar}
+                isMovee={this.props.identity === 'Movee'}
+                overall={this.props.overall}
+                service={this.props.service}
+                reliability={this.props.reliability}
+                speed={this.props.speed}
+                reviews={this.props.reviews}
+              />
           }
         </div>
       </div>

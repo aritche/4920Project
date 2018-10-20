@@ -22,7 +22,12 @@ export default class OtherAccount extends Component {
         joined_in: '',
         user_type: '',
         posts: [],
-        viewable: []
+        viewable: [],
+        reviews: [],
+        rating_overall: 0,
+        rating_speed: 0,
+        rating_reliability: 0,
+        rating_service: 0
       },
       postList: [],
       switchPage: true,
@@ -60,7 +65,7 @@ export default class OtherAccount extends Component {
                 lastName={this.state.user.last_name}
                 joinedIn={this.state.user.joined_in}
                 identity={this.state.user.user_type}
-                rating={this.state.user.rating}
+                rating={this.state.user.rating_overall}
               />
             </Segment>
             <Segment visible>
@@ -70,6 +75,14 @@ export default class OtherAccount extends Component {
                   desc={this.state.user.description}
                   mobile={this.state.user.phone_number}
                   email={this.state.user.email}
+                  avatar={this.state.user.avatar}
+                  identity={this.state.user.user_type}
+                  overall={this.state.user.rating_overall}
+                  speed={this.state.user.rating_speed}
+                  reliability={this.state.user.rating_reliability}
+                  service={this.state.user.rating_service}
+                  reviews={this.state.user.reviews}
+                  history={this.props.history}
                 />
               }
             </Segment>

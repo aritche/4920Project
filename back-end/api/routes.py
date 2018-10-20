@@ -11,9 +11,7 @@ from api.move import (
     mark_move_as_accepted, close_move
 )
 
-from api.reviews import (
-    insert_review, get_user_ratings, list_all_reviews
-)
+from api.reviews import insert_review
 
 
 @base.route('/user/<user_id>')

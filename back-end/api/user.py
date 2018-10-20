@@ -6,6 +6,7 @@ from database.MoveDetails import MoveDetails
 from database.Update import Update
 from database.PrivateView import PrivateView
 from database.PostRecord import PostRecord
+from database.Review import Review
 from sqlalchemy import and_, not_
 
 
@@ -29,7 +30,31 @@ def decorate_user(user):
     )))
     user_dict['viewable'] = list(map(PrivateView.get_viewer, db.session.query(PrivateView).filter(PrivateView.viewable_user == user.id).all()))
     user_dict['post_records'] = list(map(decorate_post_record, sorted(db.session.query(PostRecord).filter(PostRecord.user_id == user.id).all(), key=lambda x: db.session.query(MoveDetails).filter(MoveDetails.id == x.move_id).first().closing_datetime1)))
+    user_dict['reviews'] = list(map(decorate_review, user.reviews))
     return user_dict
+
+
+def decorate_review(review):
+    review_dict = {}
+    reviewer = db.session.query(User).filter(and_(User.id == review.poster, not_(User.deleted))).first()
+    if not reviewer:
+        review_dict['reviewer'] = {
+            'name': '[Deleted]',
+            'avatar': 'default'
+        }
+    review_dict['reviewer'] = {
+        'id': review.poster,
+        'name': reviewer.first_name + ' ' + reviewer.last_name,
+        'avatar': reviewer.avatar
+    }
+    review_dict['rating_general'] = review.rating_general
+    review_dict['rating_speed'] = review.rating_speed
+    review_dict['rating_reliability'] = review.rating_reliability
+    review_dict['rating_service'] = review.rating_service
+    review_dict['review'] = review.review
+    review_dict['date'] = review.creation_datetime.strftime('%-d %B %y')
+
+    return review_dict
 
 
 def decorate_post_record(post_record):

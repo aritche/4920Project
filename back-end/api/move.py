@@ -334,7 +334,7 @@ def decorate_move_search(move):
         'first_name': movee.first_name,
         'last_name': movee.last_name,
         'avatar': movee.avatar,
-        # insert rating here
+        'rating_overall': movee.rating_overall
     }
 
     move_dict['title'] = move.title

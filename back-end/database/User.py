@@ -19,8 +19,13 @@ class User(db.Model):
     phone_number = db.Column(db.String(50), nullable=False)
     avatar = db.Column(db.String(255), nullable=False)
 
+    rating_overall = db.Column(db.Integer, default=0, nullable=False)
+    rating_speed = db.Column(db.Integer, default=0, nullable=False)
+    rating_reliability = db.Column(db.Integer, default=0, nullable=False)
+    rating_service = db.Column(db.Integer, default=0, nullable=False)
+
     comments = relationship('Comment')
-    # reviews = relationship('Review')
+    reviews = relationship('Review')
     post_records = relationship('PostRecord')
 
     def to_dict(self):
@@ -35,5 +40,9 @@ class User(db.Model):
             'description': self.description,
             'phone_number': self.phone_number,
             'avatar': self.avatar,
-            'creation_date': self.creation_date
+            'creation_date': self.creation_date,
+            'rating_overall': self.rating_overall,
+            'rating_speed': self.rating_speed,
+            'rating_reliability': self.rating_reliability,
+            'rating_service': self.rating_service
         }
