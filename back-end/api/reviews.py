@@ -6,28 +6,39 @@ from database.MoveDetails import MoveDetails
 from database.Review import Review
 from sqlalchemy import and_, not_
 
-
-def insert_new_review_for_movee(json):
+def insert_review(json):
     if (
         not json
         or (not 'poster' in json)
         or (not 'reviewedUser' in json)
         or (not 'move' in json)
-        or (not 'creationDate' in json)
-        or (not 'rating_general' in json)
         or (not 'review' in json)
     ):
-        abort(400, 'Not all fields were received.')
+        abort(400, 'Not all fields were received')
+    
+    # Validate move jobs
+    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
+    # if not query_result and query_result.status == 'CLOSED':
+    #     abort(400, 'Closed move does not exist')
 
-    # Validate Job is closed
-
-    # Validate Poster and Reviewed User are both in database
+    # Validate Poster and Reviewed User are not the same
     if json['poster'] == json['reviewedUser']:
         abort(400, 'Invalid review, poster and reviewed user cannot be the same')
+    
+    # query database to get user type
+    query_result = db.session.query(User).filter(User.id == json['reviewedUser']).first()
+    # if not query_result:
+    #     abort(400, 'Move does not exist')
 
-    # Validate Poster and Reviewed User are both not the same type of user
+    if query_result.user_type == 'Removalist':
+        return insert_new_review_for_removalist(json)
+    elif query_result.user_type == 'Movee':
+        return insert_new_review_for_movee(json) 
 
-    # Validate Poster is removalist
+
+def insert_new_review_for_movee(json):
+    if not 'ratingGeneral' in json:
+        abort(400, 'No rating was received.')
 
     # Validate poster and reviewed user are real
     query_poster = db.session.query(User).filter(User.id == json['poster']).first()
@@ -39,26 +50,27 @@ def insert_new_review_for_movee(json):
     if not query_reviewedUser:
         abort(400, 'Invalid review, reviewed user do not exist')
 
-    # Validate move exists
-    query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
-    if not query_result:
-        abort(400, 'Move does not exist')
+    # Validate Poster is removalist
+    if query_poster.user_type != 'Removalist':
+        abort(400, 'Poster must be a removalist')
 
     review = Review(
         poster = json['poster'],
-        reviewedUser = json['reviewedUser'],
+        reviewed_user = json['reviewedUser'],
         move = json['move'],
-        creationDate = datetime.now(),
-        rating_general = json['rating_general'],
+        creation_datetime = datetime.now(),
+        rating_general = json['ratingGeneral'],
         review = json['review'],
+        deleted = False
     )
     
+    # query_reviewedUser.reviews.append(review)
     db.session.add(review)
     db.session.commit()
 
     resp = jsonify({
         'success': True,
-        'user': user.to_dict()
+        'review': review.to_dict()
     })
     resp.status_code = 200
 
@@ -67,25 +79,15 @@ def insert_new_review_for_movee(json):
 def insert_new_review_for_removalist(json):
     if (
         not json
-        or (not 'poster' in json)
-        or (not 'reviewedUser' in json)
-        or (not 'move' in json)
-        or (not 'creationDate' in json)
-        or (not 'rating_service' in json)
-        or (not 'rating_reliability' in json)
-        or (not 'rating_speed' in json)
-        or (not 'review' in json)
+        or (not 'ratingService' in json)
+        or (not 'ratingReliability' in json)
+        or (not 'ratingSpeed' in json)
     ):
         abort(400, 'Not all fields were received.')
-
-    # Validate Job is closed
 
     # Validate Poster and Reviewed User are both in database
     if json['poster'] == json['reviewedUser']:
         abort(400, 'Invalid review, poster and reviewed user cannot be the same')
-
-    # Validate Poster and Reviewed User are both not the same type of user
-
 
     # Validate poster is movee
 
@@ -101,19 +103,20 @@ def insert_new_review_for_removalist(json):
         abort(400, 'Invalid review, reviewed user do not exist')
 
     # Validate move exists
-    query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
-    if not query_result:
-        abort(400, 'Move does not exist')
+    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
+    # if not query_result:
+    #     abort(400, 'Move does not exist')
 
     review = Review(
         poster = json['poster'],
-        reviewedUser = json['reviewedUser'],
+        reviewed_user = json['reviewedUser'],
         move = json['move'],
-        creationDate = datetime.now(),
-        rating_speed = json['rating_speed'],
-        rating_reliability = json['rating_reliability'],
-        rating_service = json['rating_service'],
-        rewview = json['review'],
+        creation_datetime = datetime.now(),
+        rating_speed = json['ratingSpeed'],
+        rating_reliability = json['ratingReliability'],
+        rating_service = json['ratingService'],
+        review = json['review'],
+        deleted = False
     )
     
     db.session.add(review)
@@ -121,34 +124,51 @@ def insert_new_review_for_removalist(json):
 
     resp = jsonify({
         'success': True,
-        'user': user.to_dict()
+        'review': review.to_dict()
     })
     resp.status_code = 200
 
     return resp
 
-def remove_review(json):
-    if json and 'review_id' in json:
-        id_to_delete = json['reviewId']
-    else:
-        abort(400, 'Not all required fields were received.')
+# def check_if_review_exists(user_id, move_id):
+#     query_result = db.session.query(Review).filter(Review.poster == move_id).first()
+#     if query_result:
+#         return True
+#     else:
+#         return False
 
-    review_to_delete = db.session.query(Review).filter(and_(Review.id == id_to_delete, not_(Review.deleted))).first()
+def list_all_reviews(user_id):
+    query = db.session.query(User).filter(User.id == user_id).first()
+    if not query:
+        abort(400, 'No user found')
+        
+    resp = jsonify({
+        'reviews': list(map(Review.to_dict, query.reviews))
+    })
+    resp.status_code = 200
+    
+  
+# def remove_review(json):
+#     if json and 'review_id' in json:
+#         id_to_delete = json['reviewId']
+#     else:
+#         abort(400, 'Not all required fields were received.')
 
-    if not review_to_delete:
-        abort(400, 'Review not found.')
-    else:
-        review_to_delete.deleted = True
-        db.session.commit()
-        resp = jsonify({
-            'success': True,
-        })
-        resp.status_code = 200
+#     review_to_delete = db.session.query(Review).filter(and_(Review.id == id_to_delete, not_(Review.deleted))).first()
 
-        return resp
+#     if not review_to_delete:
+#         abort(400, 'Review not found.')
+#     else:
+#         review_to_delete.deleted = True
+#         db.session.commit()
+#         resp = jsonify({
+#             'success': True,
+#         })
+#         resp.status_code = 200
+
+#         return resp
 
 def get_user_ratings(userId):
-
     user = db.session.query(User).filter(and_(User.id == json['userId'], not_(User.deleted))).first()
     if not user:
         abort(400, 'User with given userId does not exist.')
@@ -156,15 +176,15 @@ def get_user_ratings(userId):
     user_type = db.session.select([User.user_type]).where(User.userId == userId).first()
 
     if user_type == "Movee":
-        overall = get_average_rating(userId, rating_general)
+        overall = get_average_rating(userId, 'rating_general')
         rating_speed = 0
         rating_service = 0
         rating_reliability = 0
     elif user_type == "Removalist":
-        rating_speed = get_average_rating(userId, rating_speed)
-        rating_service = get_average_rating(userId, rating_service)
-        rating_reliability = get_average_rating(userId, rating_reliability)
-        overall = float((rating_speed + rating_service + rating_reliability)/3)
+        rating_speed = get_average_rating(userId, 'rating_speed')
+        rating_service = get_average_rating(userId, 'rating_service')
+        rating_reliability = get_average_rating(userId, 'rating_reliability')
+        overall = int(round(float(rating_speed + rating_service + rating_reliability) / 3.0))
 
     resp = jsonify({
         'success': True,
@@ -186,17 +206,17 @@ def get_average_rating(userId, rating_to_fetch):
     average = 0
 
     if user_type == "Movee":
-        # list_of_ratings = db.session.query([Review.rating_general]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+        # list_of_ratings = db.session.query([Review.rating_general]).filter(and_(Review.reviewed_user == id, not_(Review.deleted))).all()   
         average = db.session.query(func.avg(Review.rating_general)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
     elif user_type == "Removalist":
         if rating_to_fetch == "rating_speed":
             average = db.session.query(func.avg(Review.rating_speed)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
-            # list_of_ratings = db.session.query([Review.rating_speed]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+            # list_of_ratings = db.session.query([Review.rating_speed]).filter(and_(Review.reviewed_user == id, not_(Review.deleted))).all()   
         elif rating_to_fetch == "rating_service":
             average = db.session.query(func.avg(Review.rating_service)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
-            # list_of_ratings = db.session.query([Review.rating_service]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+            # list_of_ratings = db.session.query([Review.rating_service]).filter(and_(Review.reviewed_user == id, not_(Review.deleted))).all()   
         elif rating_to_fetch == "rating_reliability":
-            # list_of_ratings = db.session.query([Review.rating_reliability]).filter(and_(Review.reviewedUser == id, not_(Review.deleted))).all()   
+            # list_of_ratings = db.session.query([Review.rating_reliability]).filter(and_(Review.reviewed_user == id, not_(Review.deleted))).all()   
             average = db.session.query(func.avg(Review.rating_reliability)).filter(and_(Review.reviewed_user == userId), not_(Rating.deleted))
 
     # sum_of_ratings = 0
@@ -204,4 +224,4 @@ def get_average_rating(userId, rating_to_fetch):
     #     sum_of_ratings += item
     # average_rating = sum_of_ratings/len(list_of_ratings)
 
-    return average
+    return int(round(average))

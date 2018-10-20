@@ -16,6 +16,7 @@ from database.Item import Item
 from database.MoveDetails import MoveDetails
 from database.User import User
 from database.Update import Update
+from database.Review import Review
 from database.PrivateView import PrivateView
 from database.Distances import Distances
 from database.Postcode import Postcode
