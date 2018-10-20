@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Segment, Header, Divider } from 'semantic-ui-react';
-import PostList from '../posts/PostList';
+import RecommendedPostList from '../posts/RecommendedPostList';
 import { url } from '../../Api';
 
 export default class RemovalistDiscover extends Component {
@@ -51,7 +51,7 @@ export default class RemovalistDiscover extends Component {
                     Recommended Moves 
                 </Header>
                 <Segment attached secondary>
-                    <PostList posts={this.state.posts} />
+                    <RecommendedPostList posts={this.state.posts} />
                 </Segment>
             </Segment>
         )
