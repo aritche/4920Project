@@ -32,7 +32,8 @@ export default class PostDetailsPage extends Component {
                         post: obj.move,
                         items: obj.items,
                         comments: obj.comments,
-                        isLoading: false
+                        isLoading: false,
+                        fullAddressViewable: this.fullAddressViewable(obj)
                     });
 
                 });
@@ -109,6 +110,20 @@ export default class PostDetailsPage extends Component {
           }
         });
     };
+
+    fullAddressViewable = (obj) => {
+        return getLoggedInUser() === obj.move.movee_id || this.acceptedRemovalist(obj);
+    }
+
+    acceptedRemovalist = (obj) => {
+        const acceptedOfferId = obj.move.chosen_offer;
+        const acceptedComment = obj.comments.find(c => c.id === acceptedOfferId);
+        if (!acceptedComment) {
+            return false;
+        } else {
+            return getLoggedInUser() === acceptedComment.poster_details.id;
+        }
+    }
 
     editPost = () => {
         this.props.history.push({
@@ -285,26 +300,36 @@ export default class PostDetailsPage extends Component {
                                         <Icon name='truck' />
                                         <Step.Content>
                                             <Step.Title>From Address</Step.Title>
-                                            {/*this.props.viewable
+                                            { this.state.fullAddressViewable
                                               ?
-                                              <Step.Description>{ this.state.post.address_from }</Step.Description>
+                                              <Step.Description>
+                                                <p style={{margin: 0}}>{ this.state.post.address_from.line1 }</p>
+                                                { this.state.post.address_from.line2 &&
+                                                    <p style={{margin: 0}}>{ this.state.post.address_from.line2 }</p>
+                                                }
+                                                <p>{ this.state.post.address_from.city } { this.state.post.address_from.state } { this.state.post.address_from.postcode }</p>
+                                              </Step.Description>
                                               :
                                               <Step.Description>{ this.state.post.address_from.city }</Step.Description>
-                                            */}
-                                            <Step.Description>{ this.state.post.address_from.city }</Step.Description>
+                                            }
                                         </Step.Content>
                                     </Step>
                                     <Step active>
                                         <Icon name='truck' />
                                         <Step.Content>
                                             <Step.Title>To Address</Step.Title>
-                                            {/*this.props.viewable
+                                            { this.state.fullAddressViewable
                                               ?
-                                              <Step.Description>{ this.state.post.address_to }</Step.Description>
+                                              <Step.Description>
+                                                <p style={{margin: 0}}>{ this.state.post.address_to.line1 }</p>
+                                                { this.state.post.address_to.line2 &&
+                                                    <p style={{margin: 0}}>{ this.state.post.address_to.line2 }</p>
+                                                }
+                                                <p>{ this.state.post.address_to.city } { this.state.post.address_to.state } { this.state.post.address_to.postcode }</p>
+                                              </Step.Description>
                                               :
-                                              <Step.Description>{ this.state.post.address_from.city }</Step.Description>
-                                            */}
-                                            <Step.Description>{ this.state.post.address_to.city }</Step.Description>
+                                              <Step.Description>{ this.state.post.address_to.city }</Step.Description>
+                                            }
                                         </Step.Content>
                                     </Step>
                                 </Step.Group>

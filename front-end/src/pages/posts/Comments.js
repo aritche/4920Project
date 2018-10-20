@@ -104,7 +104,7 @@ export default class Comments extends Component {
                     comment.is_offer ?
                       (comment.is_stale ?
                         <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
-                          <Label style={{color: '#22AABB'}} horizontal>
+                          <Label style={{color: '#bcbdbd'}} horizontal>
                             OLD OFFER
                           </Label>
                           { comment.poster_details.first_name + ' ' +
