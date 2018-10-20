@@ -18,7 +18,7 @@ export default class AccountList extends Component {
                 </div>
             :
             <Message>
-                <Message.Header>No posts to view</Message.Header>
+                <Message.Header>Watch this space!</Message.Header>
                 <p>We're working hard to connect you with great removalists. Come back later.</p>
             </Message>
         )
