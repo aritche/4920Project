@@ -80,8 +80,12 @@ export default class ItemForm extends Component {
     };
 
     nameValid = () => {
-        return !emptyString(this.state.name) && this.props.itemNames.indexOf(this.state.name) === -1;
+        return !emptyString(this.state.name) && this.uniqueName();
     };
+
+    uniqueName = () => {
+        return this.props.itemNames.indexOf(this.state.name) === -1;
+    }
 
     onFormPopClose = () => {
         this.setState({activeForm: false});
@@ -105,6 +109,9 @@ export default class ItemForm extends Component {
                   <Form.Field>
                     <label>Name</label>
                     <Form.Input fluid error={!this.nameValid()} placeholder='Item Name' value={this.state.name} onChange={(e) => this.onNameChange(e.target.value)}/>
+                    { !this.uniqueName() &&
+                        <label style={{color: "#9f3a38"}}>Already an item with that name</label>
+                    }
                   </Form.Field>
 
                   <PositiveFloatInput label='Weight (kg)' value={this.state.weight} float={true}
