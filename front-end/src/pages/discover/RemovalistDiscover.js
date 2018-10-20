@@ -28,11 +28,21 @@ export default class RemovalistDiscover extends Component {
                         var move = obj.moves[i];
                         if (move.status === "OPEN"){
                             result.push(obj.moves[i])
-                            result.push(obj.moves[i])
                         }
+                        result = result.sort(function compare(a,b){
+                            var distA = a.distance_string.replace(" km","000")
+                            distA = parseInt(distA.replace(" m",""))
+                            var distB = b.distance_string.replace(" km","000")
+                            distB = parseInt(distB.replace(" m",""))
+                            if (a.budget/distA < b.budget/distB)
+                                return 1;
+                            if (a.budget/distA > b.budget/distB)
+                                return -1;
+                            return 0;
+                        });
                     }
                     this.setState({
-                        posts: result
+                        posts: result.slice(0,4)
                     });
                 });
             } else {
