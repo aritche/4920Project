@@ -64,8 +64,8 @@ def insert_new_review_for_movee(json):
         deleted = False
     )
     
-    query_reviewedUser.reviews.append(review)
-    # db.session.add(review)
+    # query_reviewedUser.reviews.append(review)
+    db.session.add(review)
     db.session.commit()
 
     resp = jsonify({
@@ -124,7 +124,7 @@ def insert_new_review_for_removalist(json):
 
     resp = jsonify({
         'success': True,
-        'user': user.to_dict()
+        'review': review.to_dict()
     })
     resp.status_code = 200
 
