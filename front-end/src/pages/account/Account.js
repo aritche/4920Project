@@ -25,15 +25,17 @@ export default class Account extends Component {
             description: '',
             posts: [],
             reviews: [],
+            post_records: [],
             joined_in: '',
             rating: {overall: 3},
-            identity: 'Movee'
           },
           updates: [],
           postList: [],
           switchPage: true,
           isLoading: false,
         };
+
+        this.loadUser = this.loadUser.bind(this);
     }
 
     onUpdate = () => {
@@ -105,6 +107,25 @@ export default class Account extends Component {
       });
     };
 
+    loadUser() {
+      console.log('reloading user');
+      fetch(url + 'user/' + getLoggedInUser()).then(response => {
+        if (response.status === 200) {
+          response.json().then(obj => {
+            this.setState({
+              user: obj,
+              isLoading: false
+            })
+          });
+        } else {
+          this.setState({
+            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+            isLoading: false
+          });
+        }
+      });
+    }
+
     componentDidMount() {
       fetch(url + 'user/' + getLoggedInUser()).then(response => {
         if (response.status === 200) {
@@ -152,7 +173,8 @@ export default class Account extends Component {
                       history={this.props.history}
                       post={this.state.user.posts}
                       updates={this.state.updates}
-                      isMovee={this.state.user.identity === "Movee"}
+                      postRecords={this.state.user.post_records}
+                      loadPostRecords={this.loadUser}
                     />
                     :
                     <Profile

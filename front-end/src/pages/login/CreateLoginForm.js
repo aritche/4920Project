@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { verify } from 'password-hash';
 import { url } from '../../Api';
-import { Link } from 'react-router-dom';
 import { updateAuthentication } from '../../Authentication';
 import {Menu} from "semantic-ui-react/dist/commonjs/collections/Menu/Menu";
 
@@ -34,9 +33,9 @@ export default class CreateLoginForm extends Component {
         this.setState({ emailError: false });
         this.setState({ passwordError: false });
         this.setState({ submitError : false });
-        var validationError = false;
+      let validationError = false;
 
-        if (this.state.email === ''){
+      if (this.state.email === ''){
             this.setState({ emailError : true });
             validationError = true;
         }
@@ -111,11 +110,11 @@ export default class CreateLoginForm extends Component {
             <Grid textAlign='center' verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 500, minHeight: '100vh'}}>
                 <Form error={this.state.submitError}>
-                  <Segment.Group  style={{boxShadow: '2px 1px 2px #000000'}}>
-                    <Segment style={{padding:7, backgroundColor: "#193446"}}>
+                  <Segment.Group>
+                    <Segment style={{padding:7, backgroundColor: "#193446", boxShadow: '2px 1px 2px #000000'}}>
                       <h1 style={{color:'white'}}>Log In</h1>
                     </Segment>
-                    <Segment>
+                    <Segment style={{boxShadow: '2px 1px 2px #000000'}}>
                       <Form.Input error={this.state.emailError} placeholder="Email" icon={'mail'}
                                   iconPosition={'left'} value={this.state.email} onChange={this.onEmailChange} />
                       <Form.Input error={this.state.passwordError} placeholder="Password" icon={'key'}

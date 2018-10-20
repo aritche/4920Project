@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Comment, Form, Label } from 'semantic-ui-react';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
-import { isLoggedIn, getLoggedInUser } from '../../Authentication';
+import { isLoggedIn } from '../../Authentication';
 import { emptyString } from '../../utils/ValidationUtils';
 import OfferModal from './OfferModal';
 
@@ -36,9 +36,9 @@ export default class Comments extends Component {
 
     goToProfile = (userId) => {
       this.props.history.push('/profile/' + userId);
-    }
+    };
 
-    addComment = (e) => {
+    addComment = () => {
       if (!isLoggedIn()) {
         this.setState({errorText: 'Must be logged in to comment', active: true});
       } else if (!emptyString(this.state.comment)) {
@@ -104,7 +104,7 @@ export default class Comments extends Component {
                     comment.is_offer ?
                       (comment.is_stale ?
                         <Comment.Author as='a' onClick={() => { this.goToProfile(comment.poster_details.id) }}>
-                          <Label style={{color: '#22AABB'}} horizontal>
+                          <Label style={{color: '#bcbdbd'}} horizontal>
                             OLD OFFER
                           </Label>
                           { comment.poster_details.first_name + ' ' +

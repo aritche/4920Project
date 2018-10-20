@@ -6,6 +6,7 @@ from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Comment import Comment
 from database.Update import Update
+from database.PostRecord import PostRecord
 
 
 def add_comment(json):
@@ -76,6 +77,22 @@ def add_comment(json):
         db.session.add(update)
         db.session.commit()
 
+    if user_query.user_type == 'Removalist':
+        post_record = db.session.query(PostRecord).filter(and_(
+            PostRecord.move_id == post_query.id,
+            PostRecord.user_id == user_query.id
+        )).first()
+        if not post_record:
+            post_record = PostRecord(
+                move_id = post_query.id,
+                user_id = user_query.id,
+                last_updated = datetime.now()
+            )
+            user_query.post_records.append(post_record)
+        else:
+            post_record.last_updated = datetime.now()
+        db.session.commit()
+
     resp = jsonify({
         'comment': comment.to_dict(),
         'commenter': user_query.to_dict()
@@ -127,6 +144,23 @@ def add_offer(json):
 
         db.session.add(update)
         db.session.commit()
+
+    if user_query.user_type == 'Removalist':
+        post_record = db.session.query(PostRecord).filter(and_(
+            PostRecord.move_id == post_query.id,
+            PostRecord.user_id == user_query.id
+        )).first()
+        if not post_record:
+            post_record = PostRecord(
+                move_id = post_query.id,
+                user_id = user_query.id,
+                last_updated = datetime.now()
+            )
+            user_query.post_records.append(post_record)
+        else:
+            post_record.last_updated = datetime.now()
+        db.session.commit()
+
 
     resp = jsonify({
         'offer': comment.to_dict(),

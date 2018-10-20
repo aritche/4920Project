@@ -21,6 +21,7 @@ class User(db.Model):
 
     comments = relationship('Comment')
     # reviews = relationship('Review')
+    post_records = relationship('PostRecord')
 
     def to_dict(self):
         return {

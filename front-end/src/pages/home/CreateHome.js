@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Signup from '../signup/CreateSignupForm';
-import { Segment, Container, Header, Grid } from 'semantic-ui-react';
+import { Container, Header, Grid } from 'semantic-ui-react';
 
 export default class CreateLoginForm extends Component {
     constructor() {

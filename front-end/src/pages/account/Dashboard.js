@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import {Button, Message, Header, Segment} from 'semantic-ui-react';
+import {Message, Header, Segment} from 'semantic-ui-react';
 import FeedList from "./FeedList";
 import PostList from './PostTable';
-import {Link} from 'react-router-dom';
+import PostRecordList from './PostRecordList';
 import { getLoggedInUserType } from '../../Authentication';
-import { userType } from '../../constants';
 
 /**
  * Title: Dashboard
  * Author: Victor
  */
 export default class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
@@ -28,39 +30,39 @@ export default class Dashboard extends Component {
             }
           </Segment>
           <br/>
-          {this.props.isMovee
-            ?
-            <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-            :
-            <Header content={'Offered Posts'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-          }
+          <Header content={'Post Collection'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
 
-          <Segment>
-            {this.props.post.length === 0
-              ?
-              <Message>
-                <Message.Header>No post to view</Message.Header>
-                <p>There are no post at the moment.</p>
-              </Message>
-              :
-              <PostList
-                history={this.props.history}
-                list={this.props.post}
-              />
-            }
-          </Segment>
-          <br/>
-          { getLoggedInUserType() === userType.MOVEE ?
-            <Button.Group>
-              <Button as={Link} to={'/create-post'} style={{backgroundColor: '#193446', color: 'white',
-                width: 130, height: 38}}>Create Post</Button>
-              <Button.Or />
-              <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
-                width: 130, height: 38}}>Search Posts</Button>
-            </Button.Group>
-          :
-            <Button as={Link} to={'/posts'} style={{backgroundColor: '#22AABB', color: 'white',
-                width: 130, height: 38}}>Search Posts</Button>
+          { getLoggedInUserType() === 'Movee' &&
+            <Segment>
+              {this.props.post.length === 0
+                ?
+                <Message>
+                  <Message.Header>No posts to view</Message.Header>
+                  <p>You have not created any posts yet.</p>
+                </Message>
+                :
+                <PostList
+                  history={this.props.history}
+                  list={this.props.post}
+                />
+              }
+            </Segment>
+          }
+          { getLoggedInUserType() === 'Removalist' &&
+            <Segment>
+              {this.props.postRecords.length === 0
+                ?
+                <Message>
+                  <Message.Header>You have no posts to view.</Message.Header>
+                </Message>
+                :
+                <PostRecordList
+                  history={this.props.history}
+                  list={this.props.postRecords}
+                  loadPostRecords={this.props.loadPostRecords}
+                />
+              }
+            </Segment>
           }
       </div>
     )

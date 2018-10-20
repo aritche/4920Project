@@ -4,7 +4,7 @@ from api import base
 from api.comment import add_comment, add_offer
 from api.user import (
     authenticate_login, get_user_by_id, insert_new_user, delete_user,
-    update_user
+    update_user, delete_post_record
 )
 from api.move import (
     create_new_move, get_move_details, search_moves, delete_move_details,
@@ -71,3 +71,7 @@ def close_post():
 @base.route('/submit-review', methods=['POST'])
 def submit_review():
     return insert_review(request.json)
+
+@base.route('/remove-post-record', methods=['POST'])
+def remove_post_record():
+    return delete_post_record(request.json)

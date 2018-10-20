@@ -4,13 +4,15 @@ from database.model import db
 from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Update import Update
+from database.PrivateView import PrivateView
+from database.PostRecord import PostRecord
 from sqlalchemy import and_, not_
 
 
 def get_user_by_id(user_id):
     user = db.session.query(User).filter(User.id == user_id).first()
     if user:
-        resp = jsonify(decorate_user(user.to_dict()))
+        resp = jsonify(decorate_user(user))
         resp.status_code = 200
     else:
         abort(400, 'No user with this id exists.')
@@ -18,13 +20,27 @@ def get_user_by_id(user_id):
 
 
 def decorate_user(user):
-    user['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user['id'], not_(MoveDetails.deleted))).all()))
-    user['joined_in'] = user['creation_date'].strftime('%B %Y')
-    user['updates'] = list(map(decorate_update, map(
+    user_dict = user.to_dict()
+    user_dict['posts'] = list(map(MoveDetails.to_dict, db.session.query(MoveDetails).filter(and_(MoveDetails.movee_id == user.id, not_(MoveDetails.deleted))).all()))
+    user_dict['joined_in'] = user.creation_date.strftime('%B %Y')
+    user_dict['updates'] = list(map(decorate_update, map(
         Update.to_dict,
-        db.session.query(Update).filter(Update.updated_movee_id == user['id']).order_by(Update.update_time.desc()).limit(5).all()
+        db.session.query(Update).filter(Update.updated_movee_id == user.id).order_by(Update.update_time.desc()).all()
     )))
-    return user
+    user_dict['viewable'] = list(map(PrivateView.get_viewer, db.session.query(PrivateView).filter(PrivateView.viewable_user == user.id).all()))
+    user_dict['post_records'] = list(map(decorate_post_record, sorted(db.session.query(PostRecord).filter(PostRecord.user_id == user.id).all(), key=lambda x: db.session.query(MoveDetails).filter(MoveDetails.id == x.move_id).first().closing_datetime1)))
+    return user_dict
+
+
+def decorate_post_record(post_record):
+    record_dict = {}
+    move_query = db.session.query(MoveDetails).filter(MoveDetails.id == post_record.move_id).first()
+    record_dict['id'] = post_record.id
+    record_dict['name'] = move_query.title
+    record_dict['closing_datetime'] = move_query.closing_datetime1
+    record_dict['status'] = move_query.status
+    record_dict['move_id'] = move_query.id
+    return record_dict
 
 
 def decorate_update(update):
@@ -168,6 +184,27 @@ def update_user(json):
     user.phone_number = json['phoneNumber']
     user.description = json['description']
 
+    db.session.commit()
+
+    resp = jsonify({
+        'success': True
+    })
+    resp.status_code = 200
+    return resp
+
+
+def delete_post_record(json):
+    if (
+        not json
+        or (not 'postRecordId' in json)
+    ):
+        abort(400, 'Not all required fields were received.')
+
+    post_record = db.session.query(PostRecord).filter(PostRecord.id == json['postRecordId']).first()
+    if not post_record:
+        abort(400, 'PostRecord could not be found.')
+
+    db.session.delete(post_record)
     db.session.commit()
 
     resp = jsonify({

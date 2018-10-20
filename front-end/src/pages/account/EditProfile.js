@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, TextArea, Header, Modal, Button, Icon, Image, Segment, Divider, Input } from 'semantic-ui-react';
+import { Form, TextArea, Header, Modal, Button, Icon, Image, Segment, Divider } from 'semantic-ui-react';
 import { isZero, emptyString } from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 

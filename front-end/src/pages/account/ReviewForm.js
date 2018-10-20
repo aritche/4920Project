@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Form, TextArea, Header, Modal, Button, Icon, Rating, Image} from 'semantic-ui-react';
-import { isPositiveInteger, isZero, emptyString, isPositiveFloat } from '../../utils/ValidationUtils';
-import PositiveFloatInput from '../../widgets/PositiveFloatInput';
+import {isZero, emptyString} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { url } from '../../Api';
 import { getLoggedInUser } from '../../Authentication';

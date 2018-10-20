@@ -29,8 +29,9 @@
 .bordered-selection {
    border: 1px #c8e2f5 solid !important;
    background-color: #DFF2FF !important;
-   padding-top: 15px !important;
-   padding-left: 20px !important;
+   padding-top: 20px !important;
+   padding-left: 25px !important;
+   padding-bottom: 20px !important;
 }
 
 .avatar_select {
@@ -49,4 +50,9 @@
 .pagination-container {
     text-align: center;
     margin-top: 20px;
+}
+
+.autocomplete-dropdown-container {
+    position: relative;
+    top: -14px;
 }

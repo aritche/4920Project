@@ -10,7 +10,7 @@ export default class PostsPage extends Component {
 
         this.state = {
             posts: [],
-            postcode: '',
+            suburb: '',
             lowerBudget: '',
             upperBudget: '',
             lowerDate: '',
@@ -61,7 +61,7 @@ export default class PostsPage extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'postcode': this.state.postcode,
+                'suburb': this.state.suburb,
                 'lowerBudget': this.state.lowerBudget,
                 'upperBudget': this.state.upperBudget,
                 'lowerDate': this.state.lowerDate,
@@ -93,7 +93,7 @@ export default class PostsPage extends Component {
                     <FilterBar
                         handleChange={this.handleFilterChange.bind(this)}
                     />
-                    <Segment secondary>
+                    <Segment secondary style={{minHeight: '90px'}}>
                         { this.state.isLoading ?
                             <Loader style={{zIndex: 0}} active />
                         :

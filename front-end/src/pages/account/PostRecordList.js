@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import {Button, Header, Table} from 'semantic-ui-react';
-import PaginationContainer from '../../widgets/PaginationContainer';
 import moment from "moment";
 
-/**
- * Author: VW
- */
+import {Button, Header, Table} from 'semantic-ui-react';
+import ConfirmationModal from '../../widgets/ConfirmationModal';
+import PaginationContainer from '../../widgets/PaginationContainer';
+import { url } from '../../Api';
 
 const POSTS_PER_PAGE = 5;
 
-export default class PostTable extends Component{
+export default class PostRecordList extends Component{
 
   constructor(props) {
     super(props);
@@ -18,7 +17,9 @@ export default class PostTable extends Component{
       postsToDisplay: [],
       redirect_to_post: -1,
       activePage: 1
-    }
+    };
+
+    this.removePostRecord = this.removePostRecord.bind(this);
   };
 
   componentDidMount() {
@@ -38,9 +39,23 @@ export default class PostTable extends Component{
   };
 
   routeToPost = (e) => {
-    console.log(e.target);
     this.props.history.push('/posts/' + e.target.id);
   };
+
+  removePostRecord = (id) => {
+    fetch(url + 'remove-post-record', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'postRecordId': id
+      })
+    }).then(response => {
+      this.props.loadPostRecords();
+    });
+  }
 
   render(){
     return (
@@ -57,15 +72,25 @@ export default class PostTable extends Component{
           <Table.Body>
             {this.state.postsToDisplay.map((item) => (
               <Table.Row key={item.name}>
-                <Table.Cell> <Header size={'small'} content={item.title}/> </Table.Cell>
-                <Table.Cell> {moment(item.closing_datetime1).calendar()} </Table.Cell>
+                <Table.Cell> <Header size={'small'} content={item.name}/> </Table.Cell>
+                <Table.Cell> {moment(item.closing_datetime).calendar()} </Table.Cell>
                 <Table.Cell> {item.status} </Table.Cell>
                 <Table.Cell>
+                  <ConfirmationModal buttonContentHtml={
+                    [
+                      <Button.Content key='text' hidden>Remove</Button.Content>
+                    ]
+                  }
+                    buttonSize='large'
+                    buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#c24e4e' , color: 'white', float: 'right'}}
+                    headerText='Are you sure you want to remove this post record?'
+                    onConfirm={() => this.removePostRecord(item.id)}
+                  />
                   <Button
                     content={"View"}
-                    id={item.id}
+                    id={item.move_id}
                     size='large'
-                    style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white', float: 'right', marginRight: '60px'}}
+                    style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white', float: 'right'}}
                     onClick={this.routeToPost}
                   />
                 </Table.Cell>
@@ -90,3 +115,4 @@ export default class PostTable extends Component{
     );
   }
 }
+

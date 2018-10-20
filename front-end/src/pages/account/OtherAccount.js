@@ -3,6 +3,8 @@ import {Segment, Container} from 'semantic-ui-react';
 import OtherProfile from "./OtherProfile"
 import OtherTop from "./OtherTop"
 import { url } from '../../Api';
+import { getLoggedInUser } from '../../Authentication';
+
 
 /**
  * Title: Account Dashboard
@@ -19,7 +21,8 @@ export default class OtherAccount extends Component {
         last_name: '',
         joined_in: '',
         user_type: '',
-        posts: []
+        posts: [],
+        viewable: []
       },
       postList: [],
       switchPage: true,
@@ -63,8 +66,8 @@ export default class OtherAccount extends Component {
             <Segment visible>
               {
                 <OtherProfile
+                  viewable={this.state.user.viewable.includes(getLoggedInUser()) || parseInt(this.props.match.params.userId) === getLoggedInUser()}
                   desc={this.state.user.description}
-                  name={this.state.user.first_name + ' ' + this.state.user.last_name}
                   mobile={this.state.user.phone_number}
                   email={this.state.user.email}
                 />

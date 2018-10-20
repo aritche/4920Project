@@ -17,6 +17,10 @@ from database.MoveDetails import MoveDetails
 from database.User import User
 from database.Update import Update
 from database.Review import Review
+from database.PrivateView import PrivateView
+from database.Distances import Distances
+from database.Postcode import Postcode
+from database.PostRecord import PostRecord
 
 with app.app_context():
     db.drop_all()
@@ -105,7 +109,9 @@ with app.app_context():
         last_updated = now,
         address_from = from_address.id,
         address_to = to_address.id,
-        deleted = False
+        deleted = False,
+        rough_distance = 3541,
+        exact_distance = 3541
     )
     db.session.add(move1)
     db.session.commit()

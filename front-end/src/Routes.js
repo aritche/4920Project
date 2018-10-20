@@ -9,6 +9,7 @@ import SearchPage from './pages/search/SearchPage';
 import Account from "./pages/account/Account";
 import OtherAccount from "./pages/account/OtherAccount";
 import Home from "./pages/home/Home";
+import Discover from "./pages/discover/Discover";
 
 export default class Routes extends Component {
     render() {
@@ -24,6 +25,7 @@ export default class Routes extends Component {
               <Route path='/account' component={Account}/>
               <Route path='/profile/:userId' component={OtherAccount}/>
               <Route path='/home' component={Home}/>
+              <Route path='/discover' component={Discover}/>
             </Switch>
         )
     }

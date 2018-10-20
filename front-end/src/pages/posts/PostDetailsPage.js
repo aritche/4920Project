@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Button, Step, Icon, Label, Table, Segment, Message } from 'semantic-ui-react';
+import {Header, Container, Button, Step, Icon, Label, Table, Segment, Message, Rating} from 'semantic-ui-react';
 import { isLoggedIn, getLoggedInUser, getLoggedInUserType } from '../../Authentication';
 import { url } from '../../Api';
 import Comments from './Comments';
@@ -32,9 +32,10 @@ export default class PostDetailsPage extends Component {
                         post: obj.move,
                         items: obj.items,
                         comments: obj.comments,
-                        isLoading: false
+                        isLoading: false,
+                        fullAddressViewable: this.fullAddressViewable(obj)
                     });
-                    return;
+
                 });
             } else {
                 this.setState({
@@ -110,6 +111,20 @@ export default class PostDetailsPage extends Component {
         });
     };
 
+    fullAddressViewable = (obj) => {
+        return getLoggedInUser() === obj.move.movee_id || this.acceptedRemovalist(obj);
+    }
+
+    acceptedRemovalist = (obj) => {
+        const acceptedOfferId = obj.move.chosen_offer;
+        const acceptedComment = obj.comments.find(c => c.id === acceptedOfferId);
+        if (!acceptedComment) {
+            return false;
+        } else {
+            return getLoggedInUser() === acceptedComment.poster_details.id;
+        }
+    }
+
     editPost = () => {
         this.props.history.push({
             pathname: '/create-post',
@@ -134,7 +149,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -162,7 +177,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -189,7 +204,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -214,7 +229,7 @@ export default class PostDetailsPage extends Component {
           })
         }).then(response => {
             if (response.status === 200) {
-                response.json().then(obj => {
+                response.json().then(() => {
                     this.loadPost();
                 });
             } else {
@@ -236,10 +251,9 @@ export default class PostDetailsPage extends Component {
                         <Segment.Group stacked style={{boxShadow: '2px 2px 2px #000000'}}>
                             <Header as='h1' style={{backgroundColor: '#193446', color: 'white', padding: '20px', margin: 0}} >
                                 { this.state.post.title }
-                                <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
+                                <Label color={this.state.post.status === 'ACCEPTED' ? 'green' : this.state.post.status === 'CLOSED' ? 'red' : 'blue'} key={"blue"} style={{marginLeft: '25px', marginTop: '-8px'}}>
                                     { this.state.post.status }
                                 </Label>
-
                                 {
                                     isLoggedIn() && getLoggedInUser() === this.state.post.movee.id && this.state.post.status === 'OPEN' &&
                                     <ConfirmationModal
@@ -265,6 +279,15 @@ export default class PostDetailsPage extends Component {
                                 this.state.post.movee.last_name } <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
                                 src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                 alt="Default Profile"/></span></p>
+                                <Header.Subheader size={'medium'}>
+                                  {this.state.post.movee.rating === undefined || this.state.post.movee.rating === 0
+                                    ?
+                                    <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
+                                    :
+                                    <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating}
+                                            maxRating={5} disabled/>
+                                  }
+                                </Header.Subheader>
                             </Header>
                             <Segment>
                               <p style={{ fontSize: "14px", fontWeight: "normal" }}> { this.state.post.description } </p>
@@ -277,14 +300,36 @@ export default class PostDetailsPage extends Component {
                                         <Icon name='truck' />
                                         <Step.Content>
                                             <Step.Title>From Address</Step.Title>
-                                            <Step.Description>{ this.state.post.address_from.city }</Step.Description>
+                                            { this.state.fullAddressViewable
+                                              ?
+                                              <Step.Description>
+                                                <p style={{margin: 0}}>{ this.state.post.address_from.line1 }</p>
+                                                { this.state.post.address_from.line2 &&
+                                                    <p style={{margin: 0}}>{ this.state.post.address_from.line2 }</p>
+                                                }
+                                                <p>{ this.state.post.address_from.city } { this.state.post.address_from.state } { this.state.post.address_from.postcode }</p>
+                                              </Step.Description>
+                                              :
+                                              <Step.Description>{ this.state.post.address_from.city }</Step.Description>
+                                            }
                                         </Step.Content>
                                     </Step>
                                     <Step active>
                                         <Icon name='truck' />
                                         <Step.Content>
                                             <Step.Title>To Address</Step.Title>
-                                            <Step.Description>{ this.state.post.address_to.city }</Step.Description>
+                                            { this.state.fullAddressViewable
+                                              ?
+                                              <Step.Description>
+                                                <p style={{margin: 0}}>{ this.state.post.address_to.line1 }</p>
+                                                { this.state.post.address_to.line2 &&
+                                                    <p style={{margin: 0}}>{ this.state.post.address_to.line2 }</p>
+                                                }
+                                                <p>{ this.state.post.address_to.city } { this.state.post.address_to.state } { this.state.post.address_to.postcode }</p>
+                                              </Step.Description>
+                                              :
+                                              <Step.Description>{ this.state.post.address_to.city }</Step.Description>
+                                            }
                                         </Step.Content>
                                     </Step>
                                 </Step.Group>

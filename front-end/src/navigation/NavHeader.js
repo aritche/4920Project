@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Menu, Container, Image, Popup, Segment} from 'semantic-ui-react';
-import {Link, Route} from 'react-router-dom';
-import { isLoggedIn, getLoggedInUser, logout, getLoggedInUserType } from '../Authentication';
-import logo from './uMove_clear.png';
+import {Menu, Container, Image, Popup} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import { isLoggedIn, getLoggedInUser, getLoggedInUserType } from '../Authentication';
 import { url } from '../Api';
 import { userType } from '../constants';
 import UserPopup from '../pages/account/UserPopup'
@@ -13,6 +12,7 @@ export default class NavHeader extends Component {
 
         this.state = {
             query: '',
+            userPopupOpen: false,
             isLoggedIn: false
         }
     };
@@ -23,8 +23,9 @@ export default class NavHeader extends Component {
                 if (response.status === 200) {
                 response.json().then(obj => {
                     this.setState({
-                    userName: obj.first_name + ' ' + obj.last_name,
-                    isLoggedIn: true
+                        avatar: obj.avatar,
+                        userName: obj.first_name + ' ' + obj.last_name,
+                        isLoggedIn: true
                     })
                 });
                 }
@@ -49,8 +50,16 @@ export default class NavHeader extends Component {
 
     };
 
+    triggerUserPopup = () => {
+        this.setState({ userPopupOpen: !this.state.userPopupOpen });
+    }
+
+    closeUserPopup = () => {
+        this.setState({ userPopupOpen: false });
+    }
+
     render() {
-        const homeUrl = isLoggedIn() ? '/posts' : '/home';
+        const homeUrl = isLoggedIn() ? '/discover' : '/home';
         if (isLoggedIn() !== this.state.isLoggedIn) {
             this.getUserName();
         }
@@ -61,15 +70,18 @@ export default class NavHeader extends Component {
                     as={Link}
                     to={homeUrl}
                     active={isLoggedIn() ? false : window.location.pathname === homeUrl}>
-                    <Image src={logo} style={{height:20}}/>
+                    <Image src={'/images/logo.png'} style={{height:20}}/>
                 </Menu.Item>
-                {/*
-                <Menu.Item
-                  as={Link}
-                  to={'/account' }
-                  active={isLoggedIn() ? false : window.location.pathname === '/account' }>
-                  account
-                </Menu.Item>*/}
+                {
+                    /*
+                  <Menu.Item
+                    as={Link}
+                    to={'/account' }
+                    active={isLoggedIn() ? false : window.location.pathname === '/account' }>
+                    account
+                  </Menu.Item>
+                  */
+                }
 
                 {
                     this.state.isLoggedIn && getLoggedInUserType() === userType.MOVEE &&
@@ -86,21 +98,21 @@ export default class NavHeader extends Component {
                       <Menu.Menu position='right'>
                         <Menu.Item>
                           <Popup
+                            onClose={this.closeUserPopup}
+                            open={this.state.userPopupOpen}
                             style={{boxShadow: '2px 3px 2px #000000'}}
-                            trigger={<Image style={{width: "6%", height: '4%', marginBottom: '-1.5%',
-                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
+                            trigger={<Image onClick={this.triggerUserPopup} style={{width: "6%", height: '4%', marginBottom: '-1.5%',
+                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + this.state.avatar + '.jpg'}
                                             circular avatar/>}
                             content=
                               {
                                 <UserPopup
                                   userName={this.state.userName}
+                                  closePopup={this.closeUserPopup}
                                 />
                               }
                             on='click'
                           />
-                          <Image src={'/images/red.jpg'} circular
-                                 style={{backgroundColor:'red', position:'absolute', zIndex:2,
-                                   width: '1.6%', height: '20%', marginLeft: '95.5%', marginBottom:'1.6%'}}/>
                         </Menu.Item>
                       </Menu.Menu>
                     :
