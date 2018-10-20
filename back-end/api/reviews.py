@@ -4,6 +4,7 @@ from database.model import db
 from database.User import User
 from database.MoveDetails import MoveDetails
 from database.Review import Review
+from database.Update import Update
 from sqlalchemy import and_, not_
 from sqlalchemy.sql import func
 
@@ -14,6 +15,7 @@ def insert_review(json):
         or (not 'reviewedUser' in json)
         or (not 'move' in json)
         or (not 'review' in json)
+        or (not 'updateId' in json)
     ):
         abort(400, 'Not all fields were received')
 
@@ -30,6 +32,16 @@ def insert_review(json):
     query_result = db.session.query(User).filter(User.id == json['reviewedUser']).first()
     # if not query_result:
     #     abort(400, 'Move does not exist')
+
+    update = db.session.query(Update).filter(Update.id == json['updateId']).first()
+    if not update:
+        abort(400, 'Invalid updateId')
+
+    if update.update_type == 'close_movee':
+        update.update_type = 'close_movee_reviewed'
+    elif update.update_type == 'close_removalist':
+        update.update_type = 'close_removalist_reviewed'
+    db.session.commit()
 
     if query_result.user_type == 'Removalist':
         return insert_new_review_for_removalist(json)

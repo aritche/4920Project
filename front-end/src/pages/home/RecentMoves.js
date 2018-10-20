@@ -24,7 +24,7 @@ export default class RecentMoves extends Component {
             if (response.status === 200) {
                 response.json().then(obj => {
                     this.setState({
-                        posts: obj.moves
+                        posts: obj.moves.slice(0, 6)
                     });
                 });
             } else {

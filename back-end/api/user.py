@@ -76,9 +76,9 @@ def decorate_update(update):
         update['event'] = 'made an offer on your move'
     elif update['update_type'] == 'accepted':
         update['event'] = ' has accepted your offer'
-    elif update['update_type'] == 'close_movee':
+    elif update['update_type'] == 'close_movee' or update['update_type'] == 'close_movee_reviewed':
         update['event'] = ' have marked your move as closed'
-    elif update['update_type'] == 'close_removalist':
+    elif update['update_type'] == 'close_removalist' or update['update_type'] == 'close_removalist_reviewed':
         update['event'] = ' has marked your move as closed'
     elif update['update_type'] == 'comment_reply':
         update['event'] = ' has replied to your comment'
@@ -244,7 +244,7 @@ def delete_post_record(json):
 def get_top_removalists():
 
     # order by rating once reviews is implemented
-    removalists = db.session.query(User).filter(and_(User.user_type == 'Removalist', not_(User.deleted))).limit(6).all()
+    removalists = db.session.query(User).filter(and_(User.user_type == 'Removalist', not_(User.deleted), User.rating_overall != 0)).order_by(User.rating_overall).limit(6).all()
 
     resp = jsonify(list(map(User.to_dict, removalists)))
     resp.status_code = 200

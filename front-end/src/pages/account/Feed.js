@@ -24,9 +24,13 @@ export default class SingleFeed extends Component {
                 {this.props.detail}
               </Feed.Extra>
             </Feed.Summary>
-            { this.props.updateType === 'close_movee' && <ReviewForm userId={this.props.userId} postId={this.props.postId} history={this.props.history} isMovee={false}/> }
-            { this.props.updateType === 'close_removalist' && <ReviewForm userId={this.props.userId} postId={this.props.postId} history={this.props.history} isMovee={true}/> }
-            { ['accepted', 'comment', 'offer'].includes(this.props.updateType) &&
+            { this.props.updateType === 'close_movee' &&
+              <ReviewForm userId={this.props.userId} postId={this.props.postId}
+                  history={this.props.history} isMovee={false} updateId={this.props.updateId}/> }
+            { this.props.updateType === 'close_removalist' &&
+              <ReviewForm userId={this.props.userId} postId={this.props.postId}
+              history={this.props.history} isMovee={true} updateId={this.props.updateId}/> }
+            { ['accepted', 'comment', 'offer', 'close_movee_reviewed', 'close_removalist_reviewed'].includes(this.props.updateType) &&
                 <Button onClick={() => {this.props.history.push('/posts/' + this.props.postId)}} size='large' style={{width: 170, height: 40, zIndex: 0,
                   backgroundColor: '#22AABB', color: 'white', marginLeft: 'auto', marginRight: '40px', marginTop: 'auto', marginBottom: 'auto'}}>
                   <Button.Content >View post</Button.Content>

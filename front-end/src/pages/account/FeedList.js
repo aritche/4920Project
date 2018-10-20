@@ -38,6 +38,7 @@ export default class FeedList extends Component {
           {this.state.feedsToDisplay.map((feed) =>
             <List.Item key={feed.id}>
               <Feed
+                updateId={feed.id}
                 avatar={feed.concerning_details.avatar}
                 dateTime={feed.update_time_string}
                 name={feed.concerning_details.first_name + ' ' + feed.concerning_details.last_name}
@@ -51,9 +52,9 @@ export default class FeedList extends Component {
             </List.Item>
           )}
         </List>
-        <PaginationContainer 
-          totalItems={this.props.feeds.length} 
-          itemsPerPage={ITEMS_PER_PAGE} 
+        <PaginationContainer
+          totalItems={this.props.feeds.length}
+          itemsPerPage={ITEMS_PER_PAGE}
           defaultActivePage={1}
           showDivider={true}
           handlePaginationChange={this.handlePaginationChange}

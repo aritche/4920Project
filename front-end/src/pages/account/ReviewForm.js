@@ -109,7 +109,8 @@ export default class ReviewForm extends Component {
             'reviewedUser': this.props.userId,
             'move': this.props.postId,
             'review': this.state.content,
-            'ratingGeneral': this.state.rating
+            'ratingGeneral': this.state.rating,
+            'updateId': this.props.updateId
           })
         :
           JSON.stringify({
@@ -119,11 +120,12 @@ export default class ReviewForm extends Component {
             'ratingSpeed': this.state.speed,
             'ratingReliability': this.state.reliability,
             'ratingService': this.state.service,
-            'review': this.state.content
+            'review': this.state.content,
+            'updateId': this.props.updateId
           })
       }).then(response => {
         if (response.status === 200) {
-          this.props.history.push('/posts/' + this.props.postId);
+          this.props.history.push('/profile/' + this.props.userId);
           this.setState({ isLoading: false });
         } else if (response.status === 400) {
           response.json().then(obj => {
