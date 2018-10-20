@@ -108,9 +108,9 @@ export default class ReviewForm extends Component {
           JSON.stringify({
             'poster': getLoggedInUser(),
             'reviewedUser': this.props.userId,
-            // 'move': this.props.postId,
-            // 'review': this.state.field,
-            // 'ratingGeneral': this.state.content
+            'move': this.props.postId,
+            'review': this.state.content,
+            'ratingGeneral': this.state.rating
           })
         :
           JSON.stringify({

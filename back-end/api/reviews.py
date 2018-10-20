@@ -20,7 +20,7 @@ def insert_review(json):
     # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
     # if not query_result and query_result.status == 'CLOSED':
     #     abort(400, 'Closed move does not exist')
-        
+
     # Validate Poster and Reviewed User are not the same
     if json['poster'] == json['reviewedUser']:
         abort(400, 'Invalid review, poster and reviewed user cannot be the same')
@@ -56,7 +56,7 @@ def insert_new_review_for_movee(json):
 
     review = Review(
         poster = json['poster'],
-        # reviewed_user = json['reviewedUser'],
+        reviewed_user = json['reviewedUser'],
         move = json['move'],
         creation_datetime = datetime.now(),
         rating_general = json['ratingGeneral'],
@@ -70,7 +70,7 @@ def insert_new_review_for_movee(json):
 
     resp = jsonify({
         'success': True,
-        'user': user.to_dict()
+        'review': review.to_dict()
     })
     resp.status_code = 200
 
@@ -130,6 +130,13 @@ def insert_new_review_for_removalist(json):
 
     return resp
 
+# def check_if_review_exists(user_id, move_id):
+#     query_result = db.session.query(Review).filter(Review.poster == move_id).first()
+#     if query_result:
+#         return True
+#     else:
+#         return False
+
 def list_all_reviews(user_id):
     query = db.session.query(User).filter(User.id == user_id).first()
     if not query:
@@ -141,28 +148,27 @@ def list_all_reviews(user_id):
     resp.status_code = 200
     
   
-def remove_review(json):
-    if json and 'review_id' in json:
-        id_to_delete = json['reviewId']
-    else:
-        abort(400, 'Not all required fields were received.')
+# def remove_review(json):
+#     if json and 'review_id' in json:
+#         id_to_delete = json['reviewId']
+#     else:
+#         abort(400, 'Not all required fields were received.')
 
-    review_to_delete = db.session.query(Review).filter(and_(Review.id == id_to_delete, not_(Review.deleted))).first()
+#     review_to_delete = db.session.query(Review).filter(and_(Review.id == id_to_delete, not_(Review.deleted))).first()
 
-    if not review_to_delete:
-        abort(400, 'Review not found.')
-    else:
-        review_to_delete.deleted = True
-        db.session.commit()
-        resp = jsonify({
-            'success': True,
-        })
-        resp.status_code = 200
+#     if not review_to_delete:
+#         abort(400, 'Review not found.')
+#     else:
+#         review_to_delete.deleted = True
+#         db.session.commit()
+#         resp = jsonify({
+#             'success': True,
+#         })
+#         resp.status_code = 200
 
-        return resp
+#         return resp
 
 def get_user_ratings(userId):
-
     user = db.session.query(User).filter(and_(User.id == json['userId'], not_(User.deleted))).first()
     if not user:
         abort(400, 'User with given userId does not exist.')
@@ -218,4 +224,4 @@ def get_average_rating(userId, rating_to_fetch):
     #     sum_of_ratings += item
     # average_rating = sum_of_ratings/len(list_of_ratings)
 
-    return average
+    return int(round(average))
