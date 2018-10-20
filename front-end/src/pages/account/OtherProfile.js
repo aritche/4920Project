@@ -52,18 +52,6 @@ export default class OtherProfile extends Component {
                 <p>Private information is only shared with users who are directly involved with each other.</p>
               </Message>
           }
-          <Header content={'Past Record'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-          {this.props.pastPosts === undefined || this.props.pastPosts.length === 0
-          ?
-            <Message>
-              <Message.Header>No post history to view</Message.Header>
-              <p>This user haven't made or offered on any posts.</p>
-            </Message>
-          :
-            <PastPosts
-              list={this.props.pastPosts}
-            />
-          }
           <Header content={'Past Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
           {this.props.reviews === undefined || this.props.reviews.length === 0
             ?
