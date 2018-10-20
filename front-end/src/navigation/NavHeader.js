@@ -23,8 +23,9 @@ export default class NavHeader extends Component {
                 if (response.status === 200) {
                 response.json().then(obj => {
                     this.setState({
-                    userName: obj.first_name + ' ' + obj.last_name,
-                    isLoggedIn: true
+                        avatar: obj.avatar,
+                        userName: obj.first_name + ' ' + obj.last_name,
+                        isLoggedIn: true
                     })
                 });
                 }
@@ -101,7 +102,7 @@ export default class NavHeader extends Component {
                             open={this.state.userPopupOpen}
                             style={{boxShadow: '2px 3px 2px #000000'}}
                             trigger={<Image onClick={this.triggerUserPopup} style={{width: "6%", height: '4%', marginBottom: '-1.5%',
-                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + 'male1' + '.jpg'}
+                              marginLeft: '95%', cursor: 'pointer'}} src={'/images/avatar/' + this.state.avatar + '.jpg'}
                                             circular avatar/>}
                             content=
                               {
