@@ -28,7 +28,7 @@ export default class ReviewForm extends Component {
       content: '',
       activeForm: false,
       rating: 0,
-      isMovee: false,
+      isMovee: true,
       isLoading: true
     }
   }
@@ -58,7 +58,7 @@ export default class ReviewForm extends Component {
       open: true,
       name: this.props.name,
       date: 'today',
-      isMovee: this.props.identity === 'Movee'
+      isMovee: true
     });
   };
 
@@ -149,7 +149,7 @@ export default class ReviewForm extends Component {
 
   validation = () => {
     if (this.state.isMovee){
-      return isZero(this.state.rating);
+      return isZero(this.state.rating) || emptyString(this.state.content);
     }
     else {
       return isZero(this.state.reliability) || isZero(this.state.service) || isZero(this.state.speed)
@@ -178,7 +178,7 @@ export default class ReviewForm extends Component {
             <div style={{marginTop: 'auto', marginBottom: 'auto', fontSize: '32px', fontWeight: '600'}}>{this.state.user.first_name + ' ' + this.state.user.last_name}</div>
           </div>
           <Form style={{margin: '0 20px'}}>
-            {this.props.isMovee ?
+            {this.state.isMovee ?
               <div style={{display: 'flex'}}>
                 <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
