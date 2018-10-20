@@ -54,12 +54,8 @@ export default class ItemForm extends Component {
     };
 
     onAmountChange = (value) => {
-        if (value === '' || isZero(value)) {
-            value = 1;
-        }
-
-        if (isPositiveInteger(value)) {
-            this.setState({amount: parseInt(value, 10)});
+        if (isPositiveInteger(value) || value === '') {
+            this.setState({amount: value});
         }
     };
 
@@ -76,7 +72,7 @@ export default class ItemForm extends Component {
 
     validation = () => {
         const { weight, volume, amount, desc} = this.state;
-        return !this.nameValid() || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || emptyString(desc);
+        return !this.nameValid() || isZero(weight) || !isPositiveFloat(weight) || isZero(volume) || !isPositiveFloat(volume) || isZero(amount) || !isPositiveInteger(amount) || emptyString(desc);
     };
 
     nameValid = () => {
@@ -122,7 +118,7 @@ export default class ItemForm extends Component {
 
                   <Form.Field>
                     <label>Amount</label>
-                    <Form.Input fluid placeholder='Item Amount' value={this.state.amount}
+                    <Form.Input fluid placeholder='Item Amount' value={this.state.amount} error={!isPositiveFloat(this.state.amount) || isZero(this.state.amount)}
                                 onChange={(e) => this.onAmountChange(e.target.value)}/>
                   </Form.Field>
                 </Form.Group>
