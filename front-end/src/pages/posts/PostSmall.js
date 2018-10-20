@@ -28,10 +28,6 @@ export default class PostSmall extends Component {
                         <Grid.Row style={{paddingBottom: '10px'}}>
                             ${ post.budget }
                         </Grid.Row>
-
-                        <Grid.Row>
-                            <Rating maxRating={5} defaultRating={5} disabled icon='star'/>
-                        </Grid.Row>
                     </Container>
                 </Grid>
             </Container>
