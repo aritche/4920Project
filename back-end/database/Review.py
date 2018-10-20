@@ -1,5 +1,5 @@
 from database.model import db
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Column, Integer, String
 from sqlalchemy.orm import relationship
 
 class Review(db.Model):
@@ -8,7 +8,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     poster = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
     reviewed_user = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
-    move = db.Column(db.Integer, ForeignKey('move.id')) # not sure if needed
+    move = db.Column(db.Integer, ForeignKey('movedetails.id')) # not sure if needed
     creation_datetime = db.Column(db.DateTime, nullable=False)
     rating_general = db.Column(db.Integer, nullable=True)
     rating_reliability = db.Column(db.Integer, nullable=True)

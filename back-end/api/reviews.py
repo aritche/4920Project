@@ -11,13 +11,13 @@ def insert_review(json):
         not json
         or (not 'poster' in json)
         or (not 'reviewedUser' in json)
-        # or (not 'moveId' in json)
+        or (not 'move' in json)
         or (not 'review' in json)
     ):
         abort(400, 'Not all fields were received')
     
-    # Validate moveId jobs
-    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['moveId']).first()
+    # Validate move jobs
+    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
     # if not query_result and query_result.status == 'CLOSED':
     #     abort(400, 'Closed move does not exist')
         
@@ -27,13 +27,13 @@ def insert_review(json):
     
     # query database to get user type
     query_result = db.session.query(User).filter(User.id == json['reviewedUser']).first()
-    if not query_result:
-        abort(400, 'Move does not exist')
-    
+    # if not query_result:
+    #     abort(400, 'Move does not exist')
+
     if query_result.user_type == 'Removalist':
-        return insert_new_review_for_movee(json)
+        return insert_new_review_for_removalist(json)
     elif query_result.user_type == 'Movee':
-        return insert_new_review_for_removalist(json) 
+        return insert_new_review_for_movee(json) 
 
 
 def insert_new_review_for_movee(json):
@@ -56,11 +56,12 @@ def insert_new_review_for_movee(json):
 
     review = Review(
         poster = json['poster'],
-        reviewed_user = json['reviewedUser'],
-        # moveId = json['moveId'],
+        # reviewed_user = json['reviewedUser'],
+        move = json['move'],
         creation_datetime = datetime.now(),
         rating_general = json['ratingGeneral'],
         review = json['review'],
+        deleted = False
     )
     
     query_reviewedUser.reviews.append(review)
@@ -102,19 +103,20 @@ def insert_new_review_for_removalist(json):
         abort(400, 'Invalid review, reviewed user do not exist')
 
     # Validate move exists
-    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['moveId']).first()
+    # query_result = db.session.query(MoveDetails).filter(MoveDetails.id == json['move']).first()
     # if not query_result:
     #     abort(400, 'Move does not exist')
 
     review = Review(
         poster = json['poster'],
         reviewed_user = json['reviewedUser'],
-        # moveId = json['moveId'],
+        move = json['move'],
         creation_datetime = datetime.now(),
         rating_speed = json['ratingSpeed'],
         rating_reliability = json['ratingReliability'],
         rating_service = json['ratingService'],
         review = json['review'],
+        deleted = False
     )
     
     db.session.add(review)

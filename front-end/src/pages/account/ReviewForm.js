@@ -118,9 +118,9 @@ export default class ReviewForm extends Component {
             'reviewedUser': this.props.userId,
             'move': this.props.postId,
             'ratingSpeed': this.state.speed,
-            // 'ratingReliability': this.state.reliability,
-            // 'ratingService': this.state.service,
-            // 'review': this.state.content
+            'ratingReliability': this.state.reliability,
+            'ratingService': this.state.service,
+            'review': this.state.content
           })
       }).then(response => {
         if (response.status === 200) {
