@@ -32,7 +32,9 @@ export default class DiscoverPost extends Component {
                                         <Container style={{color: 'black'}}>{ post.from_suburb + ' to ' + post.to_suburb}</Container>
                                     </Grid.Row>
                                     <Grid.Row style={{paddingBottom: '5px'}}>
+                                    { post.distance_string &&
                                         <Container style={{color: 'black'}}>{ '('+ post.distance_string + ')'}</Container>
+                                    }
                                     </Grid.Row>
                                     <Grid.Row style={{paddingBottom: '5px'}}>
                                         <Label color='green' tag>${ post.budget }</Label>
