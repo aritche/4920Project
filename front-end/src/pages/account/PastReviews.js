@@ -15,7 +15,7 @@ export default class PastReviews extends Component {
                 <div>{review.date}</div>
               </Comment.Metadata>
               <Comment.Text style={{margin: '-5px 0 30px'}}>
-                <br/>
+                  <br/>
                 {this.props.isMovee ?
                   <div style={{display: 'flex'}}>
                     <Header size={'tiny'} content={'Rating'} />

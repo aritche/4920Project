@@ -80,7 +80,6 @@ export default class PostTable extends Component{
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
-
         </Table>
       </div>
     );

@@ -23,17 +23,17 @@ export default class RemovalistDiscover extends Component {
         }).then(response => {
             if (response.status === 200) {
                 response.json().then(obj => {
-                    var result = [];
-                    for (var i = 0; i < obj.moves.length; i++){
-                        var move = obj.moves[i];
+                    let result = [];
+                    for (let i = 0; i < obj.moves.length; i++){
+                        const move = obj.moves[i];
                         if (move.status === "OPEN"){
                             result.push(obj.moves[i])
                         }
                         result = result.sort(function compare(a,b){
-                            var distA = a.distance_string.replace(" km","000")
-                            distA = parseInt(distA.replace(" m",""))
-                            var distB = b.distance_string.replace(" km","000")
-                            distB = parseInt(distB.replace(" m",""))
+                            let distA = a.distance_string.replace(" km", "000");
+                            distA = parseInt(distA.replace(" m",""));
+                            let distB = b.distance_string.replace(" km", "000");
+                            distB = parseInt(distB.replace(" m",""));
                             if (a.budget/distA < b.budget/distB)
                                 return 1;
                             if (a.budget/distA > b.budget/distB)
