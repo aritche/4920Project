@@ -257,9 +257,11 @@ def decorate_comments(comment):
     user = db.session.query(User).filter(and_(User.id == comment['poster'], not_(User.deleted))).first()
 
     comment['poster_details'] = user.to_dict() if user else {
-            first_name: '',
-            last_name: '[Deleted]',
-            id: -1
+            'first_name': '',
+            'last_name': '[Deleted]',
+            'id': -1,
+            'avatar': 'default',
+            'rating_overall': 0
     }
 
     comment_query = db.session.query(Comment).filter(Comment.id == comment['id']).first()

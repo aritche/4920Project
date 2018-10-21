@@ -3,7 +3,6 @@ import {Image, Segment, Header, Rating, Grid} from 'semantic-ui-react';
 import Reviews from './PastReviews'
 
 export default class UserRating extends Component {
-
   render() {
     return (
       <div>

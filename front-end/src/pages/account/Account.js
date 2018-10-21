@@ -182,6 +182,7 @@ export default class Account extends Component {
                       speed={this.state.user.rating_speed}
                       reviews={this.state.user.reviews}
                       delete={this.deleteAccount}
+                      history={this.props.history}
                     />
                   }
                 </Segment>

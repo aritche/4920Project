@@ -9,14 +9,14 @@ export default class SingleFeed extends Component {
         <Feed.Event>
           <Feed.Label>
             <Image
-              onClick={() => {this.props.history.push('/profile/' + this.props.userId)}}
+              onClick={() => {if(this.props.userId != -1) this.props.history.push('/profile/' + this.props.userId)}}
               src={'/images/avatar/' + this.props.avatar + '.jpg'} size='tiny'
               style={{margin: '20px 0'}}/>
           </Feed.Label>
           <Feed.Content style={{display: 'flex'}}>
             <Feed.Summary style={{margin: '20px 0'}}>
-              { this.props.updateType === 'close_movee' ? ' You' :
-              <Feed.User onClick={() => {this.props.history.push('/profile/' + this.props.userId)}}>{this.props.name}</Feed.User>
+              { this.props.updateType === 'close_movee' || this.props.updateType === 'close_movee_reviewed' ? ' You' :
+              <Feed.User onClick={() => {if(this.props.userId != -1) this.props.history.push('/profile/' + this.props.userId)}}>{this.props.name}</Feed.User>
               }
               {' ' + this.props.event}
               <Feed.Date>{this.props.dateTime}</Feed.Date>

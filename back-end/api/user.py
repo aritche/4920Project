@@ -35,6 +35,7 @@ def decorate_user(user):
 
 
 def decorate_review(review):
+    print(review.to_dict())
     review_dict = {}
     reviewer = db.session.query(User).filter(and_(User.id == review.poster, not_(User.deleted))).first()
     if not reviewer:
@@ -42,11 +43,12 @@ def decorate_review(review):
             'name': '[Deleted]',
             'avatar': 'default'
         }
-    review_dict['reviewer'] = {
-        'id': review.poster,
-        'name': reviewer.first_name + ' ' + reviewer.last_name,
-        'avatar': reviewer.avatar
-    }
+    else:
+        review_dict['reviewer'] = {
+            'id': review.poster,
+            'name': reviewer.first_name + ' ' + reviewer.last_name,
+            'avatar': reviewer.avatar
+        }
     review_dict['rating_general'] = review.rating_general
     review_dict['rating_speed'] = review.rating_speed
     review_dict['rating_reliability'] = review.rating_reliability
@@ -69,7 +71,17 @@ def decorate_post_record(post_record):
 
 
 def decorate_update(update):
-    update['concerning_details'] = db.session.query(User).filter(User.id == update['concerning']).first().to_dict()
+    user = db.session.query(User).filter(and_(User.id == update['concerning'], not_(User.deleted))).first()
+    if not user:
+        update['concerning_details'] = {
+            'id': -1,
+            'avatar': 'default',
+            'first_name': '[Deleted]',
+            'last_name': '',
+        }
+    else:
+        update['concerning_details'] = user.to_dict()
+
     if update['update_type'] == 'comment':
         update['event'] = 'commented on your move'
     elif update['update_type'] == 'offer':

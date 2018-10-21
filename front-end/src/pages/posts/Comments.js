@@ -35,7 +35,7 @@ export default class Comments extends Component {
     };
 
     goToProfile = (userId) => {
-      this.props.history.push('/profile/' + userId);
+      if (userId != -1) this.props.history.push('/profile/' + userId);
     };
 
     addComment = () => {
