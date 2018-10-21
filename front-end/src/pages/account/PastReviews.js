@@ -9,9 +9,9 @@ export default class PastReviews extends Component {
       <Comment.Group>
         {this.props.reviews.map((review) =>
           <Comment key={review.id}>
-            <Comment.Avatar src={ '/images/avatar/' + review.reviewer.avatar + '.jpg'} />
+            <Comment.Avatar style={{cursor: 'pointer'}} onClick={() => {if (review.reviewer.id) this.props.history.push('/profile/' + review.reviewer.id)}} src={ '/images/avatar/' + review.reviewer.avatar + '.jpg'} />
             <Comment.Content>
-              <Comment.Author onClick={() => { if (review.reviewer.id) this.props.history.push('/profile/' + review.reviewer.id) }}> { review.reviewer.name } </Comment.Author>
+              <Comment.Author style={{cursor: 'pointer'}} onClick={() => { if (review.reviewer.id) this.props.history.push('/profile/' + review.reviewer.id) }}> { review.reviewer.name } </Comment.Author>
               <Comment.Metadata style={{marginLeft: 0}}>
                 <div>{review.date}</div>
               </Comment.Metadata>

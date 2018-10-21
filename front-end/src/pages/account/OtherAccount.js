@@ -30,8 +30,19 @@ export default class OtherAccount extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.userId !== this.props.match.params.userId) {
+      this.loadUser(nextProps.match.params.userId);
+      window.scrollTo(0,0);
+    }
+  }
+
   componentDidMount() {
-    fetch(url + 'user/' + this.props.match.params.userId).then(response => {
+    this.loadUser(this.props.match.params.userId);
+  }
+
+  loadUser(userId) {
+    fetch(url + 'user/' + userId).then(response => {
       if (response.status === 200) {
         response.json().then(obj => {
           this.setState({
