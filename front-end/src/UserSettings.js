@@ -1,6 +1,6 @@
 
 export function isOnAccountDashboardPage() {
-    return sessionStorage.getItem('accountDashboardPage') === 'true';
+    return sessionStorage.getItem('accountDashboardPage') !== 'false';
 }
 
 export function setOnAccountDashboardPage(accountDashboardPage) {
