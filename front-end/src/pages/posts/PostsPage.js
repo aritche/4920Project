@@ -15,7 +15,8 @@ export default class PostsPage extends Component {
             upperBudget: '',
             lowerDate: '',
             upperDate: '',
-            sortBy: 'mostRecent'
+            sortBy: 'mostRecent',
+            status: ''
         };
     }
 
@@ -66,7 +67,8 @@ export default class PostsPage extends Component {
                 'upperBudget': this.state.upperBudget,
                 'lowerDate': this.state.lowerDate,
                 'upperDate': this.state.upperDate,
-                'sortBy' : this.state.sortBy
+                'sortBy' : this.state.sortBy,
+                'status': this.state.status
             })
         }).then(response => {
             if (response.status === 200) {

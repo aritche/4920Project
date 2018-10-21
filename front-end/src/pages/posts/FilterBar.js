@@ -144,15 +144,15 @@ export default class FilterBar extends Component {
                     <Menu.Item style={{paddingTop: 0, paddingBottom: 4}}>
                       <div style={{display: 'flex'}}>
                         <Input icon='search' name='suburb'
-                               style={{minWidth: 400, maxHeight: 38, minHeight: 38}}
+                               style={{minWidth: 360, maxHeight: 38, minHeight: 38}}
                                placeholder='Search suburb'
                                onKeyPress={this.onSearch}
                         />
                         <span style={{width: 10}}/>
-                        <div style={{display: 'flex', marginTop: '1.8%'}}>
+                        <div style={{display: 'flex', marginTop: '10px', marginLeft: '20px'}}>
                           <Checkbox onClick={this.onSortByOpen}/>
                           <span style={{width: 10}}/>
-                          <p style={{color: 'white'}}> Open Post Only </p>
+                          <p style={{color: 'white'}}> Open Posts Only </p>
                         </div>
                       </div>
                     </Menu.Item>
