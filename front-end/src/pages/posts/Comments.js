@@ -130,10 +130,7 @@ export default class Comments extends Component {
                       ?
                         <div/>
                       :
-                      comment.poster_details.rating_overall === 0
-                        ?
-                          <p>Not Rated Yet</p>
-                        :
+                      comment.poster_details.rating_overall !== 0 &&
                           <div>
                             <Icon name='star' />
                             {comment.poster_details.rating_overall}
@@ -178,10 +175,7 @@ export default class Comments extends Component {
                             ?
                               <div/>
                             :
-                            subCom.poster_details.rating_overall === 0
-                              ?
-                                <p>Not Rated Yet</p>
-                              :
+                            subCom.poster_details.rating_overall !== 0 &&
                                 <div>
                                   <Icon name='star' />
                                   {subCom.poster_details.rating_overall}

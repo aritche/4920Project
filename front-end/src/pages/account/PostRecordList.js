@@ -21,6 +21,12 @@ export default class PostRecordList extends Component{
     this.removePostRecord = this.removePostRecord.bind(this);
   };
 
+  componentDidUpdate(nextProps) {
+    if (this.props.list.length != nextProps.list.length) {
+      this.updateDisplayedPosts();
+    }
+  }
+
   componentDidMount() {
     this.updateDisplayedPosts();
   }

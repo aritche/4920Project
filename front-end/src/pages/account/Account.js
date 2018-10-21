@@ -99,7 +99,6 @@ export default class Account extends Component {
     };
 
     loadUser() {
-      console.log('reloading user');
       fetch(url + 'user/' + getLoggedInUser()).then(response => {
         if (response.status === 200) {
           response.json().then(obj => {
@@ -137,7 +136,6 @@ export default class Account extends Component {
     }
 
     render() {
-      console.log(this.state.user);
         return (
           <Container>
             <div style={{paddingBottom: 80, minHeight: '100vh'}}>
