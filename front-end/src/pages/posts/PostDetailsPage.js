@@ -280,7 +280,7 @@ export default class PostDetailsPage extends Component {
                                 src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                 alt="Default Profile"/></span></p>
 
-                                <Header.Subheader size={'medium'}>
+                                <Header.Subheader style={{marginTop: '-6px'}} size={'medium'}>
                                 {this.state.post.movee.rating_overall === undefined || this.state.post.movee.rating_overall === 0
                                     ?
                                     <p style={{color: 'white'}}> {' Not Rated Yet'} </p>

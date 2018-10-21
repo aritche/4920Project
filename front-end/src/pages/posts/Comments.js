@@ -130,13 +130,13 @@ export default class Comments extends Component {
                       ?
                         <div/>
                       :
-                      comment.poster_details.rating === 0
+                      comment.poster_details.rating_overall === 0
                         ?
                           <p>Not Rated Yet</p>
                         :
                           <div>
                             <Icon name='star' />
-                            {comment.poster_details.rating}
+                            {comment.poster_details.rating_overall}
                           </div>
                     }
                   </Comment.Metadata>
@@ -174,6 +174,19 @@ export default class Comments extends Component {
                           </Comment.Author>
                           <Comment.Metadata>
                           <div> {subCom.date_string} </div>
+                          {subCom.poster_details.user_type === 'Movee'
+                            ?
+                              <div/>
+                            :
+                            subCom.poster_details.rating_overall === 0
+                              ?
+                                <p>Not Rated Yet</p>
+                              :
+                                <div>
+                                  <Icon name='star' />
+                                  {subCom.poster_details.rating_overall}
+                                </div>
+                          }
                           </Comment.Metadata>
                           <Comment.Text> {subCom.text} </Comment.Text>
                         </Comment.Content>
