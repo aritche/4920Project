@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Item, Grid, Label } from 'semantic-ui-react';
+import { Item, Grid, Label, Rating } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import moment from "moment";
 
 export default class Post extends Component {
     render() {
@@ -18,7 +17,12 @@ export default class Post extends Component {
                             { post.status }
                         </Label>
                     </Item.Header>
-                    <Item.Meta>{post.movee.first_name + ' ' + post.movee.last_name} [stars here]</Item.Meta>
+                    <Item.Meta>
+                        {post.movee.first_name + ' ' + post.movee.last_name}
+                        {post.movee.rating_overall !== undefined && post.movee.rating_overall !== 0 &&
+                            <Rating size={'medium'} icon='star' style={{marginLeft: '10px'}} defaultRating={post.movee.rating_overall} maxRating={5} disabled/>
+                        }
+                    </Item.Meta>
                     <Item.Description>
                         <Grid>
                             <Grid.Column width={3} >

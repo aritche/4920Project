@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from database.model import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ from database.Item import Item
 from database.MoveDetails import MoveDetails
 from database.User import User
 from database.Update import Update
+from database.Review import Review
 from database.PrivateView import PrivateView
 from database.Distances import Distances
 from database.Postcode import Postcode
@@ -27,6 +28,8 @@ with app.app_context():
 
     print("All tables created.")
 
+
+    # Users
     js = User(
         email = 'js@ex',
         first_name = 'John',
@@ -75,6 +78,56 @@ with app.app_context():
     db.session.add(rj)
     db.session.commit()
 
+    hl = User(
+        email = 'hl@ex',
+        first_name = 'Harper',
+        last_name = 'Lee',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I\'m well known for being a careful and trustworthy removalist. Choose my services.',
+        phone_number = '0400 999 000',
+        avatar = 'female3'
+    )
+
+    db.session.add(hl)
+    db.session.commit()
+
+    gj = User(
+        email = 'gj@ex',
+        first_name = 'Greg',
+        last_name = 'Jebson',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I run a family business of removalists. We are all efficient and friendly workers.',
+        phone_number = '0400 111 222',
+        avatar = 'male4'
+    )
+
+    db.session.add(gj)
+    db.session.commit()
+
+    tl = User(
+        email = 'tl@ex',
+        first_name = 'Timothy',
+        last_name = 'Lee',
+        password = 'sha1$e1f43782$1$2d02811ef15d94ffc88a2bb29b0cbc5a40e5999a', #aaaaaa
+        deleted = False,
+        user_type = 'Removalist',
+        creation_date = datetime.now(),
+        description = 'I am young and fresh and ready to help my community!',
+        phone_number = '0400 333 444',
+        avatar = 'male5'
+    )
+
+    db.session.add(tl)
+    db.session.commit()
+
+
+    # MOVE 1
     from_address = FromAddress(
         line1 = '1 Example Rd',
         line2 = '',
@@ -94,13 +147,13 @@ with app.app_context():
     db.session.add(to_address)
     db.session.commit()
 
-    now = datetime.now()
+    now = datetime.now() - timedelta(days=1, hours=2, minutes=13)
 
     move1 = MoveDetails(
         movee_id = js.id,
-        title = 'Example Post',
-        closing_datetime1 = datetime.now(),
-        closing_datetime2 = datetime.now(),
+        title = 'Queen Bed in Kensington',
+        closing_datetime1 = datetime.now() + timedelta(days=14, hours=1, minutes=24),
+        closing_datetime2 = datetime.now() + timedelta(days=14, hours=6, minutes=24),
         description = 'This is an example post. This description is just a placeholder description, but this is how movees will make a first impression with removealists.',
         budget = 400,
         status = 'OPEN',
@@ -121,9 +174,9 @@ with app.app_context():
 
     item1 = Item(
         name = 'Queen Bed',
-        weight = '50',
-        volume = '2x2x2',
-        amount = '1',
+        weight = 50,
+        volume = 10,
+        amount = 1,
         description = 'As you\'d expect. Large bed',
         move_id = move1.id
     )
@@ -164,6 +217,74 @@ with app.app_context():
     )
 
     move1.comments.append(comment2)
+    db.session.commit()
+
+
+    # MOVE 2
+    from_address = FromAddress(
+        line1 = '1 Example Rd',
+        line2 = '',
+        city = 'Randwick',
+        state = 'NSW',
+        postcode = '2001'
+    )
+    db.session.add(from_address)
+
+    to_address = ToAddress(
+        line1 = '2 Example St',
+        line2 = '',
+        city = 'Randwick',
+        state = 'NSW',
+        postcode = '2001'
+    )
+    db.session.add(to_address)
+    db.session.commit()
+
+    now = datetime.now()
+
+    move2 = MoveDetails(
+        movee_id = ml.id,
+        title = 'Short distance move!',
+        closing_datetime1 = datetime.now() + timedelta(days=14, hours=3, minutes=41),
+        closing_datetime2 = datetime.now() + timedelta(days=14, hours=10, minutes=41),
+        description = 'I just need a few things moved a really short distance!',
+        budget = 250,
+        status = 'OPEN',
+        creation_datetime = now - timedelta(days=1, hours=20),
+        last_updated = now,
+        address_from = from_address.id,
+        address_to = to_address.id,
+        deleted = False,
+        rough_distance = 290,
+        exact_distance = 240
+    )
+    db.session.add(move2)
+    db.session.commit()
+
+    from_address.move_id = move2.id
+    to_address.move_id = move2.id
+    db.session.commit()
+
+    item2 = Item(
+        name = 'Cupboard',
+        weight = 50,
+        volume = 10,
+        amount = 1,
+        description = 'Large and wooden',
+        move_id = move2.id
+    )
+    db.session.add(item2)
+    db.session.commit()
+
+    item2 = Item(
+        name = 'Table',
+        weight = 20,
+        volume = 10,
+        amount = 1,
+        description = 'Round glass table (fragile!)',
+        move_id = move2.id
+    )
+    db.session.add(item2)
     db.session.commit()
 
     print("Initial data added.")

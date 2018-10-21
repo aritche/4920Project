@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import {Divider, Header, Segment} from 'semantic-ui-react';
+import {Divider, Header, Segment, Message} from 'semantic-ui-react';
 import ConfirmationModal from "../../widgets/ConfirmationModal";
 import Rating from "./UserRating"
-import {Message} from "semantic-ui-react/dist/commonjs/collections/Message/Message";
 
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class Profile extends Component {
   constructor() {
     super();
@@ -46,23 +41,22 @@ export default class Profile extends Component {
               <text> {this.props.email} </text>
               <Divider/>
             </Segment>
-            <Header content={'User Rating'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
-            {this.props.overall === 0
-              ?
-              <Message>
-                <Message.Header>There is no rating yet</Message.Header>
-                <p>There is no rating at the moment.</p>
-              </Message>
+            <Header content={'Reviews'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
+            {this.props.overall === 0 ?
+                <Message>
+                  <Message.Header>This user has not received any reviews yet</Message.Header>
+                </Message>
               :
-              <Rating
-              avatar={this.props.avatar}
-              isMovee={this.props.identity === 'Movee'}
-              overall={this.props.overall}
-              service={this.props.service}
-              reliability={this.props.reliability}
-              speed={this.props.speed}
-              reviews={this.props.reviews}
-              />
+                <Rating
+                  history={this.props.history}
+                  avatar={this.props.avatar}
+                  isMovee={this.props.identity === 'Movee'}
+                  overall={this.props.overall}
+                  service={this.props.service}
+                  reliability={this.props.reliability}
+                  speed={this.props.speed}
+                  reviews={this.props.reviews}
+                />
             }
           </div>
           <br/>

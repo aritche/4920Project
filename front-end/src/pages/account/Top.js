@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {Image, Segment, Header, Menu, Rating} from 'semantic-ui-react';
 import EditProfile from './EditProfile'
 
-/**
- * Title: Top
- * Author: Victor
- */
 export default class Top extends Component {
     state = { activeItem: 'Updates' };
     handleItemClick = (e, { name }) => {
@@ -42,7 +38,7 @@ export default class Top extends Component {
                     ?
                     <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
                     :
-                    <Rating size={'medium'} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
+                    <Rating style={{paddingTop: '7px', paddingBottom: '7px'}} size={'medium'} icon='star' defaultRating={this.props.rating} maxRating={5} disabled/>
                   }
                 </Header.Subheader>
                 <Header.Subheader>

@@ -3,9 +3,6 @@ import {Button, Icon, Message, Table} from 'semantic-ui-react';
 import ItemForm from './ItemForm'
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 
-/**
- * Author: VW
- */
 export default class ItemTable extends Component{
     render(){
         return (

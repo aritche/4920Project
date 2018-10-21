@@ -3,10 +3,8 @@ import {Form, TextArea, Header, Modal, Button, Icon, Rating, Image} from 'semant
 import {isZero, emptyString} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
 import { url } from '../../Api';
+import { getLoggedInUser } from '../../Authentication';
 
-/**
- * Author: VW
- */
 export default class ReviewForm extends Component {
   constructor() {
     super();
@@ -22,11 +20,11 @@ export default class ReviewForm extends Component {
       date: '',
       service: 0,
       reliability: 0,
-      speed: '',
+      speed: 0,
       content: '',
       activeForm: false,
       rating: 0,
-      isMovee: false,
+      isMovee: true,
       isLoading: true
     }
   }
@@ -56,53 +54,105 @@ export default class ReviewForm extends Component {
       open: true,
       name: this.props.name,
       date: 'today',
-      isMovee: this.props.identity === 'Movee'
+      isMovee: this.props.isMovee
     });
   };
 
-  onServiceChange = (e) => {
-    if (e.target.value === 0) {
-
-    }
-    else {
-      this.setState({service: e});
+  onRatingChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({rating: rating});
     }
 
   };
 
-  onRatingChange = (e) => {
-    if (e.target.value === 0) {
-
+  onServiceChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({service: rating});
     }
-    else {
-      this.setState({rating: e});
-    }
-
   };
 
-  onReliabilityChange = (e) => {
-    this.setState({reliability: e});
+  onReliabilityChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({reliability: rating});
+    }
   };
 
-  onSpeedChange = (e) => {
-    this.setState({speed: e});
+  onSpeedChange = (e, data) => {
+    const rating = data.rating;
+    if (rating !== 0) {
+      this.setState({speed: rating});
+    }
   };
 
   onContentChange = (e) => {
-    this.setState({content: e});
+    this.setState({content: e.target.value});
   };
 
   onSubmit = () => {
     if (!this.validation()) {
-    }
-    else {
-
+      this.setState({ isLoading: true });
+      fetch(url + 'submit-review', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: this.props.isMovee ?
+          JSON.stringify({
+            'poster': getLoggedInUser(),
+            'reviewedUser': this.props.userId,
+            'move': this.props.postId,
+            'review': this.state.content,
+            'ratingGeneral': this.state.rating,
+            'updateId': this.props.updateId
+          })
+        :
+          JSON.stringify({
+            'poster': getLoggedInUser(),
+            'reviewedUser': this.props.userId,
+            'move': this.props.postId,
+            'ratingSpeed': this.state.speed,
+            'ratingReliability': this.state.reliability,
+            'ratingService': this.state.service,
+            'review': this.state.content,
+            'updateId': this.props.updateId
+          })
+      }).then(response => {
+        if (response.status === 200) {
+          this.props.history.push('/profile/' + this.props.userId);
+          this.setState({ isLoading: false });
+        } else if (response.status === 400) {
+          response.json().then(obj => {
+            this.setState({
+              isLoading: false,
+              errorMessage: obj.error
+            });
+          })
+        } else {
+          this.setState({
+            isLoading: false,
+            errorMessage: "Error in submitting review"
+          });
+        }
+      });
+    } else {
+      this.setState({
+        errorMessage: "Error in submitting review"
+      });
     }
   };
 
   validation = () => {
-    return isZero(this.state.reliability) || isZero(this.state.service) || isZero(this.state.speed)
-      || emptyString(this.state.content);
+    if (this.state.isMovee){
+      return isZero(this.state.rating) || emptyString(this.state.content);
+    }
+    else {
+      return isZero(this.state.reliability) || isZero(this.state.service) || isZero(this.state.speed)
+        || emptyString(this.state.content);
+    }
   };
 
   onFormPopClose = () => {
@@ -122,34 +172,34 @@ export default class ReviewForm extends Component {
           <br/>
           <div style={{display: 'flex'}}>
             <Image src={'/images/avatar/' + this.state.user.avatar + '.jpg'} circular size={'small'}
-              style={{margin: '20px 40px 40px 40px'}}/>
+              style={{margin: '20px 40px 40px 40px', height: '150px', width: '150px'}}/>
             <div style={{marginTop: 'auto', marginBottom: 'auto', fontSize: '32px', fontWeight: '600'}}>{this.state.user.first_name + ' ' + this.state.user.last_name}</div>
           </div>
           <Form style={{margin: '0 20px'}}>
-            {this.props.isMovee ?
+            {this.state.isMovee ?
               <div style={{display: 'flex'}}>
                 <Header size={'tiny'} content={'Rating'}/>
                 <span style={{width: 5}}/>
-                <Rating defaultRating={0} maxRating={5} onClick={this.onRatingChange}/>
+                <Rating defaultRating={0} maxRating={5} onRate={this.onRatingChange}/>
               </div>
               :
               <div style={{display: 'flex'}}>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Service'}/>
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onServiceChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onServiceChange}/>
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Reliability'} />
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onReliabilityChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onReliabilityChange}/>
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
                   <Header size={'tiny'} content={'Speed'} />
                   <span style={{width: 5}}/>
-                  <Rating defaultRating={0} maxRating={5} onClick={this.onSpeedChange}/>
+                  <Rating defaultRating={0} maxRating={5} onRate={this.onSpeedChange}/>
                 </div>
               </div>
             }

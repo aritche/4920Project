@@ -6,11 +6,6 @@ import Dashboard from "./Dashboard"
 import Profile from "./Profile"
 import Top from "./Top"
 
-
-/**
- * Title: Account Dashboard
- * Author: Victor
- */
 export default class Account extends Component {
     constructor() {
         super();
@@ -160,7 +155,7 @@ export default class Account extends Component {
                     phone={this.state.user.phone_number}
                     joinedIn={this.state.user.joined_in}
                     identity={this.state.user.user_type}
-                    // rating={this.state.user.rating.overall}
+                    rating={this.state.user.rating_overall}
                     update={this.onUpdate}
                     profileUpdate={this.onProfileUpdate}
                     profile={this.onProfile}
@@ -185,11 +180,11 @@ export default class Account extends Component {
                       mobile={this.state.user.phone_number}
                       email={this.state.user.email}
                       identity={this.state.user.identity}
-                      overall={this.state.user.rating.overall}
-                      service={this.state.user.rating.service}
-                      reliability={this.state.user.rating.reliability}
-                      speed={this.state.user.rating.speed}
-                      reviews={[]}
+                      overall={this.state.user.rating_overall}
+                      service={this.state.user.rating_service}
+                      reliability={this.state.user.rating_reliability}
+                      speed={this.state.user.rating_speed}
+                      reviews={this.state.user.reviews}
                       delete={this.deleteAccount}
                     />
                   }

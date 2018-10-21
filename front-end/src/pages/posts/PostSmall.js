@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Rating, Container, Header} from 'semantic-ui-react';
+import { Grid, Icon, Container, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from "moment";
 
@@ -27,10 +27,6 @@ export default class PostSmall extends Component {
 
                         <Grid.Row style={{paddingBottom: '10px'}}>
                             ${ post.budget }
-                        </Grid.Row>
-
-                        <Grid.Row>
-                            <Rating maxRating={5} defaultRating={5} disabled icon='star'/>
                         </Grid.Row>
                     </Container>
                 </Grid>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Segment, Header, Divider } from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 import AccountList from './AccountList';
 import { url } from '../../Api';
-import { getLoggedInUser, logout } from '../../Authentication';
 
 export default class MoveeDiscover extends Component {
     constructor(props) {
@@ -11,64 +10,20 @@ export default class MoveeDiscover extends Component {
         this.state = {
             removalists: [],
             errorMessage: '',
-            user: {
-                avatar: 'default',
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone_number: '',
-                description: '',
-                posts: [],
-                reviews: [],
-                post_records: [],
-                joined_in: '',
-                rating: {overall: 3},
-                id: ''
-            },
-            user1: {
-                avatar: 'default',
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone_number: '',
-                description: '',
-                posts: [],
-                reviews: [],
-                post_records: [],
-                joined_in: '',
-                rating: {overall: 3},
-                id: ''
-            },
-            user2: {
-                avatar: 'default',
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone_number: '',
-                description: '',
-                posts: [],
-                reviews: [],
-                post_records: [],
-                joined_in: '',
-                rating: {overall: 3},
-                id: ''
-            }
         };
     }
 
     componentDidMount() {
-      fetch(url + 'user/1').then(response => {
+      fetch(url + 'recommended-removalists').then(response => {
         if (response.status === 200) {
           response.json().then(obj => {
             this.setState({
-              user: obj,
-              user1: obj,
-              user2: obj
-            })
+                removalists: obj
+            });
           });
         } else {
           this.setState({
-            errorMessage: 'Sorry, there was a problem with your submission. Please try again.',
+            errorMessage: 'Sorry, there was a problem. Please refresh.',
           });
         }
       });
@@ -81,7 +36,7 @@ export default class MoveeDiscover extends Component {
                     Recommended Removalists
                     </Header>
                     <Segment attached secondary>
-                        <AccountList accounts={[this.state.user, this.state.user1, this.state.user2]}/>
+                        <AccountList accounts={this.state.removalists}/>
                     </Segment>
             </Segment>
         )

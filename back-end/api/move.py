@@ -186,7 +186,21 @@ def update_move(json):
         post.items.append(new_item)
     db.session.commit()
 
+    updated = []
+
     for comment in post.comments:
+        if comment.is_offer and not comment.is_stale and comment.poster not in updated:
+            update = Update(
+                update_type = 'post_update',
+                updated_movee_id = comment.poster,
+                concerning_movee_id = post.movee_id,
+                description = '',
+                move_id = post.id,
+                update_time = datetime.now()
+            )
+            db.session.add(update)
+            updated.append(comment.poster)
+
         comment.is_stale = True
     db.session.commit()
 
@@ -320,7 +334,7 @@ def decorate_move_search(move):
         'first_name': movee.first_name,
         'last_name': movee.last_name,
         'avatar': movee.avatar,
-        # insert rating here
+        'rating_overall': movee.rating_overall
     }
 
     move_dict['title'] = move.title
@@ -329,14 +343,21 @@ def decorate_move_search(move):
     move_dict['to_suburb'] = db.session.query(ToAddress).filter(ToAddress.id == move.address_to).first().city
     move_dict['budget'] = move.budget
     move_dict['closing_datetime'] = move.closing_datetime1
-    if move.rough_distance != -1:
-        move_dict['distance_string'] = str(int(round(float(move.rough_distance)/1000.0))) + ' km'
-    else:
-        move_dict['distance_string'] = ''
     move_dict['description'] = move.description
-
+    move_dict['distance_string'] = get_distance_string(move.rough_distance)
     move_dict['date_string'] = move.closing_datetime1.strftime('%d %b %Y at %-I:%M %p')
     return move_dict
+
+
+def get_distance_string(distance):
+    if distance != -1:
+        if distance < 1000:
+            if distance < 100:
+                return '< 100m'
+            return str(int(round(float(distance)/100.0))) + '00 m'
+        return str(int(round(float(distance)/1000.0))) + ' km'
+    return ''
+
 
 
 def decorate_move(move):
@@ -349,9 +370,9 @@ def decorate_move(move):
     move['movee'] = movee.to_dict()
 
     if move['closing_datetime1'].strftime('%-I:%M %p') == move['closing_datetime2'].strftime('%-I:%M %p'):
-        move['date_string'] = move['closing_datetime2'].strftime('%-I:%M %p on %d %B %Y')
+        move['date_string'] = move['closing_datetime2'].strftime('%-I:%M %p on %-d %B %Y')
     else:
-        move['date_string'] = move['closing_datetime1'].strftime('%-I:%M %p to ') + move['closing_datetime2'].strftime('%-I:%M %p on %d %B %Y')
+        move['date_string'] = move['closing_datetime1'].strftime('%-I:%M %p to ') + move['closing_datetime2'].strftime('%-I:%M %p on %-d %B %Y')
     return move
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Segment, Menu, Dropdown, Form, Input, Header} from 'semantic-ui-react';
+import {Segment, Menu, Dropdown, Form, Input, Header, Checkbox} from 'semantic-ui-react';
 import { BUDGET, SORT } from '../../constants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,7 +24,8 @@ export default class FilterBar extends Component {
             budget: BUDGET.DEFAULT,
             lowerDate: moment(),
             upperDate: moment(),
-            sortBy: SORT.DEFAULT
+            sortBy: SORT.DEFAULT,
+            checkBox: false,
         }
     }
 
@@ -34,7 +35,6 @@ export default class FilterBar extends Component {
 
     onQuerySubmit = () => {
         console.log('Submitting:', this.state.query);
-
         alert("Searched for:  " + this.state.query);
         // Code to change to search page here
         //this.props.history.push('/')
@@ -45,10 +45,10 @@ export default class FilterBar extends Component {
     };
 
     onSearch = (e) => {
-        if (e.key == 'Enter') {
+        if (e.key === 'Enter') {
             this.props.handleChange('suburb', e.target.value);
         }
-    }
+    };
 
     onlowerDateChange(date) {
         console.log(date);
@@ -63,6 +63,17 @@ export default class FilterBar extends Component {
 
     onSortByChange = (e, data) => {
         this.props.handleChange('sortBy', data.value)
+    };
+
+    onSortByOpen = () => {
+        if (this.state.checkBox) {
+            this.setState({checkBox: false});
+            this.props.handleChange('status', '');
+        }
+        else {
+            this.setState({checkBox: true});
+            this.props.handleChange('status', 'OPEN');
+        }
     };
 
     render() {
@@ -129,20 +140,28 @@ export default class FilterBar extends Component {
                           </Form>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <span style={{width: 60}}/>
-                    <Menu.Item style={{paddingTop: 0, paddingBottom: 4}} position='right'>
+                    <span style={{width: 0}}/>
+                    <Menu.Item style={{paddingTop: 0, paddingBottom: 4}}>
+                      <div style={{display: 'flex'}}>
                         <Input icon='search' name='suburb'
-                            style={{minWidth: 400, maxHeight: 38, minHeight: 38}}
-                            placeholder='Search suburb'
-                            onKeyPress={this.onSearch}
+                               style={{minWidth: 400, maxHeight: 38, minHeight: 38}}
+                               placeholder='Search suburb'
+                               onKeyPress={this.onSearch}
                         />
+                        <span style={{width: 10}}/>
+                        <div style={{display: 'flex', marginTop: '1.8%'}}>
+                          <Checkbox onClick={this.onSortByOpen}/>
+                          <span style={{width: 10}}/>
+                          <p style={{color: 'white'}}> Open Post Only </p>
+                        </div>
+                      </div>
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                    <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10, color: "white"}}/>
-                        <Dropdown selection autosize={'false'} onChange={this.onSortByChange}
-                                  defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating
-                                  button
-                                  style={{minWidth: 170, maxWidth: 170, maxHeight: 38, minHeight: 38}}/>
+                        <Header content={'Sort by'} size={'small'} style={{marginTop: 10, paddingRight: 10, color: "white"}}/>
+                            <Dropdown selection autosize={'false'} onChange={this.onSortByChange}
+                                      defaultValue={sortByOptions[0].value} options={sortByOptions} compact floating
+                                      button
+                                      style={{minWidth: 170, maxWidth: 170, maxHeight: 38, minHeight: 38}}/>
                     </Menu.Menu>
                 </Menu>
             </Segment>

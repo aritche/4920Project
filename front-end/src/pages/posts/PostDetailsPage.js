@@ -113,7 +113,7 @@ export default class PostDetailsPage extends Component {
 
     fullAddressViewable = (obj) => {
         return getLoggedInUser() === obj.move.movee_id || this.acceptedRemovalist(obj);
-    }
+    };
 
     acceptedRemovalist = (obj) => {
         const acceptedOfferId = obj.move.chosen_offer;
@@ -123,7 +123,7 @@ export default class PostDetailsPage extends Component {
         } else {
             return getLoggedInUser() === acceptedComment.poster_details.id;
         }
-    }
+    };
 
     editPost = () => {
         this.props.history.push({
@@ -279,14 +279,15 @@ export default class PostDetailsPage extends Component {
                                 this.state.post.movee.last_name } <img circular="true" style={{cursor: "pointer", borderRadius: '50%'}} className="heading-subtitle-icon"
                                 src={'/images/avatar/' + this.state.post.movee.avatar + '.jpg'}
                                 alt="Default Profile"/></span></p>
+
                                 <Header.Subheader size={'medium'}>
-                                  {this.state.post.movee.rating === undefined || this.state.post.movee.rating === 0
+                                {this.state.post.movee.rating_overall === undefined || this.state.post.movee.rating_overall === 0
                                     ?
                                     <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
                                     :
-                                    <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating}
+                                    <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating_overall}
                                             maxRating={5} disabled/>
-                                  }
+                                }
                                 </Header.Subheader>
                             </Header>
                             <Segment>
