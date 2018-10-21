@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {Image, Segment, Header, Rating, Grid} from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Grid, Header, Image, Rating, Segment} from 'semantic-ui-react';
 import Reviews from './PastReviews'
 
 export default class UserRating extends Component {
@@ -11,37 +11,39 @@ export default class UserRating extends Component {
           <Grid centered>
             <Grid.Row>
               <Segment circular size={'small'}
-                       style={{paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1,
-                         backgroundColor: 'white', marginTop: '1%'}}>
+                       style={{
+                         paddingBottom: 1, paddingRight: 1, paddingTop: 1, paddingLeft: 1,
+                         backgroundColor: 'white', marginTop: '1%'
+                       }}>
                 <Image src={'/images/avatar/' + this.props.avatar + '.jpg'} circular size={'small'} bordered/>
               </Segment>
             </Grid.Row>
             <Grid.Row>
               <div>
-                <Header content={'Rating'} />
+                <Header content={'Rating'}/>
                 <Rating defaultRating={this.props.overall} maxRating={5} disabled/>
               </div>
             </Grid.Row>
             <div/>
-            { this.props.isMovee ?
+            {this.props.isMovee ?
               <div/>
-               :
-              <Grid.Row >
+              :
+              <Grid.Row>
                 <div style={{display: 'flex'}}>
                   <div>
-                    <Header size={'tiny'} content={'Service'} />
+                    <Header size={'tiny'} content={'Service'}/>
 
                     <Rating defaultRating={this.props.service} maxRating={5} disabled/>
                   </div>
                   <span style={{width: 10}}/>
                   <div>
-                    <Header size={'tiny'} content={'Reliability'} />
+                    <Header size={'tiny'} content={'Reliability'}/>
 
                     <Rating defaultRating={this.props.reliability} maxRating={5} disabled/>
                   </div>
                   <span style={{width: 10}}/>
                   <div>
-                    <Header size={'tiny'} content={'Speed'} />
+                    <Header size={'tiny'} content={'Speed'}/>
 
                     <Rating defaultRating={this.props.speed} maxRating={5} disabled/>
                   </div>

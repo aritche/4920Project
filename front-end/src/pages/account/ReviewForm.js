@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import {Form, TextArea, Header, Modal, Button, Icon, Rating, Image} from 'semantic-ui-react';
-import {isZero, emptyString} from '../../utils/ValidationUtils';
+import React, {Component} from 'react';
+import {Button, Form, Header, Icon, Image, Modal, Rating, TextArea} from 'semantic-ui-react';
+import {emptyString, isZero} from '../../utils/ValidationUtils';
 import ErrorInputModal from '../../widgets/ErrorInputModal';
-import { url } from '../../Api';
-import { getLoggedInUser } from '../../Authentication';
+import {url} from '../../Api';
+import {getLoggedInUser} from '../../Authentication';
 
 export default class ReviewForm extends Component {
   constructor() {
@@ -34,7 +34,7 @@ export default class ReviewForm extends Component {
     fetch(url + 'user/' + this.props.userId).then(response => {
       if (response.status === 200) {
         response.json().then(obj => {
-          this.setState({ user: obj })
+          this.setState({user: obj})
         });
       } else {
         this.setState({
@@ -93,12 +93,12 @@ export default class ReviewForm extends Component {
 
   onSubmit = () => {
     if (!this.validation()) {
-      this.setState({ isLoading: true });
+      this.setState({isLoading: true});
       fetch(url + 'submit-review', {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: this.props.isMovee ?
           JSON.stringify({
@@ -109,7 +109,7 @@ export default class ReviewForm extends Component {
             'ratingGeneral': this.state.rating,
             'updateId': this.props.updateId
           })
-        :
+          :
           JSON.stringify({
             'poster': getLoggedInUser(),
             'reviewedUser': this.props.userId,
@@ -123,7 +123,7 @@ export default class ReviewForm extends Component {
       }).then(response => {
         if (response.status === 200) {
           this.props.history.push('/profile/' + this.props.userId);
-          this.setState({ isLoading: false });
+          this.setState({isLoading: false});
         } else if (response.status === 400) {
           response.json().then(obj => {
             this.setState({
@@ -146,7 +146,7 @@ export default class ReviewForm extends Component {
   };
 
   validation = () => {
-    if (this.state.isMovee){
+    if (this.state.isMovee) {
       return isZero(this.state.rating) || emptyString(this.state.content);
     }
     else {
@@ -162,9 +162,18 @@ export default class ReviewForm extends Component {
   render() {
     return (
       <Modal trigger={
-        <Button onClick={this.open} size='large' style={{width: 170, height: 40, zIndex: 0,
-          backgroundColor: '#22AABB', color: 'white', marginLeft: 'auto', marginRight: '40px', marginTop: 'auto', marginBottom: 'auto'}}>
-          <Button.Content >Leave a Review</Button.Content>
+        <Button onClick={this.open} size='large' style={{
+          width: 170,
+          height: 40,
+          zIndex: 0,
+          backgroundColor: '#22AABB',
+          color: 'white',
+          marginLeft: 'auto',
+          marginRight: '40px',
+          marginTop: 'auto',
+          marginBottom: 'auto'
+        }}>
+          <Button.Content>Leave a Review</Button.Content>
         </Button>
       } open={this.state.open} onClose={this.close} closeIcon>
         <Modal.Content>
@@ -172,8 +181,13 @@ export default class ReviewForm extends Component {
           <br/>
           <div style={{display: 'flex'}}>
             <Image src={'/images/avatar/' + this.state.user.avatar + '.jpg'} circular size={'small'}
-              style={{margin: '20px 40px 40px 40px', height: '150px', width: '150px'}}/>
-            <div style={{marginTop: 'auto', marginBottom: 'auto', fontSize: '32px', fontWeight: '600'}}>{this.state.user.first_name + ' ' + this.state.user.last_name}</div>
+                   style={{margin: '20px 40px 40px 40px', height: '150px', width: '150px'}}/>
+            <div style={{
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              fontSize: '32px',
+              fontWeight: '600'
+            }}>{this.state.user.first_name + ' ' + this.state.user.last_name}</div>
           </div>
           <Form style={{margin: '0 20px'}}>
             {this.state.isMovee ?
@@ -191,29 +205,30 @@ export default class ReviewForm extends Component {
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
-                  <Header size={'tiny'} content={'Reliability'} />
+                  <Header size={'tiny'} content={'Reliability'}/>
                   <span style={{width: 5}}/>
                   <Rating defaultRating={0} maxRating={5} onRate={this.onReliabilityChange}/>
                 </div>
                 <span style={{width: 10}}/>
                 <div style={{display: 'flex'}}>
-                  <Header size={'tiny'} content={'Speed'} />
+                  <Header size={'tiny'} content={'Speed'}/>
                   <span style={{width: 5}}/>
                   <Rating defaultRating={0} maxRating={5} onRate={this.onSpeedChange}/>
                 </div>
               </div>
             }
-            <Header content={'Review'} />
+            <Header content={'Review'}/>
             <Form.Field error={emptyString(this.state.desc)} control={TextArea} placeholder='Please provide feedback...'
                         autoHeight value={this.state.desc} onChange={this.onContentChange}/>
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button style={{backgroundColor: '#22AABB', color: 'white'}} onClick={this.onSubmit} disabled={this.validation()}>
-            <Icon name='checkmark' /> Submit
+          <Button style={{backgroundColor: '#22AABB', color: 'white'}} onClick={this.onSubmit}
+                  disabled={this.validation()}>
+            <Icon name='checkmark'/> Submit
           </Button>
           <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.close}>
-            <Icon name='remove' /> Discard
+            <Icon name='remove'/> Discard
           </Button>
         </Modal.Actions>
 

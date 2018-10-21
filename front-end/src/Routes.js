@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Route, Switch} from 'react-router-dom';
 import PostsPage from './pages/posts/PostsPage';
 import CreatePostPage from './pages/posts/CreatePostPage';
 import LoginPage from './pages/login/LoginPage';
@@ -12,21 +12,21 @@ import Home from "./pages/home/Home";
 import Discover from "./pages/discover/Discover";
 
 export default class Routes extends Component {
-    render() {
-        return (
-            <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route path='/posts/:postId' component={PostDetailsPage}/>
-              <Route path='/posts' component={PostsPage}/>
-              <Route path='/create-post' component={CreatePostPage}/>
-              <Route path='/login' component={LoginPage}/>
-              <Route path='/signup' component={SignupPage}/>
-              <Route path='/search' component={SearchPage}/>
-              <Route path='/account' component={Account}/>
-              <Route path='/profile/:userId' component={OtherAccount}/>
-              <Route path='/home' component={Home}/>
-              <Route path='/discover' component={Discover}/>
-            </Switch>
-        )
-    }
+  render() {
+    return (
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/posts/:postId' component={PostDetailsPage}/>
+        <Route path='/posts' component={PostsPage}/>
+        <Route path='/create-post' component={CreatePostPage}/>
+        <Route path='/login' component={LoginPage}/>
+        <Route path='/signup' component={SignupPage}/>
+        <Route path='/search' component={SearchPage}/>
+        <Route path='/account' component={Account}/>
+        <Route path='/profile/:userId' component={OtherAccount}/>
+        <Route path='/home' component={Home}/>
+        <Route path='/discover' component={Discover}/>
+      </Switch>
+    )
+  }
 }

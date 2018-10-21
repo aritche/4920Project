@@ -1,53 +1,54 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Button, Header, Icon, Modal} from 'semantic-ui-react';
 
 export default class ConfirmationModal extends Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            open: false
-        };
-    }
-
-    close = () => {
-        this.setState({open: false});
+    this.state = {
+      open: false
     };
+  }
 
-    open = () => {
-        this.setState({open: true});
-    };
+  close = () => {
+    this.setState({open: false});
+  };
 
-    confirm = () => {
-        this.setState({open: false}, this.props.onConfirm);
-    };
+  open = () => {
+    this.setState({open: true});
+  };
 
-    render() {
-        return (
-            <Modal style={{width: 500}} trigger={
-                this.props.buttonHtml?
-                    this.props.buttonHtml
-                :
-                <Button onClick={this.open} size={this.props.buttonSize} negative style={this.props.buttonStyle} animated={this.props.buttonAnimated}>
-                    { this.props.buttonContentHtml ?
-                        this.props.buttonContentHtml
-                        :
-                        this.props.buttonText
-                    }
-                </Button>
-                } open={this.state.open} onClose={this.close} closeIcon>
-                <Modal.Content style={{paddingLeft: 100}}>
-                    <Header size={'small'} content={ this.props.headerText }/>
-                </Modal.Content>
-                <Modal.Actions style={{paddingRight: 150}}>
-                    <Button style={{backgroundColor: '#c24e4e', color: 'white'}} onClick={this.confirm}>
-                    <Icon name='checkmark' /> Yes
-                    </Button>
-                    <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.close}>
-                    <Icon name='remove' /> No
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-        )
-    }
+  confirm = () => {
+    this.setState({open: false}, this.props.onConfirm);
+  };
+
+  render() {
+    return (
+      <Modal style={{width: 500}} trigger={
+        this.props.buttonHtml ?
+          this.props.buttonHtml
+          :
+          <Button onClick={this.open} size={this.props.buttonSize} negative style={this.props.buttonStyle}
+                  animated={this.props.buttonAnimated}>
+            {this.props.buttonContentHtml ?
+              this.props.buttonContentHtml
+              :
+              this.props.buttonText
+            }
+          </Button>
+      } open={this.state.open} onClose={this.close} closeIcon>
+        <Modal.Content style={{paddingLeft: 100}}>
+          <Header size={'small'} content={this.props.headerText}/>
+        </Modal.Content>
+        <Modal.Actions style={{paddingRight: 150}}>
+          <Button style={{backgroundColor: '#c24e4e', color: 'white'}} onClick={this.confirm}>
+            <Icon name='checkmark'/> Yes
+          </Button>
+          <Button style={{backgroundColor: '#193446', color: 'white'}} onClick={this.close}>
+            <Icon name='remove'/> No
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    )
+  }
 }

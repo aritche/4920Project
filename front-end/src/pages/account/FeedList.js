@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { List } from 'semantic-ui-react'
+import {List} from 'semantic-ui-react'
 import Feed from './Feed'
 import PaginationContainer from '../../widgets/PaginationContainer'
 
@@ -11,16 +11,16 @@ export default class FeedList extends Component {
 
     this.state = {
       feedsToDisplay: [],
-        activePage: 1
+      activePage: 1
     };
   }
 
   componentDidMount() {
-      this.updateDisplayedFeed();
+    this.updateDisplayedFeed();
   }
 
-  handlePaginationChange = (e, { activePage }) => {
-      this.setState({ activePage: activePage }, this.updateDisplayedFeed);
+  handlePaginationChange = (e, {activePage}) => {
+    this.setState({activePage: activePage}, this.updateDisplayedFeed);
   };
 
   updateDisplayedFeed = () => {
@@ -28,7 +28,7 @@ export default class FeedList extends Component {
     let end = this.state.activePage * ITEMS_PER_PAGE;
     end = end > this.props.feeds.length ? this.props.feeds.length : end;
 
-      this.setState({ feedsToDisplay: this.props.feeds.slice(start, end) });
+    this.setState({feedsToDisplay: this.props.feeds.slice(start, end)});
   };
 
   render() {

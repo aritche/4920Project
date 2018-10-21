@@ -17,7 +17,7 @@ export default class UserPopup extends Component {
           >
             Dashboard
           </Button>
-          <Button.Or />
+          <Button.Or/>
           <Button style={{backgroundColor: '#22AABB', color: 'white', width: 100, height: 38}}
                   onClick={() => {
                     this.props.closePopup();

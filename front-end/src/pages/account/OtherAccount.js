@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import {Segment, Container} from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Container, Segment} from 'semantic-ui-react';
 import OtherProfile from "./OtherProfile"
 import OtherTop from "./OtherTop"
-import { url } from '../../Api';
-import { getLoggedInUser } from '../../Authentication';
+import {url} from '../../Api';
+import {getLoggedInUser} from '../../Authentication';
 
 export default class OtherAccount extends Component {
   constructor() {
@@ -33,7 +33,7 @@ export default class OtherAccount extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.userId !== this.props.match.params.userId) {
       this.loadUser(nextProps.match.params.userId);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     }
   }
 

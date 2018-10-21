@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Button, Header, Table} from 'semantic-ui-react';
 import PaginationContainer from '../../widgets/PaginationContainer';
 import moment from "moment";
 
 const POSTS_PER_PAGE = 5;
 
-export default class PostTable extends Component{
+export default class PostTable extends Component {
 
   constructor(props) {
     super(props);
@@ -21,8 +21,8 @@ export default class PostTable extends Component{
     this.updateDisplayedPosts();
   }
 
-  handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage: activePage }, this.updateDisplayedPosts);
+  handlePaginationChange = (e, {activePage}) => {
+    this.setState({activePage: activePage}, this.updateDisplayedPosts);
   };
 
   updateDisplayedPosts = () => {
@@ -30,7 +30,7 @@ export default class PostTable extends Component{
     let end = this.state.activePage * POSTS_PER_PAGE;
     end = end > this.props.list.length ? this.props.list.length : end;
 
-    this.setState({ postsToDisplay: this.props.list.slice(start, end) });
+    this.setState({postsToDisplay: this.props.list.slice(start, end)});
   };
 
   routeToPost = (e) => {
@@ -38,7 +38,7 @@ export default class PostTable extends Component{
     this.props.history.push('/posts/' + e.target.id);
   };
 
-  render(){
+  render() {
     return (
       <div>
         <Table basic='very'>
@@ -61,7 +61,15 @@ export default class PostTable extends Component{
                     content={"View"}
                     id={item.id}
                     size='large'
-                    style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white', float: 'right', marginRight: '60px'}}
+                    style={{
+                      width: 140,
+                      height: 40,
+                      zIndex: 0,
+                      backgroundColor: '#193446',
+                      color: 'white',
+                      float: 'right',
+                      marginRight: '60px'
+                    }}
                     onClick={this.routeToPost}
                   />
                 </Table.Cell>
@@ -80,7 +88,6 @@ export default class PostTable extends Component{
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
-
         </Table>
       </div>
     );

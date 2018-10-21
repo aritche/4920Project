@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import moment from "moment";
 import {Button, Header, Table} from 'semantic-ui-react';
 import ConfirmationModal from '../../widgets/ConfirmationModal';
 import PaginationContainer from '../../widgets/PaginationContainer';
-import { url } from '../../Api';
+import {url} from '../../Api';
 
 const POSTS_PER_PAGE = 5;
 
-export default class PostRecordList extends Component{
+export default class PostRecordList extends Component {
 
   constructor(props) {
     super(props);
@@ -25,8 +25,8 @@ export default class PostRecordList extends Component{
     this.updateDisplayedPosts();
   }
 
-  handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage: activePage }, this.updateDisplayedPosts);
+  handlePaginationChange = (e, {activePage}) => {
+    this.setState({activePage: activePage}, this.updateDisplayedPosts);
   };
 
   updateDisplayedPosts = () => {
@@ -34,7 +34,7 @@ export default class PostRecordList extends Component{
     let end = this.state.activePage * POSTS_PER_PAGE;
     end = end > this.props.list.length ? this.props.list.length : end;
 
-    this.setState({ postsToDisplay: this.props.list.slice(start, end) });
+    this.setState({postsToDisplay: this.props.list.slice(start, end)});
   };
 
   routeToPost = (e) => {
@@ -45,8 +45,8 @@ export default class PostRecordList extends Component{
     fetch(url + 'remove-post-record', {
       method: 'POST',
       headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         'postRecordId': id
@@ -56,7 +56,7 @@ export default class PostRecordList extends Component{
     });
   };
 
-  render(){
+  render() {
     return (
       <div>
         <Table basic='very'>
@@ -80,16 +80,30 @@ export default class PostRecordList extends Component{
                       <Button.Content key='text' hidden>Remove</Button.Content>
                     ]
                   }
-                    buttonSize='large'
-                    buttonStyle={{width: 140, height: 40, zIndex: 0, backgroundColor: '#c24e4e' , color: 'white', float: 'right'}}
-                    headerText='Are you sure you want to remove this post record?'
-                    onConfirm={() => this.removePostRecord(item.id)}
+                      buttonSize='large'
+                      buttonStyle={{
+                       width: 140,
+                       height: 40,
+                       zIndex: 0,
+                       backgroundColor: '#c24e4e',
+                       color: 'white',
+                       float: 'right'
+                      }}
+                      headerText='Are you sure you want to remove this post record?'
+                      onConfirm={() => this.removePostRecord(item.id)}
                   />
                   <Button
                     content={"View"}
                     id={item.move_id}
                     size='large'
-                    style={{width: 140, height: 40, zIndex: 0, backgroundColor: '#193446' , color: 'white', float: 'right'}}
+                    style={{
+                      width: 140,
+                      height: 40,
+                      zIndex: 0,
+                      backgroundColor: '#193446',
+                      color: 'white',
+                      float: 'right'
+                    }}
                     onClick={this.routeToPost}
                   />
                 </Table.Cell>

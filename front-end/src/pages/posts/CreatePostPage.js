@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import CreatePostForm from './CreatePostForm';
-import { Container } from 'semantic-ui-react';
+import {Container} from 'semantic-ui-react';
 
 export default class CreatePostPage extends Component {
-    render() {
-        return (
-            <Container>
-                <CreatePostForm history={this.props.history} location={this.props.location} />
-            </Container>
-        )
-    }
+  render() {
+    return (
+      <Container>
+        <CreatePostForm history={this.props.history} location={this.props.location}/>
+      </Container>
+    )
+  }
 }

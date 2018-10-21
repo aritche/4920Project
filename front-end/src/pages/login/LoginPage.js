@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import CreateLoginForm from './CreateLoginForm';
-import { Container } from 'semantic-ui-react';
+import {Container} from 'semantic-ui-react';
 
 export default class LoginPage extends Component {
-    render() {
-        return (
-            <Container>
-                <CreateLoginForm history={this.props.history}/>
-            </Container>
-        )
-    }
+  render() {
+    return (
+      <Container>
+        <CreateLoginForm history={this.props.history}/>
+      </Container>
+    )
+  }
 }
