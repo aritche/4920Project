@@ -153,6 +153,7 @@ export default class Account extends Component {
                     lastName={this.state.user.last_name}
                     email={this.state.user.email}
                     phone={this.state.user.phone_number}
+                    desc={this.state.user.description}
                     joinedIn={this.state.user.joined_in}
                     identity={this.state.user.user_type}
                     rating={this.state.user.rating_overall}

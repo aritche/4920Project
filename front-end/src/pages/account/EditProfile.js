@@ -34,6 +34,7 @@ export default class EditProfile extends Component {
       phone: this.props.phone,
       email: this.props.email,
       avatar: this.props.avatar,
+      desc: this.props.desc
     });
   };
 

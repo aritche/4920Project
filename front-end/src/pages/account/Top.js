@@ -48,6 +48,7 @@ export default class Top extends Component {
                     lastName={this.props.lastName}
                     phone={this.props.phone}
                     email={this.props.email}
+                    desc={this.props.desc}
                     update={this.onUpdate}
                   />
                 </Header.Subheader>
