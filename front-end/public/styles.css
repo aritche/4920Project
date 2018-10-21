@@ -56,3 +56,8 @@
     position: relative;
     top: -14px;
 }
+
+.react-datepicker__month-container + .react-datepicker__time-container .react-datepicker__header--time {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
