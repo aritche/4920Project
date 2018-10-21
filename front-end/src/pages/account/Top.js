@@ -3,9 +3,7 @@ import {Image, Segment, Header, Menu, Rating} from 'semantic-ui-react';
 import EditProfile from './EditProfile'
 
 export default class Top extends Component {
-    state = { activeItem: 'Updates' };
     handleItemClick = (e, { name }) => {
-        this.setState({ activeItem: name });
         if (name === 'Updates') {
             this.props.update();
         }
@@ -19,7 +17,6 @@ export default class Top extends Component {
     };
 
     render() {
-        const { activeItem } = this.state;
         return (
           <div style={{marginTop: '1%', display: 'flex'}}>
             <Segment circular size={'small'}
@@ -58,8 +55,8 @@ export default class Top extends Component {
               <br/>
               <Menu inverted secondary attached='top'
                     style={{height: "0%", width: "15%"}}>
-                <Menu.Item name='Updates' size={'big'} active={activeItem === 'Updates'} onClick={this.handleItemClick}/>
-                <Menu.Item name='Profile' size={'big'} active={activeItem === 'Profile'} onClick={this.handleItemClick}/>
+                <Menu.Item name='Updates' size={'big'} active={this.props.switchPage} onClick={this.handleItemClick}/>
+                <Menu.Item name='Profile' size={'big'} active={!this.props.switchPage} onClick={this.handleItemClick}/>
               </Menu>
             </div>
           </div>

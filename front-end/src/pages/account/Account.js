@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {Segment, Container} from 'semantic-ui-react';
 import { getLoggedInUser, logout } from '../../Authentication';
 import { url } from '../../Api';
-import Dashboard from "./Dashboard"
-import Profile from "./Profile"
-import Top from "./Top"
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
+import Top from "./Top";
+import { isOnAccountDashboardPage, setOnAccountDashboardPage } from '../../UserSettings'
 
 export default class Account extends Component {
     constructor() {
@@ -26,7 +27,7 @@ export default class Account extends Component {
           },
           updates: [],
           postList: [],
-          switchPage: true,
+          switchPage: isOnAccountDashboardPage(),
           isLoading: false,
         };
 
@@ -35,10 +36,12 @@ export default class Account extends Component {
 
     onUpdate = () => {
         this.setState({switchPage: true});
+        setOnAccountDashboardPage(true);
     };
 
     onProfile = () => {
         this.setState({switchPage: false});
+        setOnAccountDashboardPage(false);
     };
 
     onProfileUpdate = (newAvatar, firstName, lastName, email, phone, desc) => {
@@ -59,14 +62,7 @@ export default class Account extends Component {
           })
         });
 
-        let user = Object.assign({}, this.state.user);
-        user.first_name = firstName;
-        user.last_name = lastName;
-        user.email = email;
-        user.phone_number = phone;
-        user.description = desc;
-        user.avatar = newAvatar;
-        this.setState({user});
+        window.location.reload();
     };
 
     deleteAccount = () => {
@@ -148,6 +144,7 @@ export default class Account extends Component {
               <Segment.Group stacked style={{boxShadow: '2px 2px 2px #000000'}}>
                 <Segment style={{backgroundColor: "#193446"}}>
                   <Top
+                    switchPage={this.state.switchPage}
                     avatar={this.state.user.avatar}
                     firstName={this.state.user.first_name}
                     lastName={this.state.user.last_name}
