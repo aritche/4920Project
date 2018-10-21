@@ -104,7 +104,7 @@ export default class CreatePostForm extends Component {
     };
 
     onDateChange = (date) => {
-        if (date.isBefore(this.state.date)) {
+        if (date.isBefore(moment().endOf('day'))) {
             this.setState({activeDate: true});
         }
         else {
