@@ -60,9 +60,9 @@ export default class Account extends Component {
             'phoneNumber': phone,
             'description': desc
           })
+        }).then(response => {
+          window.location.reload();
         });
-
-        window.location.reload();
     };
 
     deleteAccount = () => {
