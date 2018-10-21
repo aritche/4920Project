@@ -172,7 +172,7 @@ export default class ReviewForm extends Component {
           <br/>
           <div style={{display: 'flex'}}>
             <Image src={'/images/avatar/' + this.state.user.avatar + '.jpg'} circular size={'small'}
-              style={{margin: '20px 40px 40px 40px'}}/>
+              style={{margin: '20px 40px 40px 40px', height: '150px', width: '150px'}}/>
             <div style={{marginTop: 'auto', marginBottom: 'auto', fontSize: '32px', fontWeight: '600'}}>{this.state.user.first_name + ' ' + this.state.user.last_name}</div>
           </div>
           <Form style={{margin: '0 20px'}}>
