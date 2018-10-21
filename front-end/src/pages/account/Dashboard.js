@@ -19,8 +19,8 @@ export default class Dashboard extends Component {
             {this.props.updates.length === 0
               ?
                 <Message>
-                  <Message.Header>No update to view</Message.Header>
-                  <p>There are no update at the moment.</p>
+                  <Message.Header>No updates to view</Message.Header>
+                  <p>There are no updates at the moment.</p>
                 </Message>
               :
                 <FeedList feeds={this.props.updates} history={this.props.history}/>
