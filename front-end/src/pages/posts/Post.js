@@ -20,7 +20,7 @@ export default class Post extends Component {
                     <Item.Meta>
                         {post.movee.first_name + ' ' + post.movee.last_name}
                         {post.movee.rating_overall !== undefined && post.movee.rating_overall !== 0 &&
-                            <Rating size={'medium'} icon='star' style={{marginLeft: '10px'}} defaultRating={post.movee.rating_overall} maxRating={5} disabled/>
+                            <Rating icon='star' style={{marginLeft: '10px'}} defaultRating={post.movee.rating_overall} maxRating={5} disabled/>
                         }
                     </Item.Meta>
                     <Item.Description>

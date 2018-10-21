@@ -58,8 +58,7 @@ export default class CreateSignupForm extends Component {
     attemptSignup = () => {
         // Input validation here
         // Assume no errors to start with
-        this.setState
-        ({
+        this.setState({
           passwordMismatch: false,
           firstNameError: false,
           lastNameError : false,

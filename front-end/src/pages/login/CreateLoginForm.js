@@ -3,7 +3,6 @@ import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { verify } from 'password-hash';
 import { url } from '../../Api';
 import { updateAuthentication } from '../../Authentication';
-import {Menu} from "semantic-ui-react/dist/commonjs/collections/Menu/Menu";
 
 export default class CreateLoginForm extends Component {
     constructor() {

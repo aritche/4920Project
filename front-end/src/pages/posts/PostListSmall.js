@@ -10,7 +10,7 @@ export default class PostListSmall extends Component {
                 
                     <Grid link columns={this.props.posts.length} style={{width: '75%'}}>
                         {
-                            this.props.posts.map(post => <Grid.Column><PostSmall key={post.id} post={post} /></Grid.Column>)
+                            this.props.posts.map(post => <Grid.Column key={post.id}><PostSmall key={post.id} post={post} /></Grid.Column>)
                         }
                     </Grid>
                 </div>

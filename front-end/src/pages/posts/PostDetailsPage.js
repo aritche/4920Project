@@ -285,7 +285,7 @@ export default class PostDetailsPage extends Component {
                                     ?
                                     <p style={{color: 'white'}}> {' Not Rated Yet'} </p>
                                     :
-                                    <Rating size={'medium'} icon='star' defaultRating={this.state.post.movee.rating_overall}
+                                    <Rating icon='star' defaultRating={this.state.post.movee.rating_overall}
                                             maxRating={5} disabled/>
                                 }
                                 </Header.Subheader>

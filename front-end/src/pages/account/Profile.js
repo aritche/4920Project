@@ -27,18 +27,18 @@ export default class Profile extends Component {
           <div>
             <Header content={'User Description'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <Segment>
-              <text> {!!this.props.desc ? this.props.desc : 'Please tell us more about yourself by clicking Edit My Profile above.'} </text>
+              {!!this.props.desc ? this.props.desc : 'Please tell us more about yourself by clicking Edit My Profile above.'}
             </Segment>
             <Header content={'User Information'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
             <Segment>
               <Header content={'Name:'} size={'medium'}/>
-              <text> {this.props.firstName + ' ' + this.props.lastName} </text>
+                {this.props.firstName + ' ' + this.props.lastName}
               <Divider/>
               <Header content={'Mobile Number:'} size={'medium'}/>
-              <text> {!!this.props.mobile ? this.props.mobile : 'Please tell us your mobile number by clicking Edit My Profile above.'} </text>
+                {!!this.props.mobile ? this.props.mobile : 'Please tell us your mobile number by clicking Edit My Profile above.'}
               <Divider/>
               <Header content={'Email Address:'} size={'medium'}/>
-              <text> {this.props.email} </text>
+                {this.props.email}
               <Divider/>
             </Segment>
             <Header content={'Reviews'} size={'huge'} block style={{backgroundColor: '#193446', color: 'white'}}/>
