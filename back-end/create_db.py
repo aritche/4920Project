@@ -750,6 +750,37 @@ with app.app_context():
     db.session.add(item11)
     db.session.commit()
 
+    comment8 = Comment(
+        poster=rj.id,
+        parent_post=move4.id,
+        creation_datetime=datetime.now() - timedelta(hours=3),
+        text='Sounds good!',
+        is_offer=True,
+        offer_amount=500
+    )
+    move4.comments.append(comment8)
+    db.session.commit()
+
+    update8 = Update(
+        update_type = 'offer',
+        updated_movee_id = move4.movee_id,
+        concerning_movee_id = rj.id,
+        description='Sounds good!',
+        amount=500,
+        move_id = move4.id,
+        update_time = datetime.now() - timedelta(hours=3)
+    )
+    db.session.add(update8)
+    db.session.commit()
+
+    post_record4 = PostRecord(
+        move_id = move4.id,
+        last_updated = datetime.now() - timedelta(hours=3),
+        user_id = rj.id
+    )
+    rj.post_records.append(post_record4)
+    db.session.commit()
+
 
     # MOVE 5
     from_address = FromAddress(
