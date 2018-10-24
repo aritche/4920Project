@@ -545,6 +545,21 @@ with app.app_context():
     tl.rating_service = 4
     db.session.commit()
 
+    update_close2.update_type = 'close_removalist_reviewed'
+    review2 = Review(
+        poster = tl.id,
+        reviewed_user = move2.movee_id,
+        move = move2.id,
+        creation_datetime = datetime.now(),
+        rating_general = 5,
+        review = 'He was very friendly, and helpful. I didn\'t have any problems.',
+        deleted = False
+    )
+
+    ml.reviews.append(review2)
+    ml.rating_overall = 5
+    db.session.commit()
+
     # MOVE 3
     from_address = FromAddress(
         line1 = '160 Coogee Bay Rd',
@@ -832,7 +847,7 @@ with app.app_context():
         closing_datetime1 = datetime.now() + timedelta(days=3, hours=1, minutes=1),
         closing_datetime2 = datetime.now() + timedelta(days=3, hours=3, minutes=1),
         description = 'Heaps quick. Need this done urgently!',
-        budget = 850,
+        budget = 750,
         status = 'OPEN',
         creation_datetime = now - timedelta(days=1, hours=3, minutes=52),
         last_updated = now - timedelta(days=1, hours=3, minutes=52),
@@ -869,6 +884,58 @@ with app.app_context():
         move_id = move6.id
     )
     db.session.add(item16)
+    db.session.commit()
+
+    comment7 = Comment(
+        poster=gj.id,
+        parent_post=move6.id,
+        creation_datetime=datetime.now() - timedelta(hours=10),
+        text='Happy to help!',
+        is_offer=True,
+        offer_amount=750
+    )
+    move6.comments.append(comment7)
+    db.session.commit()
+
+    update7 = Update(
+        update_type = 'offer',
+        updated_movee_id = move6.movee_id,
+        concerning_movee_id = gj.id,
+        description='Happy to help!',
+        amount=750,
+        move_id = move6.id,
+        update_time = datetime.now() - timedelta(hours=10)
+    )
+    db.session.add(update7)
+    db.session.commit()
+
+    move6.status = 'ACCEPTED'
+    move6.chosen_offer = comment7.id
+    db.session.commit()
+
+    private_view3 = PrivateView(
+        viewable_user = gj.id,
+        viewer = move6.movee_id
+    )
+    db.session.add(private_view3)
+    db.session.commit()
+
+    private_view4 = PrivateView(
+        viewable_user = move6.movee_id,
+        viewer = gj.id
+    )
+    db.session.add(private_view4)
+    db.session.commit()
+
+    update_accepted2 = Update(
+        update_type = 'accepted',
+        updated_movee_id = gj.id,
+        concerning_movee_id = move6.movee_id,
+        description = '',
+        move_id = move6.id,
+        update_time = datetime.now() - timedelta(hours=5, minutes=13)
+    )
+    db.session.add(update_accepted2)
     db.session.commit()
 
     print("Initial data added.")
